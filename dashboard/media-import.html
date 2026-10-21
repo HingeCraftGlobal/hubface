@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>HubFace - restore my dashboard</title>
+<!-- media-import-20261017-v2: one link restores Dan's laptop (http://127.0.0.1:3456) browser-only dashboard data into THIS browser on hubface.org:
+     1) settings  = media-lib/settings.json: dashboard localStorage (layouts, panel/box/tuck states, positions, social order, custom widgets, room builder, shopping, ...)
+                    + IndexedDB recipebook / lifecanvas / hcrb_vault (blobs in media-lib/files/)
+     2) media     = media-lib/manifest.json: IndexedDB hinge-media/files (photos, videos, audio) + localStorage hinge-media-links
+     Never clobbers: a setting is written only if this browser has none, an empty value, or the untouched fresh-visit default
+     (unless "replace" is ticked / ?overwrite=1). IndexedDB records are added only if their key is missing. Safe to run again.
+     Excluded on purpose (not in the files): Yoda logs/transcripts/training, email drafts/reader, call contacts, owner profile photo,
+     HingeHub room-engine (hh-*, caucus-*) state, build markers, Finn wake-word and the family vault (colvault). -->
+<style>
+body{margin:0;font:15px/1.45 system-ui,Segoe UI,Arial,sans-serif;background:#0b1620;color:#e8f4ff;display:flex;min-height:100vh;align-items:center;justify-content:center}
+.box{width:min(600px,92vw);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:22px 24px}
+h1{font-size:20px;margin:0 0 6px}p{margin:6px 0;opacity:.9}.bar{height:10px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden;margin:14px 0 8px}
+.bar i{display:block;height:100%;width:0;background:#66c4fe;transition:width .2s}#st,#ss{font-size:13px;opacity:.85;min-height:20px;word-break:break-word}
+button,a.btn{font:inherit;color:#06222b;background:#66c4fe;border:0;border-radius:8px;padding:8px 14px;cursor:pointer;text-decoration:none;display:inline-block;margin-top:10px}
+button[disabled]{opacity:.5;cursor:default}.err{color:#ffb4a8}.note{font-size:13px;opacity:.75}label{font-size:13px;opacity:.85;display:block;margin-top:8px}
+</style></head><body><div class="box">
+<h1>Restore your HubFace dashboard</h1>
+<p class="note">Close any other HubFace tabs first, so they don't overwrite what gets restored.</p>
+<p id="sum2">Loading your saved settings&hellip;</p>
+<div id="ss"></div>
+<p id="sum">Loading the media list&hellip;</p>
+<div class="bar"><i id="pb"></i></div>
+<div id="st"></div>
+<label><input type="checkbox" id="ow"> Also replace settings I already changed on hubface.org with the laptop's</label>
+<button id="go" disabled>Restore now</button> <a class="btn" href="./" id="back" hidden>Open HubFace</a>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var M=null,S=null,have={},todo=[],busy=false;
+  if(/[?&]overwrite=1/.test(location.search))$('ow').checked=true;
+  function mb(n){return n>=1073741824?(n/1073741824).toFixed(2)+' GB':(n/1048576).toFixed(1)+' MB';}
+  function req(r){return new Promise(function(res,rej){r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error);};});}
+  function openDb(name,stores){return new Promise(function(res,rej){var r=indexedDB.open(name);
+    r.onupgradeneeded=function(){var d=r.result;Object.keys(stores).forEach(function(s){if(!d.objectStoreNames.contains(s))d.createObjectStore(s,{keyPath:stores[s].keyPath});});};
+    r.onsuccess=function(){res(r.result);};r.onerror=function(){rej(r.error||new Error('IndexedDB failed: '+name));};
+    r.onblocked=function(){$('st').textContent='Close other HubFace tabs, then reload this page.';};});}
+  function txDone(t){return new Promise(function(res,rej){t.oncomplete=function(){res();};t.onerror=function(){rej(t.error);};t.onabort=function(){rej(t.error||new Error('aborted'));};});}
+  /* ---------------- settings ---------------- */
+  function parse(v){try{return JSON.parse(v);}catch(e){return v;}}
+  function canon(x){if(Array.isArray(x))return x.map(canon);if(x&&typeof x==='object'){var o={};Object.keys(x).sort().forEach(function(k){o[k]=canon(x[k]);});return o;}return x;}
+  function same(a,b){return JSON.stringify(canon(parse(a)))===JSON.stringify(canon(parse(b)));}
+  function isEmpty(v){return v==null||v===''||v==='null'||v==='{}'||v==='[]'||v==='""';}
+  function isDefault(k,v){var d=S.freshDefaults&&S.freshDefaults[k];if(d==null)return false;
+    if(k==='hinge-dayparts-v1'){var a=parse(v)||{},b=parse(d)||{};return JSON.stringify(canon(a.t))===JSON.stringify(canon(b.t))&&a.auto===b.auto;}
+    return same(v,d);}
+  async function revive(x){if(Array.isArray(x)){var a=[];for(var i=0;i<x.length;i++)a.push(await revive(x[i]));return a;}
+    if(x&&typeof x==='object'){if(x.__blob){var r=await fetch('media-lib/files/'+encodeURIComponent(x.__blob.file));if(!r.ok)throw new Error('HTTP '+r.status+' '+x.__blob.file);
+        var b=await r.blob();if(b.size!==x.__blob.size)throw new Error('size mismatch '+x.__blob.file);return new Blob([b],{type:x.__blob.type||b.type});}
+      if(x.__date!=null&&Object.keys(x).length===1)return new Date(x.__date);
+      var o={};for(var k in x)o[k]=await revive(x[k]);return o;}return x;}
+  async function settings(){var ow=$('ow').checked,w=0,kept=0,same0=0,keptKeys=[];
+    Object.keys(S.localStorage).forEach(function(k){var nv=S.localStorage[k],cur=localStorage.getItem(k);
+      if(cur!=null&&same(cur,nv)){same0++;return;}
+      if(ow||isEmpty(cur)||isDefault(k,cur)){localStorage.setItem(k,nv);w++;}else{kept++;keptKeys.push(k);}});
+    /* one-time "first visit" scripts in index.html would otherwise re-fold boxes / reset volume over the restored values */
+    ['hinge-fresh-collapsed-v1','hinge-bgvol20-v1'].forEach(function(k){if(!localStorage.getItem(k))localStorage.setItem(k,'1');});
+    var added=0,skipped=0,fail=[];
+    for(var i=0;i<S.idb.length;i++){var D=S.idb[i],d;
+      try{d=await openDb(D.name,D.stores);}catch(e){fail.push(D.name+': '+e.message);continue;}
+      for(var s in D.records){if(!d.objectStoreNames.contains(s)){fail.push(D.name+'/'+s+' missing');continue;}
+        var kp=D.stores[s].keyPath,keys=await req(d.transaction(s,'readonly').objectStore(s).getAllKeys()),hk={};keys.forEach(function(k){hk[JSON.stringify(k)]=1;});
+        for(var j=0;j<D.records[s].length;j++){var rec=D.records[s][j];
+          if(!ow&&hk[JSON.stringify(rec[kp])]){skipped++;continue;}
+          try{var v=await revive(rec);var t=d.transaction(s,'readwrite');t.objectStore(s).put(v);await txDone(t);added++;}catch(e){fail.push(D.name+'/'+s+' '+rec[kp]+': '+(e&&e.message||e));}}}
+      d.close();}
+    $('ss').innerHTML='Settings: <b>'+w+'</b> restored, '+same0+' already the same'+(kept?', <b>'+kept+'</b> kept because you changed them on hubface.org ('+keptKeys.join(', ')+')':'')+
+      '. Saved items: <b>'+added+'</b> added, '+skipped+' already here.'+(fail.length?'<br><span class="err">'+fail.join('; ')+'</span>':'');
+    return fail.length===0;}
+  /* ---------------- media ---------------- */
+  function links(){var K='hinge-media-links',cur=[];try{cur=JSON.parse(localStorage.getItem(K)||'[]')||[];}catch(e){cur=[];}
+    if(!Array.isArray(cur))cur=[];var ids={},added=0;cur.forEach(function(o){if(o&&o.id)ids[o.id]=1;if(o&&o.url)ids['u:'+o.url]=1;});
+    (M.links||[]).forEach(function(o){if(!ids[o.id]&&!ids['u:'+o.url]){cur.push(o);added++;}});
+    if(added)localStorage.setItem(K,JSON.stringify(cur));return added;}
+  function count(k,a){return a.filter(function(x){return x.kind===k;}).length;}
+  async function media(){var d,ok=0,fail=[],done=0,total=todo.reduce(function(s,x){return s+x.size;},0);
+    try{d=await openDb('hinge-media',{files:{keyPath:'id'}});}catch(e){$('st').innerHTML='<span class="err">'+e.message+'</span>';return;}
+    for(var i=0;i<todo.length;i++){var x=todo[i];$('st').textContent=(i+1)+' / '+todo.length+': '+x.name;
+      try{var r=await fetch('media-lib/files/'+encodeURIComponent(x.file));if(!r.ok)throw new Error('HTTP '+r.status);
+        var b=await r.blob();if(b.size!==x.size)throw new Error('size '+b.size+' != '+x.size);
+        var t=d.transaction('files','readwrite');t.objectStore('files').put({id:x.id,kind:x.kind,name:x.name,type:x.type,size:x.size,added:x.added,blob:new Blob([b],{type:x.type||b.type}),thumb:x.thumb||''});await txDone(t);ok++;}
+      catch(e){fail.push(x.name+' ('+(e&&e.message||e)+')');}
+      done+=x.size;$('pb').style.width=Math.round(done/total*100)+'%';}
+    d.close();var nl=links();
+    $('st').innerHTML='Restored <b>'+ok+'</b> media item'+(ok===1?'':'s')+(nl?' and '+nl+' link':'')+'.'+(fail.length?'<br><span class="err">Failed: '+fail.join('; ')+'</span><br>Press Restore now again to retry.':'');
+    todo=todo.filter(function(x){return fail.some(function(f){return f.indexOf(x.name+' (')===0;});});}
+  async function run(){if(busy)return;busy=true;$('go').disabled=true;
+    try{if(navigator.storage&&navigator.storage.persist)await navigator.storage.persist();}catch(e){}
+    try{await settings();}catch(e){$('ss').innerHTML='<span class="err">Settings: '+(e&&e.message||e)+'</span>';}
+    if(todo.length)await media();else{var nl=links();$('pb').style.width='100%';$('st').textContent='All media already in this browser'+(nl?' (added '+nl+' link)':'')+'.';}
+    $('st').innerHTML+=' <b>Done.</b> Open HubFace (or reload a HubFace tab you closed) to see everything.';
+    $('back').hidden=false;busy=false;$('go').disabled=false;$('go').textContent='Run again';}
+  Promise.all([fetch('media-lib/settings.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('settings HTTP '+r.status);return r.json();}),
+               fetch('media-lib/manifest.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('media list HTTP '+r.status);return r.json();})])
+  .then(function(a){S=a[0];M=a[1];var c={};S.idb.forEach(function(D){for(var s in D.records)c[D.name+'/'+s]=D.records[s].length;});
+    $('sum2').innerHTML='Settings: <b>'+Object.keys(S.localStorage).length+'</b> dashboard settings, <b>'+c['recipebook/recipes']+'</b> recipes, Life Canvas board with <b>'+c['lifecanvas/blobs']+'</b> images, <b>'+c['hcrb_vault/items']+'</b> Room Builder vault image.';
+    return openDb('hinge-media',{files:{keyPath:'id'}});})
+  .then(function(d){return req(d.transaction('files','readonly').objectStore('files').getAllKeys()).then(function(k){d.close();k.forEach(function(x){have[x]=1;});
+    todo=M.items.filter(function(x){return !have[x.id];});var a=M.items,bytes=todo.reduce(function(s,x){return s+x.size;},0);
+    $('sum').innerHTML='Media: <b>'+count('photo',a)+'</b> photos, <b>'+count('video',a)+'</b> videos, <b>'+count('audio',a)+'</b> audio tracks, <b>'+(M.links||[]).length+'</b> link. '+
+      (todo.length?'This browser is missing <b>'+todo.length+'</b> ('+mb(bytes)+' to download).':'All already in this browser.');
+    $('go').disabled=false;if(/[?&]auto=1/.test(location.search))run();});})
+  .catch(function(e){$('st').innerHTML='<span class="err">'+String(e&&e.message||e)+'</span>';});
+  $('go').onclick=run;
+})();
+</script></body></html>

@@ -1,0 +1,827 @@
+{
+ "updated": "2026-10-16T21:50:05-04:00",
+ "source": "gmail",
+ "account": "dan@hingecraft-global.ai",
+ "note": "Built read-only from Gmail metadata (sent + inbox, 594 threads, 2025-12-27 to 2026-10-16); automated/bulk senders removed.",
+ "contacts": [
+  {
+   "name": "Trishala Reddy",
+   "email": "trishala@hingecraft-global.ai",
+   "company": "HingeCraft Global",
+   "count": 157,
+   "last": "2026-10-16"
+  },
+  {
+   "name": "Sarah Paul",
+   "email": "sarah@hingecraft-global.ai",
+   "company": "HingeCraft Global",
+   "count": 111,
+   "last": "2026-10-16"
+  },
+  {
+   "name": "Gregory Halford",
+   "email": "gregory@hingecraft-global.ai",
+   "company": "HingeCraft Global",
+   "count": 72,
+   "last": "2026-01-28"
+  },
+  {
+   "name": "Alex Shick",
+   "email": "business@alexshick.com",
+   "company": "alexshick.com",
+   "count": 63,
+   "last": "2026-10-05"
+  },
+  {
+   "name": "Haseena Enu",
+   "email": "henu@fragomen.com",
+   "company": "fragomen.com",
+   "count": 25,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Sarah",
+   "email": "sarah@aikenpool.com",
+   "company": "aikenpool.com",
+   "count": 23,
+   "last": "2026-03-05"
+  },
+  {
+   "name": "Gregory Hallford",
+   "email": "hallfordgregory@gmail.com",
+   "company": "",
+   "count": 19,
+   "last": "2026-03-10"
+  },
+  {
+   "name": "Rick Montesdeoca",
+   "email": "rick@hingecraft-global.ai",
+   "company": "HingeCraft Global",
+   "count": 13,
+   "last": "2026-01-26"
+  },
+  {
+   "name": "Tim Huang",
+   "email": "tim@tavus.io",
+   "company": "tavus.io",
+   "count": 13,
+   "last": "2026-10-14"
+  },
+  {
+   "name": "Anya Schendeler",
+   "email": "aschendeler@fragomen.com",
+   "company": "fragomen.com",
+   "count": 9,
+   "last": "2026-06-10"
+  },
+  {
+   "name": "Olivia Capodicasa",
+   "email": "olivia.capodicasa@digicert.com",
+   "company": "digicert.com",
+   "count": 8,
+   "last": "2026-10-15"
+  },
+  {
+   "name": "Samuel Wernick",
+   "email": "swernick@fragomen.com",
+   "company": "fragomen.com",
+   "count": 7,
+   "last": "2026-06-08"
+  },
+  {
+   "name": "Kruthika",
+   "email": "kruthika@hingecraft-global.ai",
+   "company": "HingeCraft Global",
+   "count": 5,
+   "last": "2026-07-20"
+  },
+  {
+   "name": "trishalareddy0702",
+   "email": "trishalareddy0702@gmail.com",
+   "company": "",
+   "count": 5,
+   "last": "2026-07-27"
+  },
+  {
+   "name": "Susan Barrett",
+   "email": "susan.barrett@sunlife.com",
+   "company": "sunlife.com",
+   "count": 5,
+   "last": "2026-10-07"
+  },
+  {
+   "name": "Sumner Markwalter",
+   "email": "sumner.markwalter@usca.edu",
+   "company": "usca.edu",
+   "count": 5,
+   "last": "2026-02-24"
+  },
+  {
+   "name": "Beth Anthony",
+   "email": "beth.anthony@opusvo.com",
+   "company": "opusvo.com",
+   "count": 5,
+   "last": "2026-10-13"
+  },
+  {
+   "name": "ashannie26",
+   "email": "ashannie26@gmail.com",
+   "company": "",
+   "count": 4,
+   "last": "2026-07-27"
+  },
+  {
+   "name": "jesuishum8n",
+   "email": "jesuishum8n@gmail.com",
+   "company": "",
+   "count": 4,
+   "last": "2026-10-04"
+  },
+  {
+   "name": "Devin Foy",
+   "email": "devin.foy@digicert.com",
+   "company": "digicert.com",
+   "count": 4,
+   "last": "2026-10-16"
+  },
+  {
+   "name": "Claudia Cantu",
+   "email": "ccantu@visa-pros.com",
+   "company": "visa-pros.com",
+   "count": 4,
+   "last": "2026-04-08"
+  },
+  {
+   "name": "Dr. Thomas Scotton",
+   "email": "drscotton@drscotton.com",
+   "company": "drscotton.com",
+   "count": 4,
+   "last": "2026-10-15"
+  },
+  {
+   "name": "Jonathan Kingsley",
+   "email": "jonathan.kingsley@x.ai",
+   "company": "x.ai",
+   "count": 4,
+   "last": "2026-10-16"
+  },
+  {
+   "name": "Aaron DeFaria",
+   "email": "adefaria@uwaterloo.ca",
+   "company": "uwaterloo.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Ashok Mathur",
+   "email": "amathur@ocadu.ca",
+   "company": "ocadu.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Abdullah Snobar",
+   "email": "asnobar@torontomu.ca",
+   "company": "torontomu.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Jessica Bowes",
+   "email": "avprikm@uoguelph.ca",
+   "company": "uoguelph.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Brent Thornhill",
+   "email": "bthornhill@uwaterloo.ca",
+   "company": "uwaterloo.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Dan",
+   "email": "dan@chattelsindesign.com",
+   "company": "chattelsindesign.com",
+   "count": 3,
+   "last": "2025-12-31"
+  },
+  {
+   "name": "Greg McIntyre",
+   "email": "greg.mcintyre@uwaterloo.ca",
+   "company": "uwaterloo.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Hassaan",
+   "email": "hassaan@tavus.io",
+   "company": "tavus.io",
+   "count": 3,
+   "last": "2026-10-07"
+  },
+  {
+   "name": "Jacob Witmer",
+   "email": "jacob.witmer@uwaterloo.ca",
+   "company": "uwaterloo.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Kaleigh Rajna",
+   "email": "krajna@uoguelph.ca",
+   "company": "uoguelph.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Luvy Hardy",
+   "email": "luvy.hardy@torontomu.ca",
+   "company": "torontomu.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Martin Goodyer",
+   "email": "mgoodyer@yorku.ca",
+   "company": "yorku.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Rachel Sung",
+   "email": "rsung@yorku.ca",
+   "company": "yorku.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Steve De Brabandere",
+   "email": "sdebrab@uoguelph.ca",
+   "company": "uoguelph.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "Tyler Zemlak",
+   "email": "tzemlak@uoguelph.ca",
+   "company": "uoguelph.ca",
+   "count": 3,
+   "last": "2026-06-24"
+  },
+  {
+   "name": "rmontesdeocaemail",
+   "email": "rmontesdeocaemail@gmail.com",
+   "company": "",
+   "count": 3,
+   "last": "2025-12-27"
+  },
+  {
+   "name": "Sarah Diotte",
+   "email": "sarah.diotte@gmail.com",
+   "company": "",
+   "count": 3,
+   "last": "2026-09-30"
+  },
+  {
+   "name": "trishalareddy.utd",
+   "email": "trishalareddy.utd@gmail.com",
+   "company": "",
+   "count": 3,
+   "last": "2026-05-13"
+  },
+  {
+   "name": "Andrea Poxton",
+   "email": "apoxton@fragomen.com",
+   "company": "fragomen.com",
+   "count": 3,
+   "last": "2026-08-17"
+  },
+  {
+   "name": "Landonveis",
+   "email": "landonveis@onpay.com",
+   "company": "onpay.com",
+   "count": 3,
+   "last": "2026-10-16"
+  },
+  {
+   "name": "505caleb909",
+   "email": "505caleb909@gmail.com",
+   "company": "",
+   "count": 2,
+   "last": "2026-10-04"
+  },
+  {
+   "name": "akushnir.4840",
+   "email": "akushnir.4840@gmail.com",
+   "company": "",
+   "count": 2,
+   "last": "2026-10-04"
+  },
+  {
+   "name": "annapareddykruthika",
+   "email": "annapareddykruthika@gmail.com",
+   "company": "",
+   "count": 2,
+   "last": "2026-10-04"
+  },
+  {
+   "name": "Brian Trzupek",
+   "email": "brian.trzupek@digicert.com",
+   "company": "digicert.com",
+   "count": 2,
+   "last": "2026-10-15"
+  },
+  {
+   "name": "elleplatanitis",
+   "email": "elleplatanitis@yahoo.com",
+   "company": "",
+   "count": 2,
+   "last": "2026-07-22"
+  },
+  {
+   "name": "Jay Guidry",
+   "email": "jay.guidry@digicert.com",
+   "company": "digicert.com",
+   "count": 2,
+   "last": "2026-10-15"
+  },
+  {
+   "name": "kellyrogers1199",
+   "email": "kellyrogers1199@gmail.com",
+   "company": "",
+   "count": 2,
+   "last": "2026-07-13"
+  },
+  {
+   "name": "Marc Diotte",
+   "email": "marc.diotte@bell.net",
+   "company": "",
+   "count": 2,
+   "last": "2026-10-04"
+  },
+  {
+   "name": "Myles Wang",
+   "email": "myles.wang@digicert.com",
+   "company": "digicert.com",
+   "count": 2,
+   "last": "2026-10-15"
+  },
+  {
+   "name": "Ripple Bora",
+   "email": "ripple.bora@digicert.com",
+   "company": "digicert.com",
+   "count": 2,
+   "last": "2026-10-15"
+  },
+  {
+   "name": "Salim",
+   "email": "salim@salimismail.com",
+   "company": "salimismail.com",
+   "count": 2,
+   "last": "2026-10-03"
+  },
+  {
+   "name": "Alyce Scarano",
+   "email": "ascarano@fragomen.com",
+   "company": "fragomen.com",
+   "count": 2,
+   "last": "2026-08-17"
+  },
+  {
+   "name": "Clarisse Basa",
+   "email": "clarisse.basa@zoom.us",
+   "company": "zoom.us",
+   "count": 2,
+   "last": "2026-01-06"
+  },
+  {
+   "name": "Dori Pennington",
+   "email": "dori.pennington@firstcitizens.com",
+   "company": "firstcitizens.com",
+   "count": 2,
+   "last": "2026-02-13"
+  },
+  {
+   "name": "Abhay Ratti",
+   "email": "abhay.ratti@vp.contrary.com",
+   "company": "vp.contrary.com",
+   "count": 1,
+   "last": "2026-06-10"
+  },
+  {
+   "name": "Adrian",
+   "email": "adrian@macventurecapital.com",
+   "company": "macventurecapital.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Alex Busse",
+   "email": "alex.busse@nxtp.vc",
+   "company": "nxtp.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Alexander Busse",
+   "email": "alexander.busse@nxtp.vc",
+   "company": "nxtp.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Alexander",
+   "email": "alexander@17sigma.com",
+   "company": "17sigma.com",
+   "count": 1,
+   "last": "2026-06-14"
+  },
+  {
+   "name": "Alexwg",
+   "email": "alexwg@alexwg.org",
+   "company": "alexwg.org",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Bfachler",
+   "email": "bfachler@linkventures.com",
+   "company": "linkventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Blake",
+   "email": "blake@ludlowventures.com",
+   "company": "ludlowventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Brett",
+   "email": "brett@ludlowventures.com",
+   "company": "ludlowventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Brobbins",
+   "email": "brobbins@ludlowventures.com",
+   "company": "ludlowventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Brooke Joseph",
+   "email": "brooke.joseph@vp.contrary.com",
+   "company": "vp.contrary.com",
+   "count": 1,
+   "last": "2026-06-10"
+  },
+  {
+   "name": "Charles",
+   "email": "charles@macventurecapital.com",
+   "company": "macventurecapital.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Danny",
+   "email": "danny@macventurecapital.com",
+   "company": "macventurecapital.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Darly Bendo",
+   "email": "darly.bendo@nxtp.vc",
+   "company": "nxtp.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Dblundin",
+   "email": "dblundin@linkventures.com",
+   "company": "linkventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Derrick",
+   "email": "derrick@afore.vc",
+   "company": "afore.vc",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Dom Lenith",
+   "email": "dom.lenith@gmail.com",
+   "company": "",
+   "count": 1,
+   "last": "2026-10-07"
+  },
+  {
+   "name": "Emilylvtx",
+   "email": "emilylvtx@gmail.com",
+   "company": "",
+   "count": 1,
+   "last": "2026-07-29"
+  },
+  {
+   "name": "Federico Molina",
+   "email": "federico.molina@nxtp.vc",
+   "company": "nxtp.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Federico",
+   "email": "federico@nxtp.vc",
+   "company": "nxtp.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Garyhemger",
+   "email": "garyhemger@gmail.com",
+   "company": "",
+   "count": 1,
+   "last": "2026-07-13"
+  },
+  {
+   "name": "Gaurav",
+   "email": "gaurav@afore.vc",
+   "company": "afore.vc",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Gisela",
+   "email": "gisela@17sigma.com",
+   "company": "17sigma.com",
+   "count": 1,
+   "last": "2026-06-14"
+  },
+  {
+   "name": "Jaguado",
+   "email": "jaguado@newtopia.vc",
+   "company": "newtopia.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Jmassot",
+   "email": "jmassot@cites-gss.com",
+   "company": "cites-gss.com",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Jonathon",
+   "email": "jonathon@ludlowventures.com",
+   "company": "ludlowventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Jorge",
+   "email": "jorge@newtopia.vc",
+   "company": "newtopia.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Jplafosse",
+   "email": "jplafosse@newtopia.vc",
+   "company": "newtopia.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Jtriest",
+   "email": "jtriest@ludlowventures.com",
+   "company": "ludlowventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Juan Pablo",
+   "email": "juan.pablo@newtopia.vc",
+   "company": "newtopia.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Juanpablo",
+   "email": "juanpablo@newtopia.vc",
+   "company": "newtopia.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Karinna",
+   "email": "karinna@uoguelph.ca",
+   "company": "uoguelph.ca",
+   "count": 1,
+   "last": "2026-06-09"
+  },
+  {
+   "name": "Kevin",
+   "email": "kevin@slow.co",
+   "company": "slow.co",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Ldolan",
+   "email": "ldolan@linkventures.com",
+   "company": "linkventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Lindsay",
+   "email": "lindsay@ludlowventures.com",
+   "company": "ludlowventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "makkapatiabhiram",
+   "email": "makkapatiabhiram@gmail.com",
+   "company": "",
+   "count": 1,
+   "last": "2026-07-28"
+  },
+  {
+   "name": "Marlon",
+   "email": "marlon@macventurecapital.com",
+   "company": "macventurecapital.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Marta Cruz",
+   "email": "marta.cruz@nxtp.vc",
+   "company": "nxtp.vc",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Masha",
+   "email": "masha@dayoneventures.com",
+   "company": "dayoneventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Michael",
+   "email": "michael@macventurecapital.com",
+   "company": "macventurecapital.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Nicolas Tognalli",
+   "email": "nicolas.tognalli@cites-gss.com",
+   "company": "cites-gss.com",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Nicolas",
+   "email": "nicolas@kaszek.com",
+   "company": "kaszek.com",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Ntognalli",
+   "email": "ntognalli@cites-gss.com",
+   "company": "cites-gss.com",
+   "count": 1,
+   "last": "2026-06-15"
+  },
+  {
+   "name": "Rchaplinsky",
+   "email": "rchaplinsky@linkventures.com",
+   "company": "linkventures.com",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Reddyrxxx",
+   "email": "reddyrxxx@gmail.com",
+   "company": "",
+   "count": 1,
+   "last": "2026-05-30"
+  },
+  {
+   "name": "Romina Espinozagonzlez",
+   "email": "romina.espinozagonzlez@rbc.com",
+   "company": "rbc.com",
+   "count": 1,
+   "last": "2026-07-08"
+  },
+  {
+   "name": "Ryan",
+   "email": "ryan@weekend.fund",
+   "company": "weekend.fund",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Sam",
+   "email": "sam@slow.co",
+   "company": "slow.co",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Sarahd",
+   "email": "sarahd@gsns.ca",
+   "company": "gsns.ca",
+   "count": 1,
+   "last": "2026-09-06"
+  },
+  {
+   "name": "Scott Johnson",
+   "email": "scott-johnson@kprdsb.ca",
+   "company": "kprdsb.ca",
+   "count": 1,
+   "last": "2026-06-16"
+  },
+  {
+   "name": "Scott Johnson",
+   "email": "scott_johnson@kprdsb.ca",
+   "company": "kprdsb.ca",
+   "count": 1,
+   "last": "2026-06-16"
+  },
+  {
+   "name": "Stacey Thomas",
+   "email": "stacey.thomas@fragomen.com",
+   "company": "fragomen.com",
+   "count": 1,
+   "last": "2026-05-20"
+  },
+  {
+   "name": "thomasdiotte123",
+   "email": "thomasdiotte123@gmail.com",
+   "company": "",
+   "count": 1,
+   "last": "2026-10-04"
+  },
+  {
+   "name": "Tobias Grethermurray",
+   "email": "tobias.grethermurray@vp.contrary.com",
+   "company": "vp.contrary.com",
+   "count": 1,
+   "last": "2026-06-10"
+  },
+  {
+   "name": "Vedika",
+   "email": "vedika@weekend.fund",
+   "company": "weekend.fund",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Will",
+   "email": "will@slow.co",
+   "company": "slow.co",
+   "count": 1,
+   "last": "2026-06-12"
+  },
+  {
+   "name": "Fiona Flanagan",
+   "email": "fiona.flanagan@bluevine.com",
+   "company": "bluevine.com",
+   "count": 1,
+   "last": "2026-10-12"
+  },
+  {
+   "name": "Kathleen",
+   "email": "kathleen@delawareinc.com",
+   "company": "delawareinc.com",
+   "count": 1,
+   "last": "2026-03-27"
+  },
+  {
+   "name": "Salimismail",
+   "email": "salimismail@openexo.com",
+   "company": "openexo.com",
+   "count": 1,
+   "last": "2026-06-09"
+  },
+  {
+   "name": "Steph",
+   "email": "steph@openvc.app",
+   "company": "openvc.app",
+   "count": 1,
+   "last": "2026-07-01"
+  }
+ ]
+}

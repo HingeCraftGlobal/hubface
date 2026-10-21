@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HubFace</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HubFace">
+<meta name="application-name" content="HubFace">
+<meta name="theme-color" content="#0b1626">
+<link rel="apple-touch-icon" sizes="180x180" href="/app/icon-180-v2.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/app/icon-192-v2.png">
+<link rel="manifest" href="/app/manifest.webmanifest">
+<!-- phone-20261020a: phone sizing (18px+ text, 44px+ targets) and a room-code Join field -->
+<style>
+ html,body{margin:0;height:100%;background:#0b1626;color:#e8eef7;font-family:-apple-system,system-ui,Segoe UI,Roboto,sans-serif}
+ main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+   padding:calc(env(safe-area-inset-top) + 24px) 24px calc(env(safe-area-inset-bottom) + 24px);box-sizing:border-box;text-align:center}
+ img{width:120px;height:120px;border-radius:28px}
+ h1{margin:0;font-size:30px}
+ p{margin:0;opacity:.8;font-size:18px}
+ .rooms{display:flex;flex-direction:column;gap:12px;width:100%;max-width:340px}
+ a.room{display:block;padding:16px;border-radius:14px;background:#14253d;color:#fff;text-decoration:none;font-size:20px;min-height:56px;box-sizing:border-box;border:2px solid transparent}
+ a.room.sel{border-color:#3fbf7f}
+ a.room small{display:block;opacity:.7;font-size:16px;margin-top:4px}
+ #go{padding:18px;min-height:60px;border:0;border-radius:16px;background:#2f7de1;color:#fff;font-size:22px;font-weight:700;width:100%;max-width:340px}
+ #code{width:100%;max-width:340px;min-height:60px;box-sizing:border-box;border-radius:16px;border:2px solid #2a4468;background:#0f1d31;color:#fff;font-size:22px;text-align:center;letter-spacing:1px;text-transform:uppercase;padding:0 12px}
+ #err{color:#ff8a80;font-size:18px;min-height:0}
+ .or{font-size:18px;opacity:.6}
+ label{font-size:18px;opacity:.85;display:flex;align-items:center;gap:10px;min-height:44px}
+ label input{width:26px;height:26px}
+</style>
+</head>
+<body>
+<main>
+ <img src="/app/icon-180-v2.png" alt="HubFace">
+ <h1>HubFace Room</h1>
+ <input id="code" placeholder="Room code" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" aria-label="Room code">
+ <button id="go">Join</button>
+ <p id="err"></p>
+ <p class="or">or pick a room</p>
+ <p id="status" hidden>Choose a room</p>
+ <div class="rooms">
+  <a class="room" data-room="HF-3C9TT-3RTWB" href="/interface/#room=HF-3C9TT-3RTWB">Dan's room<small>HF-3C9TT-3RTWB</small></a>
+  <a class="room" data-room="HF-JXKNW-APS7J" href="/interface/#room=HF-JXKNW-APS7J">Yoda test room<small>HF-JXKNW-APS7J</small></a>
+ </div>
+ <label><input type="checkbox" id="auto"> Open this room automatically next time</label>
+</main>
+<script>
+(function(){
+  var ROOMS=['HF-3C9TT-3RTWB','HF-JXKNW-APS7J'], DEF='HF-3C9TT-3RTWB';
+  var q=new URLSearchParams(location.search);
+  var qr=(q.get('room')||'').toUpperCase().trim();
+  var valid=function(r){return /^HF-[A-Z0-9]{5}-[A-Z0-9]{5}$/.test(r);};
+  var room=valid(qr)?qr:(localStorage.getItem('hf_app_room')||DEF);
+  if(!valid(room)) room=DEF;
+  var auto=document.getElementById('auto');
+  auto.checked=localStorage.getItem('hf_app_auto')==='1';
+  function mark(){document.querySelectorAll('a.room').forEach(function(a){a.classList.toggle('sel',a.dataset.room===room);});
+    document.getElementById('status').textContent='Room: '+room;}
+  function remember(){localStorage.setItem('hf_app_room',room);
+    var u=new URL(location.href);u.searchParams.set('room',room);history.replaceState(null,'',u.pathname+u.search);}
+  var code=document.getElementById('code'),err=document.getElementById('err');
+  code.addEventListener('keydown',function(e){if(e.key==='Enter')join();});
+  function join(){var c=code.value.toUpperCase().replace(/\s+/g,'');if(!c){open();return;}if(!/^HF-/.test(c))c='HF-'+c;if(!valid(c)){err.textContent='That code looks wrong. It is like HF-ABCDE-12345.';return;}err.textContent='';room=c;open();}
+  function open(){remember();location.assign('/interface/#room='+encodeURIComponent(room));}
+  document.querySelectorAll('a.room').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();room=a.dataset.room;mark();open();});});
+  document.getElementById('go').addEventListener('click',join);
+  auto.addEventListener('change',function(){localStorage.setItem('hf_app_auto',auto.checked?'1':'0');});
+  mark(); remember();
+  if(valid(qr)&&q.get('go')==='1') open();
+  else if(auto.checked&&!q.has('stay')) open();
+  if('serviceWorker' in navigator) navigator.serviceWorker.register('/app/sw.js',{scope:'/app/'}).catch(function(){});
+})();
+</script>
+</body>
+</html>

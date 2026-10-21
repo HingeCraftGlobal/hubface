@@ -1,0 +1,9 @@
+{
+  "name": "hubface-vps-server",
+  "private": true,
+  "description": "HubFace hosted server deps (accounts SQLite)",
+  "dependencies": {
+    "better-sqlite3": "^11.10.0",
+    "nodemailer": "^6.10.1"
+  }
+}

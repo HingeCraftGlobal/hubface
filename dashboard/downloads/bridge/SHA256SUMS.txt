@@ -1,0 +1,5 @@
+24f0d098f608e80d84c4dcec344a9627064ea72b45b82cf027d9a65c2b3a9809  HingeCraft-Bridge-Grok-linux-x64
+215cafedf48bd40f4e794851085aa9e2dd2fc2d22ba42af739ca001c5197a01c  HingeCraft-Bridge-Grok-mac-arm64.zip
+cc580b91538cb63b8e205f7e42befd12a6200669a35ed76350490da61f51d5d7  HingeCraft-Bridge-Grok-mac-x64.zip
+0743ff5b31755d257a98ead79201f90dd4e31da2df96373612338b4cad0b30d8  HingeCraft-Bridge-Grok-win32.exe
+1035f0f347edcf3656e0a106d039dd3c4ebea95c7162c36d0036f4c5548b2143  HingeCraft-Bridge-Grok.exe

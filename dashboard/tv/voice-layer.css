@@ -1,0 +1,69 @@
+/* HingeCraft Interface — voice layer UI (review build 2026-10-10-voice-tv-r1)
+   Matches the dashboard glass: dark glass rgba(20,16,14,.6) + blur(14px), 1px white/22% border, cyan #7fe3ff / #4fd2f0 accents,
+   Montserrat. These elements live on <body> in SCREEN pixels (not the 1024x576 stage), sized with vw so they read from a sofa. */
+
+:root{--vl-cyan:#7fe3ff;--vl-cyan2:#4fd2f0;--vl-glass:rgba(20,16,14,.62);--vl-line:rgba(255,255,255,.22);--vl-warn:#ffb54d;--vl-deny:#ff5a5f}
+.vl-layer{font-family:"Montserrat",system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased;pointer-events:none;user-select:none}
+
+/* ---------- listening indicator (top centre pill) ---------- */
+.vl-pill{position:fixed;left:50%;top:1.4vw;transform:translateX(-50%) translateY(-140%);z-index:2147483000;display:flex;align-items:center;gap:.9vw;
+  min-width:18vw;max-width:62vw;padding:.7vw 1.4vw .7vw .8vw;border-radius:999px;background:var(--vl-glass);border:1px solid var(--vl-line);
+  backdrop-filter:blur(14px) saturate(1.15);-webkit-backdrop-filter:blur(14px) saturate(1.15);box-shadow:0 8px 28px rgba(0,0,0,.4);
+  font-size:clamp(14px,1.15vw,30px);opacity:0;transition:transform .28s cubic-bezier(.2,.9,.3,1.2),opacity .2s}
+/* idle: a quiet dot in the corner so you know it is listening for "Yoda" */
+.vl-pill[data-state=idle]{left:auto;right:1.2vw;top:auto;bottom:1.2vw;transform:none;min-width:0;padding:.45vw;opacity:.55}
+.vl-pill[data-state=idle] .vl-main{display:none}
+.vl-pill[data-state=off]{left:auto;right:1.2vw;top:auto;bottom:1.2vw;transform:none;min-width:0;opacity:.9;border-color:rgba(255,90,95,.6)}
+.vl-pill[data-state=listening],.vl-pill[data-state=busy],.vl-pill[data-state=confirm],.vl-pill[data-state=dictate]{transform:translateX(-50%);opacity:1}
+
+.vl-ring{position:relative;flex:none;width:2.1vw;height:2.1vw;min-width:22px;min-height:22px;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,var(--vl-cyan) 0 28%,rgba(127,227,255,.15) 30% 100%);box-shadow:0 0 0 1px rgba(127,227,255,.55)}
+.vl-ring i{position:absolute;inset:-35%;border-radius:50%;border:2px solid var(--vl-cyan2);opacity:0}
+.vl-pill[data-state=idle] .vl-ring{width:.9vw;height:.9vw;min-width:10px;min-height:10px;box-shadow:0 0 10px rgba(127,227,255,.6)}
+.vl-pill[data-state=listening] .vl-ring i{animation:vl-ping 1.4s ease-out infinite}
+.vl-pill[data-state=listening] .vl-ring{box-shadow:0 0 0 1px var(--vl-cyan),0 0 22px rgba(79,210,240,.85)}
+.vl-pill[data-state=busy] .vl-ring{background:conic-gradient(var(--vl-cyan) 0 25%,rgba(127,227,255,.15) 25% 100%);animation:vl-spin .9s linear infinite}
+.vl-pill[data-state=confirm] .vl-ring{background:radial-gradient(circle,var(--vl-warn) 0 30%,rgba(255,181,77,.18) 32% 100%);box-shadow:0 0 18px rgba(255,181,77,.7)}
+.vl-pill[data-state=dictate] .vl-ring{background:radial-gradient(circle,#fff 0 22%,rgba(127,227,255,.25) 24% 100%);animation:vl-breathe 1.6s ease-in-out infinite}
+.vl-pill[data-state=off] .vl-ring{background:var(--vl-deny);box-shadow:none}
+
+.vl-main{display:flex;flex-direction:column;min-width:0}
+.vl-state{font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.72em;color:var(--vl-cyan)}
+.vl-text{font-style:normal;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:56vw}
+.vl-text.vl-interim{opacity:.6}
+
+/* ---------- confirm card ---------- */
+.vl-confirm{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.96);z-index:2147483001;display:none;flex-direction:column;align-items:center;gap:.6vw;
+  min-width:26vw;max-width:60vw;padding:1.6vw 2.2vw;border-radius:14px;background:rgba(20,16,14,.84);border:1px solid rgba(255,181,77,.6);
+  backdrop-filter:blur(14px) saturate(1.15);-webkit-backdrop-filter:blur(14px) saturate(1.15);box-shadow:0 10px 40px rgba(0,0,0,.55),0 0 0 4px rgba(255,181,77,.12);
+  font-size:clamp(16px,1.4vw,36px);text-align:center}
+.vl-confirm.on{display:flex;animation:vl-pop .18s ease-out forwards}
+.vl-confirm b{font-weight:700}
+.vl-confirm span{font-size:.8em;color:var(--vl-warn);letter-spacing:.04em}
+
+/* ---------- numbered badges ("show numbers") ---------- */
+.vl-badges{position:fixed;inset:0;z-index:2147482999;display:none}
+.vl-badges.on{display:block}
+.vl-badge{position:absolute;transform:translate(-30%,-45%);min-width:1.5vw;height:1.5vw;padding:0 .35vw;border-radius:.4vw;box-sizing:border-box;
+  display:flex;align-items:center;justify-content:center;font-size:clamp(11px,.95vw,26px);font-weight:800;line-height:1;
+  color:#06222b;background:var(--vl-cyan);box-shadow:0 0 0 1px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.45),0 0 12px rgba(79,210,240,.6)}
+.vl-badge.vl-warn{background:var(--vl-warn);color:#2b1a00}
+.vl-badge.vl-deny{background:rgba(255,255,255,.25);color:rgba(255,255,255,.75);text-decoration:line-through}
+
+/* ---------- dictation banner ---------- */
+.vl-dictate{position:fixed;left:50%;bottom:1.6vw;transform:translateX(-50%);z-index:2147483000;display:none;padding:.55vw 1.2vw;border-radius:999px;
+  background:var(--vl-glass);border:1px solid rgba(127,227,255,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  font-size:clamp(13px,1vw,26px);font-weight:600;color:var(--vl-cyan)}
+.vl-dictate.on{display:block}
+
+/* ---------- the element voice just touched (same language as the dashboard's .yh-glow) ---------- */
+.vl-flash{outline:2px solid var(--vl-cyan2)!important;outline-offset:2px;box-shadow:0 0 0 3px rgba(79,210,240,.35),0 0 22px rgba(79,210,240,.85)!important}
+
+/* awake: a faint cyan edge around the whole screen, visible across the room */
+html.vl-awake body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2147482990;box-shadow:inset 0 0 0 3px rgba(127,227,255,.35),inset 0 0 60px rgba(79,210,240,.18)}
+
+@keyframes vl-ping{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.25);opacity:0}}
+@keyframes vl-spin{to{transform:rotate(360deg)}}
+@keyframes vl-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes vl-pop{to{transform:translate(-50%,-50%) scale(1)}}
+@media (prefers-reduced-motion:reduce){.vl-ring,.vl-ring i,.vl-confirm.on{animation:none!important}}
