@@ -48,8 +48,8 @@
     /* align-v1 (Dan): the Save | Widgets | Properties group spans exactly the Properties panel below it (stage x 820..1018),
        mirroring how 'Dashboard Builder' sits over the Widgets panel on the left. */
     st.textContent = '#ui > .topbar > .devices{left:730px!important}' +
-      '#ui > .topbar #btnHdrWidgets{left:877px!important;width:66px!important}#ui > .topbar #btnHdrProps{left:948px!important;width:70px!important}' +
-      '#ui > .topbar .hbtn.lysave{left:820px;width:52px;white-space:nowrap}' +
+      '#ui > .topbar #btnHdrWidgets{left:860px!important;width:56px!important}#ui > .topbar #btnHdrProps{left:920px!important;width:64px!important}' +
+      '#ui > .topbar .hbtn.lysave{left:812px;width:44px;white-space:nowrap}' +
       '#ui > .topbar .hbtn.lysave.lysv-ok{background:rgba(var(--hub-blue-rgb),.32);border-color:rgba(var(--hub-blue-rgb),.95);color:var(--hub-blue-pale)}' +
       '#ui > .topbar .hbtn.lysave.lysv-err{border-color:rgba(255,120,120,.85)!important;color:#ffd0d0}' +
       '#ui > .topbar .hbtn.lysave.lysv-dirty::after{content:"";position:absolute;top:3px;right:4px;width:5px;height:5px;border-radius:50%;background:#ffd166;box-shadow:0 0 4px rgba(255,209,102,.8)}';

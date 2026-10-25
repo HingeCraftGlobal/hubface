@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS room_overage (
   UNIQUE (user_id, period_start, block_no)
 );`);
 { const c = db.prepare('PRAGMA table_info(room_time)').all().map((x) => x.name); if (!c.includes('bonus_min')) db.exec('ALTER TABLE room_time ADD COLUMN bonus_min INTEGER NOT NULL DEFAULT 0'); }   // v6: purchased tokens (carry over)
+db.exec('CREATE TABLE IF NOT EXISTS token_spends (k TEXT PRIMARY KEY, user_id INTEGER NOT NULL, n INTEGER NOT NULL, created_at TEXT NOT NULL)');   // tokenspend-20261021a: one row per session start / added block (idempotency)
 const now = () => new Date().toISOString();
 const Q = {
   userByEmail: db.prepare('SELECT * FROM users WHERE email = ?'),
@@ -524,6 +525,18 @@ export async function accountsRoute(q, r, p) {
   try {
     if (ep === 'me' && (q.method === 'GET' || q.method === 'HEAD')) { me(q, r); return true; }
     if (ep === 'room-pass' && q.method === 'GET') { roomPass(q, r); return true; }   // memberauth-20261018-v1
+    if (ep === 'spend' && q.method === 'POST') {   // tokenspend-20261021a: room timer Start / Add time debits plans.tokens once per key
+      if (!sameOrigin(q)) { json(r, 403, { error: 'Cross-site request blocked.' }); return true; }
+      const id = currentUser(q); if (!id) { json(r, 401, { error: 'Sign in first.' }); return true; }
+      const b = await body(q); const n = Math.round(Number(b && b.n)); const key = String(b && b.key || '');
+      if (!(n >= 1 && n <= 8) || !/^[A-Za-z0-9_-]{8,80}$/.test(key)) { json(r, 400, { error: 'Bad request.' }); return true; }
+      const k = id + ':' + key; let dup = false, short = false;
+      db.transaction(() => { if (db.prepare('SELECT 1 FROM token_spends WHERE k = ?').get(k)) { dup = true; return; }
+        const p = Q.plan.get(id); if (!p || p.tokens < n) { short = true; return; }
+        db.prepare('UPDATE plans SET tokens = tokens - ?, updated_at = ? WHERE user_id = ?').run(n, now(), id);
+        db.prepare('INSERT INTO token_spends (k, user_id, n, created_at) VALUES (?,?,?,?)').run(k, id, n, now()); })();
+      const a = publicAccount(id); if (short) { json(r, 402, { error: 'Not enough tokens.', account: a }); return true; }
+      json(r, 200, { ok: true, duplicate: dup, account: a }); return true; }
     if (!['signup', 'login', 'logout'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
     if (q.method !== 'POST') { json(r, 405, { error: 'method not allowed' }); return true; }
     if (!sameOrigin(q)) { json(r, 403, { error: 'Cross-site request blocked.' }); return true; }

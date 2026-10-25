@@ -1,0 +1,70 @@
+{
+ "subject": "evacuation OR warning OR wildfire OR outage OR recall",
+ "fetched_at": "2026-10-25T04:00:03.510380+00:00",
+ "items": [
+  {
+   "title": "Vehicle collision causes power outage in London",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQbVdCQ1lVNUdjZ1dmbUlpR1dEcTlxTDBtRGd0a0wtUkNxT1FRZVRnQ0h2d2JTZGo5WV9wMHhYazA1Yk90dzFybmxFYzJ1c19KN1pMUVFxSmUta3k0T2IxQTROZ3QyOUpqLTlMbS1RcDZmRjlRNmZqYkprZU9xV3FodnFlTmZZQW9kbGU5MnN1OA?oc=5",
+   "published": "2026-10-24T13:59:03+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Moose Recall Evan Nause from Bloomington",
+   "source": "Manitoba Moose",
+   "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5FY3gyRlBnakNkNTZ1Z1hwTkViVFM1RU9FNFFGMG8zMWtWaDB1cVFJbWJRUkpSQnE2UnhOU0s5QVBwcEEtMDRMZk5CekpXX0V0ZjRwRjFhdFhVS0s4RnRQaDh6SkM?oc=5",
+   "published": "2026-10-24T21:45:31+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Lambton Shores residents facing eight hour power outage",
+   "source": "Petrolia Lambton Independent",
+   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNcHN5SWFwR1duNG5PZldzcW1HZWFZeXNoX2FtRkk3VkFxeWFmdVNvelJEWlc2YTZrWllvY2MyenZZVUZNdkl1ei1NUUtLSnVmbjZjSkFpaEkzeVVNOGZxMkpJTGRwcUlyQTRsWHM4eXRHQVdJY0hOYllNWDR6X0loTno2b1Y0amFSODVkMkNpVWlSbml6WWhPUFBCRktDSkZqR0xaa1hWbTU?oc=5",
+   "published": "2026-10-25T02:15:00+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Investments, Dedicated Crews Strengthened 2026 Wildfire Response",
+   "source": "Government of Nova Scotia",
+   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPdEdnbWVjbzR2MVNIaEg4RFM2clEzaGVXSERuUEpiNkx6bXVRRXRLekJoNF9lZjI5LWYwQjl3NVlHay1jMTFoM043Tk9zaW01bzdocHBkS0NpX0xNOF8tVFRWeHJsX3ZWLU1rbm9RalhPbVhMQjBVRGxjejBvbHhGbHNLci1USUxZTFJWV29MUzlSdmdhZHZpYnZ5Rk1Fc2ZCQ3NTTWlhRQ?oc=5",
+   "published": "2026-10-22T18:09:15+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Investment in aircraft has big payoff during the 2026 wildfire season",
+   "source": "CityNews Halifax",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxORjdsNmdvcllEUy1QeTRKQmF3Ujc3LWdNU25aRXpmTmhKel8teXlVWkI4T3FodTkxX3JmMnNWQlBaZmxFNjVDRmRCbWV1MGJfQW1JSGc2QjB0R1haRFJGbVRqcTA4V21PNkZVaGc2TDNndkZhTV9jR1U1RlhsMHpxdjg0bkRoNXdCVWF0TzZIY2MzM3dXTHEwT0V2a0IyeEpudkpCamphenItVG5JZXc?oc=5",
+   "published": "2026-10-24T14:26:45+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Wildfire activity was lower than in recent years according to the SPSA",
+   "source": "Country 600 CJWW",
+   "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBnNHpSYTBzZjZWTHhZdkZtOFVzRTViSDM1MFJ1cmJzY3hNZVJDNFB4dEdackwzMHUzSmJvTjd3ZEtMQWUxT2pGanJicXdkWGxNMXNmVEdJQkFrTE4zNHc?oc=5",
+   "published": "2026-10-24T18:07:29+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Canadian military wildfire that killed 4 started in ‘automatic grenade launcher’ range, officials confirm",
+   "source": "Wildfire Today",
+   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQS043OGNpRU43NW5BNHVpeV80ZFFDQ3ZpQXpzRk5oTzA5OWRITWhVRzZtZkF6WGlhcUxmZG5sVUFSZlJTWUdVaDVReEZLNUNsUmg5OERMc0ZpZWRObnhoNWRWTHhtREUyS3dZeV9IY3FJcDBZZVptU1B1aUZYcmg1ZFRzRm9vbUtjNkNUY3BUVDBrMFpEUGZEMERhTHVTVFV3Y2ltVDNaTFRDa2E2UXRNbE41eUpTTkJ4MlFaQnBMbnphUjk4ZGk5RA?oc=5",
+   "published": "2026-10-25T01:19:04+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Wild Recall Mason Shaw",
+   "source": "Pro Hockey Rumors",
+   "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9zbFZ1R0FYUjhwVm9IWGxXU1lhMERjaTR5VWc5dHdVSHNVNmdZWnJSXy1OQ05DejdRNXpzd1VQTUVjaFFxbjVJcDhUM1BPck1STEN6UHUyWV9MUU50bTdNZGFucVlmaXUyQVpNX1hpUzNOaGJEdnc?oc=5",
+   "published": "2026-10-25T00:00:48+00:00",
+   "tag": "emergency",
+   "video": false
+  }
+ ]
+}

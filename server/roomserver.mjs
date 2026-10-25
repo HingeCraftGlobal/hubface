@@ -478,7 +478,6 @@ const BC_PERSONA = {
   finn: 'You are Finn, the upbeat HubFace helper. Short, warm, a little playful, always useful.' };
 function bcState(id) { let b = bcs.get(id); if (!b) { b = { run: 0, times: [], last: 0, q: Promise.resolve() }; bcs.set(id, b); } return b; }
 function bcSkip(why) { bcStats.skips[why] = (bcStats.skips[why] || 0) + 1; }
-export function botChainInfo() { return { on: process.env.HUBFACE_BOTCHAIN !== '0', maxRun: BC_MAX_RUN, perHour: BC_PER_HOUR, gapMs: BC_GAP_MS, ...bcStats }; }
 function botHuman(id) { const b = bcs.get(id); if (b) b.run = 0; }
 export function botTarget(room, who, text) {   // exported for tests
   const t = String(text || ''); const names = Object.keys(BOTS).filter((k) => k !== who && BC_NAME[k] && BC_NAME[k].test(t));
@@ -521,7 +520,6 @@ console.log('[roomserver] botchain-20261019a ' + (process.env.HUBFACE_BOTCHAIN =
    kind = voice | chat | bot. 5 MB cap per room file (further lines skipped + logged once). Data for later voice / bot work. */
 const TX_DIR = LISTEN_FILE.replace(/yoda-listen\.json$/, 'transcripts'), TX_MAX = 5 * 1024 * 1024, txFull = new Set(), txStats = { lines: 0, errors: 0 };
 try { nodeFs.mkdirSync(TX_DIR, { recursive: true, mode: 0o700 }); } catch {}
-export function txInfo() { return { dir: TX_DIR, ...txStats }; }
 function txAppend(id, e) {
   try {
     if (!ID_RE.test(String(id)) || !e || !e.text) return;

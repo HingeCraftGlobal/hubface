@@ -22,7 +22,7 @@ function RBA(){return (window.__rb&&window.__rb.App)||null;}
     if(!ri||!rs){say('Chat not ready yet');return;}
     ri.value=t;ri.dispatchEvent(new Event('input',{bubbles:true}));rs.click();inp.value='';}
   /* phone-dictate-20261020d (Dan): mic button in the message box. Tap = one speech recognition pass, text goes into the box (Send as usual). */
-  function mkMic(){var b=el('button','hfp-mic','\ud83c\udf99');b.type='button';b.setAttribute('aria-label','Speak a message');var rec=null;
+  function mkMic(){var b=el('button','hfp-mic','\ud83c\udfa4');b.type='button';b.setAttribute('aria-label','Speak a message');var rec=null;
     b.onclick=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
       if(!SR){say('Voice typing not supported here. Use the mic on your keyboard.');try{inp.focus();}catch(e){}return;}
       if(rec){try{rec.stop();}catch(e){}return;}

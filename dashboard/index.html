@@ -1,5 +1,23 @@
 <!DOCTYPE html>
-<html lang="en"><head><!-- hindi-full-20261020a --><meta charset="utf-8"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" href="/favicon.png"><script>/* savemanual-v1 (Dan): nothing persists until Save (button) or 'save' to Ava/Finn. Restore the page settings committed by the last save (localStorage hinge-committed-v1, written by layout-save.js). The selected layout and day-part bookkeeping stay as they are. */(function(){try{var K=['hinge-layouts','hinge-float-pos','hinge-box-size','hinge-box-min','hinge-box-closed','hinge-panel-tucked','hinge-header-tucked','hinge-vb-col','hinge-glass','hinge-fogall','hinge-ambient','hinge-wdock','hinge-brdock','hinge-hubrooms-pos','hinge-dayparts-v1','hinge-wx-loc','hinge-wx-unit','hinge-walkwake-v1','hinge-lang','hinge-yoda-transcript-on'];window.__hfCommitKeys=K;var S=localStorage,c=null;try{c=JSON.parse(S.getItem('hinge-committed-v1')||'null');}catch(e){}if(!c||!c.v){var o={};K.forEach(function(k){var v=S.getItem(k);if(v!==null)o[k]=v;});S.setItem('hinge-committed-v1',JSON.stringify({t:Date.now(),v:o,first:1}));return;}var keep={'hinge-layouts':['cur'],'hinge-dayparts-v1':['last','cur']};K.forEach(function(k){var cv=c.v.hasOwnProperty(k)?c.v[k]:null,lv=S.getItem(k);if(keep[k]&&cv!==null&&lv!==null){try{var a=JSON.parse(cv),b=JSON.parse(lv);keep[k].forEach(function(f){if(b&&f in b)a[f]=b[f];});cv=JSON.stringify(a);}catch(e){}}if(cv===null){if(lv!==null)S.removeItem(k);}else if(cv!==lv)S.setItem(k,cv);});}catch(e){}})();</script>
+<html lang="en"><head><script src="finnlang-20261023a.js?v=finnlang-20261023a"></script><!-- finnlang-20261023a: adds chosen language to chat requests. Roll back: remove this tag --><meta name="hf-icons" content="icons-20261022a"><script src="sttfix-20261021a.js?v=sttfix-20261021a"></script><!-- sttfix-20261021a: STT debug pill + hold self-expiry. Roll back: remove this tag --><script src="sttfix-20261021b2.js?v=modcard-20261021a"></script><!-- sttfix-20261021b: single-owner mic lock. Roll back: remove this tag --><script src="sttfix-20261021c.js?v=sttfix-20261021c"></script><!-- sttfix-20261021c: pill tag/owner, copy log, loop breaker. Roll back: remove this tag --><script src="sttfix-20261021d.js?v=sttfix-20261021d"></script><script src="sttfix-20261021e.js?v=modcard-20261021a"></script><!-- sttfix-20261021d: whole-utterance capture. Roll back: remove this tag --><script>/* finnunlock-20261021b: track every AudioContext; unlock all audio on the first pointerdown/keydown/touchstart; Tap to hear Finn when a line is plain-blocked */
+(function(){var L=window.__allActx=window.__allActx||[];['AudioContext','webkitAudioContext'].forEach(function(n){var C=window[n];if(!C||C.__fuWrapped)return;
+ var W=function(a,b){var c=arguments.length?new C(a):new C();try{L.push(c);}catch(e){}return c;};W.prototype=C.prototype;W.__fuWrapped=true;try{Object.setPrototypeOf(W,C);}catch(e){}window[n]=W;});
+ var SIL='data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+ function resumeAll(){L.forEach(function(c){try{if(c.state==='suspended'&&c.resume)c.resume().catch(function(){});}catch(e){}});}
+ var done=false;function unlock(){resumeAll();if(done)return;try{var a=new Audio(SIL);a.volume=0;var p=a.play();if(p&&p.then)p.then(function(){done=true;window.__finnUnlocked=Date.now();}).catch(function(){});}catch(e){}}
+ ['pointerdown','keydown','touchstart'].forEach(function(n){window.addEventListener(n,unlock,true);});
+ window.__finnUnlock=unlock;
+ var btn=null,cur=null;
+ function hide(){if(btn)btn.style.display='none';cur=null;}
+ window.__finnTap=function(a2,alive,fail){cur={a:a2,alive:alive,fail:fail};
+  if(!btn){btn=document.createElement('button');btn.type='button';btn.id='finnTapHear';btn.textContent='\ud83d\udd0a Tap to hear Finn';
+   btn.style.cssText='position:fixed;left:50%;bottom:110px;transform:translateX(-50%);z-index:2147483000;padding:12px 22px;border-radius:999px;border:1px solid #CCE9FF;background:#009CFD;color:#fff;font:600 16px system-ui,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.45);cursor:pointer;pointer-events:auto';
+   btn.addEventListener('click',function(e){e.stopPropagation();var c=cur;hide();unlock();if(!c||!c.alive())return;var p;try{p=c.a.play();}catch(x){c.fail();return;}if(p&&p.catch)p.catch(function(){c.fail();});},true);
+   document.body.appendChild(btn);setInterval(function(){if(cur&&!cur.alive())hide();},500);}
+  btn.style.display='block';try{console.warn('[finnunlock] line blocked until a tap');}catch(e){}};
+})();</script>
+<script src="testerfix-20261021g-head.js?v=testerfix-20261021g"></script><script src="testerfix-20261021h-head.js?v=testerfix-20261021h"></script><script src="testerfix-20261021c-head.js?v=testerfix-20261021c"></script><script src="console-quiet-20261021c.js?v=consolequiet-20261021c"></script>
+<script src="testerfix-20261021a-head.js?v=testerfix-20261021a"></script><script src="testerfix-20261021b-head.js?v=testerfix-20261021b"></script><!-- testerfix-20261021b-head --><!-- testerfix-20261021a-head --><!-- consolequiet-20261021c: signed-out API calls answered locally; remove to roll back --><!-- hindi-full-20261020a --><meta charset="utf-8"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="icon" type="image/png" href="/favicon.png"><script>/* savemanual-v1 (Dan): nothing persists until Save (button) or 'save' to Ava/Finn. Restore the page settings committed by the last save (localStorage hinge-committed-v1, written by layout-save.js). The selected layout and day-part bookkeeping stay as they are. */(function(){try{var K=['hinge-layouts','hinge-float-pos','hinge-box-size','hinge-box-min','hinge-box-closed','hinge-panel-tucked','hinge-header-tucked','hinge-vb-col','hinge-glass','hinge-fogall','hinge-ambient','hinge-wdock','hinge-brdock','hinge-hubrooms-pos','hinge-dayparts-v1','hinge-wx-loc','hinge-wx-unit','hinge-walkwake-v1','hinge-lang','hinge-yoda-transcript-on'];window.__hfCommitKeys=K;var S=localStorage,c=null;try{c=JSON.parse(S.getItem('hinge-committed-v1')||'null');}catch(e){}if(!c||!c.v){var o={};K.forEach(function(k){var v=S.getItem(k);if(v!==null)o[k]=v;});S.setItem('hinge-committed-v1',JSON.stringify({t:Date.now(),v:o,first:1}));return;}var keep={'hinge-layouts':['cur'],'hinge-dayparts-v1':['last','cur']};K.forEach(function(k){var cv=c.v.hasOwnProperty(k)?c.v[k]:null,lv=S.getItem(k);if(keep[k]&&cv!==null&&lv!==null){try{var a=JSON.parse(cv),b=JSON.parse(lv);keep[k].forEach(function(f){if(b&&f in b)a[f]=b[f];});cv=JSON.stringify(a);}catch(e){}}if(cv===null){if(lv!==null)S.removeItem(k);}else if(cv!==lv)S.setItem(k,cv);});}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="hingecraft-build" content="2026-10-12-voicefix-v1">
 <!-- build 2026-10-08-voicebar-v1: live Yoda voice bar (Web Speech STT -> HingeHub /api/dashboard/chat -> Grok TTS liora) + real AI Assistant dropdown (only Yoda works) -->
@@ -50,7 +68,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1b130e;color:#fff;f
 .glass,.panel,.box,.call,.ava,.mlayout,.btn.ghost{background:rgba(255,255,255,.085);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px) saturate(1.15);-webkit-backdrop-filter:blur(14px) saturate(1.15);box-shadow:0 6px 24px rgba(0,0,0,.18)}
 /* top bar */
 .topbar{position:absolute;left:0;top:0;width:1024px;height:52px;background:linear-gradient(rgba(20,14,10,.45),rgba(20,14,10,.18));}
-.brand{position:absolute;left:18px;top:16px;font-size:16px;font-weight:600;letter-spacing:.1px}
+.brand{position:absolute;left:18px;top:16px;font-size:11.5px;font-weight:500;letter-spacing:.1px;line-height:normal;opacity:.95}/* brandfont-20261024: match the Morning Layout / Late Night pill text (was 16px/600) */
 .vdiv{position:absolute;left:180px;top:12px;width:1px;height:30px;background:rgba(255,255,255,.25)}
 .mlayout{position:absolute;left:190px;top:13px;width:152px;height:29px;border-radius:7px;display:flex;align-items:center;padding-left:6px;gap:4px;box-shadow:none}
 .mlayout span{white-space:nowrap;font-size:11.5px;font-weight:500;margin-left:4px;opacity:.95}
@@ -68,7 +86,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#1b130e;color:#fff;f
 .hdrglass .hg-line{position:absolute;left:0;top:0;overflow:visible;filter:drop-shadow(0 0 3px rgba(var(--hub-blue-rgb),.45))}
 .hdrglass .hg-line path{fill:none;stroke:rgba(var(--hub-blue-rgb),.7);stroke-width:1;stroke-linejoin:miter}
 .logo .b{background:linear-gradient(#7fd8ff,#1e7bff);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:400}
-.devices{position:absolute;left:723px;top:16px;display:flex;gap:11px;opacity:.85}
+.devices{position:absolute;left:723px;top:16px;display:flex;gap:8.25px;opacity:.85}
 .devices span{width:20px;height:20px;display:block}.devices .tab{width:22px}
 .btn{position:absolute;top:14px;height:26px;border-radius:5px;font-size:11.5px;display:grid;place-items:center;font-weight:500}
 .btn.ghost{width:66px;box-shadow:none}
@@ -417,7 +435,7 @@ section.box[data-prio-inst] > header{left:30px}
 try{if(!localStorage.getItem('hinge-bgsound-v1')){localStorage.setItem('hinge-w-media-bgmute','false');localStorage.setItem('hinge-bgsound-v1','1');}}catch(e){}
 try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hinge-ambient','on');localStorage.setItem('hinge-selv2-restored','1');}}catch(e){}
 </script>
-</head>
+<link rel="stylesheet" href="textshadow-20261024c.css?v=textshadow-20261024c"></head>
 <body>
 <video id="bg" src="sunrise_loop.mp4" preload="auto" loop playsinline disablepictureinpicture></video>
 <video id="bg2" muted loop playsinline disablepictureinpicture preload="auto"></video>
@@ -445,7 +463,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
 
 <aside class="panel" style="left:4px;width:168px">
   <h2>Widgets</h2><button class="live fsmini" id="btnWmin" type="button" title="Collapse Widgets" aria-label="Collapse Widgets"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-  <div class="witem hritem" style="top:38px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V21"/><path d="M2.5 21h19"/><path d="M9 21v-5.5a3 3 0 0 1 6 0V21"/><path d="M8 8.5h.01M12 8.5h.01M16 8.5h.01"/></svg><span>Hub Rooms</span></div><div class="witem" style="top:72px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg><span>Weather</span></div><div class="witem" style="top:106px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="16" rx="2"/><path d="M12 9v6M9 12h6"/></svg><span>Schedule</span></div><div class="witem" style="top:140px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 7 20z"/><path d="M14 3.5V8h4M10 13h4"/></svg><span>Priorities</span></div><div class="witem" style="top:174px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M7.5 15l3-3.5 2.5 2 3.5-4.5"/></svg><span>Requires Reply</span></div><div class="witem" style="top:208px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="2"/><path d="M7.5 9h9M7.5 12.5h9M7.5 16h5"/></svg><span>News Briefing</span></div><div class="witem" style="top:242px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg><span>Home Status</span></div><div class="witem ai" id="witAi" style="top:276px" role="button" aria-haspopup="listbox" aria-expanded="false" title="AI Assistant"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c.6 4.6 2.4 7.4 7.5 9.5-5.1 2.1-6.9 4.9-7.5 9.5-.6-4.6-2.4-7.4-7.5-9.5 5.1-2.1 6.9-4.9 7.5-9.5z" fill="currentColor"/><path d="M19 2.5v4M17 4.5h4"/></svg><span>AI Assistant</span><span class="chev"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div><div class="witem callitem" role="button" title="Show Call" style="top:310px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.1 6.1l1.4-2.3L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg><span>Calls</span></div><div class="witem" style="top:344px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg><span>Photos/Videos</span></div><div class="witem" style="top:378px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2.5" stroke="#f2c94c"/><path d="M4 8.5h16" stroke="#f2c94c"/></svg><span>Notes</span></div><div class="witem" style="top:412px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M10.5 8.5v5l4-2.5z" fill="currentColor"/><path d="M8.5 20.5h7"/></svg><span>YouTube</span></div><div class="witem" style="top:446px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12.5H6z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg><span>Shopping</span></div><div class="witem" style="top:480px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.5a2 2 0 0 1 4 0V5h4a1 1 0 0 1 1 1v4h-1.5a2 2 0 0 0 0 4H19v4a1 1 0 0 1-1 1h-4v-1.5a2 2 0 0 0-4 0V19H6a1 1 0 0 1-1-1v-4h1.5a2 2 0 0 0 0-4H5V6a1 1 0 0 1 1-1h4z"/></svg><span>Other/Widget</span></div>
+  <div class="witem hritem" style="top:38px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5V21"/><path d="M2.5 21h19"/><path d="M9 21v-5.5a3 3 0 0 1 6 0V21"/><path d="M8 8.5h.01M12 8.5h.01M16 8.5h.01"/></svg><span>Hub Rooms</span></div><div class="witem" style="top:72px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg><span>Weather</span></div><div class="witem" style="top:106px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></svg><span>Schedule</span></div><div class="witem" style="top:140px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h7l4 4V20a.5.5 0 0 1-.5.5h-10A.5.5 0 0 1 7 20z"/><path d="M14 3.5V8h4M10 13h4"/></svg><span>Priorities</span></div><div class="witem" style="top:174px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/></svg><span>Requires Reply</span></div><div class="witem" style="top:208px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="15" rx="2"/><path d="M7.5 9h9M7.5 12.5h9M7.5 16h5"/></svg><span>News Briefing</span></div><div class="witem" style="top:242px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M6 9.8V20h12V9.8"/><path d="M10 20v-5h4v5"/></svg><span>Home Status</span></div><div class="witem ai" id="witAi" style="top:276px" role="button" aria-haspopup="listbox" aria-expanded="false" title="AI Assistant"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="8" width="14" height="11" rx="2.5"/><path d="M12 5v3"/><circle cx="12" cy="4" r="1"/><path d="M9.5 12.5h.01M14.5 12.5h.01M9.5 16h5M3 12.5v2.5M21 12.5v2.5"/></svg><span>AI Assistant</span><span class="chev"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></div><div class="witem callitem" role="button" title="Show Call" style="top:310px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.1 6.1l1.4-2.3L20 15.5V19a1.5 1.5 0 0 1-1.6 1.5A16.5 16.5 0 0 1 3.5 5.6 1.5 1.5 0 0 1 5 4z"/></svg><span>Calls</span></div><div class="witem" style="top:344px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg><span>Photos/Videos</span></div><div class="witem" style="top:378px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2.5" stroke="#f2c94c"/><path d="M4 8.5h16" stroke="#f2c94c"/></svg><span>Notes</span></div><div class="witem" style="top:412px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M10.5 8.5v5l4-2.5z" fill="currentColor"/><path d="M8.5 20.5h7"/></svg><span>YouTube</span></div><div class="witem" style="top:446px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12.5H6z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg><span>Shopping</span></div><div class="witem" style="top:480px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.5a2 2 0 0 1 4 0V5h4a1 1 0 0 1 1 1v4h-1.5a2 2 0 0 0 0 4H19v4a1 1 0 0 1-1 1h-4v-1.5a2 2 0 0 0-4 0V19H6a1 1 0 0 1-1-1v-4h1.5a2 2 0 0 0 0-4H5V6a1 1 0 0 1 1-1h4z"/></svg><span>Other/Widget</span></div>
 </aside>
 
 <div class="canvas"></div>
@@ -507,13 +525,13 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
   <input id="vbInput" type="text" maxlength="400" placeholder="Type to Finn, then Enter" autocomplete="off" spellcheck="false">
   <div class="abtns"><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/><circle cx="12" cy="12" r="6.2"/></svg></i><i><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3.5" width="12" height="17" rx="1.5"/><path d="M9 8h6M9 11.5h6M9 15h4"/></svg></i><i class="vbtn vbmic" id="vbMic" role="button" title="Talk to Finn (mic)" aria-label="Talk to Finn"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/><path class="slash" d="M4 3.5l16 17" stroke="#ff5a5f"/></svg></i><i class="red vbtn" id="vbEnd" role="button" title="Hang up: stop listening and speaking" aria-label="Hang up"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.5c5-4.5 13-4.5 18 0l-2.2 2.6-3.3-1.4v-2.5a10 10 0 0 0-5 0v2.5L7.2 16.1z" fill="currentColor"/></svg></i></div>
   <div class="wave" id="vbWave"><i style="height:5px"></i><i style="height:9px"></i><i style="height:14px"></i><i style="height:8px"></i><i style="height:17px"></i><i style="height:22px"></i><i style="height:12px"></i><i style="height:19px"></i><i style="height:25px"></i><i style="height:16px"></i><i style="height:10px"></i><i style="height:20px"></i><i style="height:14px"></i><i style="height:7px"></i><i style="height:11px"></i><i style="height:5px"></i></div>
-  <span class="ctl fogbtn" role="button" title="Auto fog" aria-pressed="false" style="left:298px;top:6px"><svg class="ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18.5h10.5a4.2 4.2 0 0 0 .6-8.35A6.2 6.2 0 0 0 6.3 9.3 4.6 4.6 0 0 0 7 18.5z"/></svg></span><span class="ctl vbmin" role="button" aria-pressed="false" title="Collapse the Yoda bar" style="left:299px;top:6px"></span><span class="ctl" style="left:316px;top:6px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-6.5 6.5M10 20H4v-6M4 20l6.5-6.5"/></svg></span>
+  <span class="ctl fogbtn" role="button" title="Auto fog" aria-pressed="false" style="left:298px;top:6px"><svg class="ic" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18.5h10.5a4.2 4.2 0 0 0 .6-8.35A6.2 6.2 0 0 0 6.3 9.3 4.6 4.6 0 0 0 7 18.5z"/></svg></span><span class="ctl vbmin" role="button" aria-pressed="false" title="Collapse the bot bar" style="left:299px;top:6px"></span><span class="ctl" style="left:316px;top:6px"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-6.5 6.5M10 20H4v-6M4 20l6.5-6.5"/></svg></span>
   
   
 <div class="fogpop af" style="left:218px;top:26px"><b>FOG</b><em>AUTO</em><span class="pct">--</span><div class="trk"><div class="fill" style="width:0%"></div><div class="knob" style="left:0%"></div></div></div><i class="pin af" style="left:302px;top:22px"></i></section>
 </div>
 <button class="live fsbtn" id="btnFs" title="Full screen (F)" aria-label="Toggle full screen"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
-<button class="live vpbtn" id="btnVp" title="Background video" aria-label="Choose background video"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10.5 9v6l5-3z" fill="currentColor"/></svg></button>
+<button class="live vpbtn" id="btnVp" title="Background video" aria-label="Choose background video"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12" rx="2"/><path d="M8.5 3.5 12 7.5l3.5-4"/><path d="M10.5 11v5l4-2.5z" fill="currentColor"/></svg></button>
 <button class="live volbtn" id="btnVol" type="button" title="Background volume" aria-label="Background volume" aria-haspopup="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4z M15.5 9.5a3.5 3.5 0 0 1 0 5 M18 7a7 7 0 0 1 0 10"/></svg></button>
 <div class="volpop" id="volPop" role="dialog" aria-label="Background volume"><div class="vhd"><b>BACKGROUND VOLUME</b><span id="volPct">100%</span></div><input id="volRange" type="range" min="0" max="100" step="1" value="100" aria-label="Background volume level"><button class="live volmute" id="volMute" type="button" aria-pressed="false">Mute</button></div>
 <button class="live loopbtn" id="btnLoop" type="button" title="Loop background videos" aria-label="Loop background videos" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></button>
@@ -1075,7 +1093,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
         var cx=actx,rdyA=(cx&&cx.state!=='running'&&cx.resume)?Promise.race([cx.resume().catch(function(){}),new Promise(function(r){setTimeout(r,1500);})]):Promise.resolve();
         var rdyM=audio.readyState>=3?Promise.resolve():new Promise(function(r){var k=false;function d(){if(k)return;k=true;audio.removeEventListener('canplay',d);audio.removeEventListener('canplaythrough',d);r();}audio.addEventListener('canplay',d);audio.addEventListener('canplaythrough',d);setTimeout(d,1500);});
         Promise.all([rdyA,rdyM]).then(function(){return new Promise(function(r){setTimeout(r,250);});}).then(function(){if(g!==gen)return;
-        var p=audio.play();if(p&&p.catch)p.catch(function(){if(g===gen)synth(reply,g);});});})
+        if(actx&&actx.state!=='running'){/* finnaudio-20261021a: AudioContext still suspended (no user gesture, e.g. voice wake) -> the wired <audio> would play silently; play this clip on a plain unrouted element instead */window.__finnAudio={at:Date.now(),ctx:actx.state,path:'plain'};try{console.warn('[finnaudio] AudioContext',actx.state,'-> plain audio');}catch(e){}audio.onended=null;audio.onerror=null;var a2=new Audio(u);window.__finnPlain=a2;a2.ontimeupdate=function(){if(a2.duration)scrollTo(a2.currentTime/a2.duration);};a2.onended=function(){window.__finnPlain=null;URL.revokeObjectURL(u);after(g);};a2.onerror=function(){window.__finnPlain=null;if(g===gen)synth(reply,g);};var p2=a2.play();if(p2&&p2.catch)p2.catch(function(){window.__finnAudio.path='plain-blocked';if(g!==gen)return;/* finnunlock-20261021b: no gesture yet, keep the clip and offer Tap to hear Finn instead of animating silently */var T=window.__finnTap;if(T)T(a2,function(){return g===gen;},function(){if(g===gen)synth(reply,g);});else synth(reply,g);});return;}window.__finnAudio={at:Date.now(),ctx:actx?actx.state:'none',path:'graph'};var p=audio.play();if(p&&p.catch)p.catch(function(){if(g===gen)synth(reply,g);});});})
       .catch(function(err){if(g!==gen||(err&&err.name==='AbortError'))return;synth(reply,g);});
   }
   function synth(reply,g){
@@ -1091,7 +1109,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
     speechSynthesis.cancel();speechSynthesis.speak(u);
   }
   function shutUp(){gen++;then=null;if(ctl){try{ctl.abort();}catch(e){}ctl=null;}try{audio.pause();}catch(e){}audio.removeAttribute('src');
-    if(window.speechSynthesis)speechSynthesis.cancel();synthOn=false;}
+    if(window.speechSynthesis)speechSynthesis.cancel();synthOn=false;try{if(window.__finnPlain){window.__finnPlain.onended=null;window.__finnPlain.pause();window.__finnPlain=null;}}catch(e){}}
 
   /* typing fallback (mic blocked / unsupported, or click the text line) */
   function typeMode(msg){setState('idle');show('Yoda —',msg||'');inp.classList.add('show');line.style.visibility='hidden';setTimeout(function(){inp.focus();},0);}
@@ -1187,13 +1205,13 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
   function greet(viaMic){if(done)return;var v=V();if(!v||!v.say||!v.mic)return;
     if(AUTH===null){AUTHP.then(function(){greet(viaMic);});return;}   /* noonboard: wait for the sign-in check */
     done=true;off();
-    if(AUTH){try{if(!viaMic&&!v.inCall())v.mic();}catch(e){}return;}   /* signed in: no intro, no tutorial offer (auth-popup says hi by name) */
+    if(AUTH){try{if(!viaMic&&!v.inCall()){if(v.state()!=='idle'&&v.armCall)v.armCall();else v.mic();}}catch(e){}return;}   /* finnfix2-20261021b: never barge-in on the signed-in greeting already playing */   /* signed in: no intro, no tutorial offer (auth-popup says hi by name) */
     var first=MODE==='full'||!visited();
     /* finn-startfix-20261020a (Dan): mic starts only once the intro audio is actually playing (fallback 8s), not before */
     var needMic=!viaMic&&!v.inCall(),micDone=false;function micOn(){if(micDone||!needMic)return;micDone=true;window.__vbOnPlaying=null;try{var w=V();if(w.inCall())return;if(w.state()==='idle'||!w.armCall)w.mic();else w.armCall();}catch(e){}}
     if(needMic){window.__vbOnPlaying=micOn;setTimeout(micOn,8000);}
     setTimeout(function(){try{V().say(first?INTRO:BACK);watch(first);if(first&&window.__finTour)window.__finTour.offer();}catch(e){}},viaMic?350:150);}
-  function onGesture(e){if(done||!armed)return;var t=e.target,c=t&&t.closest?t:null;
+  function onGesture(e){return;/*finnselfstart-20261024: no first-press self-start either*/if(done||!armed)return;var t=e.target,c=t&&t.closest?t:null;
     if(c&&c.closest('#vbEnd')){done=true;off();return;}            /* first press was hang up: no greeting */
     greet(!!(c&&c.closest('#vbMic')));}                               /* first press on the mic: its own click starts the call */
   var EV=['pointerdown','keydown','touchstart'];
@@ -1201,7 +1219,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
   EV.forEach(function(n){document.addEventListener(n,onGesture,true);});
   function canAuto(){try{if(navigator.userActivation&&navigator.userActivation.hasBeenActive)return true;}catch(e){}
     var bg=document.getElementById('bg');return !!(bg&&!bg.paused&&!bg.muted&&bg.currentTime>0);}
-  function tryAuto(n){if(done)return;if(!V()){if(n<40)setTimeout(function(){tryAuto(n+1);},250);return;}
+  function tryAuto(n){return;/*finnselfstart-20261024: Dan turned off Finn self-start on page load*/if(done)return;if(!V()){if(n<40)setTimeout(function(){tryAuto(n+1);},250);return;}
     if(canAuto())greet(false);else if(n<12)setTimeout(function(){tryAuto(n+1);},500);}
   if(document.readyState==='complete')setTimeout(function(){tryAuto(0);},1500);
   else window.addEventListener('load',function(){setTimeout(function(){tryAuto(0);},1500);});
@@ -1403,7 +1421,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
   function tap(ev){try{if(!busy())return;var t='';for(var i=ev.resultIndex;i<ev.results.length;i++)t+=' '+ev.results[i][0].transcript;t=t.trim();if(!t)return;
       if(isStop(t)&&!echo(t)){try{var FT=window.__finTour;if(FT&&FT.running()&&ev.results[ev.results.length-1].isFinal)FT.stop();}catch(_){}halt('stop word "'+t+'"');return;}
       /* 2026-10-17-tourfix-v1: no open-ended barge-in during the intro or the tutorial (the mic hears Finn himself on speakers) */
-      try{var FT2=window.__finTour,FG=window.__finGreet;if((FT2&&FT2.running())||(FG&&window.__vbLastLine===FG.intro))return;var BR=window.__brief;if(BR&&BR.reading&&BR.reading())return;}catch(_){}   /* brieffix-20261018a: nor while Finn reads the briefing (his own numbers never match as echo; that cut him off with “Stopped.”) */
+      try{var FT2=window.__finTour,FG=window.__finGreet;if((FT2&&FT2.running())||(FG&&window.__vbLastLine===FG.intro)||/, nice to see you in the room\.$/.test(window.__vbLastLine||''))return;   /* finnfix2-20261021b: no open-ended barge-in on the signed-in greeting (mic heard 'Hi R2-D2' on speakers, STT spelling never matched as echo) */var BR=window.__brief;if(BR&&BR.reading&&BR.reading())return;}catch(_){}   /* brieffix-20261018a: nor while Finn reads the briefing (his own numbers never match as echo; that cut him off with “Stopped.”) */
       if(speaking()&&norm(t).split(' ').length>=2&&!echo(t))halt('barge-in "'+t+'"');}catch(e){}}
   function hook(C){try{if(!C||!C.prototype||C.prototype.__barge)return;var P=C.prototype,d=Object.getOwnPropertyDescriptor(P,'onresult');
       var K='__bargeOnresult';Object.defineProperty(P,'onresult',{configurable:true,enumerable:true,
@@ -1694,7 +1712,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
        grip is the bottom-right corner (same look as the widget boxes). Square headers keep only cloud, minimize, X, evenly
        right-anchored; the Yoda bar keeps its cloud where the two-arrows icon was. Other keeps the two-arrows icon.
        Same element, same drag code, same saved sizes (hinge-box-size); positions are not touched. */
-    if({weather:1,schedule:1,'home-status':1,priorities:1,'news-briefing':1,call:1,yoda:1,other:1}[id]||sq.classList.contains('rbbox')||sq.hasAttribute('data-prio-inst')){   /* labelfit-v1: Other too */
+    if({'home-plan':1,'hub-rooms':1,weather:1,schedule:1,'home-status':1,priorities:1,'news-briefing':1,call:1,yoda:1,other:1}[id]||sq.classList.contains('rbbox')||sq.hasAttribute('data-prio-inst')){   /* labelfit-v1: Other too */
       var gl=parseFloat(g.style.left);
       g.classList.add('cgrip');g.innerHTML='';g.style.left='';g.style.top='';g.title='Resize (drag the corner)';g.setAttribute('aria-label','Resize');sq.appendChild(g);
       var cX=sq.querySelector(':scope > .boxclose, :scope > .callx'),cM=sq.querySelector(':scope > .boxmin'),cF=sq.querySelector(':scope > .fogbtn'),fl=NaN;
@@ -1793,7 +1811,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
 (function(){
   "use strict";
   var W=1024,H=576,stage=document.getElementById('stage');
-  var NAME={'hub-rooms':'Hub Rooms',weather:'Weather',schedule:'Schedule','home-status':'Home Status',priorities:'Priorities','news-briefing':'News Briefing',other:'Other',call:'Call',yoda:'the Yoda bar'};
+  var NAME={'hub-rooms':'Hub Rooms',weather:'Weather',schedule:'Schedule','home-status':'Home Status',priorities:'Priorities','news-briefing':'News Briefing',other:'Other',call:'Call',yoda:'the bot bar'};
   var ITEM={'hub-rooms':'Hub Rooms',weather:'Weather',schedule:'Schedule','home-status':'Home Status',priorities:'Priorities','news-briefing':'News Briefing',other:'Other/Widget',call:'Calls'};
   var SYN=[['hub rooms','hub-rooms'],['hub room','hub-rooms'],['news briefing','news-briefing'],['news','news-briefing'],['headlines','news-briefing'],['briefing','news-briefing'],
     ['home status','home-status'],['home','home-status'],['house','home-status'],
@@ -1801,7 +1819,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
     ['schedule','schedule'],['calendar','schedule'],['agenda','schedule'],['weather','weather'],['forecast','weather'],
     ['other widget','other'],['custom widget','other'],['other','other'],['custom','other'],['build your own','other'],['my recipe book','other'],['recipe book','other'],
     ['calls','call'],['call box','call'],['call card','call'],['call','call'],['phone','call'],['contacts','call'],
-    ['yoda bar','yoda'],['voice bar','yoda'],['assistant bar','yoda'],['your bar','yoda'],['yourself','yoda']];
+    ['yoda bar','yoda'],['bot bar','yoda'],['voice bar','yoda'],['assistant bar','yoda'],['your bar','yoda'],['yourself','yoda']];
   var last=null,lastFog=null;
   function $(id){return document.getElementById(id);}
   function box(id){return document.querySelector('#ui > section[data-float="'+id+'"]');}
@@ -1818,12 +1836,12 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
 
   /* ---------- actions (whitelist) ---------- */
   var A={
-    open:function(o,sq){if(o.box==='yoda')return 'The Yoda bar is always open.';
+    open:function(o,sq){if(o.box==='yoda')return 'The bot bar is always open.';
       var was=closed(sq);ensureOpen(o.box,sq);var m=sq.querySelector(':scope > .boxmin');if(m&&sq.classList.contains('collapsed'))m.click();
       front(sq);glow(sq);return (was?'Brought back ':'Here\u2019s ')+NAME[o.box]+'.';},
     close:function(o,sq){if(o.box==='yoda')return 'I can\u2019t close my own bar.';if(closed(sq))return NAME[o.box]+' is already closed.';
       var x=sq.querySelector(':scope > .boxclose, :scope > .callx');glow(x);x.click();return 'Closed '+NAME[o.box]+'.';},
-    minimize:function(o,sq){var m=sq.querySelector(':scope > .boxmin');if(!m)return 'The Yoda bar doesn\u2019t minimize.';ensureOpen(o.box,sq);
+    minimize:function(o,sq){var m=sq.querySelector(':scope > .boxmin');if(!m)return 'The bot bar doesn\u2019t minimize.';ensureOpen(o.box,sq);
       if(!sq.classList.contains('collapsed'))m.click();glow(m);return 'Minimized '+NAME[o.box]+'.';},
     restore:function(o,sq){var was=closed(sq);ensureOpen(o.box,sq);var m=sq.querySelector(':scope > .boxmin');
       if(m&&sq.classList.contains('collapsed')){m.click();glow(m);return 'Restored '+NAME[o.box]+'.';}
@@ -2091,7 +2109,7 @@ try{if(!localStorage.getItem('hinge-selv2-restored')){localStorage.setItem('hing
     stars:'M5 6h.01 M12 4h.01 M19 9h.01 M8 15h.01 M17 18h.01 M5 6l7-2 7 5-11 6 9 3',
     shield:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z M8.5 12l2.5 2.5 4.5-5',
     door:'M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17 M3 21h18 M14.5 12h.01 M9 7h6'};
-  var L=[['yoda','Fin','Dan\u2019s assistant',null],['ceo','Yoda','Live bridge \u00b7 Grok app call','person'],['grok','Grok','xAI Grok model','grok'],['brain','Brain','Primary bot \u00b7 router','brain'],['interface','Interface','Director of Interface \u00b7 HingeHub','iface'],
+  var L=[['yoda','Fin','Dan\u2019s assistant',null],['ceo','Yoda','AI CEO','person'],['grok','Grok','xAI Grok model','grok'],['brain','Brain','Primary bot \u00b7 router','brain'],['interface','Interface','Director of Interface \u00b7 HingeHub','iface'],
     ['ava-dan','Ava Dan','Authorized Dan avatar','person'],['research','Research','Field Research','search'],['marketing','Marketing','Marketing','mega'],['sales','Sales','Sales','tag'],
     ['capital','Capital','Capital','chart'],['legal','Legal','Legal','scales'],['ops','Ops','Operations','gear'],['engineering','Engineering','Engineering','code'],
     ['story','Story','Story \u00b7 Franchise','book'],['studios','Studios','Studios','clap'],['video-book','Video Book','Video Book','vbook'],['aura','AURA','AURA','rings'],
@@ -2280,7 +2298,7 @@ var PRIORITY_CATEGORIES=[
   function setMeta(id,t,o){var k=id+'|'+t,m=meta[k]||{};for(var x in o){if(o[x]===null||o[x]===false||o[x]==='')delete m[x];else m[x]=o[x];}if(Object.keys(m).length)meta[k]=m;else delete meta[k];msave();rerender();}
   var INST={},IDS=['all'].concat(CATS.map(function(c){return c.id;})),cur='all';
   function each(f){IDS.forEach(function(id){if(INST[id])f(INST[id]);});}
-  function rerender(){each(function(I){if(I.id!=='email')render(I);});if(panel.classList.contains('open'))panel.innerHTML=rows();}
+  function rerender(){each(function(I){if(I.id!=='email')render(I);});if(panel.classList.contains('open'))pfH(panel,rows());}
   function fmtT(hm){if(!/^\d\d:\d\d$/.test(hm||''))return '';var h=+hm.slice(0,2),m=hm.slice(3);return ((h%12)||12)+':'+m+' '+(h<12?'AM':'PM');}
   function sorted(c){var out=[];(c.id==='all'?CATS.filter(function(x){return x.id!=='email'&&x.id!=='newmail';}):[c]).forEach(function(cc){(cc.items||[]).forEach(function(t,i){out.push({cat:cc.id,t:t,o:out.length});});});
     out.forEach(function(x){var m=M(x.cat,x.t);x.due=m.due||'';x.star=!!m.star;});
@@ -2313,7 +2331,7 @@ var PRIORITY_CATEGORIES=[
   function scale(){var r=stage.getBoundingClientRect();return (r.width/1024)||1;}
   function open(o,anchor){
     if(!o){panel.classList.remove('open');return;}
-    panel.innerHTML=rows();var k=scale(),u=ui.getBoundingClientRect(),a=(anchor||item||sq0).getBoundingClientRect(),isT=!!(anchor&&anchor.closest&&anchor.closest('section.box'));
+    pfH(panel,rows());var k=scale(),u=ui.getBoundingClientRect(),a=(anchor||item||sq0).getBoundingClientRect(),isT=!!(anchor&&anchor.closest&&anchor.closest('section.box'));
     var x=(a.right-u.left)/k+8,y=(a.top-u.top)/k-6;
     if(isT){x=(a.left-u.left)/k-6;y=(a.bottom-u.top)/k+6;}
     panel.style.left=Math.max(4,Math.min(1024-196,x))+'px';panel.style.top=Math.max(4,Math.min(576-30-26*(CATS.length+2),y))+'px';
@@ -2378,14 +2396,15 @@ var PRIORITY_CATEGORIES=[
     inp.addEventListener('keydown',function(e){e.stopPropagation();if(e.key==='Enter'){e.preventDefault();fin(true);}else if(e.key==='Escape')fin(false);});
     ['pointerdown','click','dblclick','keyup','keypress'].forEach(function(ev){inp.addEventListener(ev,function(e){e.stopPropagation();});});
     inp.addEventListener('blur',function(){fin(true);});if(kind==='time')inp.addEventListener('change',function(){if(inp.value)fin(true);});}
+  /* prioflicker-20261024: write only when changed (no 60s full rebuild) */function pfH(el,h){if(!el)return;if(el.__pfH===h&&el.innerHTML===el.__pfO)return;el.innerHTML=h;el.__pfH=h;el.__pfO=el.innerHTML;}function pfC(el,c,on){if(el&&el.classList.contains(c)!==!!on)el.classList.toggle(c,!!on);}function pfD(el,v){if(el&&el.style.display!==v)el.style.display=v;}function pfA(el,a,v){if(el&&el.getAttribute(a)!==v)el.setAttribute(a,v);}function pfT(el,t){if(el&&el.textContent!==t)el.textContent=t;}
   function render(I){var c=I.c,list=I.list,more=I.more,tag=I.tag,sq=I.sq;
-    I.gfoot.style.display='none';I.cnew.style.display='none';list.classList.remove('email','newmail');list.classList.remove('pcatlist','pall');I.padd.style.display='none';
-    if(c.id==='all'){list.classList.add('pcatlist','pall');list.innerHTML=lines(c);if(more)more.style.display='none';tag.textContent='';tag.style.display='none';}
+    /* prioflicker-20261024 */var em=c.id==='email'||c.id==='newmail';pfD(I.gfoot,'none');if(c.id!=='email')pfD(I.cnew,'none');pfC(list,'email',em);pfC(list,'newmail',c.id==='newmail');pfC(list,'pcatlist',!em);pfC(list,'pall',c.id==='all');if(c.id==='all'||em)pfD(I.padd,'none');
+    if(c.id==='all'){pfH(list,lines(c));if(more)pfD(more,'none');pfT(tag,'');pfD(tag,'none');}
     else if(c.id==='email'){renderEmail(I,c);}
     else if(c.id==='newmail'){renderNew(I,c);}
-    else{list.classList.add('pcatlist');list.innerHTML=lines(c);if(more)more.style.display='none';I.padd.style.display=pState==='ok'?'':'none';tag.textContent='\u00b7 '+c.short;tag.style.display='';}
-    var full='Priorities'+(c.id==='all'?'':' \u00b7 '+c.short);sq.setAttribute('aria-label',full);I.title.setAttribute('title',full);
-    sq.setAttribute('data-prio-cat',c.id);return c;}
+    else{pfH(list,lines(c));if(more)pfD(more,'none');pfD(I.padd,pState==='ok'?'':'none');pfT(tag,'\u00b7 '+c.short);pfD(tag,'');}
+    var full='Priorities'+(c.id==='all'?'':' \u00b7 '+c.short);pfA(sq,'aria-label',full);pfA(I.title,'title',full);
+    pfA(sq,'data-prio-cat',c.id);return c;}
   function lines(c){var L=sorted(c);if(!L.length)return '<li class="pnone">'+(pState==='out'?'Sign in to see your priorities':pState==='loading'?'Loading\u2026':pState==='err'?'Priorities didn\u2019t load':'No items yet')+'</li>'+sugLines(c);
     return L.map(function(x,i){var a=' data-c="'+x.cat+'" data-t="'+esc(x.t)+'"';var od=overdue(x.due);return '<li class="pi'+(x.star?' pstarred':'')+(od?' poverdue':'')+'"'+a+'><em>'+(i+1)+'</em><span class="ptx" role="button" title="'+esc(x.t)+' (click to edit)">'+esc(x.t)+'</span>'+
       '<span class="ptime'+(x.due?'':' none')+'" role="button" title="'+(x.due?(od?'Overdue: was due ':'Due ')+fmtT(x.due)+' (click to change)':'Add a due time')+'">'+(x.due?(od?'<b class="pod">Overdue</b>'+fmtT(x.due).replace(/ [AP]M$/,''):fmtT(x.due)):'\u23f1')+'</span>'+
@@ -2401,21 +2420,21 @@ var PRIORITY_CATEGORIES=[
     return '<li class="gli"><span class="gline" role="button" data-k="'+kind+'" data-i="'+i+'" title="'+esc('Read: '+who+' \u2014 '+(m.subject||''))+'"><b>'+esc(who)+'</b><span class="gsub">'+esc(m.subject||'(no subject)')+'</span><i>'+esc(w)+'</i></span>'+
       '<span class="greply" role="button" data-k="'+kind+'" data-i="'+i+'" title="'+(kind==='w'?'Follow up':'Reply')+' (opens a draft)">\u21a9</span></li>';}
   function renderEmail(I,c){var it=c.items||[],wt=c.waiting||[],list=I.list;
-    list.classList.add('email');if(I.more)I.more.style.display='none';I.cnew.style.display='';
+    /* prioflicker-20261024 */pfC(list,'email',1);if(I.more)pfD(I.more,'none');pfD(I.cnew,'');
     var budget=I.sq.clientHeight-36-14-26,rowsT=Math.max(2,Math.floor(budget/17));
     var rR=Math.min(Math.max(it.length,1),Math.max(1,rowsT-1)),rW=Math.min(Math.max(wt.length,1),Math.max(1,rowsT-rR));
     if(wt.length<rW&&it.length>rR)rR=Math.min(it.length,rowsT-Math.max(wt.length,1));
     var nR=Math.min(it.length,rR),nW=Math.min(wt.length,rW);
-    list.innerHTML='<li class="psub">'+esc(c.sub)+'</li>'+(it.length?it.slice(0,nR).map(function(m,i){return line(m,'r',i);}).join(''):'<li class="pnone">'+(feedSt===401?'Sign in to see your email':feedSt===404?'No email feed connected':'No items yet')+'</li>')+
-      '<li class="psub">'+esc(c.sub2)+'</li>'+(wt.length?wt.slice(0,nW).map(function(m,i){return line(m,'w',i);}).join(''):'<li class="pnone">No items yet</li>');
+    pfH(list,'<li class="psub">'+esc(c.sub)+'</li>'+(it.length?it.slice(0,nR).map(function(m,i){return line(m,'r',i);}).join(''):'<li class="pnone">'+(feedSt===401?'Sign in to see your email':feedSt===404?'No email feed connected':'No items yet')+'</li>')+
+      '<li class="psub">'+esc(c.sub2)+'</li>'+(wt.length?wt.slice(0,nW).map(function(m,i){return line(m,'w',i);}).join(''):'<li class="pnone">No items yet</li>'));
     var bits=[];if(it.length>nR)bits.push('+'+(it.length-nR)+' reply');if(wt.length>nW)bits.push('+'+(wt.length-nW)+' waiting');
     var up=feed?ago(feed.updated):'';if(up)bits.push('updated '+(up==='now'?'just now':up+' ago'));
-    I.gfoot.textContent=bits.join(' \u00b7 ');I.gfoot.style.display=bits.length?'':'none';
-    I.tag.textContent='\u00b7 '+c.short;I.tag.style.display='';}
+    /* prioflicker-20261024 */pfT(I.gfoot,bits.join(' \u00b7 '));pfD(I.gfoot,bits.length?'':'none');
+    pfT(I.tag,'\u00b7 '+c.short);pfD(I.tag,'');}
   var NKEY='hinge-newmail-dismissed',NURL='/api/account/email-feed',dis=[],nraw=[],nUpd='',nOk=false;try{dis=JSON.parse(localStorage.getItem(NKEY)||'[]')||[];}catch(e){dis=[];}if(!Array.isArray(dis))dis=[];
   function nvis(){return nraw.filter(function(m){return dis.indexOf(m.id)<0;});}
   function nsync(){var g=find('newmail');g.items=nvis().map(function(m){return m.subject;});var v=nvis();if(window.__emailFeed)window.__emailFeed.newEmails=v;
-    if(panel.classList.contains('open'))panel.innerHTML=rows();if(INST.newmail)render(INST.newmail);}
+    if(panel.classList.contains('open'))pfH(panel,rows());if(INST.newmail)render(INST.newmail);}
   function ndismiss(id){if(dis.indexOf(id)<0)dis.push(id);dis=dis.slice(-400);try{localStorage.setItem(NKEY,JSON.stringify(dis));}catch(e){}nsync();}
   function applyNew(j,src){var a=j&&Array.isArray(j.newEmails)?j.newEmails:null;if(!a)return false;nOk=true;nUpd=S(j.updated,40);
     nraw=clean(a,60).map(function(m){var b=S(m.body||m.snippet,3500);return {id:S(m.id,40),threadId:S(m.threadId,40),from:S(m.from,80),fromEmail:S(m.fromEmail,120),subject:S(m.subject,200),snippet:S(m.snippet,300),body:b,date:S(m.receivedAt,40),receivedAt:S(m.receivedAt,40),url:S(m.url,600),
@@ -2423,11 +2442,11 @@ var PRIORITY_CATEGORIES=[
       .sort(function(x,y){return Date.parse(y.receivedAt)-Date.parse(x.receivedAt);});nsync();return true;}
   function nline(m,i){var w=ago(m.date);return '<li class="gli nli"><span class="gline" role="button" data-k="n" data-i="'+i+'" title="'+esc('Read: '+m.from+' \u2014 '+m.subject)+'"><b>'+esc(m.from||'(unknown)')+'</b><span class="gsub">'+esc(m.subject||'(no subject)')+'</span><i>'+esc(w)+'</i></span>'+
       '<span class="ndis" role="button" data-id="'+esc(m.id)+'" title="Dismiss" aria-label="Dismiss">\u00d7</span></li>';}
-  function renderNew(I,c){var v=nvis(),list=I.list;list.classList.add('email','newmail');if(I.more)I.more.style.display='none';
+  function renderNew(I,c){var v=nvis(),list=I.list;/* prioflicker-20261024 */pfC(list,'email',1);pfC(list,'newmail',1);if(I.more)pfD(I.more,'none');
     var rowsT=Math.max(2,Math.floor((I.sq.clientHeight-36-14-14)/17)),n=Math.min(v.length,rowsT);
-    list.innerHTML='<li class="psub nsub">Unread \u00b7 last 48h</li>'+(v.length?v.slice(0,n).map(nline).join(''):'<li class="pnone">'+(nOk?'No new emails':'New emails not loaded yet')+'</li>');
+    pfH(list,'<li class="psub nsub">Unread \u00b7 last 48h</li>'+(v.length?v.slice(0,n).map(nline).join(''):'<li class="pnone">'+(nOk?'No new emails':'New emails not loaded yet')+'</li>'));
     var bits=[];if(v.length>n)bits.push('+'+(v.length-n)+' more');var up=nUpd?ago(nUpd):'';if(up)bits.push('updated '+(up==='now'?'just now':up+' ago'));
-    I.gfoot.textContent=bits.join(' \u00b7 ');I.gfoot.style.display=bits.length?'':'none';I.tag.textContent='\u00b7 '+c.short;I.tag.style.display='';}
+    /* prioflicker-20261024 */pfT(I.gfoot,bits.join(' \u00b7 '));pfD(I.gfoot,bits.length?'':'none');pfT(I.tag,'\u00b7 '+c.short);pfD(I.tag,'');}
   function loadNew(){if(!window.fetch)return;fetch(NURL+'?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();})
     .then(function(t){var j=null;try{j=JSON.parse(String(t).replace(/^\uFEFF/,''));}catch(e){}if(!applyNew(j)&&lastFeed)applyNew(lastFeed);}).catch(function(){if(lastFeed)applyNew(lastFeed);});}
   var lastFeed=null;
@@ -2447,7 +2466,7 @@ var PRIORITY_CATEGORIES=[
     window.__emailFeed={loaded:ok,updated:feed?feed.updated:'',account:feed?feed.account:'',items:g.items,waiting:g.waiting,contacts:contacts,newEmails:nvis()};
     if(ok&&Array.isArray(j.newEmails)){lastFeed={updated:j.updated,newEmails:j.newEmails};if(!nOk)applyNew(lastFeed);}
     if(rrBadge){rrBadge.textContent=String(g.items.length);rrBadge.style.display=ok?'':'none';}
-    if(panel.classList.contains('open'))panel.innerHTML=rows();
+    if(panel.classList.contains('open'))pfH(panel,rows());
     if(INST.email)render(INST.email);rerender();}
   function load(){if(!window.fetch)return;
     fetch(FEED_URL,{cache:'no-store',credentials:'same-origin'}).then(function(r){feedSt=r.status;if(!r.ok)throw 0;return r.text();})
@@ -2471,7 +2490,7 @@ var PRIORITY_CATEGORIES=[
     e.stopPropagation();e.preventDefault();open(!panel.classList.contains('open'),item);},true);
   panel.addEventListener('click',function(e){e.stopPropagation();var b=e.target.closest&&e.target.closest('.pritem');if(!b)return;var id=b.getAttribute('data-cat');
     if(id==='*')CATS.forEach(function(c){openInst(c.id);});else openInst(id);
-    panel.innerHTML=rows();});   /* the picker stays open, so several can be picked in a row */
+    pfH(panel,rows());});   /* the picker stays open, so several can be picked in a row */
   panel.addEventListener('pointerdown',function(e){e.stopPropagation();});
   panel.addEventListener('dblclick',function(e){e.stopPropagation();});
   document.addEventListener('pointerdown',function(e){if(panel.classList.contains('open')&&!panel.contains(e.target)&&!(item&&item.contains(e.target)))open(false);},true);
@@ -2504,7 +2523,7 @@ var PRIORITY_CATEGORIES=[
     return l0(text);};}
   window.__prio={categories:function(){return [{id:'all',name:'All'}].concat(CATS.map(function(c){return {id:c.id,name:c.name,count:c.items.length};}));},
     current:function(){return cur;},open:function(o){open(o!==false,item);},show:show,isOpen:function(){return panel.classList.contains('open');},reload:load,add:addItem,remove:delItem,edit:editItem,setDue:function(id,t,d){setMeta(id,t,{due:d||null});},setStar:function(id,t,v){setMeta(id,t,{star:!!v});},rerender:rerender,overdue:overdue,meta:function(id,t){return JSON.parse(JSON.stringify(M(id,t)));},sorted:function(id){return sorted(find(id)||find('all')).map(function(x){return {cat:x.cat,text:x.t,due:x.due,star:x.star};});},items:function(id){var c=find(id);return c&&c.items?c.items.slice():[];},
-    /* prioinst-v1 */openInst:function(id){var c=openInst(id);if(panel.classList.contains('open'))panel.innerHTML=rows();return c;},openMany:function(ids){(ids==='all'||ids==='*'?CATS.map(function(c){return c.id;}):ids||[]).forEach(function(id){openInst(id);});if(panel.classList.contains('open'))panel.innerHTML=rows();return this.instances();},
+    /* prioinst-v1 */openInst:function(id){var c=openInst(id);if(panel.classList.contains('open'))pfH(panel,rows());return c;},openMany:function(ids){(ids==='all'||ids==='*'?CATS.map(function(c){return c.id;}):ids||[]).forEach(function(id){openInst(id);});if(panel.classList.contains('open'))pfH(panel,rows());return this.instances();},
     instances:function(){return IDS.filter(function(id){return INST[id]&&isOn(id);});},box:function(id){return boxOf(id);}};
 })();
 </script>
@@ -6484,7 +6503,7 @@ html.md-bg #mdBgCtl{display:flex}
     isOpen:function(n){var id=resolveName(n)||n;return !!(boxes[id]&&boxes[id].isOpen());},ids:function(){return Object.keys(OPEN);},profile:PROF?'test':'default',
     family:function(){return FAM.data().map(function(r){return {id:r.id,name:r.name,relation:r.relation||'',phone:r.phone||''};});},
     editPerson:function(n){var r=FAM.find(n);FAM.edit(r||{name:cap(String(n||'').trim())});},
-    hands:hands,ytParse:function(t){return ytParse(t);},ytIdle:ytIdle,ytPicking:ytPicking,ytState:function(){return {results:ENT.results.length,playing:!!ENT.cur,idx:ENT.idx,list:ENT.list};},addNote:addNote,addItems:addItems,addCard:addCard,logWorkout:logWorkout,weekMinutes:weekMinutes,ytSearch:ytSearch,ytPlay:ytPlay,ytStop:ytStop,importRecipe:importRecipe,social:function(){return social();},socialHands:socHands,socialLinks:SOCIAL_LINKS,petVault:function(){return pvOpen();},petHands:pvHands,petState:function(){return PV;}};
+    hands:hands,ytParse:function(t){return ytParse(t);},ytIdle:ytIdle,ytPicking:ytPicking,ytState:function(){return {results:ENT.results.length,playing:!!ENT.cur,idx:ENT.idx,list:ENT.list};},addNote:addNote,addItems:addItems,addCard:addCard,logWorkout:logWorkout,weekMinutes:weekMinutes,ytSearch:ytSearch,ytPlay:ytPlay,ytStop:ytStop,importRecipe:importRecipe,social:function(){return social();},socialHands:socHands,socialLinks:SOCIAL_LINKS,petVault:function(){return pvOpen();},petHands:pvHands,petState:function(){return PV;},_lists:{notes:{get:nData,save:function(){store(NOTES.key,NOTES.data);},render:nRender},shopping:{get:sData,save:sSave,render:sRender}}};
 })();
 </script>
 <style>
@@ -7469,7 +7488,7 @@ html.hc-wakeall .vl-pill[data-state=idle]:hover,html.hc-wakeall .vl-pill[data-st
   if(TV){
     window.VOICE_TV_CONFIG={engine:'webspeech',sendPolicy:'off'};
     var l=document.createElement('link');l.rel='stylesheet';l.href='tv/voice-layer.css';document.head.appendChild(l);
-    var s=document.createElement('script');s.src='tv/voice-layer.js?v=finfix-20261018a';s.async=false;document.body.appendChild(s);
+    var s=document.createElement('script');s.src='tv/voice-layer.js?v=botbar-20261021a';s.async=false;document.body.appendChild(s);
     return;
   }
   var KEY='hc.wakeword.v1', SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -7557,7 +7576,7 @@ html.hc-wakeall .vl-pill[data-state=idle]:hover,html.hc-wakeall .vl-pill[data-st
     tip();tick();setInterval(tick,250);
   }
   var l2=document.createElement('link');l2.rel='stylesheet';l2.href='tv/voice-layer.css';document.head.appendChild(l2);
-  var s2=document.createElement('script');s2.src='tv/voice-layer.js?v=finfix-20261018a';s2.async=false;s2.onload=function(){setTimeout(boot,0);};document.body.appendChild(s2);
+  var s2=document.createElement('script');s2.src='tv/voice-layer.js?v=botbar-20261021a';s2.async=false;s2.onload=function(){setTimeout(boot,0);};document.body.appendChild(s2);
 })();
 </script>
 <style>
@@ -7571,6 +7590,9 @@ html.hc-wakeall .vl-pill[data-state=idle]:hover,html.hc-wakeall .vl-pill[data-st
 #vbBar.vbcol > :not(.portrait):not(.vbmin):not(.fhandle):not(.vbtip){display:none!important}
 #vbBar.vbcol > .vbmin{left:53px!important;top:6px!important;right:auto!important}
 #vbBar.vbcol > .fhandle{cursor:pointer}
+/* botbar-20261021a: every bot bar (Finn/Ava #vbBar + agent-panel clones) - same header order: fog, then expand/collapse locked in the far top-right corner, at any face size */
+#ui > section.ava:not(.vbcol):not(.collapsed) > .vbmin{left:auto!important;right:6px!important;top:6px!important}
+#ui > section.ava:not(.vbcol):not(.collapsed) > .fogbtn{left:auto!important;right:28px!important;top:6px!important}
 #vbBar > .vbtip{display:none;position:absolute;left:0;bottom:calc(100% + 6px);width:max-content;max-width:230px;padding:5px 8px;border-radius:7px;
   background:rgba(12,16,22,.86);border:1px solid rgba(var(--hub-blue-rgb),.55);color:#e9fbff;font-size:9px;line-height:12px;white-space:normal;z-index:5;pointer-events:none}
 #vbBar.vbcol > .vbtip.show{display:block}
@@ -7584,7 +7606,7 @@ html.hc-wakeall .vl-pill[data-state=idle]:hover,html.hc-wakeall .vl-pill[data-st
   var tip=document.createElement('div');tip.className='vbtip';tip.setAttribute('aria-live','polite');bar.appendChild(tip);
   function col(){return bar.classList.contains('vbcol');}
   function sync(){var c=col();b.innerHTML='<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="'+(c?OUT:IN)+'"/></svg>';
-    var t=c?'Expand the Yoda bar':'Collapse the Yoda bar';b.title=t;b.setAttribute('aria-label',t);b.setAttribute('aria-pressed',c?'true':'false');
+    var t=c?'Expand the bot bar':'Collapse the bot bar';b.title=t;b.setAttribute('aria-label',t);b.setAttribute('aria-pressed',c?'true':'false');
     bar.querySelector('.portrait').title=c?'Fin (click to expand)':'Fin';if(!c)tip.classList.remove('show');}
   function set(c){bar.classList.toggle('vbcol',!!c);try{localStorage.setItem(KEY,c?'1':'0');}catch(e){}sync();}
   try{if(localStorage.getItem(KEY)==='1')bar.classList.add('vbcol');}catch(e){}
@@ -7754,6 +7776,7 @@ html.hc-wakeall .vl-pill[data-state=idle]:hover,html.hc-wakeall .vl-pill[data-st
 .blist .build.bspan{grid-column:1/-1}
 .blist .build.bwrap{height:auto;min-height:21px;padding-top:2px;padding-bottom:2px}
 .blist .build.bwrap b{white-space:normal;line-height:1.15;text-align:center;overflow-wrap:anywhere}
+/* flickerfix-20261024 */ #ui > section[data-float="other"] .blist > .build > b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1 1 auto}
 </style>
 <script>
 /* 2026-10-11-labelfit-v1: fit every widget label (see style above). Re-runs on any change to the dashboard boxes (new / renamed
@@ -7766,6 +7789,8 @@ html.hc-wakeall .vl-pill[data-state=idle]:hover,html.hc-wakeall .vl-pill[data-st
     while(over(el)&&f>minPx){f=Math.round((f-0.25)*100)/100;el.style.fontSize=f+'px';}}
   function vis(el){return !!(el.offsetParent||el.getClientRects().length);}
   function fitTiles(){[].forEach.call(ui.querySelectorAll('.blist .build'),function(t){var b=t.querySelector(':scope > b');if(!b||t.classList.contains('editing')||!vis(t))return;
+      /* flickerfix-20261024: Widget Picker tiles are owned by widgetfix (static CSS ellipsis); fitting them here looped with the ResizeObserver (bwrap -> resize -> reset -> bwrap) */
+      if(t.closest('section[data-float="other"]')){if(t.classList.contains('bspan')||t.classList.contains('bwrap'))t.classList.remove('bspan','bwrap');if(b.style.fontSize)b.style.fontSize='';return;}
       if(t.classList.contains('bnew')){shrink(b,6.5);return;}
       t.classList.remove('bspan','bwrap');b.style.fontSize='';
       if(!over(b))return;t.classList.add('bspan');if(!over(b))return;shrink(b,7.5);if(!over(b))return;b.style.fontSize='';t.classList.add('bwrap');});}
@@ -8078,7 +8103,8 @@ html.md-fam #ytBg img.mdbgi{animation:lytKB 8.6s ease-in-out both;transform-orig
   var fade=document.createElement('div');fade.id='lytFade';if(stage&&stage.parentNode)stage.parentNode.insertBefore(fade,stage);
   function anim(){var h=document.documentElement;h.classList.add('lyt-anim');clearTimeout(anim.t);anim.t=setTimeout(function(){h.classList.remove('lyt-anim');},650);}
   function bgSwap(fn){fade.style.opacity='.6';setTimeout(function(){try{fn();}catch(e){}setTimeout(function(){fade.style.opacity='0';},180);},300);}
-  function applySeed(name,d){var lx=LX(),V=window.__vol,G=window.__glass,vb=window.__vbCol;
+  function applySeed(name,d){d=Object.assign({},d,{f:[],w:[],minRest:false,yc:false,prio:null,x:(d.x||[]).filter(function(v){return v==='family';})});   /* moodnowidgets-20261021b (was a): built-in moods only change background/ambiance; widgets come only from saved layouts or explicit adds */
+    var lx=LX(),V=window.__vol,G=window.__glass,vb=window.__vbCol;
     chrome(!!d.ht,!!d.pt);
     var df=d.f.slice();if(d.prio&&d.prio!=='all'&&df.indexOf('priorities')>=0)df.splice(df.indexOf('priorities'),1,'priorities-'+d.prio);   /* prioinst-v1: a built-in's category opens as its own box */
     FLOATS.forEach(function(id){var sq=fb(id);if(!sq)return;var want=df.indexOf(id)>=0;
@@ -8616,6 +8642,7 @@ html[data-uilang="fil"] .i18n-o,html[data-uilang="fr"] .i18n-o,html[data-uilang=
 .langsel .langmenu button.cur i{background:var(--hub-blue);border-color:var(--hub-blue-hi);box-shadow:0 0 6px rgba(var(--hub-blue-rgb),.9)}
 html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hbtn,html[data-uilang="fil"] #ui .topbar .brand,html[data-uilang="fr"] #ui .topbar .brand,html[data-uilang="hi"] #ui .topbar .hbtn,html[data-uilang="hi"] #ui .topbar .brand{white-space:nowrap}
 </style>
+<script src="hf-langs-20261021a.js?v=langs-20261021a"></script><!-- langs-20261021a: full language list for the Properties Language picker. Roll back: /opt/hubface/backups/langs-20261021a/ROLLBACK.sh -->
 <script>
 /* 2026-10-11-i18n-test-v1: TEST language switch (English / Filipino / Français). One table (key -> {fil, fr}); English is the key.
    On-screen chrome is translated by overlaying the text (the page's own text and textContent stay English, so every script that
@@ -8624,7 +8651,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
    Filipino strings should be checked by a native speaker. */
 (function(){
   "use strict";
-  var KEY='hinge-lang',LANGS=['en','fil','fr','hi'];   /* hindi-20261020a: + Hindi (index 2 in every [fil,fr,hi] entry) */
+  var KEY='hinge-lang',LANGS=['en','fil','fr','hi'];var FULL={en:1,fil:1,fr:1,hi:1},XL=(window.HF_LANGS||[]).filter(function(x){return x.code!=='auto'&&!FULL[x.code];});XL.forEach(function(x){LANGS.push(x.code);});   /* langs-20261021a: + every HF_LANGS language; only fil/fr/hi have UI translations */   /* hindi-20261020a: + Hindi (index 2 in every [fil,fr,hi] entry) */
   var T={
     /* header + layouts */
     'Dashboard Builder':['Tagabuo ng Dashboard','Créateur de tableau de bord','डैशबोर्ड बिल्डर'],
@@ -8673,7 +8700,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
     'Tap the mic to talk':['I-tap ang mic at magsalita','Touchez le micro et parlez','बोलने के लिए माइक टैप करें'],'Type to Yoda, then Enter':['Mag-type kay Yoda, saka Enter','Écrivez à Yoda, puis Entrée','Yoda को लिखें, फिर Enter दबाएँ'],
     'Talk to Yoda (mic)':['Kausapin si Yoda (mic)','Parler à Yoda (micro)','Yoda से बात करें (माइक)'],'Talk to Yoda':['Kausapin si Yoda','Parler à Yoda','Yoda से बात करें'],'Click to type to Yoda':['I-click para mag-type kay Yoda','Cliquez pour écrire à Yoda','Yoda को लिखने के लिए क्लिक करें'],
     'Hang up':['Ibaba','Raccrocher','कॉल काटें'],'Hang up: stop listening and speaking':['Ibaba: tigil sa pakikinig at pagsasalita','Raccrocher : arrêter d’écouter et de parler','कॉल काटें: सुनना और बोलना बंद करें'],
-    'Collapse the Yoda bar':['Paliitin ang Yoda bar','Réduire la barre Yoda','Yoda बार छोटा करें'],'Grok Bot agents':['Mga Grok Bot agent','Agents Grok Bot','Grok Bot एजेंट'],
+    'Collapse the bot bar':['Paliitin ang bot bar','Réduire la barre des bots','बॉट बार छोटा करें'],'Expand the bot bar':['Palakihin ang bot bar','Agrandir la barre des bots','बॉट बार बड़ा करें'],'Grok Bot agents':['Mga Grok Bot agent','Agents Grok Bot','Grok Bot एजेंट'],
     /* weather */
     'Clear':['Maaliwalas','Ciel dégagé','साफ़'],'Sunny':['Maaraw','Ensoleillé','धूप'],'Mainly clear':['Halos maaliwalas','Plutôt dégagé','ज़्यादातर साफ़'],'Partly cloudy':['Bahagyang maulap','Partiellement nuageux','आंशिक बादल'],
     'Overcast':['Makulimlim','Couvert','घने बादल'],'Fog':['Hamog','Brouillard','कोहरा'],'Freezing fog':['Nagyeyelong hamog','Brouillard givrant','जमा देने वाला कोहरा'],'Light drizzle':['Mahinang ambon','Bruine légère','हल्की फुहार'],
@@ -8719,7 +8746,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
   };
   var LOW={};Object.keys(T).forEach(function(k){LOW[k.toLowerCase()]=k;});
   var lang=(function(){try{var v=localStorage.getItem(KEY);return LANGS.indexOf(v)>=0?v:'en';}catch(e){return 'en';}})();
-  function ix(l){return l==='fil'?0:l==='hi'?2:1;}
+  function ix(l){return l==='fil'?0:l==='hi'?2:l==='fr'?1:-1;}
   function word(k,l){var e=T[k];return e?e[ix(l)]:null;}
   function upper(s){return s===s.toUpperCase()&&/[A-Z]/.test(s);}
   /* exact key (any case: "WEATHER" uses "Weather") */
@@ -8799,7 +8826,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
     function(){return 'जब तक आप वापस न जाएँ, इसी जगह पर रहें';}
   ];
   if(PHI.length===P.length)P.forEach(function(p,i){p[3]=PHI[i];});
-  function tr(s,l){if(l==='en'||!s)return null;var raw=String(s),t=raw.replace(/\s+/g,' ').trim();if(!t||t.length>160)return null;
+  function tr(s,l){if(l==='en'||!s||!FULL[l])return null;var raw=String(s),t=raw.replace(/\s+/g,' ').trim();if(!t||t.length>160)return null;
     var v=key(t,l);if(v==null)for(var i=0;i<P.length;i++){var m=P[i][0].exec(t);if(m){v=P[i][l==='fil'?1:l==='hi'?(P[i][3]?3:-1):2];v=v?v(m):null;if(v)break;}}
     if(v==null||v===t)return null;var lead=/^\s/.test(raw)?' ':'',trail=/\s$/.test(raw)?' ':'';return lead+v+trail;}
 
@@ -8850,9 +8877,10 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
 
   /* ---------------- language state ---------------- */
   var NAMES={en:'English',fil:'Filipino',fr:'Fran\u00e7ais',hi:'हिन्दी'},SPEECH={en:'en-US',fil:'fil-PH',fr:'fr-FR',hi:'hi-IN'};   /* hindi-20261020a */
+  XL.forEach(function(x){NAMES[x.code]=x.name;SPEECH[x.code]=x.speech||'en-US';});   /* langs-20261021a */
   function apply(l,quiet){if(LANGS.indexOf(l)<0)l='en';lang=l;try{localStorage.setItem(KEY,l);}catch(e){}
     document.documentElement.setAttribute('data-uilang',l);
-    if(l==='en'){unAttrs();}else{observe();busy=true;try{scan(document.body);}catch(e){}if(mo)mo.takeRecords();busy=false;}
+    if(l==='en'||!FULL[l]){unAttrs();}else{observe();busy=true;try{scan(document.body);}catch(e){}if(mo)mo.takeRecords();busy=false;}
     paintSel();try{if(window.__labelFit)window.__labelFit.run();}catch(e){}fitChrome();
     try{window.dispatchEvent(new CustomEvent('hinge:lang',{detail:{lang:l}}));}catch(e){}
     return l;}
@@ -8887,6 +8915,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
   var ASK={fil:' [Language: reply in natural Filipino (Tagalog; everyday Taglish is fine for tech words). Keep names and brand names as they are.]',
            fr:' [Language: reply in natural French (fran\u00e7ais). Keep names and brand names as they are.]',
            hi:' [Language: reply in natural Hindi written in Devanagari script (हिन्दी; common English tech words are fine). Keep names and brand names as they are.]'};   /* hindi-20261020a */
+  XL.forEach(function(x){var m=/\(([^)]+)\)/.exec(x.name),en=m?m[1]:x.name;ASK[x.code]=' [Language: reply in natural '+en+' ('+x.name.replace(/\s*\(.*\)$/,'')+'). Keep names and brand names as they are.]';});   /* langs-20261021a */
   function hookWrap(){var H=window.__yodaHands;if(!H||!H.wrap||H.wrap.__i18n)return !!(H&&H.wrap&&H.wrap.__i18n);var w0=H.wrap;
     var w=function(t){var s=w0.apply(this,arguments);return lang!=='en'&&ASK[lang]?s+ASK[lang]:s;};w.__i18n=1;H.wrap=w;return true;}
 
@@ -8957,7 +8986,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
     [/^(.+) tucked into the header\.$/,'Itinago ang $1 sa header.','Rang\u00e9 dans l\u2019en-t\u00eate : $1.'],[/^(.+) is already closed\.$/,'Sarado na ang $1.','D\u00e9j\u00e0 ferm\u00e9 : $1.'],
     [/^The (.+) panel is already (?:tucked|showing)\.$/,'Ganyan na ang $1.','D\u00e9j\u00e0 fait : $1.'],[/^(.+) closed\.$/,'Isinara ang $1.','Ferm\u00e9 : $1.']];
   /* hindi-20261020a */var RHI=['$1 बंद किया।', 'ये रहा $1।', '$1 वापस लाया।', '$1 छोटा किया।', '$1 वापस खोला।', '$1 बड़ा किया।', '$1 लेआउट पर बदला।', 'स्क्रीन साफ़ है।', 'पूरा व्यू।', '$1 हेडर में समेटा।', '$1 पहले से बंद है।', '$1 पहले से ऐसा ही है।', '$1 बंद किया।'];if(RHI.length===R.length)R.forEach(function(r,i){r[3]=RHI[i];});
-  function reply(s){if(lang==='en'||typeof s!=='string')return s;for(var i=0;i<R.length;i++){var m=R[i][0].exec(s);if(m){var nm=(m[1]||'').replace(/^the /,'');var tw=nm?W(nm,lang):'';return (R[i][lang==='fil'?1:lang==='hi'?3:2]||R[i][2]).replace('$1',tw);}}return s;}
+  function reply(s){if(lang==='en'||!FULL[lang]||typeof s!=='string')return s;for(var i=0;i<R.length;i++){var m=R[i][0].exec(s);if(m){var nm=(m[1]||'').replace(/^the /,'');var tw=nm?W(nm,lang):'';return (R[i][lang==='fil'?1:lang==='hi'?3:2]||R[i][2]).replace('$1',tw);}}return s;}
   /* weather lines (the weather module builds them in English; same numbers, said in the chosen language) */
   function cw(c,l){var k=LOW[String(c||'').toLowerCase()];var v=k?word(k,l):c;return String(v||c).toLowerCase();}
   function tm(t,l){var m=/^(\d{1,2}):(\d{2}) ([AP]M)$/.exec(t);if(!m)return t;if(l==='hi'){var hh=+m[1],pm=m[3]==='PM',h24=(hh%12)+(pm?12:0);return (h24<4?'रात':h24<12?'सुबह':h24<16?'दोपहर':h24<19?'शाम':'रात')+' '+hh+':'+m[2]+' बजे';}if(l==='fr'){var h=(+m[1]%12)+(m[3]==='PM'?12:0);return h+' h '+m[2];}
@@ -9020,7 +9049,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
 
   window.__i18n={T:T,lang:function(){return lang;},set:function(l){return apply(l);},speechLang:speechLang,tr:function(s,l){return tr(s,l||lang);},
     word:function(k,l){l=l||lang;return l==='en'?k:(word(k,l)||k);},toEnglish:toEnglish,command:command,langCmd:langCmd,reply:reply,names:NAMES,
-    geoLang:function(){return lang==='fr'?'fr':lang==='hi'?'hi':'en';},locale:function(){return lang==='fil'?'fil-PH':lang==='fr'?'fr-FR':lang==='hi'?'hi-IN':'en-US';}};   /* hindi-20261020a */
+    geoLang:function(){return lang==='fr'?'fr':lang==='hi'?'hi':'en';},locale:function(){return lang==='fil'?'fil-PH':lang==='fr'?'fr-FR':lang==='hi'?'hi-IN':(SPEECH[lang]||'en-US');},full:FULL};   /* hindi-20261020a */
   /* hindi-full-20261020a: hi-full.js adds Hindi-only entries (fil/fr untouched) and Hindi-only patterns, then rescans if Hindi is on */
   window.__i18n.addHi=function(d,pats){Object.keys(d).forEach(function(k){var e=T[k];if(e){if(!e[2])e[2]=d[k];}else T[k]=[null,null,d[k]];var lk=k.toLowerCase();if(!LOW[lk])LOW[lk]=k;});(pats||[]).forEach(function(p){P.push([p[0],function(){return null;},function(){return null;},p[1]]);});if(lang==='hi')apply('hi',1);};
   buildSel();
@@ -9678,7 +9707,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
 
   /* ---------- data ---------- */
   var D=null,ROOMS=[],TYPES=[],loadErr=false;
-  function load(){var urls=['assets/hubrooms-data.json'];if(!/^https?:$/.test(location.protocol)||!/\/interface\//.test(location.pathname))urls.push('http://127.0.0.1:3456/interface/assets/hubrooms-data.json');
+  function load(){var urls=['assets/hubrooms-data.json?v=vw2'];if(!/^https?:$/.test(location.protocol)||!/\/interface\//.test(location.pathname))urls.push('http://127.0.0.1:3456/interface/assets/hubrooms-data.json');
     var i=0;(function next(){if(i>=urls.length){loadErr=true;paint();return;}fetch(urls[i++],{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(init).catch(next);})();}
   function init(j){if(!j||!Array.isArray(j.types))throw 0;D=j;TYPES=j.types;ROOMS=[];
     TYPES.forEach(function(ty,ti){(ty.categories||[]).forEach(function(c,ci){(c.rooms||[]).forEach(function(r,ri){delete r.url;   /* hrlocal-v1: no live-site URLs */
@@ -9765,7 +9794,7 @@ html[data-uilang="fil"] #ui .topbar .hbtn,html[data-uilang="fr"] #ui .topbar .hb
         (r2.description?'<p>'+esc(r2.description)+'</p>':'')+(o2.cat.subtitle?'<p>'+esc(o2.cat.subtitle)+'</p>':'')+
         (ft.length?'<div class="hrpath">'+esc(t('Features'))+'</div><ul>'+ft.map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ul>':'')+
         '<div class="hrbtns"><button type="button" data-a="back-card">'+esc(t('Back'))+'</button></div></div>';}
-    else if(!ty)h='<div class="hrhint">'+esc(t('Pick a room type, or search all {n} rooms.',{n:ROOMS.length}))+'<br><span class="hrnewcol"><button type="button" class="hrnew" data-a="build-new">'+esc(t('Build a new room'))+'</button><button type="button" class="hrnew hrlive" data-a="live-hubrooms">Live Hubrooms</button></span></div>'+savedHTML(null,t('My rooms'));
+    else if(!ty)h='<div class="hrhint">'+esc(t('Pick a room type, or search all {n} rooms.',{n:ROOMS.length}))+'<br><span class="hrnewcol"><button type="button" class="hrnew" data-a="build-new">'+esc(t('Build a new room'))+'</button><button type="button" class="hrnew hrlive" data-a="live-hubrooms">Live Hubrooms</button><button type="button" class="hrnew hrlive" onclick="if(window.__brOpen)window.__brOpen();else window.open(&quot;/botroom/&quot;,&quot;_blank&quot;)">Bot Room</button></span></div>'+savedHTML(null,t('My rooms'));
     else if(isNego(ty))h='<div class="hrcard"><h5>'+esc(ty.name)+'</h5><p>'+esc(t('The Negotiation Hub Room opens full screen. Use Back to Hub Face to return here.'))+'</p></div>';
     else if(ty.status==='coming_soon')h='<div class="hrcard"><h5>'+esc(ty.name)+'<span class="hrsoon">'+esc(t('Coming soon'))+'</span></h5><p>'+esc(t('This room type isn’t open yet on the site.'))+'</p></div>';
     else if(S.ci<0)h='<div class="hrhint">'+esc(t('Pick a category on the left.'))+'</div>';
@@ -10574,7 +10603,7 @@ App.handle=async raw=>{App.history.push({speaker:'Dan',text:raw});App.open('yoda
 /* ---------- 2026-10-12-roombuilder-v1: dashboard overrides ---------- */
 var UI=document.getElementById('ui'),STG=document.getElementById('stage');
 var layer=document.createElement('div');layer.id='rbLayer';UI.appendChild(layer);
-layer.innerHTML='<div id="rbBar"><span id="rb_roomName"></span><span id="rb_roomTags"></span><i></i><button id="rb_avMic" type="button"></button><button id="rb_avCam" type="button"></button><button id="rb_wid" type="button">＋ Widgets</button><button id="rb_report" type="button">⚑ Report</button><button id="rb_exit" type="button">Exit room</button></div><div id="rb_desk"></div><div id="rb_toast"></div>';
+layer.innerHTML='<div id="rbBar"><span id="rb_roomName"></span><span id="rb_roomTags"></span><i></i><button id="rb_avMic" type="button"></button><button id="rb_avCam" type="button"></button><button id="rb_wid" type="button" title="Share screen" aria-label="Share screen">Share screen</button><button id="rb_report" type="button">⚑ Report</button><button id="rb_exit" type="button">Exit room</button></div><div id="rb_desk"></div><div id="rb_toast"></div>';
 ['pointerdown','mousedown','dblclick','wheel','keydown','keyup','keypress','contextmenu'].forEach(function(ev){layer.addEventListener(ev,function(e){e.stopPropagation();});});
 delete CORE_W.create;delete CORE_W.activity;delete CORE_W.yoda;
 App.inRoom=false;
@@ -10706,7 +10735,7 @@ const DR={mic:o=>DRI('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M
  doc:()=>DRI('<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>'),flag:()=>DRI('<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'),phone:()=>DRI('<path d="M3 13.5c4.9-4.4 13.1-4.4 18 0l-2.2 2.6-3.6-1.4v-2.5c-2.4-.8-4-.8-6.4 0v2.5l-3.6 1.4z"/>',1)};
 App.paintAV=()=>{const s=App.state,m=$('#rb_avMic'),c=$('#rb_avCam');if(!m)return;m.className=s.mic?'avon':'avoff';m.innerHTML=DR.mic(!s.mic)+`<span>${s.mic?'Mic on':'Mic off'}</span>`;m.title=s.mic?'Turn mic off':'Turn mic on';
  c.className=s.cam?'avon':'avoff';c.innerHTML=DR.cam(!s.cam)+`<span>${s.cam?'Camera on':'Camera off'}</span>`;c.title=s.cam?'Turn camera off':'Turn camera on'};
-{const w_=$('#rb_wid'),r_=$('#rb_report'),x_=$('#rb_exit');if(w_)w_.innerHTML=DR.doc()+'<span>Widgets</span>';if(r_)r_.innerHTML=DR.flag()+'<span>Report</span>';if(x_)x_.innerHTML=DR.phone()+'<span>Exit room</span>';App.paintAV()}
+{const w_=$('#rb_wid'),r_=$('#rb_report'),x_=$('#rb_exit');if(w_)w_.innerHTML=DR.doc()+'<span>Share screen</span>';if(r_)r_.innerHTML=DR.flag()+'<span>Report</span>';if(x_)x_.innerHTML=DR.phone()+'<span>Exit room</span>';App.paintAV()}
 /* Dan's own camera = a standalone small floating tile (no header/X/minimize/fog); Live Video (everyone) shows only other people */
 App.renderTiles=b=>{const s=App.state,o=s.members.filter(x=>x.kind==='human');b.innerHTML=`<div class="tiles">${o.map(x=>`<div class="tile"><div class="off">${App.esc(x.name)} – waiting to connect</div><span class="nm">${App.esc(x.name)}</span></div>`).join('')}</div>${o.length?'':'<p class="muted">No one else is on video yet. Your own camera shows as its own small tile.</p>'}<p class="muted">Other people's live video needs the room server (not connected in this prototype).</p>`};
 App.paintSelf=()=>{const s=App.state;let el=document.getElementById('rbSelf');const want=App.inRoom&&s.cam&&s.stream&&s.stream.getTracks().some(t=>t.kind==='video'&&t.readyState==='live');
@@ -11177,7 +11206,7 @@ window.__rb={App,W,MODES,PREMIUM_CATS,parse:parseCommand,cmd:rbCmd,begin:App.beg
       if(b.parentNode!==el.parentNode||b.previousSibling!==el)el.insertAdjacentElement('afterend',b);
       var w=el.offsetWidth,h=el.offsetHeight;if(!w||!h||w<70||el.disabled||getComputedStyle(el).visibility==='hidden'){b.style.display='none';return true;}
       if(el.offsetParent!==b.offsetParent&&b.offsetParent!==null){/* different positioning context: fall back to the field's rect */}
-      var ta=el.tagName==='TEXTAREA',sz=h<24?16:20;b.style.display='flex';b.style.width=b.style.height=sz+'px';
+      var ta=el.tagName==='TEXTAREA',sz=(h<24?16:20)*(+(el.ownerDocument.documentElement.getAttribute('data-fmic-x'))||1);   /* fmic2x-20261023a: page opt-in scale (Bot Room = 2) */b.style.display='flex';b.style.width=b.style.height=sz+'px';
       b.style.left=(el.offsetLeft+w-sz-4)+'px';b.style.top=(el.offsetTop+(ta?Math.min(4,h-sz):Math.round((h-sz)/2)))+'px';
       if(!o.pad){o.pad=1;var cs=win.getComputedStyle(el),pr=parseFloat(cs.paddingRight)||0;if(pr<sz+4)el.style.paddingRight=(sz+6)+'px';}
       return true;}
@@ -11969,7 +11998,7 @@ html.ww-ambient #wwClock{display:block}
     localStorage.setItem(CUR,JSON.stringify({build:BUILD,loadedAt:new Date().toISOString(),via:m&&m.to===BUILD?'auto-reload':'load',from:m&&m.from||null}));}catch(e){}
   var pending=null;
   function check(){var fx=window.__arFetch||fetch;fx('build.json?t='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(j){
-      var b=j&&String(j.build||'');if(!b||b===BUILD){pending=null;return;}pending=b;tryReload();}).catch(function(){});}
+      var b=j&&String(j.build||'');/*unify-20261024: baseline = build id seen at load; any later change (any file edit) reloads this window when idle*/if(!b){return;}if(window.__arBase==null){window.__arBase=b;pending=null;return;}if(b===window.__arBase){pending=null;return;}pending=b;tryReload();}).catch(function(){});}
   function tryReload(){if(!pending)return;try{var o=JSON.parse(localStorage.getItem(K)||'null');if(o&&o.to===pending&&Date.now()-Date.parse(o.at)<600000)return;}catch(e){}var w=busy();if(w.length){window.__arWait=w;return;}
     var snap=null;try{snap=window.__layouts&&window.__layouts.snap?window.__layouts.snap():null;}catch(e){}
     try{localStorage.setItem(K,JSON.stringify({from:BUILD,to:pending,at:new Date().toISOString(),snap:snap}));}catch(e){}
@@ -12086,67 +12115,7 @@ html.ww-ambient #wwClock{display:block}
   window.__talk={notes:function(){return NOTES.slice();},add:addNote,transcript:function(){return LINES.slice();},setTranscript:setOn,openNotes:function(){NP.classList.add('open');},poll:pollOut,talk:function(){T.click();}};
 })();
 </script>
-<!-- bridge-20261016-callbridge: CEO "Yoda" tile = Hinge Room Engine v111 call-bridge (echo-cancelled room mic -> CABLE Input for the Grok Bot app call). Was bridge-20261013a (browser getUserMedia/setSinkId legs, removed). -->
-<style>
-#ybPanel{position:fixed;right:24px;top:90px;width:420px;z-index:99999;background:rgba(14,20,32,.96);color:#eef2f7;border:1px solid rgba(255,255,255,.18);border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.5);font:15px/1.45 system-ui,Segoe UI,sans-serif;padding:14px 16px;display:none}
-#ybPanel.open{display:block}
-#ybPanel h3{margin:0 0 8px;font-size:17px;display:flex;align-items:center;gap:10px}
-#ybPanel h3 img{width:34px;height:34px;border-radius:50%;object-fit:cover}
-#ybPanel h3 .x{margin-left:auto;cursor:pointer;background:none;border:0;color:#cbd5e1;font-size:20px}
-#ybPanel label{display:block;margin:10px 0 3px;font-size:14px;color:#cbd5e1}
-#ybPanel select{width:100%;font:14px system-ui,Segoe UI,sans-serif;padding:5px;border-radius:7px;background:#1e293b;color:#eef2f7;border:1px solid #475569}
-#ybPanel .mt{height:8px;border-radius:4px;background:#1e293b;margin-top:5px;overflow:hidden}
-#ybPanel .mt i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22c55e,#eab308,#ef4444)}
-#ybPanel .go{margin-top:14px;width:100%;padding:9px;font:600 15px system-ui,Segoe UI,sans-serif;border:0;border-radius:9px;background:#16a34a;color:#fff;cursor:pointer}
-#ybPanel .go.on{background:#dc2626}
-#ybPanel .st{margin-top:9px;font-size:14px;color:#cbd5e1;min-height:20px}
-</style>
-<div id="ybPanel" role="dialog" aria-label="Yoda bridge">
- <h3><img src="assets/yoda.jpg" alt="">Yoda bridge · Grok app call<button class="x" type="button" title="Close">×</button></h3>
- <div style="font-size:14px;color:#eef2f7;font-weight:600">Grok app mic = CABLE Output; Grok speakers = normal</div>
- <div style="font-size:13px;color:#94a3b8;margin-top:3px">Engine v111 call-bridge: room mic, echo-cancelled against the Grok app’s own audio, → CABLE Input. Local only, no xAI. Runs until Stop.</div>
- <label>Room mic (raw)</label><div class="mt"><i id="ybMu"></i></div>
- <label>Grok app audio (echo reference)</label><div class="mt"><i id="ybMd"></i></div>
- <label>Cleaned → CABLE Input (what the call hears)</label><div class="mt"><i id="ybMo"></i></div>
- <div class="st" id="ybStats" style="font-size:12.5px;color:#94a3b8"></div>
- <button class="go" id="ybGo" type="button">Start</button>
- <div class="st" id="ybSt">Stopped.</div>
-</div>
-<script>
-(function(){
-  "use strict";
-  var P=document.getElementById('ybPanel');if(!P)return;
-  var $=function(id){return document.getElementById(id);};
-  var API='/engine/callbridge/',on=false,busy=false,timer=0,last=null;
-  ['pointerdown','mousedown','dblclick','keydown','wheel','click'].forEach(function(ev){P.addEventListener(ev,function(e){e.stopPropagation();});});
-  function st(t){$('ybSt').textContent=t;}
-  function bar(id,db){var w=(typeof db==='number')?Math.max(0,Math.min(100,(db+70)/70*100)):0;$(id).style.width=w+'%';}
-  function f1(v,u){return (typeof v==='number')?v.toFixed(1)+(u||''):'–';}
-  function paint(s){last=s;on=!!s&&(s.state==='running'||s.state==='stopping'||s.state==='restarting');
-    $('ybGo').textContent=on?'Stop':'Start';$('ybGo').classList.toggle('on',on);
-    var m=s&&s.meter&&s.state==='running'?s.meter:null;var k=(s&&s.keepalive)||{};bar('ybMu',m&&m.mic_dbfs);bar('ybMd',m&&m.ref_dbfs);bar('ybMo',m&&m.out_dbfs);
-    $('ybStats').textContent=m?('mic '+f1(m.mic_dbfs,' dB')+' · Grok '+f1(m.ref_dbfs,' dB')+' · out '+f1(m.out_dbfs,' dB')+' · echo removed '+f1(m.erle_db,' dB')+' · AEC delay '+(m.aec_delay_ms==null?'–':m.aec_delay_ms+' ms')+(k.restarts?' · restarts '+k.restarts:'')):'';
-    if(!s){st('Engine route not reachable. Open the dashboard at http://127.0.0.1:3470/interface/');return;}
-    if(s.state==='running')st('Live, runs until Stop (PID '+s.pid+'): room mic → echo-cancelled → CABLE Input.');
-    else if(s.state==='restarting')st('Engine exited ('+(k.last_exit_reason||'unknown')+'); restarting automatically…');
-    else if(s.state==='stopping')st('Stopping…');
-    else if(s.state==='error'&&k.last_exit_reason&&/cap reached/.test(k.last_exit_reason))st('Stopped: '+k.last_exit_reason+'.');
-    else if(s.state==='error'){var ln=(s.lines||[]).filter(function(l){return /ERROR|WARNING/.test(l);}).pop();st('Stopped with an error'+(ln?': '+ln.replace(/^ERROR:\s*/,''):'')+'.');}
-    else if(!s.exe_present)st('Engine not installed at '+s.exe);
-    else st(s.exit?'Stopped.':'Stopped. Press Start while the Grok app is open.');}
-  function call(path,method){var o={method:method||'GET',cache:'no-store',headers:{}};if(method==='POST'){o.headers['Content-Type']='application/json';o.body='{}';}
-    return fetch(API+path,o).then(function(r){return r.json();});}
-  function poll(){call('state').then(paint).catch(function(){paint(null);});}
-  function loop(){clearInterval(timer);timer=setInterval(function(){if(P.classList.contains('open')||on)poll();},1000);}
-  $('ybGo').addEventListener('click',function(){if(busy)return;busy=true;var was=on;st(was?'Stopping…':'Starting…');
-    call(was?'stop':'start','POST').then(function(s){paint(s);if(!was&&s&&s.ok===false&&s.error)st('Couldn’t start: '+s.error);})
-    .catch(function(e){st('Couldn’t reach the engine route: '+((e&&e.message)||e));}).then(function(){busy=false;});});
-  P.querySelector('.x').addEventListener('click',function(){P.classList.remove('open');});
-  loop();
-  window.__yodaBridge={open:function(){P.classList.add('open');poll();},close:function(){P.classList.remove('open');},connected:function(){return on;},state:function(){return last;}};
-})();
-</script>
-
+<!-- ybremove-20261021a (Dan approved 10:47pm ET Oct 20): Yoda bridge panel (#ybPanel, Engine v111 call-bridge, audio routing) removed. -->
 <!-- invitepicker-20261016 + gmailcontacts-20261016 (assets/google-contacts.json = 'Gmail', assets/google-contacts-import.json = 'Google Contacts', top priority): Room Builder "Invite People" -> Email invite contact picker. Opens Dan's own mail app via mailto: (never sends by itself).
      Contacts: assets/email-feed.json (window.__emailFeed), HingeHub GET /api/contacts (via the 3470 proxy; demo entries labelled),
      Call box manual contacts (localStorage hinge-call-contacts-v1), and people added here (localStorage hinge-invite-contacts-v1). -->
@@ -12360,7 +12329,7 @@ html.ww-ambient #wwClock{display:block}
     active:function(){return !!cur;},note:note,last:null};
 })();</script>
 
-<link rel="stylesheet" href="auth-popup.css?v=6"><script src="auth-popup.js?v=6" defer></script><!-- auth-popup-20261017-v1 -->
+<link rel="stylesheet" href="auth-popup.css?v=6"><script src="auth-popup.js?v=mutegreet-20261024" defer></script><!-- auth-popup-20261017-v1 -->
 <script src="vault-media.js?v=2"></script>
 <style>
 /* widgetorder-20261018a (Dan): drag-to-reorder for the Face Room Widgets list and the Dashboard Builder Widgets list (one shared helper) */
@@ -12470,6 +12439,7 @@ html.wsdragging,html.wsdragging *{user-select:none!important;-webkit-user-select
 #hfBrief .hfbr-s{margin:0 0 5px}#hfBrief .hfbr-s h6{margin:0 0 1px;font-size:8px;font-weight:600;letter-spacing:.4px;text-transform:uppercase;color:#9fd8ff}
 #hfBrief .hfbr-s p{margin:0}#hfBrief .hfbr-s small{display:block;font-size:7px;opacity:.55;margin-top:1px}
 #hfBrief .hfbr-ft{font-size:7px;opacity:.5;margin-top:4px}
+/* bluetext-20261023a (Dan): blue widget text over sky backgrounds -> white + subtle dark shadow. Text color only. Roll back: delete this line */.wbx a,.wbx[data-w=ent] .wstat a,.wbx .rbtags a,.wbx .wkind,.wbx .rbcat,.wbx .wpill.s-testing,.rbox .rkind,.pcat,.plist li.psub{color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.6)}
 </style>
 <script>
 /* brief-20261018a (Dan approved on the Oct 18 call): "Brief me". Finn reads a short morning briefing built ONLY from data the dashboard
@@ -12623,11 +12593,52 @@ html.wsdragging,html.wsdragging *{user-select:none!important;-webkit-user-select
     state:function(){return {card:!!card&&!card.hidden,playing:playing(),waiting:!!want,me:ME?ME.id:ME,wx:!!WX,wxAt:WXT,marker:lsj(MK)};}};
 })();
 </script>
-<script src="layout-save.js?v=7" defer></script><!-- layoutsave-20261017-v1: Save layout button + per-account layouts -->
+<script src="bot-quiet.js?v=botquiet-20261021b"></script><!-- botquiet-20261021a: Quiet bots button. Roll back: remove this tag --><script src="layout-save.js?v=7" defer></script><!-- layoutsave-20261017-v1: Save layout button + per-account layouts -->
 <script src="mac-shortcut.js?v=2" defer></script><!-- mac-shortcut-20261018a: macOS-only first-visit "shortcut on your laptop?" card -->
 <script src="dock-chime.js?v=9" defer></script><!-- dockchime-20261018a: 4-note synth chime when opened from the Mac dock shortcut (?src=dock) -->
 <script src="room-id.js?v=1" defer></script><!-- roomid-20261018a: room IDs (HF-XXXXX-XXXXX), #room=<ID> links open the room, top-bar Room ID + Copy link -->
-<script src="saved-rooms-sync.js?v=1" defer></script><!-- savedrooms-20261019a: Hub Rooms saves follow the signed-in account -->
-<script src="room-live.js?v=16" defer></script><script src="chatrelay-ui.js?v=3" defer></script><script src="schedule-feed.js?v=widgets-20261020a" defer></script><!-- chatrelay-20261020c (was a/b v=2): red Talk to Yoda mic --><!-- roomserver-20261018a: live roster, chat, WebRTC A/V for #room=HF-... rooms; Yoda tile --> <script src="bridge-ui.js?v=2" defer></script><!-- bridge-ui-20261019a: Room Chat + menu > Add a bot (bridge app); roster bots. Roll back: remove this tag -->
-<!-- phone-20261020a --><link rel="stylesheet" href="phone.css?v=phone-20261020j"><script src="phone.js?v=phone-20261020n"></script><script src="hi-full.js?v=hifull-20261020a" defer></script><!-- hindi-full-20261020a: full Hindi dictionary. Roll back: remove this tag -->
-</body></html>
+<script src="saved-rooms-sync.js?v=savedrooms-20261021b-roomdelete" defer></script><script src="saved-rooms-delete.js?v=roomdelete-20261021a" defer></script><!-- roomdelete-20261021a: ✕ delete on saved rooms, Yes/No confirm --><!-- savedrooms-20261019a: Hub Rooms saves follow the signed-in account -->
+<script src="hf-voice4.js?v=voice4-20261021a"></script><script src="tileguard-20261022a.js?v=tileguard-20261022a"></script><script src="roomvoice/roomvoice-20261022a.js?v=roomvoice-20261022c"></script><!-- roomvoice-20261022a: opt-in native-audio room voice (wake word Yoda/Stella). Rollback /opt/hubface/backups/roomvoice-20261022a/ROLLBACK.sh --><!-- tileguard-20261022a: speaker btn never opens Side Note, red slash when muted; status icon left of minimize hidden. Rollback /opt/hubface/backups/tileguard-20261022a/ROLLBACK.sh --><script src="tilemute-20261022a.js?v=tilemute-20261022a"></script><script src="sidenote-20261022b.js?v=tileguard-20261022a"></script><!-- tilemute-20261022a: tile speaker icon toggles mute, never Side Note. Rollback /opt/hubface/backups/tilemute-20261022a/ROLLBACK.sh --><script src="roomchat-20261022a.js?v=roomchat-20261022a"></script><!-- roomchat-20261022a: chat auto-open + unread/chime/toast + bot event. Rollback /opt/hubface/backups/roomchat-20261022a/ROLLBACK.sh --><script src="chatkeep-20261022a.js?v=chatkeep-20261022a"></script><!-- chatkeep-20261022a: every bot/chat reply lands in Room Chat history; reply toast 6-12 s. Rollback /opt/hubface/backups/chatkeep-20261022a/ROLLBACK.sh --><!-- avsync-20261022a: side note card bottom-left + x, tile controls not captured, shared session timer unlocks mic/cam for all. Rollback /opt/hubface/backups/avsync-20261022a/ROLLBACK.sh --><!-- sidenote-20261022a: private Side Notes (room page, Dan approved); rollback /opt/hubface/backups/sidenote-20261022a/ROLLBACK.sh --><script src="room-live.js?v=botmute-20261021a" defer></script><script src="botrelay-room.js?v=botrelay-20261022a" defer></script><script src="room-drop.js?v=1" defer></script><script src="room-timer-20261022a.js?v=avsync-20261022a" defer></script><script src="room-extras.js?v=companion-20261021a" defer></script><script src="companion.js?v=voice4-botschat-20261021a" defer></script><script src="agent-panel-botsep-20261021a.js?v=modfix-20261021a" defer></script><script src="professor.js?v=voice4-20261021a" defer></script><script src="agent-moods.js?v=agentmoods-20261021a" defer></script><!-- agentmoods-20261021a: mood faces. Roll back: remove this tag --><!-- professor-20261021a --><script src="moderator.js?v=modfix-20261021a" defer></script><script src="hf-langs-20261021a.js?v=modcard-20261021a" defer></script><script src="moderator-20261021c.js?v=modcard-20261021a" defer></script><script src="hspop-20261021a.js?v=modcard-20261021a" defer></script><!-- modcard-20261021a: moderator widget+lang, Finn/Ava lang card, Home Status popouts as widgets, dictation breaker exempt. Rollback /opt/hubface/backups/modcard-20261021a/ROLLBACK.sh --><script src="ai-rows.js?v=airows-20261021d" defer></script><!-- airows-20261021a: bot rows in AI Assistant dropdown, tiles hidden. Roll back: remove this tag --><!-- moderator-20261021a: Moderator v1, page-only. Roll back: remove this tag --><script src="room-rec.js?v=roomrec-20261021b" defer></script><script src="noaddyoda-20261021a.js?v=noaddyoda-20261021a" defer></script><!-- noaddyoda-20261021a: Add Yoda removed. Roll back: remove this tag --><script src="chatrelay-ui.js?v=3" defer></script><script src="schedule-feed.js?v=widgets-20261020a" defer></script><!-- chatrelay-20261020c (was a/b v=2): red Talk to Yoda mic --><!-- roomserver-20261018a: live roster, chat, WebRTC A/V for #room=HF-... rooms; Yoda tile --> <script src="bridge-ui.js?v=2" defer></script><!-- bridge-ui-20261019a: Room Chat + menu > Add a bot (bridge app); roster bots. Roll back: remove this tag -->
+<!-- phone-20261020a --><link rel="stylesheet" href="phone.css?v=phone-20261020j"><script src="phone.js?v=icons-20261022b"></script><script src="hi-full.js?v=hifull-20261021a" defer></script><script src="botroom-overlay-20261023b.js?v=robot1" defer></script><script src="hrvacation-20261023a.js?v=vwhat1" defer></script><script src="hrvwbtn-20261023a.js?v=vw2" defer></script><!-- hrvacation-20261023a: Bot Vacation World room type. Roll back: remove tag + restore assets/hubrooms-data.json.bak-20261023-192101-pre-vacation --><script src="i18n-all-20261022a.js?v=i18n-20261022a" defer></script><!-- i18n-all-20261022a: full screen text for every Properties language. Roll back: ROLLBACK-i18n-all-20261022a.sh --><!-- hindi-full-20261020a: full Hindi dictionary. Roll back: remove this tag -->
+<script src=room-fit.js?v=roomfit-20261021a></script><script src="face-scale.js?v=facescale-20261021a"></script>
+<script src=dash-row.js?v=dashrow-20261021b></script>
+<script src=room-custom.js?v=roomcustom-20261021a></script>
+<script src="widget-read.js?v=widgetread-20261021f"></script><script src="botbar-fix-20261021b.js?v=langs-20261021a"></script><script src="console-quiet.js?v=consolequiet-20261021b"></script><script src="news-feed.js?v=newsfeed-20261021h"></script><script src="newsyt-20261021a.js?v=newsyt-20261021a"></script><script src="newsdial-20261024a.js?v=newsdial-20261024d"></script><script src="listsui-20261021b.js?v=listsui-20261021b"></script>
+<script src="weather-locations.js?v=wxlocs-20261021b"></script>
+<script src="yt-nav.js?v=ytnav-20261021c"></script>
+<script src="yt-popup-load.js?v=ytpop-20261021b"></script>
+<script src="home-status.js?v=widgetflash-20261024a"></script>
+<script src="botbar-expand.js?v=botbarx-20261021a"></script>
+<link rel="stylesheet" href="roomfix-20261021b.css?v=roomfix-20261021b"><script src="roomfix-20261021b.js?v=roomfix-20261021b"></script><!-- roomfix-20261021a: room X on top + closes, auto-size Invite/Photos, per-bot mute on bot bars, Mic-blocked pill, Widgets label, vbFace alt. Roll back: ROLLBACK-roomfix.sh -->
+<script src="botsclose-20261021a.js?v=botsclose-20261021a"></script><script src="hfx-20261021a.js?v=hfx-20261021a"></script><!-- botsclose-20261021a: Close all bots X in rooms. Roll back: /opt/hubface/backups/botsclose-20261021a/ROLLBACK.sh -->
+<link rel="stylesheet" href="widgetx-20261021b.css?v=widgetx-20261021b"><script src="widgetx-20261021b.js?v=colflicker-fix-20261024"></script><!-- widgetx-20261021b: close X flush right on widget title bars; Read btn kept left of controls --><!-- /widgetx-20261021b -->
+<link rel="stylesheet" href="builderwidgets-20261021a.css?v=builderwidgets-20261021a"><script src="builderwidgets-20261021c.js?v=flashfix-20261021a"></script><link rel="stylesheet" href="builderwidgets-20261021b.css?v=boxshrink-20261024"><script src="builderwidgets-20261021b.js?v=panelx-20261024"></script><!-- builderwidgets-20261021b --><link rel="stylesheet" href="roomwidgetx-20261021a.css?v=roomwidgetx-20261021a"><!-- roomwidgetx-20261021a --><!-- builderwidgets-20261021a: Dashboard Builder panels fit like rooms. Roll back: /opt/hubface/backups/builderwidgets-20261021a/ROLLBACK.sh -->
+<script src="modvoice-20261021a.js?v=modvoice-20261021a"></script><!-- modvoice-20261021a: real voices for Moderator/Professor/Mara/Theo; rollback ROLLBACK-modvoice.sh -->
+<link rel="stylesheet" href="camresize-20261021c.css?v=camresize-20261021c"><script src="camresize-20261022a.js?v=computer-20261022a"></script>
+<!-- wakeall disabled 20261021 --><!-- wakeall-20261021a: say a bot name (Theo, Mara, Moderator, Professor, Ava, Finn + misspellings) to wake it in its own voice; Ava dup-TTS guard. Roll back: ROLLBACK-wakeall.sh -->
+<link rel="stylesheet" href="botrow-20261021c.css?v=botrow-20261021c-g3"><script src="botrow-20261021d.js?v=botsep-20261021a"></script><!-- botrow-20261021c: bot panel buttons evenly 5px apart + home bot bar red X. Roll back: ROLLBACK-botrow.sh -->
+<script src="botlang-20261021a.js?v=botlang-20261021a-3"></script><!-- botlang-20261021a: per-bot reply language (29 languages), saved per bot; voices fixed. Roll back: ROLLBACK-botlang.sh -->
+<script src="testerfix-20261021a.js?v=testerfix-20261021a" defer></script><!-- testerfix-20261021a -->
+<script src="testerfix-20261021b2.js?v=testerfix-20261021b2" defer></script><!-- testerfix-20261021b -->
+<script src="testerfix-20261021c.js?v=testerfix-20261021c" defer></script><!-- testerfix-20261021c -->
+<script src="testerfix-20261021d.js?v=testerfix-20261021d" defer></script><!-- testerfix-20261021d -->
+<script src="testerfix-20261021e.js?v=testerfix-20261021e" defer></script><!-- testerfix-20261021e -->
+<script src="testerfix-20261021f.js?v=testerfix-20261021f" defer></script><!-- testerfix-20261021f -->
+<script src="testerfix-20261021g2.js?v=testerfix-20261021g2" defer></script><!-- testerfix-20261021g -->
+<script src="testerfix-20261021h.js?v=testerfix-20261021h" defer></script><!-- testerfix-20261021h -->
+<script src="hrtitle-mic-20261021a.js?v=hrtitlemic-20261021a" defer></script><!-- hrtitlemic-20261021a -->
+<script src="testerfix-20261021j.js?v=testerfix-20261021j" defer></script><!-- testerfix-20261021j -->
+<link rel="stylesheet" href="widgetlist-20261021a.css?v=widgetlist-20261021a"><!-- widgetlist-20261021a: builder widgets single-column list + X. Roll back: /opt/hubface/backups/widgetlist-20261021a/ROLLBACK.sh -->
+<script src="widgetpicker-20261021a.js?v=widgetpicker-20261021a" defer></script><!-- widgetpicker-20261021a. Roll back: /opt/hubface/backups/widgetpicker-20261021a/ROLLBACK.sh -->
+<link rel="stylesheet" href="bot-chrome-20261021a.css?v=bot-chrome-20261021a2"><!-- bot-chrome-20261021a --><link rel="stylesheet" href="widgetpicker-20261021b.css?v=widgetpicker-20261021b"><script src="widgetpicker-20261021b.js?v=widgetpicker-20261021b" defer></script><!-- widgetpicker-20261021b. Roll back: /opt/hubface/backups/widgetpicker-20261021b/ROLLBACK.sh -->
+<meta name="hf-track-page" content="dashboard"><script src="/interface/hf-track.js?v=fullnet-20261024b" defer></script>
+<script src="/interface/yoda-line.js?v=grokicon-20261024"></script><!--yodaline-20261024-->
+
+</body></html><link rel="stylesheet" href="widgetcats-20261021a.css?v=widgetcats-20261021a"><script src="widgetcats-20261021a.js?v=widgetcats-20261021a" defer></script><!-- widgetcats-20261021a. Roll back: /opt/hubface/backups/widgetcats-20261021a/ROLLBACK.sh -->
+<link rel="stylesheet" href="widgetfix-20261021a3.css?v=xplain-20261021b"><script src="widgetfix-20261021a.js?v=widgetfix-20261021a" defer></script><!-- widgetfix-20261021a. Roll back: /opt/hubface/backups/widgetfix-20261021a/ROLLBACK.sh -->
+<script src="widgetfix-20261021c2.js?v=xplain-20261021a" defer></script><!-- xplain-20261021a. Roll back: /opt/hubface/backups/xplain-20261021a/ROLLBACK.sh -->
+<script src="widgetfix-20261021d.js?v=xplain-20261021c2" defer></script><!-- xplain-20261021c. Roll back: /opt/hubface/backups/xplain-20261021c/ROLLBACK.sh -->
+<script src="widgetfix-20261021i.js?v=panelx-20261024" defer></script>
+<script src="frontfix-20261024a.js?v=dragfix-20261024b"></script><!-- xplain-20261021h. Roll back: /opt/hubface/backups/xplain-20261021h/ROLLBACK.sh -->
+<link rel="stylesheet" href="sttpillhide-20261021a.css?v=sttpillhide-20261021a"><!-- sttpillhide-20261021a. Roll back: /opt/hubface/backups/sttpillhide-20261021a/ROLLBACK.sh -->
+<script src="brdockx-20261024a.js?v=brdockx-20261024a" defer></script><link rel="stylesheet" href="panelx-20261024.css?v=panelx-20261024"><script src="panelx-20261024.js?v=panelx-20261024c" defer></script><script src="pxdiag-20261024.js?v=pxdiag2" defer></script><!-- panelx-20261024: panel text 11.5px/500, Widgets rows 50/19, HubFace close X under Properties. Roll back: /root/hubface-backups/panelx-20261024/ROLLBACK.sh --><!-- brdockx-20261024a: close X on the background/recording glass box (folds to its 9-dot icon). Roll back: remove this tag; backup /root/hubface-backups/brdockx-20261024/ -->

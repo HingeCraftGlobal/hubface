@@ -94,12 +94,6 @@ export async function fastReply(item, ctx) {
   const why = aimedAtYoda(t, ctx); if (!why) return { skip: 'not-aimed' };
   return fastReplyCore(item, ctx, t, why);
 }
-export function tailOf(t, lastYoda, max = 300) {   // voicefix-20261019a: last sentences up to max chars, skipping sentences that echo Yoda
-  const ss = String(t).match(/[^.!?]+[.!?]*/g) || [String(t)]; let out = '';
-  for (let i = ss.length - 1; i >= 0; i--) { const x = ss[i].trim(); if (!x) continue; if (lastYoda && isEcho(x, lastYoda)) continue;
-    const n = out ? x + ' ' + out : x; if (n.length > max) { if (!out) out = x.slice(-max).replace(/^\S*\s/, ''); break; } out = n; }
-  return out.trim();
-}
 async function fastReplyCore(item, ctx, t, why) {
   if (isFragment(t)) return { skip: 'fragment' };
   const m = mem.get(item.room) || { replies: [], sinceQ: 99 };

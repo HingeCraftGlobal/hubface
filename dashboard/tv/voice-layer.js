@@ -267,7 +267,7 @@
       var dv = el.getAttribute('data-voice'); if (dv) names = names.concat(dv.toLowerCase().split('|'));
       if (hb) names.push(hb.textContent.trim().toLowerCase());
       names.push(id.replace(/-/g, ' '));
-      out.push({ id: id, el: el, kind: 'float', names: uniq(names), label: id === 'yoda' ? 'the Yoda bar' : cap(id.replace(/-/g, ' ')),
+      out.push({ id: id, el: el, kind: 'float', names: uniq(names), label: id === 'yoda' ? 'the bot bar' : cap(id.replace(/-/g, ' ')),
         handle: ':scope > .fhandle', grip: ':scope > .boxresize' });
     });
     var rd = $('#emailReader');

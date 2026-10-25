@@ -9,19 +9,25 @@ import http from 'node:http';
 process.env.HCA_UPSTREAM_PORT = process.env.HCA_UPSTREAM_PORT || '1'; // nothing listens there: original proxy() never reached anyway
 const { createServer } = await import('./server.mjs');
 const { finnChat, FINN_BUILD } = await import('./finn-chat.mjs'); // finn-chat-20261017-v1: POST /api/dashboard/chat (Finn only)
+const { botAsk, BOTS_BUILD } = await import('./bots-chat.mjs'); // botschat-20261021a: Moderator + Mara/Theo (shared $1/day cap)
+const { professorAsk, PROF_BUILD } = await import('./professor-chat.mjs'); // professor-20261021a: POST /api/bots/professor/ask (shared $1/day cap)
 const { dashChat, DASH_CHAT_BUILD } = await import('./dash-chat.mjs'); // dash-chat-20261017-v3 (Dan approved): faithful port of the laptop /api/dashboard/chat (Fin, Ava, Grok, Brain, Ava Dan)
 const { accountsRoute, internalRoute } = await import('./accounts.mjs'); // accounts-20261017-v1 (Dan approved): /api/account/* + /api/stripe/webhook, SQLite in /var/lib/hubface
 const { layoutRoute } = await import('./layouts.mjs'); // layouts-20261017-v1 (Dan approved): GET/PUT /api/account/layout, per-account dashboard layouts
+const { homePlanRoute } = await import('./homeplan.mjs'); // homeplan-20261024a (Dan approved 2026-10-24): GET/PUT /api/account/home-plan + history
 const { savedRoomsRoute } = await import('./savedrooms.mjs'); // savedrooms-20261019a: GET/PUT /api/account/saved-rooms, per-account Hub Rooms saves
 const { vaultRoute } = await import('./vault.mjs'); // vault-20261018-v2 (Dan approved): /api/vault/*, /vault/, /vault-export.js
 const { inviteRoute } = await import('./invite-mail.mjs'); // inappsend-20261018-v1 (Dan approved): POST /api/invite/email (members only), GET /api/invite/email/status
 const { roomsRoute, sessionUser, clientIp } = await import('./rooms.mjs'); // roomid-20261018a (Dan approved): POST /api/rooms, GET /api/rooms/<ID>, POST /api/rooms/<ID>/name; /var/lib/hubface/rooms.db
+const { isRoomVoicePath, roomVoiceUpgrade, roomVoiceHealth } = await import('./roomvoice.mjs'); // roomvoice-20261022a (Dan approved Oct 22): native-audio room voice, WSS /api/room-voice
 const { roomLiveUpgrade, roomSayRoute, externalHook } = await import('./roomserver.mjs'); // roomserver-20261018a (Dan approved): WebSocket /api/room-live (presence, chat, WebRTC signaling)
 const { chatRelayRoute, isChatRelayPath, relayTake, initChatRelay } = await import('./chatrelay.mjs'); { const rs = await import('./roomserver.mjs'); initChatRelay({ roomPushChat: rs.roomPushChat, botFrom: rs.botFrom }); rs.setRelayTap(relayTake); }   // chatrelay-20261020a
 const { textOnlyRoute, isTextOnlyPath } = await import('./textonly.mjs'); // textonly-20261020a (Dan approved): standalone text-only Yoda bridge, no TTS
 const { bridgeRoute, bridgeUpgrade, isBridgePath, bridgeHealth } = await import('./bridge.mjs'); // bridge-20261019a (Dan approved): HingeCraft bridge gateway v0.1, JSON-RPC over WSS /api/rooms/<ID>/bridge
-const { relayChat, relayTts, fastReply, chargeTts, fastInfo } = await import('./fastpath.mjs'); // fastvoice-20261019a: + HF-room fast path for NR rooms // roomrelay-20261019a (Dan approved Oct 19): capped Yoda text + voice relay for HingeHub on the internal port
+const { relayChat, relayTts, fastReply, chargeTts, fastInfo, canSpend } = await import('./fastpath.mjs'); // fastvoice-20261019a: + HF-room fast path for NR rooms // roomrelay-20261019a (Dan approved Oct 19): capped Yoda text + voice relay for HingeHub on the internal port
 const { userDataRoute, isUserDataPath } = await import('./userdata.mjs'); // userdata-20261019a (Dan approved via Yoda): GET /api/account/email-feed, GET/PUT /api/account/priorities (per-account, session + rate limit)
+const { seatcardRoute, isSeatcardPath } = await import('./seatcard-api.mjs'); // seatcard-api-20261023a (Dan approved Oct 23 3:43 PM ET): GET/PUT /api/account/seatcard
+const { yodaLineRoute, isYodaLinePath } = await import("./yodaline.mjs"); /*yodaline-20261024*/
 const inner = createServer().listeners('request')[0];
 const PORT = Number(process.env.HCA_PORT || 3470);
 const VBUILD = 'vps-20261017-v1';
@@ -66,10 +72,14 @@ http.createServer(async (q, r) => {
     if (isChatRelayPath(p) && await chatRelayRoute(q, r, p, u, { readBody, json })) return;   // chatrelay-20261020a
     if (p.startsWith('/api/rooms/') && /\/(say|listen|say-audio\/[0-9a-f]{32})$/.test(p) && await roomSayRoute(q, r, p, { readBody, json, tts: ttsOnce })) return;   // roomserver-20261018a phase 2: Yoda voice; yodahear-20261018a: /listen
     if (p.startsWith('/api/rooms/') && /\/(bridge-invite|bots|bridge-turn)$/.test(p) && await bridgeRoute(q, r, p, { readBody, json })) return;   // bridge-20261019a
+    if (p === '/api/room-voice/health') return json(r, 200, roomVoiceHealth());   // roomvoice-20261022a
     if (p === '/api/bridge/health') return json(r, 200, bridgeHealth());   // bridge-20261019a
     if ((p === '/api/rooms' || p.startsWith('/api/rooms/')) && await roomsRoute(q, r, p)) return;   // roomid-20261018a
+    if (isYodaLinePath(p) && await yodaLineRoute(q, r, p, u, { who: sessionUser, readBody, json })) return;   /*yodaline-20261024*/
     if (isUserDataPath(p) && await userDataRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // userdata-20261019a
+    if (isSeatcardPath(p) && await seatcardRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // seatcard-api-20261023a
     if (p === '/api/account/layout' && await layoutRoute(q, r, p)) return;   // layouts-20261017-v1
+    if ((p === '/api/account/home-plan' || p.startsWith('/api/account/home-plan/')) && await homePlanRoute(q, r, p)) return;   // homeplan-20261024a
     if (p === '/api/account/saved-rooms' && await savedRoomsRoute(q, r, p)) return;   // savedrooms-20261019a
     if ((p.startsWith('/api/account/') || p === '/api/stripe/webhook') && await accountsRoute(q, r, p)) return;
     if (p === '/api/tts' && q.method === 'POST') {
@@ -77,12 +87,13 @@ http.createServer(async (q, r) => {
       const text = String(b.text || '').trim().slice(0, 2000); if (!text) return json(r, 400, { error: 'text required' });
       const voiceId = String(b.voice_id || 'liora').replace(/[^a-z0-9_-]/gi, '').slice(0, 64) || 'liora';
       if (!key()) return json(r, 503, { error: 'XAI_API_KEY not set — Grok TTS unavailable' });
+      if (!canSpend(text.length)) return json(r, 429, { error: 'daily-cap' });   // voice4-20261021a: /api/tts now counts toward the shared $1/day xAI cap
       const now = Date.now(); ttsCalls = ttsCalls.filter((x) => now - x < 60000); if (ttsCalls.length >= 60) return json(r, 429, { error: 'too many requests' }); ttsCalls.push(now);
       const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 20000);
       try {
         const up = await fetch('https://api.x.ai/v1/tts', { method: 'POST', signal: ctl.signal, headers: { Authorization: `Bearer ${key()}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ text, voice_id: voiceId, language: 'en' }) });
         if (!up.ok) { console.warn('[vps] tts upstream', up.status); return json(r, up.status, { error: `Grok TTS failed (${up.status})` }); }
-        const buf = Buffer.from(await up.arrayBuffer());
+        const buf = Buffer.from(await up.arrayBuffer()); chargeTts(text.length);   // voice4-20261021a
         r.writeHead(200, { 'Content-Type': up.headers.get('content-type') || 'audio/mpeg', 'Cache-Control': 'no-store', 'X-Yoda-Voice': voiceId, 'Content-Length': buf.length }); return r.end(buf);
       } catch (e) { console.warn('[vps] tts error', e?.name === 'AbortError' ? 'timeout' : 'fetch failed'); return json(r, 502, { error: 'Grok TTS unreachable' }); }
       finally { clearTimeout(t); }
@@ -94,6 +105,15 @@ http.createServer(async (q, r) => {
       const query = String(u.searchParams.get('q') || '').trim().slice(0, 120); if (!query) return json(r, 400, { error: 'empty' });
       try { return json(r, 200, { q: query, results: await ytSearch(query) }); } catch { return json(r, 502, { error: 'search_failed' }); }
     }
+    if ((p === '/api/bots/moderator/ask' || p === '/api/bots/companion/ask') && q.method === 'POST') {   // botschat-20261021a: capped by fastpath $1/day counter
+      let b = {}; try { b = JSON.parse((await readBody(q)).toString('utf8') || '{}'); } catch { return json(r, 400, { error: 'bad json' }); }
+      const who = p === '/api/bots/moderator/ask' ? 'moderator' : String(b.who || '');
+      const o = await botAsk(who, b); return json(r, o.status, o.json);
+    }
+    if (p === '/api/bots/professor/ask' && q.method === 'POST') {   // professor-20261021a (Dan approved Oct 21): capped by fastpath $1/day counter
+      let b = {}; try { b = JSON.parse((await readBody(q)).toString('utf8') || '{}'); } catch { return json(r, 400, { error: 'bad json' }); }
+      const o = await professorAsk(b); return json(r, o.status, o.json);
+    }
     if (p === '/api/dashboard/chat' && q.method === 'POST') {   // finn-chat-20261017-v1 (Dan approved): Finn's chat brain on the hosted site
       let b = {}; try { b = JSON.parse((await readBody(q)).toString('utf8') || '{}'); } catch { return json(r, 400, { error: 'bad json' }); }
       const o = await dashChat(b, q); return json(r, o.status, o.json);   // v3: laptop port (was finnChat)
@@ -102,7 +122,7 @@ http.createServer(async (q, r) => {
     if (OWN(p)) return inner(q, r);
     return json(r, 503, { error: 'not available on hosted site', path: p.slice(0, 80) });
   } catch (e) { console.warn('[vps] error', String(e?.message || e).slice(0, 120)); if (!r.headersSent) json(r, 500, { error: 'server error' }); else r.end(); }
-}).on('upgrade', (q, sock, head) => { try { if (isBridgePath(q.url)) return bridgeUpgrade(q, sock, head); roomLiveUpgrade(q, sock, head); } catch (e) { console.warn('[vps] upgrade error', String(e?.message || e).slice(0, 120)); try { sock.destroy(); } catch {} } })   // roomserver-20261018a
+}).on('upgrade', (q, sock, head) => { try { if (isBridgePath(q.url)) return bridgeUpgrade(q, sock, head); if (isRoomVoicePath(q.url)) return roomVoiceUpgrade(q, sock, head); roomLiveUpgrade(q, sock, head); } catch (e) { console.warn('[vps] upgrade error', String(e?.message || e).slice(0, 120)); try { sock.destroy(); } catch {} } })   // roomserver-20261018a
   .listen(PORT, '127.0.0.1', () => console.log(`[vps] ${VBUILD} on 127.0.0.1:${PORT} (dash ${process.env.HCA_DASH_DIR}; xAI key ${key() ? 'loaded' : 'MISSING'})`));
 // memberauth-20261018-v1 (Dan approved): internal-only bridge for HingeHub (rooms.hubface.org) member sign-in; loopback only, not in nginx.
 const IPORT = Number(process.env.HCA_INTERNAL_PORT || 3471);

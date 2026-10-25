@@ -1,0 +1,18 @@
+/* widgetpicker-20261021b (Dan): main-page Widget Picker rows (#ui .blist) styled like the room Widgets list (.rbwl .rbit + roomwidgetx):
+   22px rows, 9.5px left labels, white hairline border, 3px spacing, active rows highlighted like room 'on' rows, X = room '✕' flush right
+   (margin-left:auto), red on hover; headers like .rbwh. Rooms: Invite row reserves the X space so its star lines up.
+   Roll back: /opt/hubface/backups/widgetpicker-20261021b/ROLLBACK.sh */
+html:not(.rb-room) #ui .blist{gap:0!important;padding:0 2px 0 0!important}
+html:not(.rb-room) #ui .blist > .build{height:22px!important;margin:0 0 3px!important;font-size:9.5px!important;padding:0 0 0 8px!important;gap:6px!important;border:1px solid rgba(255,255,255,.14)!important;background:rgba(255,255,255,.07)!important;border-radius:7px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important;opacity:1!important}
+html:not(.rb-room) #ui .blist > .build > b{flex:1 1 auto;min-width:0;font-weight:400!important;font-size:9.5px!important;text-align:left}
+html:not(.rb-room) #ui .blist > .build:not(.dwother):not(.bnew):not(.dwhead):not(.dwdiv){background:rgba(var(--hub-blue-rgb,79,209,255),.35)!important;border-color:rgba(var(--hub-blue-rgb,79,209,255),.8)!important}
+html:not(.rb-room) #ui .blist > .build.dwother{border-style:solid!important}
+html:not(.rb-room) #ui .blist > .build:hover{background:rgba(255,255,255,.16)!important}
+html:not(.rb-room) #ui .blist > .build.dwhead,html:not(.rb-room) #ui .blist > .build.dwdiv{height:auto!important;min-height:14px;border:0!important;background:none!important;margin:2px 4px 4px!important;padding:0!important}
+html:not(.rb-room) #ui .blist > .build.dwdiv{border-top:0!important;margin-top:6px!important}
+html:not(.rb-room) #ui .blist .dwhead .dwlbl,html:not(.rb-room) #ui .blist .dwdiv > span{font-size:9px!important;font-weight:700;letter-spacing:.06em;opacity:.85}
+html:not(.rb-room) #ui .blist > .bnew{border:1px dashed rgba(var(--hub-blue-rgb,79,209,255),.75)!important;background:rgba(var(--hub-blue-rgb,79,209,255),.07)!important}
+html:not(.rb-room) #ui .blist .dwx{position:static!important;flex:none!important;order:99;margin:0 4px 0 auto!important;width:auto!important;height:auto!important;line-height:normal!important;padding:0 3px!important;font-size:11px!important;opacity:.45!important;background:none!important;border-radius:4px}
+html:not(.rb-room) #ui .blist .dwx:hover{opacity:1!important;color:#fff;background:rgba(255,90,90,.75)!important}
+html:not(.rb-room) #ui .blist .bcustom .bdel{position:static!important;order:98;margin-left:auto}
+html.rb-room #ui .rbwl .rbit.rbpin::after{content:'\2715';visibility:hidden;flex:none;order:99;font-size:11px;padding:0 3px;margin-left:auto;margin-right:4px}

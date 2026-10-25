@@ -1,0 +1,11 @@
+/* widgetcats-20261021a */
+html:not(.rb-room) #ui .blist.wcon > :not(.wcpanel){display:none!important}
+#ui .blist > .wcpanel{order:-1;display:flex;flex-direction:column;gap:4px;width:100%}
+#ui .blist .wchd{display:flex;align-items:center;gap:6px;margin-bottom:2px}
+#ui .blist .wchd b{flex:1;text-align:center;font-size:12px}
+#ui .blist .wcback,#ui .blist .wcx{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:inherit;border-radius:6px;font-size:11px;padding:2px 7px;cursor:pointer}
+#ui .blist .wcx{background:rgba(255,90,90,.35)}
+#ui .blist .wcitem{cursor:pointer}
+#ui > .wbx > .whead > .wcret{flex:none;margin-right:6px;font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(20,30,50,.85);color:#fff;border:1px solid rgba(255,255,255,.3);cursor:pointer}
+.wcflash{outline:2px solid #3b82f6;outline-offset:2px}
+#ui .blist > .wcpanel,#ui .blist > .wcpanel *{pointer-events:auto!important}#ui .blist > .wcpanel{position:relative;z-index:3}

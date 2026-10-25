@@ -135,6 +135,8 @@ function serveFile(q, r, rel) {
   const ext = path.extname(file).toLowerCase();
   if (path.basename(file).toLowerCase() === 'index.html' && path.dirname(file) === base) {
     let html; try { html = fs.readFileSync(file, 'utf8'); } catch { return json(r, 404, { error: 'not found' }); }
+    /*unify-20261024: every local js/css tag gets ?v=<file mtime>, so any file edit is a new URL for every window (no stale 4h copies, no manual tag bumps)*/
+    html = html.replace(/(src|href)="((?:\/interface\/)?)([A-Za-z0-9._-]+\.(?:js|css))(?:\?v=[^"]*)?"/g, (m0, a, pre, f) => { try { return a + '="' + pre + f + '?v=' + Math.round(fs.statSync(path.join(base, f)).mtimeMs).toString(36) + '"'; } catch (e) { return m0; } });
     html = html.includes('</body>') ? html.replace(/<\/body>(?![\s\S]*<\/body>)/i, INJECT + '</body>') : html + INJECT;
     r.writeHead(200, { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-store' }); return r.end(html);
   }

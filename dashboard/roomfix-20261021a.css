@@ -1,0 +1,8 @@
+/* roomfix-20261021a (Dan): see roomfix-20261021a.js. Roll back: remove the roomfix-20261021a include line in index.html. */
+html.rb-room #ui > section.rbbox > .ctl.boxclose{z-index:50!important;pointer-events:auto!important;cursor:pointer}
+html.rb-room #ui > aside.panel > .wfrlbl{display:none!important}
+#ui > section.ava > .rfMute{position:absolute;left:3px;top:3px;z-index:60;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(0,0,0,.6);color:#fff;border:1px solid rgba(255,255,255,.4);cursor:pointer;pointer-events:auto!important;padding:0;box-sizing:border-box}
+#ui > section.ava > .rfMute:hover{background:rgba(30,34,46,.95)}
+#ui > section.ava > .rfMute.on{color:#ff8a8a;border-color:rgba(255,120,120,.75)}
+#ui > section.ava > .rfMute svg{width:11px;height:11px;display:block}

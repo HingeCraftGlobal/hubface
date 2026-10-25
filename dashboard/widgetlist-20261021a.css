@@ -1,0 +1,15 @@
+/* widgetlist-20261021a (Dan): Dashboard Builder widget list (#ui .blist) = one full-width scrollable column, rows styled like the
+   room-setup Widgets / Other Widgets list (22px rows, left-aligned label, blue hairline border) with an always-visible X on active rows
+   (X moves the widget to Other Widgets; click/drag back; Save persists as before via dash-row.js). CSS only, no behaviour change.
+   Roll back: /opt/hubface/backups/widgetlist-20261021a/ROLLBACK.sh */
+#ui .blist{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;grid-template-columns:none!important;gap:3px!important;overflow-y:auto!important;overflow-x:hidden!important;align-items:stretch!important}
+#ui .blist > .build{flex:0 0 auto!important;width:auto!important;min-width:0!important;height:22px!important;min-height:0!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;text-align:left!important;padding:0 20px 0 8px!important;font-size:9.5px!important;line-height:20px!important;border:1px solid rgba(0,156,253,.32)!important;border-radius:7px!important}
+#ui .blist > .build > b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;padding:0!important;font-size:9.5px}
+#ui .blist > .build.dwhead,#ui .blist > .build.dwdiv{border:0!important;padding:0 2px!important;height:18px!important}
+#ui .blist > .build.dwdiv{border-top:1px solid rgba(255,255,255,.22)!important;border-radius:0!important;margin-top:4px}
+#ui .blist > .build.dwother{border-style:dashed!important}
+#ui .blist > .bnew{justify-content:center!important;text-align:center!important;padding:0 8px!important;border:1px dashed rgba(var(--hub-blue-rgb,79,209,255),.75)!important}
+#ui .blist .dwx{right:4px!important;width:14px!important;height:14px!important;margin-top:-7px!important;line-height:13px!important;font-size:12px!important;opacity:.85!important;background:rgba(0,0,0,.35)}
+#ui .blist .dwx:hover{opacity:1!important;background:rgba(255,90,90,.75)!important}
+#ui .blist .dwother .dwx{display:none!important}
+#ui .blist .bcustom .bdel{right:22px!important}

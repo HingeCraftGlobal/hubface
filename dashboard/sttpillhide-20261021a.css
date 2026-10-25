@@ -1,0 +1,2 @@
+/* sttpillhide-20261021a (Dan 9:28 PM): hide the two bottom-left STT debug labels on the MAIN dashboard only (display only; STT/wake logic untouched). Roll back: /opt/hubface/backups/sttpillhide-20261021a/ROLLBACK.sh */
+html:not(.rb-room) #sttfix-pill,html:not(.rb-room) #sttfix-c{display:none!important}

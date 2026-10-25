@@ -1,0 +1,12 @@
+/* widgetx-20261021b: main widget close X flush to far right of title bar (position only) */
+/* collapsed floatboxes: anchor controls to the right edge instead of fixed left px */
+#ui > section.floatbox.collapsed:not(.ava) > .boxclose,#ui > section.floatbox.collapsed:not(.ava) > .callx{left:auto!important;right:1px!important}
+#ui > section.floatbox.collapsed:not(.ava) > .boxmin{left:auto!important;right:25px!important}
+#ui > section.floatbox.collapsed:not(.ava) > .fogbtn{left:auto!important;right:43px!important}
+/* expanded floatboxes: nudge the control group right */
+#ui > section.box:not(.ava):not(.collapsed) > .ctl.boxclose,
+#ui > section.box:not(.ava):not(.collapsed) > .ctl.boxmin,
+#ui > section.box:not(.ava):not(.collapsed) > .ctl.fogbtn{translate:4px 0}
+/* .wbx widgets (YouTube, Notes, Shopping...) */
+.wbx .whead{padding-right:1px!important}
+#ui > section.box:not(.ava) > .ctl.boxclose,.wbx .whead > .wx{pointer-events:auto!important;cursor:pointer;z-index:6}

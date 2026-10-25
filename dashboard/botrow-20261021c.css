@@ -1,0 +1,6 @@
+/* botrow-20261021c: bot panel top row evenly spaced (5px), one line, vertically centred; home + rooms. Rollback: ROLLBACK-botrow.sh */
+#ui > section.ava .abtns{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:3px!important;justify-content:flex-start!important;white-space:nowrap}
+#ui > section.ava .abtns > *{margin:0!important;flex:0 0 auto}
+#hfHomeBotX{position:fixed;z-index:100002;width:24px;height:24px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:#b3261e;color:#fff;font:bold 14px/22px system-ui;text-align:center;padding:0;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.4);display:none}
+#hfHomeBotX:hover{background:#d93025}#hfHomeBotX.on{display:block}html.rb-room #hfHomeBotX{display:none!important}
+html.hf-homebar-off:not(.rb-room) #vbBar{display:none!important}

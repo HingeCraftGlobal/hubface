@@ -1,0 +1,11 @@
+/* bot-chrome-20261021a: CSS only. Right-anchor every bot window's button row, auto-fog and collapse strip; resize grip pinned bottom-right.
+   Finn (#vbBar) used fixed left offsets, so widening Finn left the row floating mid-window. The shared talker panel (.hfap) is
+   right-anchored by modfix-20261021c; this file mirrors that layout (also covers the panel when modfix-c is not loaded) and pins the grip + collapse strip there too (no fight with modfix).
+   Roll back: /opt/hubface/backups/bot-chrome-20261021a/ROLLBACK.sh */
+#ui > section#vbBar:not(.collapsed) > .abtns,#ui > section.ava.hfap:not(.collapsed) > .abtns{left:auto!important;right:52px!important;display:flex!important;flex-wrap:nowrap!important;justify-content:flex-end!important;align-items:center!important}
+#ui > section#vbBar:not(.collapsed) > .fogbtn,#ui > section.ava.hfap:not(.collapsed) > .fogbtn{left:auto!important;right:28px!important}
+#ui > section#vbBar:not(.collapsed) > .fogpop,#ui > section.ava.hfap:not(.collapsed) > .fogpop{left:auto!important;right:6px!important}
+#ui > section#vbBar > .vbmin,#ui > section.ava.hfap > .vbmin{left:auto!important;right:6px!important}
+#ui > section.ava > .boxresize.cgrip,#ui > section#vbBar > .boxresize.cgrip{left:auto!important;top:auto!important;right:0!important;bottom:0!important}
+#ui > section.ava.hfap .abtns > .fogbtn{position:static!important}
+#ui > section.ava.hfap:not(.collapsed) > .abtns:has(> .fogbtn){right:24px!important}

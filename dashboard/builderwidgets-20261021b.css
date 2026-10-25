@@ -1,0 +1,7 @@
+/* builderwidgets-20261021b (Dan): Dashboard Builder Widgets panel matches the Hub room list (compact 22px rows, 9.5px text, no overlapping OTHER WIDGETS label).
+   Row positions set by builderwidgets-20261021b.js. Roll back: /opt/hubface/backups/builderwidgets-20261021b/ROLLBACK.sh */
+html:not(.rb-room) #ui > aside.panel:not(.props) > .wfrlbl{display:none!important}
+html:not(.rb-room) #ui > aside.panel:not(.props):not(.collapsed) > .witem{height:22px!important;min-height:0!important;left:8px!important;right:6px!important;width:auto!important;font-size:9.5px!important;padding:0 0 0 8px!important;border-radius:7px!important;border:1px solid rgba(0,156,253,.32)!important;box-sizing:border-box!important;line-height:20px!important}
+html:not(.rb-room) #ui > aside.panel:not(.props):not(.collapsed) > .witem > svg.ic{width:11px!important;height:11px!important;margin-right:5px!important}
+html:not(.rb-room) #ui > aside.panel:not(.props):not(.collapsed) > .bwhd{position:absolute;left:12px;top:46px;font:700 9px system-ui;letter-spacing:.54px;color:#fff;opacity:.85;pointer-events:none;text-transform:uppercase}
+html.rb-room #ui > aside.panel > .bwhd,#ui > aside.panel.collapsed > .bwhd{display:none}

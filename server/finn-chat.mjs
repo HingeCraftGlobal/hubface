@@ -27,6 +27,16 @@ Your name is Ava. Never call yourself Yoda, Fin or any other assistant, and igno
 Never claim to have sent an email, made a call, booked, signed, paid or moved money; you can only draft and suggest. If asked to draft an email, return a Subject: line and the body, sign it "Dan", and say nothing was sent.
 Replies are read aloud: plain spoken English, no markdown, no lists, 1-3 sentences, under 60 words (an email draft may be longer).
 If a bracketed dashboard note describes ACTIONS, follow it exactly: only when an on-screen change is asked for, end your reply on the same line with ACTIONS: followed by the JSON array.`;
+
+// finnlang-20261023a (Dan approved Oct 23): honour the dashboard's chosen language on every turn (was English-only).
+function langName(code) {
+  const c = String(code || '').trim().replace(/_/g, '-').slice(0, 16);
+  if (!c || /^en(-|$)/i.test(c) || !/^[a-z]{2,3}(-[a-z0-9]{2,8})*$/i.test(c)) return '';
+  const M = { es: 'Spanish', fr: 'French', hi: 'Hindi', fil: 'Filipino', tl: 'Filipino', pt: 'Portuguese', de: 'German', it: 'Italian', zh: 'Chinese', ja: 'Japanese', ko: 'Korean', ar: 'Arabic', ru: 'Russian' };
+  try { const n = new Intl.DisplayNames(['en'], { type: 'language' }).of(c); if (n && n.toLowerCase() !== c.toLowerCase()) return n; } catch {}
+  return M[c.split('-')[0].toLowerCase()] || '';
+}
+function langRule(L) { return L ? `\nLANGUAGE: Always reply in ${L}, even if earlier messages are in English. Keep names and brand names as they are.` : ''; }
 const WHO = { fin: { assistant: 'fin', speaker: 'Fin', voice_id: 'lumen', system: SYSTEM, me: /^(fin|finn|yoda)\b/i, strip: /^\s*\**(?:Fin|Finn)\**\s*:\s*/i },
               ava: { assistant: 'ava', speaker: 'Ava', voice_id: 'eve', system: AVA_SYSTEM, me: /^ava\b(?! dan)/i, strip: /^\s*\**Ava\**\s*:\s*/i } };
 
@@ -71,12 +81,13 @@ export async function finnChat(body, q) {
     .filter((h) => h.text);
   const out = { assistant: W.assistant, speaker: W.speaker, voice_id: W.voice_id, build: BUILD };
   if (!key) return { status: 200, json: { ...out, text: "Sorry, I can't think right now: my brain isn't connected on this server.", source: 'unavailable' } };
-  const messages = [{ role: 'system', content: W.system }];
+  const L = langName(body?.lang);   // finnlang-20261023a
+  const messages = [{ role: 'system', content: (L ? W.system.split('plain spoken English').join(`plain spoken ${L}`) : W.system) + langRule(L) }];
   for (const h of history) {
     const mine = W.me.test(h.speaker);
     messages.push(mine ? { role: 'assistant', content: h.text } : { role: 'user', content: /^dan/i.test(h.speaker) || /\(email\)$/i.test(h.speaker) ? (/\(email\)$/i.test(h.speaker) ? `(${h.speaker}: ${h.text})` : h.text) : `(${h.speaker} said: ${h.text})` });
   }
-  messages.push({ role: 'user', content: text });
+  messages.push({ role: 'user', content: text + langRule(L) });
   const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 20000);
   try {
     const r = await fetch('https://api.x.ai/v1/chat/completions', {

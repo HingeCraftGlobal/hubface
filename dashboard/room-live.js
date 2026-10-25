@@ -34,7 +34,7 @@
   'use strict';
   if (window.__roomLive) return;
   var RB = window.__rb, App = RB && RB.App, W = RB && RB.W; if (!App || !W) { console.warn('[room-live] room builder not found'); return; }
-  var BUILD = 'livedot-20261018a+names-20261019+autochat-20261019a+botname-20261019a+floor-20261019a+voicefix-20261019a', YODA_IMG = 'assets/yoda.jpg', GN = 'hubface-guest-name';
+  var BUILD = 'botmute-20261021a+livedot-20261018a+names-20261019+autochat-20261019a+botname-20261019a+floor-20261019a+voicefix-20261019a', YODA_IMG = 'assets/yoda.jpg', GN = 'hubface-guest-name';
   var RI = function () { return window.__roomId; };
   var ws = null, cur = null, self = null, peers = new Map(), chat = [], ice = [{ urls: 'stun:stun.l.google.com:19302' }], tries = 0, iceT = null, retryT = null, softCap = 4, status = 'idle', lastErr = '';
   var yoda = { speaking: false, quietAt: 0 }, listen = { on: false, until: 0 };
@@ -178,7 +178,7 @@
   function initials(n) { return String(n || '?').split(/\s+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0]; }).join('').toUpperCase() || '?'; }
   /* yodahear-20261018a: the Yoda tile is a STATIC picture card (no <video>, no srcObject, ever); glow ring while /say audio plays */
   function yodaTile() { return '<div class="rlTile yoda' + (yoda.speaking ? ' speaking' : '') + (listen.on ? ' listening' : '') + '" data-yoda="1" data-static="1"><div class="rlOff"><img class="rlAv" src="' + YODA_IMG + '" alt="Yoda (AI moderator, picture)" draggable="false"></div>' +
-    '<span class="rlSt rlAI">AI \u00b7 voice only</span><span class="rlLive" title="Yoda is listening in this room" aria-hidden="true"><i></i><b class="on">LIVE</b><b class="off">OFF</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span></div>'; }
+    '<span class="rlSt rlAI">Yoda \u00b7 AI CEO \u00b7 voice only</span>' + bmBtn('yoda', 'Yoda') + '<span class="rlLive" title="Yoda is listening in this room" aria-hidden="true"><i></i><b class="on">LIVE</b><b class="off">OFF</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span></div>'; }
   function guardYoda() { document.querySelectorAll('.rlTile.yoda').forEach(function (t) { t.querySelectorAll('video,audio,canvas,iframe').forEach(function (v) { try { v.srcObject = null; } catch (_) {} v.remove(); console.warn('[room-live] removed media element from the Yoda tile'); }); }); }
   App.renderTiles = function (b) {
     if (!wantRoom()) return origTiles.call(App, b);
@@ -247,20 +247,20 @@
   function minPaint(el) { var b = el.querySelector('.rlMin'); if (!b) return; var c = el.classList.contains('collapsed'), h = minIcon(c), t = c ? 'Expand' : 'Minimize'; if (b.innerHTML !== h) b.innerHTML = h; b.title = t; b.setAttribute('aria-label', t); b.setAttribute('aria-pressed', c ? 'true' : 'false'); }
   var MIC = '\ud83c\udf99', MUTE = '\ud83d\udd07';
   function camOff(n) { return '<div class="rlOff"><div><div class="rlIni">' + esc(initials(n)) + '</div><div style="margin-top:6px">Camera off</div></div></div>'; }
-  function yodaInner() { return '<div class="rlOff"><img class="rlAv" src="' + YODA_IMG + '" alt="Yoda (AI moderator, picture)" draggable="false"></div><span class="rlSt rlAI">AI \u00b7 voice only</span><span class="rlLive" title="Yoda is listening in this room" aria-hidden="true"><i></i><b class="on">LIVE</b><b class="off">OFF</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span>'; }
+  function yodaInner() { return '<div class="rlOff"><img class="rlAv" src="' + YODA_IMG + '" alt="Yoda (AI moderator, picture)" draggable="false"></div><span class="rlSt rlAI">Yoda \u00b7 AI CEO \u00b7 voice only</span>' + bmBtn('yoda', 'Yoda') + '<span class="rlLive" title="Yoda is listening in this room" aria-hidden="true"><i></i><b class="on">LIVE</b><b class="off">OFF</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span>'; }
   function selfName() { return (self && self.name) || guestName(); }
   function selfCam() { return !!(App.state.cam && localTrack('video')); }
   function selfInner() { var n = selfName(); return (selfCam() ? '<video autoplay playsinline muted></video>' : camOff(n)) + '<span class="rlSt">' + (App.state.mic ? MIC : MUTE) + '</span><span class="rlNm">' + esc(n) + ' (you)</span>'; }
-  function peerInner(e) { var i = e.info; return (i.cam ? '<video autoplay playsinline muted></video>' : '') + camOff(i.name).replace('<div class="rlOff">', '<div class="rlOff"' + (i.cam ? ' hidden' : '') + '>') + '<span class="rlSt">' + (i.mic ? MIC : MUTE) + '</span><span class="rlNm">' + esc(i.name) + (i.role === 'host' ? ' \u00b7 host' : '') + '</span>'; }
+  function peerInner(e) { var i = e.info; return (i.cam ? '<video autoplay playsinline muted></video>' : '') + camOff(i.name).replace('<div class="rlOff">', '<div class="rlOff"' + (i.cam ? ' hidden' : '') + '>') + '<span class="rlSt">' + (i.mic ? MIC : MUTE) + '</span><span class="rlNm">' + esc(i.name) + (i.role === 'host' ? ' \u00b7 host' : '') + '</span>' + (peerIsBot(i) ? bmBtn(peerBotKey(e), i.name).replace('<span ', '<span data-nm="' + esc(i.name) + '" ') : ''); }
   function nameKey(n) { return 'n:' + String(n || '').trim().toLowerCase(); }
   function syncPanels() {
     var on = !!wantRoom() && !!uiEl(), de = document.documentElement;
     de.classList.toggle('rl-panels', on); de.classList.toggle('rlHide', on && pv.hidden);
     if (!on) { if (pv.map.size) { pv.map.forEach(function (p) { p.el.remove(); }); pv.map.clear(); } pv.n = 0; return; }
     css();
-    var want = [{ id: 'yoda', skey: '__yoda', cls: 'yoda', attrs: { 'data-yoda': '1', 'data-static': '1' }, sig: 'y|' + listen.on, inner: yodaInner },
+    var want = [{ id: 'yoda', skey: '__yoda', cls: 'yoda', attrs: { 'data-yoda': '1', 'data-static': '1' }, sig: 'y|' + listen.on + '|' + bmMuted('yoda'), inner: yodaInner },
       { id: 'self', skey: '__self', cls: '', attrs: { 'data-self': '1' }, sig: 's|' + selfCam() + '|' + selfName(), inner: selfInner }];
-    peers.forEach(function (e) { var i = e.info; want.push({ id: 'p:' + e.id, skey: nameKey(i.name), cls: '', attrs: { 'data-pid': e.id }, sig: 'p|' + !!i.cam + '|' + i.name + '|' + i.role, inner: function () { return peerInner(e); } }); });
+    peers.forEach(function (e) { var i = e.info; want.push({ id: 'p:' + e.id, skey: nameKey(i.name), cls: '', attrs: { 'data-pid': e.id }, sig: 'p|' + !!i.cam + '|' + i.name + '|' + i.role + '|' + (peerIsBot(i) && bmMuted(peerBotKey(e))), inner: function () { return peerInner(e); } }); });
     var keep = {};
     want.forEach(function (w) {
       keep[w.id] = 1; var p = pv.map.get(w.id);
@@ -286,10 +286,11 @@
   App.renderRoster = function (b) {
     if (!wantRoom()) return origRoster.call(App, b);
     css(); var s = App.state, h = '<div class="rlRos">';
-    h += rosterRow('<img src="' + YODA_IMG + '" alt="">', 'Yoda (AI moderator)', ['AI'], yoda.speaking ? 'speaking' : '');
+    h += rosterRow('<img src="' + YODA_IMG + '" alt="">', 'Yoda \u00b7 AI CEO', ['AI CEO'], (yoda.speaking ? 'speaking ' : '') + bmBtn('yoda', 'Yoda'));
+    Object.keys(bmSeen).forEach(function (k) { if (k !== 'yoda') h += rosterRow('<span class="rlDot">\ud83e\udd16</span>', bmSeen[k] || k, ['bot'], bmBtn(k, bmSeen[k])); });   // botmute-20261021a
     var meName = self ? self.name : guestName(), meRole = self ? self.role : (App.state.room.roomKey ? 'host' : 'guest');
     h += rosterRow('<span class="rlDot">' + esc(initials(meName)) + '</span>', meName + ' (you)', [meRole].concat(self && self.user ? ['signed in'] : []), (s.mic ? '\ud83c\udf99' : '\ud83d\udd07') + (s.cam ? ' \ud83d\udcf7' : ''));
-    peers.forEach(function (e) { var i = e.info; h += rosterRow('<span class="rlDot">' + esc(initials(i.name)) + '</span>', i.name, [i.role].concat(i.user ? ['signed in'] : []), (i.mic ? '\ud83c\udf99' : '\ud83d\udd07') + (i.cam ? ' \ud83d\udcf7' : '') + (connLabel[e.conn] ? ' \u00b7 ' + connLabel[e.conn] : '')); });
+    peers.forEach(function (e) { var i = e.info; h += rosterRow('<span class="rlDot">' + esc(initials(i.name)) + '</span>', i.name, [i.role].concat(i.user ? ['signed in'] : []), (i.mic ? '\ud83c\udf99' : '\ud83d\udd07') + (i.cam ? ' \ud83d\udcf7' : '') + (connLabel[e.conn] ? ' \u00b7 ' + connLabel[e.conn] : '') + (peerIsBot(i) ? ' ' + bmBtn(peerBotKey(e), i.name) : '')); });
     h += '</div>';
     if (!(self && self.user)) h += '<div class="row"><input id="rl_nm" placeholder="Your name in this room" maxlength="40" style="flex:1" value="' + esc(guestName()) + '"><button id="rl_nmS">Save</button></div>';
     h += '<p class="muted">' + (status === 'live' ? 'Live roster \u00b7 ' + (peers.size + 1) + ' in room ' + esc(cur) + (peers.size + 1 > softCap ? ' \u00b7 video works best with up to ' + softCap + ' people' : '') : status === 'offline' ? 'Room server unreachable.' : 'Connecting to the room server\u2026') + '</p>';
@@ -314,6 +315,25 @@
   function replayChat() { var c = document.getElementById('rb_roomChat'); if (!c) return; c.innerHTML = ''; chat.forEach(printChat); }
   if (W.chat && typeof W.chat.render === 'function' && !W.chat.render.__rl) { var cr = W.chat.render; W.chat.render = function (b) { var r = cr.apply(this, arguments); if (wantRoom() && chat.length) setTimeout(replayChat, 0); return r; }; W.chat.render.__rl = 1; }
 
+  /* sharescreen-20261020a (Dan approved): room bar "Share screen" button. getDisplayMedia -> replaceTrack on each peer's
+     existing video sender (via localTrack/syncTracks, no renegotiation); camera restored on stop or browser "Stop sharing". */
+  var shareTrack = null;
+  var _lt = localTrack; localTrack = function (kind) { if (kind === 'video' && shareTrack && shareTrack.readyState === 'live') return shareTrack; return _lt(kind); };
+  function shareLabel() { var b = document.getElementById('rb_wid'); if (!b) return; var L = shareTrack ? 'Stop sharing' : 'Share screen'; var s = b.querySelector('span'); if (s) s.textContent = L; else b.textContent = L; b.title = L; b.setAttribute('aria-label', L); b.classList.toggle('on', !!shareTrack); }
+  function shareStop() { var t = shareTrack; shareTrack = null; if (t) try { t.onended = null; t.stop(); } catch (_) {} peers.forEach(syncTracks); shareLabel(); }
+  function shareStart() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) { try { App.toast('Screen sharing isn\u2019t supported in this browser.'); } catch (_) {} return; }
+    navigator.mediaDevices.getDisplayMedia({ video: true }).then(function (st) {
+      var t = st.getVideoTracks()[0]; if (!t) return; shareTrack = t; t.onended = shareStop;
+      var n = 0; peers.forEach(function (e) { if (e.pc) { syncTracks(e); n++; } });
+      if (!n) try { App.toast('Sharing your screen. Others will see it when they join.'); } catch (_) {}
+      shareLabel();
+    }).catch(function (err) { if (err && err.name !== 'NotAllowedError') try { App.toast('Screen share failed: ' + (err.message || err.name)); } catch (_) {} });
+  }
+  document.addEventListener('click', function (ev) { var b = ev.target && ev.target.closest && ev.target.closest('#rb_wid'); if (!b) return; ev.preventDefault(); ev.stopImmediatePropagation(); if (shareTrack) shareStop(); else shareStart(); }, true);
+  if (typeof App.paintAV === 'function' && !App.paintAV.__ss) { var _pav = App.paintAV; App.paintAV = function () { var r = _pav.apply(this, arguments); try { shareLabel(); } catch (_) {} return r; }; App.paintAV.__ss = 1; }
+  setTimeout(shareLabel, 0);
+
   /* mic / camera: replaceTrack on every peer, then tell the room */
   var origSet = App.setAV;
   App.setAV = function () { var r = origSet.apply(App, arguments); return Promise.resolve(r).then(function (v) { if (self) { self.mic = !!App.state.mic; self.cam = !!App.state.cam; } peers.forEach(syncTracks); send(myState()); paintRoster(); try { syncPanels(); } catch (_) {} return v; }); };
@@ -321,18 +341,43 @@
   /* phase 2 hook (yoda-say): filled in by the phase-2 build */
   /* phase 2: Yoda speaks in every browser. Server TTS clip (one xAI call per /say) -> <audio>; else speechSynthesis; queued. */
   var yq = [], yBusy = false, yPending = null, yLog = [];
-  function onYodaSay(m) { if (window.__roomLiveYoda) return window.__roomLiveYoda(m, setYodaSpeaking); var it = { text: String(m.text || '').slice(0, 600), audio: m.audio || null, at: m.at, mode: '', played: false, who: m.who || 'yoda', name: m.name || 'Yoda' }; yLog.push(it); if (yLog.length > 20) yLog.shift(); yq.push(it); openVideo(); yNext(); }
-  function yDone(it) { if (it.who === 'yoda') setYodaSpeaking(false); yBusy = false; setTimeout(yNext, 250); }
+  function onYodaSay(m) { if (window.__roomLiveYoda) return window.__roomLiveYoda(m, setYodaSpeaking); var it = { text: String(m.text || '').slice(0, 600), audio: m.audio || null, at: m.at, mode: '', played: false, who: bmKey(m.who || 'yoda'), name: m.name || 'Yoda' }; bmSeen[it.who] = it.name; yLog.push(it); if (yLog.length > 20) yLog.shift(); yq.push(it); openVideo(); yNext(); }
+  function yDone(it) { if (it._done) return; it._done = true; if (yCur === it) yCur = null; if (it.who === 'yoda') setYodaSpeaking(false); yBusy = false; setTimeout(yNext, 250); }
+  /* botmute-20261021a (Dan): per-bot mute, LOCAL to this screen only (nothing sent to the server; the server transcript and
+     Room Chat text are untouched). Bots: (a) server-voiced bots, every queued line tagged with m.who ('yoda'|'ava'|'finn'|guest id);
+     (b) bots that join as room members (email-invited / bridge): peer is a bot when role is bot/yoda, the name is a known bot
+     (Yoda, Ava, Finn, Brain, Grok), the name says "bot", or the account is a bot address (@hingecraft-global.ai). People never get it.
+     Muted: queue lines still print + advance but play no audio; current audio stops now; a bot peer's WebRTC audio is muted.
+     Saved per room in localStorage 'hubface-botmute:<ROOM>'. Separate from bot-quiet.js. */
+  var yCur = null, bmSeen = {}, BMK = 'hubface-botmute:', BOTNAMES = /^(yoda|ava|finn|brain|grok)\b/i;
+  function bmKey(w) { return String(w || 'yoda').trim().toLowerCase().slice(0, 40); }
+  function peerIsBot(i) { if (!i) return false; var n = String(i.name || ''), u = String(i.user || i.email || ''); return i.role === 'bot' || i.role === 'yoda' || !!i.bot || BOTNAMES.test(n) || /\bbot\b/i.test(n) || /@hingecraft-global\.ai$/i.test(u) || /@hingecraft-global\.ai$/i.test(n); }
+  function peerBotKey(e) { var n = bmKey(e.info.name).split(/[\s\u00b7(]/)[0]; return /^(yoda|ava|finn)$/.test(n) ? n : 'peer:' + bmKey(e.info.name); }
+  function bmLoad() { try { return JSON.parse(localStorage.getItem(BMK + (cur || '')) || '{}') || {}; } catch (_) { return {}; } }
+  function bmMuted(w) { return !!bmLoad()[bmKey(w)]; }
+  function bmPeers() { peers.forEach(function (e) { if (e.audio) { var m = peerIsBot(e.info) && bmMuted(peerBotKey(e)); if (e.audio.muted !== m) e.audio.muted = m; } }); }
+  function bmSet(w, on) { var k = bmKey(w), m = bmLoad(); if (on) m[k] = 1; else delete m[k]; try { localStorage.setItem(BMK + (cur || ''), JSON.stringify(m)); } catch (_) {}
+    if (on) { var it = yCur; if (it && bmKey(it.who) === k) { try { if (it._a) { it._a.onended = null; it._a.onerror = null; it._a.pause(); } } catch (_) {} try { if (it.mode === 'speech' && window.speechSynthesis) speechSynthesis.cancel(); } catch (_) {} if (yPending && yPending === it._a) yPending = null; it.mode = 'muted'; clearTimeout(it._guard); yDone(it); } }
+    bmPeers(); bmPaint(); try { App.toast((bmSeen[k] || k.replace(/^peer:/, '')) + (on ? ' muted on your screen' : ' unmuted on your screen')); } catch (_) {} }
+  function bmBtn(w, name) { var k = bmKey(w), m = bmMuted(k), t = (m ? 'Unmute ' : 'Mute ') + (name || k) + ' (only on your screen)';
+    return '<span class="rlBotMute' + (m ? ' muted' : '') + '" role="button" tabindex="0" data-bot="' + esc(k) + '" aria-pressed="' + m + '" title="' + esc(t) + '" aria-label="' + esc(t) + '"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/>' + (m ? '<line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>' : '<path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/>') + '</svg></span>'; }
+  function bmPaint() { document.querySelectorAll('.rlBotMute[data-bot]').forEach(function (b) { var k = b.getAttribute('data-bot'), w = document.createElement('div'); w.innerHTML = bmBtn(k, bmSeen[k] || b.getAttribute('data-nm')); var n = w.firstChild; if (b.getAttribute('data-nm')) n.setAttribute('data-nm', b.getAttribute('data-nm')); if (b.outerHTML !== n.outerHTML) b.replaceWith(n); }); paintRoster(); }
+  setInterval(function () { try { bmPeers(); } catch (_) {} }, 1000);
+  document.addEventListener('pointerdown', function (e) { if (e.target && e.target.closest && e.target.closest('.rlBotMute')) e.stopPropagation(); }, true);
+  document.addEventListener('click', function (e) { var b = e.target && e.target.closest && e.target.closest('.rlBotMute[data-bot]'); if (!b) return; e.stopPropagation(); e.preventDefault(); var k = b.getAttribute('data-bot'); bmSet(k, !bmMuted(k)); }, true);
+  document.addEventListener('keydown', function (e) { var b = e.target && e.target.closest && e.target.closest('.rlBotMute[data-bot]'); if (!b || (e.key !== 'Enter' && e.key !== ' ')) return; e.preventDefault(); var k = b.getAttribute('data-bot'); bmSet(k, !bmMuted(k)); }, true);
   function yNext() {
     if (yBusy || !yq.length) return;
     /* floor-20261019a: one speaker at a time. Yoda / Ava / Finn already share this single queue (never overlap); a bot also
        waits while YOU are talking (your tile's talking ring), up to 4 s, then speaks anyway so nothing gets lost. */
     var hd = yq[0]; if (!hd.floorAt) hd.floorAt = Date.now(); var rs = document.getElementById('rbSelf'); if (rs && rs.classList.contains('talking') && Date.now() - hd.floorAt < 4000) { setTimeout(yNext, 300); return; }
-    var it = yq.shift(); yBusy = true; if (it.who === 'yoda') setYodaSpeaking(true);
-    var guard = setTimeout(function () { yDone(it); }, Math.min(60000, 4000 + it.text.length * 90));
+    var it = yq.shift(); yBusy = true; yCur = it;
+    if (bmMuted(it.who)) { it.mode = 'muted'; yDone(it); return; }   // botmute-20261021a: text already in chat/transcript; skip audio, queue moves on
+    if (it.who === 'yoda') setYodaSpeaking(true);
+    var guard = setTimeout(function () { yDone(it); }, Math.min(60000, 4000 + it.text.length * 90)); it._guard = guard;
     var fin = function () { clearTimeout(guard); yDone(it); };
     if (it.audio) {
-      var a = new Audio(it.audio); a.onended = fin; a.onerror = function () { clearTimeout(guard); yBusy = false; it.audio = null; yq.unshift(it); yNext(); };
+      var a = new Audio(it.audio); it._a = a; a.onended = fin; a.onerror = function () { clearTimeout(guard); if (it._done) return; yBusy = false; yCur = null; it.audio = null; it._a = null; yq.unshift(it); yNext(); };
       var pr = a.play(); it.mode = 'tts';
       if (pr && pr.then) pr.then(function () { it.played = true; }).catch(function () { it.mode = 'blocked'; yPending = a; try { App.toast(it.name + ': ' + it.text.slice(0, 80) + ' (click to hear)'); } catch (_) {} });
       return;
@@ -576,7 +621,8 @@
   var acDone = null;
   function autoChat() { var r = cur; if (!r || acDone === r) return; acDone = r; try { var el = App.open('chat'); if (el && el.classList) { if (el.classList.contains('collapsed')) { var mb = el.querySelector(':scope > .boxmin'); if (mb) mb.click(); else el.classList.remove('collapsed'); } } setTimeout(replayChat, 0); App.rerender && App.rerender('picker'); } catch (e) { console.warn('[room-live] autochat', e); } }
   setInterval(tick, 1000); tick();
-  window.__roomLive = { _setListen: setListen, build: BUILD, chatMic: function (btn, el) { if (!isRoomChatField(el)) return false; chatMicSet(!(chatMic.on && chatMic.btn === btn), btn, el); return true; }, chatMicOn: function () { return chatMic.on; }, _vf: { echoOfBot: echoOfBot, botSaid: botSaid, isRoomChatField: isRoomChatField }, state: function () {
+  (function () { var st = document.createElement('style'); st.textContent = '.rlBotMute{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;border:1px solid rgba(255,255,255,.35);cursor:pointer;vertical-align:middle;box-sizing:border-box}.rlBotMute:hover{background:rgba(30,34,46,.9)}.rlBotMute.muted{color:#ff8a8a;border-color:rgba(255,120,120,.6)}#ui > .rlPanel .rlBotMute{position:absolute;right:6px;top:26px;z-index:8}'; (document.head || document.documentElement).appendChild(st); })();
+  window.__roomLive = { botMute: { isMuted: bmMuted, set: bmSet, seen: function () { return Object.assign({}, bmSeen); }, peerIsBot: peerIsBot, build: 'botmute-20261021a' }, _setListen: setListen, build: BUILD, chatMic: function (btn, el) { if (!isRoomChatField(el)) return false; chatMicSet(!(chatMic.on && chatMic.btn === btn), btn, el); return true; }, chatMicOn: function () { return chatMic.on; }, _vf: { echoOfBot: echoOfBot, botSaid: botSaid, isRoomChatField: isRoomChatField }, state: function () {
     var out = { status: status, room: cur, self: self, softCap: softCap, chat: chat.length, err: lastErr, peers: [] };
     peers.forEach(function (e) { out.peers.push({ id: e.id, name: e.info.name, role: e.info.role, mic: e.info.mic, cam: e.info.cam, conn: e.pc ? e.pc.connectionState : 'none', ice: e.pc ? e.pc.iceConnectionState : 'none', tracks: e.stream.getTracks().map(function (t) { return t.kind + ':' + t.readyState + (t.muted ? ':muted' : ''); }) }); });
     return out; }, iceServers: function () { return ice.map(function (x) { return { urls: x.urls, user: !!x.username }; }); }, pairs: function () { var out = []; peers.forEach(function (e) { if (!e.pc) return; out.push(e.pc.getStats().then(function (st) { var sel = null, c = {}; st.forEach(function (r) { if (r.type === 'transport' && r.selectedCandidatePairId) sel = r.selectedCandidatePairId; if (r.type === 'local-candidate' || r.type === 'remote-candidate') c[r.id] = r; }); var pr = sel && st.get(sel); if (!pr) st.forEach(function (r) { if (r.type === 'candidate-pair' && r.nominated && r.state === 'succeeded') pr = r; }); var L = pr && c[pr.localCandidateId], R = pr && c[pr.remoteCandidateId]; return { peer: e.info.name, local: L && (L.candidateType + '/' + L.protocol + (L.relayProtocol ? '/relay-' + L.relayProtocol : '') + ' ' + L.address), remote: R && (R.candidateType + '/' + R.protocol + ' ' + R.address), types: [].concat(Object.values(c).map(function (x) { return (x.type === 'local-candidate' ? 'L:' : 'R:') + x.candidateType; })).filter(function (v, i, a) { return a.indexOf(v) === i; }) }; })); }); return Promise.all(out); }, setYodaSpeaking: setYodaSpeaking, yodaLog: function () { return yLog.map(function (x) { return { text: x.text, audio: !!x.audio, mode: x.mode, played: x.played }; }); }, yodaSpeaking: function () { return yoda.speaking; }, chatLog: function () { return chat.slice(); }, listening: function () { return { on: listen.on, until: listen.until, status: sttStatus(), stt: { supported: stt.sup, running: stt.running, audio: stt.audio, held: stt.held, reason: stt.reason, sent: stt.sent, dropped: stt.dropped, last: stt.last, err: stt.lastErr || '', starts: stt.starts, otherTabHold: !!otherHold }, engine: aai.open ? 'assemblyai' : stt.audio ? 'webspeech' : 'none', aai: { open: aai.open, pending: aai.pending, model: aai.model, turns: aai.turns, why: aai.why, fallbackUntil: aai.until, lastTurnAt: aai.lastTurnAt } }; }, _sttFinal: sttFinal, barCol: barCol, setBarCol: barSet, guardYoda: guardYoda, panels: function () { var o = []; pv.map.forEach(function (p, id) { var el = p.el; o.push({ id: id, name: (el.querySelector('.rlNm') || {}).textContent || '', x: el.offsetLeft, y: el.offsetTop, w: el.offsetWidth, h: el.offsetHeight, video: !!el.querySelector('video'), min: el.classList.contains('collapsed'), shown: getComputedStyle(el).display !== 'none' }); }); return { hidden: pv.hidden, list: o }; }, setPanelsHidden: setPanelsHidden };

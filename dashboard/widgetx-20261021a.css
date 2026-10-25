@@ -1,0 +1,9 @@
+/* widgetx-20261021a: main widget close X flush to far right of title bar (position only) */
+#ui > section.box:not(.ava) > .ctl.boxclose,
+#ui > section.box:not(.ava) > .ctl.boxmin,
+#ui > section.box:not(.ava) > .ctl.fogbtn{translate:3px 0}
+.wbx .whead{padding-right:1px!important}
+#ui > section.box:not(.ava) > .ctl.boxclose,.wbx .whead > .wx{pointer-events:auto!important;cursor:pointer;z-index:6}
+#ui > section.box:not(.ava):not(.collapsed) > .ctl.boxclose,
+#ui > section.box:not(.ava):not(.collapsed) > .ctl.boxmin,
+#ui > section.box:not(.ava):not(.collapsed) > .ctl.fogbtn{translate:6px 0}

@@ -1,0 +1,40 @@
+/* camresize-20261021b: Home Status device card (camera/doorbell/sprinkler/pool/lights) */
+.hsdlg>div.camcard{position:relative;gap:10px!important;padding:10px 12px 14px!important;min-width:300px;min-height:260px;max-width:100%;max-height:100%;width:380px;height:auto;resize:none}
+.hsdlg>div.camcard>b:first-child{display:block;padding-right:30px;min-height:20px;line-height:20px}
+.hsdlg>div.camcard{overflow:auto!important}
+.camcard .hsfeed{flex:none!important;width:100%;aspect-ratio:16/9!important;min-height:90px;max-height:none!important;position:relative}
+.camcard .hsfeed video,.camcard .hsfeed img,.camcard .hsfeed iframe{position:absolute;inset:0;width:100%!important;height:100%!important;object-fit:cover;display:block}
+.camcard .hsfeed .cnc,.camcard .hsfeed>span:not(.camind){position:absolute;inset:0;display:grid;place-items:center}
+.camcard label{display:flex;flex-direction:column;gap:4px;font-size:11.5px}
+.camcard .cmw{position:relative;display:block;width:100%}
+.camcard .cmw>input{width:100%!important;box-sizing:border-box;padding-right:30px!important;height:28px}
+.camcard .cmw>.fmic{position:absolute!important;right:5px!important;left:auto!important;top:50%!important;transform:translateY(-50%);width:20px!important;height:20px!important;margin:0!important;padding:3px!important;box-sizing:border-box!important;border-radius:50%!important;display:flex!important;align-items:center;justify-content:center;background:rgba(15,15,20,.55)!important;border:1px solid rgba(255,255,255,.35)!important}
+.camcard .cmw>.fmic.on{background:#d93a3a!important;border-color:#ff8a8a!important}
+.camcard .hsbar{gap:9px!important;flex-wrap:wrap;row-gap:8px}
+.camcard .hsbar>button[data-x]{display:none!important}
+.camcard .camx{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;font:700 14px/1 system-ui,sans-serif;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);z-index:4;user-select:none}
+.camcard .camx:hover{background:rgba(255,80,80,.55)}
+.camcard .camrz{position:absolute;right:2px;bottom:2px;width:14px;height:14px;cursor:nwse-resize;z-index:4;touch-action:none;background:linear-gradient(135deg,transparent 0 45%,rgba(255,255,255,.7) 45% 52%,transparent 52% 66%,rgba(255,255,255,.7) 66% 73%,transparent 73%)}
+.camcard .camrec.on{background:rgba(220,40,40,.55)!important}
+.camcard .camind{display:none;align-items:center;gap:5px;font:700 11px/1 system-ui,sans-serif;color:#fff;background:rgba(0,0,0,.55);padding:3px 7px;border-radius:8px;position:absolute;left:6px;top:6px;z-index:3}
+.camcard .camind.on{display:flex}.camcard .camind i{width:9px;height:9px;border-radius:50%;background:#f33;animation:camblink 1s steps(2) infinite}
+@keyframes camblink{50%{opacity:.2}}
+.camcard .camdel{font-size:11px;color:#ffb3a6;text-decoration:underline;cursor:pointer;align-self:flex-start;background:none;border:0;padding:0}
+.camcard .cdgrid{display:flex;flex-wrap:wrap;gap:8px}
+.camcard .cdbox{flex:1 1 120px;min-width:110px;box-sizing:border-box;padding:7px 8px;border-radius:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;gap:6px;font-size:11.5px}
+.camcard .cdbox .cdh{display:flex;align-items:center;gap:6px;font-weight:700}
+.camcard .cdic{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;cursor:pointer;background:rgba(255,255,255,.1);font-size:15px;overflow:hidden;flex:none}
+.camcard .cdic img{width:100%;height:100%;object-fit:cover}
+.camcard .cdrow{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.camcard .cdrow button{padding:2px 8px!important}
+.camcard .cdrow input[type=number]{width:54px}.camcard .cdrow input[type=time]{width:92px}
+.camcard .cdrow input[type=time],.camcard .cdrow input[type=number]{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:2px 4px;font:inherit}
+.camcard .cdnc{font-style:normal;font-size:9.5px;padding:1px 6px;border-radius:6px;background:rgba(255,200,80,.25);border:1px solid rgba(255,200,80,.5)}
+.camcard .cdnc.on{background:rgba(80,220,120,.3);border-color:rgba(80,220,120,.6)}
+.camcard .cdpick{position:absolute;z-index:9;background:rgba(25,32,48,.97);border:1px solid rgba(255,255,255,.3);border-radius:9px;padding:7px;display:grid;grid-template-columns:repeat(6,26px);gap:5px}
+.camcard .cdpick span{cursor:pointer;font-size:17px;text-align:center}.camcard .cdpick label{grid-column:1/-1;font-size:11px;cursor:pointer;text-decoration:underline;display:block}
+.hsdevpop{position:absolute;z-index:50;display:flex;gap:8px;padding:8px 10px;border-radius:10px;background:rgba(25,32,48,.96);border:1px solid rgba(255,255,255,.3);flex-wrap:wrap;max-width:320px}
+.hsdevpop .hsdev{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:#fff;cursor:grab;touch-action:none;user-select:none;padding:4px;border-radius:8px;min-width:46px}
+.hsdevpop .hsdev:hover{background:rgba(255,255,255,.14)}.hsdevpop .hsdev span{font-size:20px}
+#ui .hsdevpop,#ui .hsdevpop *,#ui .camcard,#ui .camcard *{pointer-events:auto!important}
+.hsbar .hspal{display:none!important}

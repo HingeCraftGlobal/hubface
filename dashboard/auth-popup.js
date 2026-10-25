@@ -42,6 +42,7 @@
   /* Greet a signed-in user by username in the active assistant's voice (Ava or Finn), once per page load and after each sign-in. */
   var greeted = false;
   function greet(force) {
+    return; /*mutegreet-20261024: Dan asked to silence the spoken signed-in greeting (Hi <name>, nice to see you in the room)*/
     if (!ME || !ME.username || (greeted && !force)) return; greeted = true;
     var tries = 0, line = 'Hi ' + String(ME.username).replace(/[^A-Za-z0-9 _.-]/g, '').slice(0, 24) + ', nice to see you in the room.';
     (function go() {
@@ -64,7 +65,8 @@
     };
     wf.__hfa = true; window.fetch = wf;
   })();
-  function planLine(a) { return (PLAN_NAMES[a.plan] || a.plan) + ' \u00b7 ' + a.tokens + ' token' + (a.tokens === 1 ? '' : 's'); }
+  function planLine(a) { var pd = window.__hfPendingTokens || 0; return (PLAN_NAMES[a.plan] || a.plan) + ' \u00b7 ' + a.tokens + ' token' + (a.tokens === 1 ? '' : 's') + (pd ? ' (' + pd + ' pending)' : ''); }
+  window.addEventListener('hubface-tokens', function (e) { var d = e && e.detail || {}; if (d.account && ME) ME = d.account; updateEntry(); });   // tokenspend-20261021a
   function allowed() { return !!readAcc() || guestOk(); }
   function tourRunning() { try { return !!(window.__finTour && window.__finTour.running && window.__finTour.running()); } catch (_) { return false; } }
   function setSession(v) { try { sessionStorage.setItem(SES_KEY, v); } catch (_) {} }
@@ -99,7 +101,7 @@
       '<h1 class="hfa-h1" id="hfa-title">Sign in to <span class="hfa-gold">HingeHub</span></h1>' +
       '<p class="hfa-lede">Use the email and password from your HCG account.</p>' + (note ? '<div class="hfa-note" role="status">' + note + '</div>' : '') +
       '<form class="hfa-form" data-form="signin" novalidate autocomplete="on">' +
-      '<div class="hfa-field"><label class="hfa-label" for="hfa-si-email">Email</label><input id="hfa-si-email" name="email" class="hfa-input" type="email" autocomplete="email" placeholder="you@somewhere.com" value="' + esc(a ? a.email : lastEmail()) + '"><div class="hfa-err" data-err="email" hidden></div></div>' +
+      '<div class="hfa-field"><label class="hfa-label" for="hfa-si-email">Email</label><input id="hfa-si-email" name="email" class="hfa-input" type="email" autocomplete="username" placeholder="you@somewhere.com"><div class="hfa-err" data-err="email" hidden></div></div>' +
       '<div class="hfa-field"><label class="hfa-label" for="hfa-si-pw">Password</label><div class="hfa-pw"><input id="hfa-si-pw" name="password" class="hfa-input" type="password" autocomplete="current-password" placeholder="Your password"><button type="button" class="hfa-eye" data-act="eye" aria-label="Show password" title="Show password">' + EYE + '</button></div><div class="hfa-err" data-err="password" hidden></div></div>' +
       '<button type="submit" class="hfa-btn">Sign in</button></form>' +
       '<div class="hfa-row"><span>New to HCG? <button type="button" class="hfa-link" data-act="create">Create an account</button></span><button type="button" class="hfa-link" data-act="forgot">Forgot password?</button></div>' +
@@ -243,7 +245,7 @@
     form.__busy = true; btn.disabled = true; btn.textContent = kind === 'signin' ? 'Signing in\u2026' : 'Creating your account\u2026';
     api(kind === 'signin' ? '/api/account/login' : '/api/account/signup', payload).then(function (j) {
       form.__busy = false; btn.disabled = false; btn.textContent = label;
-      if (j && j.ok && j.account) { form.password.value = ''; finish(j.account); return; }
+      if (j && j.ok && j.account) { try { if (window.PasswordCredential && navigator.credentials && navigator.credentials.store) navigator.credentials.store(new PasswordCredential(form)).catch(function () {}); } catch (e) {} form.password.value = ''; finish(j.account); return; }
       var errs = (j && j.errors) || {}, shown = false;
       Object.keys(errs).forEach(function (k) { if (form.querySelector('[data-err="' + k + '"]')) { showErr(form, k, errs[k]); shown = true; } });
       if (kind === 'signin' && j && j.__status === 401) {
@@ -375,7 +377,7 @@
   function placeEntry() {
     if (!entry.isConnected) return;
     var W = window.innerWidth, H = window.innerHeight, G = 8, w = entry.offsetWidth, h = entry.offsetHeight;
-    var cluster = union([vis(document.getElementById('brIcon')), vis(document.getElementById('btnFs')), vis(document.getElementById('brDock'))]);
+    var cluster = union([vis(document.getElementById('brIcon')), vis(document.getElementById('btnFs')), vis(document.getElementById('brDock')), vis(document.getElementById('hfBotQuiet'))]);   // pillgap-20261021a: clear the speaker (quiet bots) button
     var obst = [].map.call(document.querySelectorAll('.hca-agent, .vl-pill'), vis).filter(Boolean);
     if (cluster) obst.push(cluster);
     var x, y;

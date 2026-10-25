@@ -1,0 +1,35 @@
+{
+ "build": "agentmoods-20261021a",
+ "sets": [
+  {
+   "slug": "professor",
+   "count": 25,
+   "default": "warm_smile"
+  },
+  {
+   "slug": "mara",
+   "count": 25,
+   "default": "warm_smile"
+  },
+  {
+   "slug": "companion-m",
+   "count": 25,
+   "default": "warm_smile"
+  },
+  {
+   "slug": "moderator",
+   "count": 25,
+   "default": "warm_smile"
+  },
+  {
+   "slug": "ava",
+   "count": 25,
+   "default": "warm_smile"
+  },
+  {
+   "slug": "finn",
+   "count": 25,
+   "default": "warm_smile"
+  }
+ ]
+}

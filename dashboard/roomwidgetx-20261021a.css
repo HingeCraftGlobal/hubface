@@ -1,0 +1,5 @@
+/* roomwidgetx-20261021a (Dan): in-room Widgets list (.rbwl .rbit) X flush right, labels left. CSS only. Roll back: ROLLBACK-roomwidgetx.sh */
+#ui .rbwl .rbit{display:flex!important;align-items:center!important;box-sizing:border-box!important;padding-right:0!important}
+#ui .rbwl .rbit > span:not(.rxX){flex:1 1 auto!important;min-width:0!important;text-align:left!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ui .rbwl .rbit > em{flex:none!important}
+#ui .rbwl .rbit > .rxX{float:none!important;flex:none!important;margin-left:auto!important;margin-right:4px!important;order:99}

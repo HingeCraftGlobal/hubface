@@ -1,0 +1,9 @@
+/* widgetfix-20261021a (Dan): visible red X on placed row tiles + every open dashboard window/square; hide YOUR ROW head; taller picker. Roll back: /opt/hubface/backups/widgetfix-20261021a/ROLLBACK.sh */
+html:not(.rb-room) #ui .blist > .dwhead{display:none!important}
+html:not(.rb-room) #ui .blist > .build:not(.dwother):not(.bnew):not(.dwdiv):not(.dwhead){position:relative;padding-right:26px!important}
+html:not(.rb-room) #ui .blist > .build:not(.dwother) > .dwx{display:flex!important;position:absolute!important;right:3px!important;top:50%!important;transform:translateY(-50%);width:18px!important;height:18px!important;min-width:18px;align-items:center;justify-content:center;border-radius:50%;background:#e5383b!important;color:#fff!important;font-size:12px!important;line-height:1!important;opacity:1!important;visibility:visible!important;z-index:4;cursor:pointer;pointer-events:auto!important}
+html:not(.rb-room) #ui > .wbx > .whead > .wx,html:not(.rb-room) #ui > section.box > .boxclose{background:#e5383b!important;color:#fff!important;border-radius:50%!important;min-width:20px!important;min-height:20px!important;opacity:1!important;visibility:visible!important;display:flex!important;align-items:center;justify-content:center}
+html:not(.rb-room) #ui > section.box > .boxclose svg,html:not(.rb-room) #ui > .wbx > .whead > .wx svg{stroke:#fff!important;color:#fff!important}
+html:not(.rb-room) #ui > section.box[data-float="other"]:not(.collapsed){min-height:330px!important}
+html:not(.rb-room) #ui > section.box[data-float="other"] .blist{max-height:none!important;overflow-y:auto!important}
+html:not(.rb-room) #ui > section.box[data-float="other"]:not(.closed){z-index:2147483000!important}

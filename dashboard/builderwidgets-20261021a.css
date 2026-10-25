@@ -1,0 +1,6 @@
+/* builderwidgets-20261021a (Dan): Dashboard Builder (/interface outside rooms) gets the same panel fit as rooms (room-fit.js roomfit-20261021a rules 3+4,
+   repeated without the html.rb-room prefix). Close-X position comes from widgetx-20261021b (not duplicated). Height set by builderwidgets-20261021a.js.
+   Roll back: /opt/hubface/backups/builderwidgets-20261021a/ROLLBACK.sh */
+html:not(.rb-room) #ui > aside.panel.bwfit{bottom:auto!important;max-height:var(--rfmax,524px)!important}
+html:not(.rb-room) #ui > aside.panel.bwfit.bwscroll{overflow-y:auto!important;scrollbar-width:thin}
+html:not(.rb-room) #ui > aside.panel.props.bwfit:not(.bwscroll){overflow:visible!important}

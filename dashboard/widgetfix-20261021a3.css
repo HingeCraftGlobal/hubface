@@ -1,0 +1,6 @@
+/* widgetfix-20261021a3 (Dan, xplain-20261021b): plain white X's restored (no red). YOUR ROW head hidden; taller picker. Roll back: /opt/hubface/backups/xplain-20261021b/ROLLBACK.sh */
+html:not(.rb-room) #ui .blist > .dwhead{display:none!important}
+html:not(.rb-room) #ui > section.box[data-float="other"]:not(.collapsed){min-height:330px!important}
+html:not(.rb-room) #ui > section.box[data-float="other"] .blist{max-height:none!important;overflow-y:auto!important}
+html:not(.rb-room) #ui > section.box[data-float="other"]:not(.closed){z-index:2147483000!important}
+html:not(.rb-room) #ui > section.box[data-float="other"] .blist > .build > .dwx{display:none!important}

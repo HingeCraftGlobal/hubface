@@ -19,7 +19,6 @@ const SECRET = crypto.randomBytes(32), REPLY_MS = 300e3, QMAX = 50;
 let deps = null; export function initChatRelay(d) { deps = d; }
 let on = new Set(); try { const j = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8')); if (Array.isArray(j.rooms)) on = new Set(j.rooms.filter((x) => ID_RE.test(x))); } catch {}
 function save() { try { fs.writeFileSync(STATE_FILE + '.tmp', JSON.stringify({ rooms: [...on], build: CHATRELAY_BUILD }), { mode: 0o600 }); fs.renameSync(STATE_FILE + '.tmp', STATE_FILE); } catch (e) { console.log('[chatrelay] save failed', String(e && e.code || e)); } }
-export const relayOn = (id) => on.has(id);
 const queues = new Map(); let seq = Date.now(); const lines = new Map();   // id -> line (for reply lookups)
 const used = new Map();     // id -> {status:409|410, t} for consumed / canceled reply ids
 function timing(id, room, stage, extra) { try { fs.appendFileSync(TIMING_FILE, JSON.stringify(Object.assign({ id, room, stage, at: Date.now(), iso: new Date().toISOString() }, extra || {})) + '\n', { mode: 0o600 }); } catch {} }
