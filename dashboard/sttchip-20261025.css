@@ -1,0 +1,2 @@
+/* sttchip-20261025 + ownerwake-20261025 (Dan, Oct 25): hide the STT status pill and the 'sttfix-... owner: ...' debug line everywhere, display only; STT/wake logic untouched. Rollback: /root/hubface-backups/sttchip-20261025/ROLLBACK.sh */
+#sttfix-pill,#sttfix-c,#sttfix-c-t{display:none!important}

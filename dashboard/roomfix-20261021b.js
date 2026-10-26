@@ -61,13 +61,14 @@
   function key(bar){return bar.dataset.agent?String(bar.dataset.agent).toLowerCase():persona(bar);}  /* avamute-20261021a merged: the shared Finn/Ava bar mutes whoever is on it */  /* Finn/Ava share one bar and one voice queue */
   function label(bar){if(!bar.dataset.agent)return persona(bar)==='ava'?'Ava':'Finn';var n=bar.querySelector('.aname,.atext > span');
     var t=((n&&n.textContent.trim().split(/[\s\u00b7\u2014:-]/)[0])||bar.dataset.agent);return t.charAt(0).toUpperCase()+t.slice(1);}
-  function muted(k){return !!mload()[k];}
+  function muted(k){if(k==='finn'||k==='ava')return false;return !!mload()[k];}
+  try{var m0=mload();if(m0.finn||m0.ava){delete m0.finn;delete m0.ava;localStorage.setItem(MK,JSON.stringify(m0));}}catch(e){}
   var SPK='<path d="M11 5 6 9H2v6h4l5 4V5z"/>',WAV='<path d="M15.5 9.5a3.5 3.5 0 0 1 0 5"/><path d="M18.5 7a7 7 0 0 1 0 10"/>',X='<line x1="15" y1="9" x2="21" y2="15"/><line x1="21" y1="9" x2="15" y2="15"/>';
   function paintBtn(bar){var b=bar.querySelector(':scope > .rfMute');if(!b){b=document.createElement('span');b.className='rfMute';b.setAttribute('role','button');b.tabIndex=0;bar.appendChild(b);}
     var k=key(bar),m=muted(k),n=label(bar),t=(m?'Unmute ':'Mute ')+n+' (only on this screen)',h='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'+SPK+(m?X:WAV)+'</svg>';
     if(b._h!==h){b.innerHTML=h;b._h=h;}b.classList.toggle('on',m);b.dataset.bot=k;b.setAttribute('aria-pressed',m?'true':'false');b.title=t;b.setAttribute('aria-label',t);}
   function bars(){return [].slice.call(document.querySelectorAll('#ui > section.ava')).filter(function(b){return b.id==='vbBar'||b.dataset.agent;});}
-  function paintAll(){bars().forEach(paintBtn);}
+  function paintAll(){bars().forEach(function(b){if(b.id==='vbBar'){var o=b.querySelector(':scope > .rfMute');if(o)o.remove();return;}paintBtn(b);});}  /* finn-mute-20261025: no per-screen mute on Finn/Ava bar */
   var lastKey=null;
   function setMute(k,on){var m=mload();if(on)m[k]=1;else delete m[k];try{localStorage.setItem(MK,JSON.stringify(m));}catch(e){}
     if(on){try{if(lastKey===k&&window.speechSynthesis&&speechSynthesis.speaking)speechSynthesis.cancel();}catch(e){}

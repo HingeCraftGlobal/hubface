@@ -242,7 +242,7 @@
       dOM.set.call(this, function (ev) {
         if (ws === roomWs && typeof ev.data === 'string' && ev.data.charAt(0) === '{') { try { var m = JSON.parse(ev.data);
           if (m.t === 'peer-state' && m.peer && 'hand' in m.peer) { peerHands[m.peer.id] = !!m.peer.hand; setTimeout(paintHands, 0); }
-          if (m.t === 'peer-leave') delete peerHands[m.id];
+          if (m.t === 'peer-leave') delete peerHands[m.id]; /* raisehand-20261025a: late joiners + joins carry hand */ if (m.t === 'welcome') { peerHands = {}; myHand = false; (m.peers || []).forEach(function (p) { if (p && p.hand) peerHands[p.id] = true; }); setTimeout(paintHands, 0); } if (m.t === 'peer-join' && m.peer) { peerHands[m.peer.id] = !!m.peer.hand; setTimeout(paintHands, 0); } if (m.t === 'peer-leave') setTimeout(paintHands, 0);
           if (m.t === 'welcome' && m.listen) lastListen = m.listen;
           if (m.t === 'listen') { lastListen = m; if (!yodaPicked()) return; }
           if (m.t === 'yoda-say' && !yodaPicked()) return;

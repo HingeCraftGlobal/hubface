@@ -1,6 +1,6 @@
 {
  "subject": "technology",
- "fetched_at": "2026-10-25T04:00:04.088951+00:00",
+ "fetched_at": "2026-10-26T04:00:04.632938+00:00",
  "items": [
   {
    "title": "New 'Scentronic' technology can detect and transmit aromas remotely",
@@ -19,10 +19,42 @@
    "video": false
   },
   {
-   "title": "Three years after unveiling Smart Grid, electricity provider in Sault Ste. Marie reporting ‘healthy’ results",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBmM1lNVEhfV0VuREFJdXIwRHR4Ml9VUDJSa25tUTA4TFhWbUk2Tm0yN0tpNkt6a1FnenAxSlJRcHBvdllGWXFQRmx0aWhIMmt1Ujk4UlRtbXZPQUlVTC1VOEtVV3JZNjFCUXNEWnk2QVJRZjJkSU12RQ?oc=5",
-   "published": "2026-10-24T09:00:00+00:00",
+   "title": "China increasingly depends on copying American AI",
+   "source": "The Economist",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQaW9HM2JjOUNBblBtb1dTQkI5bThOdTFZVUh0ZDZ1WTVJbHZsN200YVhSNlUzc2ZtYnRmdFFHU1JzRVBWeUVOLXVQcDdZR3M1eVZLbnJkczlzNVNIQll2dEV0c2w0MzgtczdtOUpDZGJ5OWJnTVcwYXBUR0F0R19EdmJBV3BTVEcyQmVGZFNmUEZUa0JuSTd3LVptNGRJWnlWaV9IcGIzQktXV0pSOUE?oc=5",
+   "published": "2026-10-25T17:44:35+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "TSX falls as gold slides, AI spending concerns weigh on technology stocks",
+   "source": "Yahoo! Finance Canada",
+   "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1hLTlXVE1WSGRXX0NLdHN3cXN0RHdwZjhrLThuVW1mYmM1ZVBmcXhhRkgweVFrMzJXOXRCTFcxYWtUWVcwMkgxUnFRYUswSkpHakxRVGdXS1pVUGVhNldfcUw3NHNFel9PNWxxX1FPcnNfNTBJcmRCbVBya21XZw?oc=5",
+   "published": "2026-10-23T11:30:59+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Meta’s Unending AI Spending",
+   "source": "WSJ",
+   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE14Tmg2cXRWUzNFZEY0dzl1dzFkZElUOTIyNzhRUEh6SXRDMnJRYW5sVTVoY2pJS2VZNFVQMThXX2FvWXZpbjlYQ0xzQWhTSnRHUGZEd243c1VvVnM4WXNuMWRnTy1RSDNMSDBYV1ZkTlg?oc=5",
+   "published": "2026-10-25T14:55:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "AI’s ‘opportunity divide’ could deepen global inequality, UN official warns",
+   "source": "Al Jazeera",
+   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPWmJUT1NsanpXZlRCRnU4d25KQWM3MjFDZ1VEeUFDc1BlaGFrUms1N3dzY2J0OFA2NnMwMzlXSTJvbUlMdS1tbzZ5dVVtX3JJd0JySXV6V1B4RUMzNDlCc2R3TEZYRDloUUN2Z2RjSnpWSlEtc1FTTHlMU0d4T1VKQXd0aVlUa0ZKanB4ZTItUU5qMkppZXEwZi14VEUwNnBiaURKbUhhMkc2RzVlLTMzMGptc9IBuAFBVV95cUxNVHlZV01sMG5lWWRJamREZXQzZUtSTlF3WG1BY0Vzdkw4ZnNMdmhETTJZS19qazA4QUVyZEM3TUduR1lnMUFPYjhvOG0tLVNkYml2U3g5aVc4OU9VakRxN3J1YVp1dWw4OW15Q2hHci03TXE0cjVLd3JZa1UtVHFYLU9MeDFFT3BnQ2pxNFJURXFjWnBFdjF3VHhwTWdTall3ampZQTR2SHdvR25OSFlzb3Vpd2ZqelpI?oc=5",
+   "published": "2026-10-25T17:30:56+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Apollo’s Slok Says AI Has Delivered Zero Payoff Outside of Tech",
+   "source": "Bloomberg.com",
+   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOR1FnYXFIOUpyU1VUdzNDazE4cFE2VDFyNU5DS3h0R0VSR2xHa0k0V2dHZ0hKbTZ6dFo3X1hUSW96S2dRRE5GODJUSUlCQ0dHUTVpSUJ0ZExNM1FBMVFld0JmSTBDMkpfSG5IOXVlS0hPX1h6OHpRT0xhbzNweEVxVDBLZGRreHVCc0VPZjVEQjN5dEIxQ2x4TGhfN2o3UHA3dVZrTXhRNVhsV216MGxNSnZWUGdNU1JiQjMxbQ?oc=5",
+   "published": "2026-10-25T09:28:36+00:00",
    "tag": "standard",
    "video": false
   },
@@ -31,38 +63,6 @@
    "source": "The Atlantic",
    "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxONGR0ZG9obWNHcXpYWFItX2Rrck8yMmVRZW1vd2lERlZPYnFiZDk3d0ZsdzJ5dEtCSnd6OWJwbjZfYUNrZ3RqM0NZR29JYTdBdGlnTjI0RDJjUXBXV2oyVy1nT0t4SnNjM0J1MXVaZ21uTklod1FtTmZlMTkxUEh3NS1OR2ktaVpGOUdTTlRIZ19sczRJaEx3TXdnTQ?oc=5",
    "published": "2026-10-22T23:47:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "City of Calgary showcases demonstration of new cyber attack prevention technology",
-   "source": "CityNews Calgary",
-   "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQNlNXbjRycko2NXh1NUhyOEZRakxZQTlxbFA1Z0JxdnI2bGhUdVhqaVhidDlYTmlrb09vSl9xUUJIZ0FqQjlsaTNHeXd1X3FxYWYtZzdQYkRNSWRkSVFuZUJ5QzgwRjRWQ2lwSHZTdFhLN29YbnM5UmIxQXpsRVRBZTNoLW5BTklEUnFMb3dfOXNxblpNSzlHLVpRWi01dnRKUEF1eWFHXzR3el8xaWxyb3BjV0d4QjhrZ0JjTVNiaGFzUE44U2c?oc=5",
-   "published": "2026-10-23T20:11:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "See It, Try It, Compare It: SIVP Brings CHERY’s “Technology. For Family” to Life",
-   "source": "Yahoo! Finance Canada",
-   "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPOVJiNHIyUjZMZGdRajVnMlhNX1g2OHJsV1huSHdPR0lIbEN2dWsyamFFT25oSVYwOWhzSy1pSDhiSHRKeUdDOTR3dlV2NUYtcDYwd050TXpLQk5oZDJEb09pbzQ0dy16M1BJbjVTczg1YlF1WHBIZzlUN2UzaVF4QWhB?oc=5",
-   "published": "2026-10-24T02:06:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Finding value in Canada’s technology sector",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNWGF6ZTJ1Qm1HWVJQR29WTndiNXZMOHVyeGlxbkRQREN2RW1GYnExcXJrNjhvMG5yMlhIZzNVeDNMbmRmMDZWVzQtWU9DOUdPWnpOTFRMWVJnRU93bE1lQmRqVS1sdEVOazc1YlB6V3F1eEtwTUxsNjVoMVM4R1c5Z0x4bzlyenRndy1DWFc4Ykt4SWhlUWNzam9WbGJfUGRuSHROOW4tLVZVaHF6V2ZLWWgzNHkyM1NGNE9xQVpZMjlSc2pH?oc=5",
-   "published": "2026-10-22T20:42:45+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Vanguard Morningstar Growth ETF vs. Vanguard Information Technology ETF: Here's Which One I Believe Is the Clear Long-Term Winner.",
-   "source": "The Motley Fool",
-   "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBuOUZnTW5JeWJ5Sk1tTHJ5MnJNNl9Rb3lKRTRPT1NldzY1cE9qQjF3dnBDLUF6SS1CU2NXQWVxUUFUOURQRjZYOUFjQlE1WHJibEZoSkh1RnFUckJRamQ0bW15Z2FvbjBVeGdmMkNtbTNlSGdFRG1GRHpYSmZ4UQ?oc=5",
-   "published": "2026-10-24T15:11:00+00:00",
    "tag": "standard",
    "video": false
   }

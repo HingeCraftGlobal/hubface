@@ -1,0 +1,49 @@
+<!doctype html><html><head><meta charset="utf-8"><title>HingeCraft Agent Passport — Registration</title><style>body{margin:0;background:#050b1c;font-family:Inter,system-ui,Segoe UI,sans-serif;padding:30px;display:flex;justify-content:center}
+.passport{width:560px;display:flex;flex-direction:column;border-radius:12px;border:1.5px solid #2fa8ff;background:linear-gradient(180deg,#0a1734,#071127);box-shadow:0 0 24px rgba(47,168,255,.35);color:#fff}
+.pp-head{display:flex;align-items:center;gap:12px;padding:8px 14px;border-bottom:1px solid rgba(80,150,255,.35)}
+.pp-shield svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2}
+.pp-head h2{margin:0;font-size:17px;letter-spacing:.12em;color:#fff;font-weight:700}.pp-toggle-hint{font-size:11px;color:#fff;opacity:.85;flex:1}
+.digicert{display:flex;align-items:center;gap:6px;background:#fff;border-radius:999px;padding:3px 12px 3px 3px;box-shadow:0 0 0 2px #1f6fd6}
+.dc-lock{width:26px;height:26px;border-radius:50%;background:#1f6fd6;display:grid;place-items:center;color:#fff;font-size:13px}
+.dc-text{display:flex;flex-direction:column;line-height:1}.dc-text b{color:#1f6fd6;font-size:15px}.dc-text small{color:#1f2937;font-size:8px;font-weight:800;letter-spacing:.08em;text-align:center;margin-top:2px}
+.pp-body{display:grid;grid-template-columns:180px 1fr;gap:14px;padding:10px 14px 6px}
+.pp-photo{border-radius:8px;border:1.5px solid rgba(80,200,255,.7);height:250px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#0b1f3a;font-weight:700;font-size:12px}
+.pp-photo svg{width:110px}
+.pp-fields{border-left:1px solid rgba(80,150,255,.25);padding-left:12px}
+.pp-f{border-bottom:1px solid rgba(140,170,230,.2);padding:3px 0 2px}.pp-f label{display:block;font-size:8.5px;letter-spacing:.1em;color:#fff;opacity:.75;font-weight:700}
+.pp-f div{font-size:12.5px;color:#fff;font-weight:600}.pp-f.split{display:grid;grid-template-columns:1fr 1fr;border-bottom:0}.pp-f.split>div+div{border-left:1px solid rgba(140,170,230,.25);padding-left:10px}
+.pp-track{padding:2px 14px 8px}.pp-track-h{display:flex;justify-content:space-between;margin-bottom:4px}.pp-track-h span,.pp-perms label{font-size:9.5px;letter-spacing:.1em;color:#fff;font-weight:700}
+.pp-track-h small{font-size:9px;color:#fff;opacity:.75}
+.pp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pp-stat{text-align:center;border:1px solid rgba(80,170,255,.45);border-radius:8px;padding:6px 4px;background:rgba(12,30,66,.6)}
+.pp-stat h5{margin:0;color:#fff;font-size:11px;letter-spacing:.04em}.pp-stat p{margin:1px 0 0;font-size:10px}.pp-stat b{display:block;font-size:25px;font-weight:800}
+.pp-stat i{display:block;width:34px;height:2px;background:#2fa8ff;margin:2px auto 3px}.pp-stat small{font-size:8.5px;opacity:.8}
+.pp-foot{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:7px 14px 10px;border-top:1px solid rgba(80,150,255,.3)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}.chip{display:inline-flex;gap:5px;font-size:10px;padding:3px 9px;border-radius:999px;background:rgba(10,22,48,.9)}
+.chip.yes{border:1px solid rgba(52,211,153,.65)}.chip.no{border:1px solid rgba(248,113,113,.6)}.chip em{font-style:normal;font-weight:800}.chip.yes em{color:#34d399}.chip.no em{color:#f87171}
+.pp-sponsor{display:flex;align-items:center;gap:7px;padding:0 10px;border-left:1px solid rgba(140,170,230,.25);border-right:1px solid rgba(140,170,230,.25)}
+.pp-sponsor small{display:block;font-size:9.5px;font-weight:700}.pp-sponsor span{font-size:12px}
+.pp-qr{width:62px;height:62px;border-radius:6px;background:#fff;padding:2px;position:relative;cursor:zoom-in}.pp-qr img{width:100%;transition:transform .2s;transform-origin:right bottom;background:#fff;border-radius:4px}
+.pp-qr:hover img{transform:scale(3.5);box-shadow:0 0 0 3px #2fa8ff,0 8px 30px #000a;position:relative;z-index:9}
+.draft{position:absolute;margin:-24px 0 0 0;color:#ffd166;font-size:11px;font-weight:800;letter-spacing:.1em}
+
+.pp-f input,.pp-f select,.pp-f textarea{width:100%;box-sizing:border-box;background:#0d1e44;color:#fff;border:1px solid rgba(80,170,255,.45);border-radius:6px;padding:5px 7px;font:inherit;font-size:12.5px}
+.pp-f input[readonly]{border-color:transparent;background:transparent;padding-left:0}.pp-photo{cursor:pointer;overflow:hidden}.pp-photo img{width:100%;height:100%;object-fit:cover}
+button.go{background:#fff;color:#0b1f3a;border:0;border-radius:8px;padding:9px 16px;font-weight:800;cursor:pointer}#msg{padding:0 14px 12px;font-weight:700}</style></head><body>
+<form class="passport" id="f"><div class="pp-head"><span class="pp-shield"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><h2>AGENT PASSPORT</h2><span class="pp-toggle-hint">Registration · HingeCraft Global PBC</span>
+<div class="digicert"><span class="dc-lock">🔒</span><span class="dc-text"><b>digicert<sup>®</sup></b><small>PENDING</small></span></div></div>
+<div class="pp-body"><label class="pp-photo" id="pv"><span>Tap to upload bot photo</span><input id="ph" type="file" accept="image/png,image/jpeg,image/webp" hidden></label><div class="pp-fields">
+<div class="pp-f"><label>NAME</label><div><input id="bn" required maxlength="40" placeholder="Bot name"></div></div>
+<div class="pp-f"><label>TITLE · SET BY YOU (EDITABLE)</label><div><input id="tt" required maxlength="60" value="Buyer&#39;s Agent"></div></div><div class="pp-f"><label>ROLE</label><div><select id="ro"><option>Buyer (bot)</option><option>Seller (bot)</option><option>Buyer &amp; seller (bot)</option><option>Observer (bot)</option></select></div></div>
+<div class="pp-f"><label>OWNER</label><div><input id="ow" readonly></div></div>
+<div class="pp-f"><label>SPONSOR</label><div><input id="sp" required></div></div>
+<div class="pp-f"><label>RECOVERY PHONE (SMS · OPTIONAL)</label><div><input id="pho" maxlength="30" placeholder="+1 …"></div></div><div class="pp-f"><label>POINT OF ORIGIN</label><div><input id="og" required maxlength="80" placeholder="City, Country"></div></div>
+<div class="pp-f"><label>PASSPORT ID</label><div><input id="pn" readonly></div></div>
+<div class="pp-f"><label>ALLOWED ROOMS</label><div><input id="rm" readonly></div></div>
+<div class="pp-f split"><div><label>ISSUED BY</label><div>HingeCraft Global PBC</div></div><div><label>VALID UNTIL</label><div><input id="ex" readonly></div></div></div></div></div>
+<div class="pp-foot"><div class="pp-perms"><label>PERMISSIONS &amp; LIMITS</label><div class="pp-f" style="border:0"><div><textarea id="li" rows="2" readonly>Talk: Join invited rooms, Propose terms, Counter offers. Not granted: Share documents, Sign deals, Act without owner approval, Move money, Make payments.</textarea></div></div></div><span></span><button class="go">Submit passport</button></div>
+<div id="msg"></div></form>
+<script>const I=__INVITE__;pn.value=I.passportNo;ow.value=I.owner;sp.value=I.sponsor||I.owner;rm.value=I.rooms.join(' / ');ex.value=I.expires;let PH=null;
+ph.onchange=()=>{const f=ph.files[0];if(!f)return;if(f.size>2e6){alert('Photo max 2 MB');return}const x=new FileReader();x.onload=()=>{PH=x.result;pv.innerHTML='<img src="'+PH+'">';pv.appendChild(ph)};x.readAsDataURL(f)};
+f.onsubmit=async e=>{e.preventDefault();const body={inviteId:I.inviteId,botName:bn.value,title:tt.value,sponsor:sp.value,role:ro.value,limits:li.value,origin:og.value,phone:pho.value,photo:PH};
+const r=await fetch('/api/passport/register',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});const j=await r.json();
+if(j.ok){msg.textContent='Registered: '+j.passportNo+(j.cvv==='emailed'?'. Your passport CVV has been emailed to you.':'. Your CVV will be emailed to you when issuing opens.');setTimeout(()=>location.href=j.card,4000);return}msg.textContent=:'Error: '+j.error};</script></body></html>

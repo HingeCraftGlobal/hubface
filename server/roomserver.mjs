@@ -10,7 +10,7 @@
 import crypto from 'node:crypto';
 import { lookupForJoin, isOwner, sessionUser, clientIp, roomName } from './rooms.mjs';
 
-export const ROOMSERVER_BUILD = 'roomserver-20261018a+turn-20261018a+yodahear-20261018b+lag-20261018a+fast-20261018a+fastfix-20261018a+merge-20261018a+stt-20261018a+bridge-20261019a+botname-20261019a+botchain-20261019a+transcript-20261019a+voicefix-20261019a+realyoda-20261020a+latency-20261020a+auto-20261020a+mono-20261020a+readycue-20261020a+listendefault-20261020a+sessionpacket-20261020a+voiceoff-20261020a+chatrelay-20261020a';
+export const ROOMSERVER_BUILD = 'roomserver-20261018a+turn-20261018a+yodahear-20261018b+lag-20261018a+fast-20261018a+fastfix-20261018a+merge-20261018a+stt-20261018a+bridge-20261019a+botname-20261019a+botchain-20261019a+transcript-20261019a+voicefix-20261019a+realyoda-20261020a+latency-20261020a+auto-20261020a+mono-20261020a+readycue-20261020a+listendefault-20261020a+sessionpacket-20261020a+voiceoff-20261020a+chatrelay-20261020a+floppy-photo-20261025a';
 console.log('[roomserver] voicefix-20261019a: duplicate-line drop (30 s) + long-line fast path on');
 /* botname-20261019a: room bots post in Room Chat (and speak) under their own name + picture. /say body {as:'ava'|'finn'|'yoda'} (default yoda). */
 export const BOTS = { yoda: { name: 'Yoda', img: 'assets/yoda.jpg', voice: 'liora' }, ava: { name: 'Ava', img: 'assets/ava.png', voice: 'eve' }, finn: { name: 'Finn', img: 'assets/yoda-finn.jpg', voice: 'lumen' } };
@@ -103,7 +103,10 @@ function reject(sock, code, text) { try { sock.write(`HTTP/1.1 ${code} ${text}\r
 
 /* ---------- rooms ---------- */
 const clean = (v, n) => String(v ?? '').normalize('NFKC').replace(/[\u0000-\u001f\u007f<>]/g, '').replace(/\s+/g, ' ').trim().slice(0, n);
-const pub = (m) => ({ id: m.id, name: m.name, user: m.user, role: m.role, mic: m.mic, cam: m.cam, at: m.at });
+const pub = (m) => ({ id: m.id, name: m.name, user: m.user, role: m.role, mic: m.mic, cam: m.cam, hand: !!m.hand, photo: m.photo || null, at: m.at });
+const PHOTO_RE = /^\/api\/hf-photo\/f\/[ugb]-[a-z0-9-]{1,64}\.(jpg|png|webp)(\?v=\d{1,15})?$/; const okPhoto = (v) => typeof v === "string" && PHOTO_RE.test(v) ? v : null;   // floppy-photo-20261025a
+export function yodaKeyOk(q, r, json) { return yodaAuthed(q, r, json); }   // floppy-photo-20261025a: bot avatar upload uses the /say key
+export function roomPresence() { return [...rooms.values()].map((x) => ({ id: x.id, people: x.members.size })); }   // floppy-photo-20261025a
 function bcast(room, o, exceptId) { for (const m of room.members.values()) if (m.id !== exceptId) m.ws.send(o); }
 export function roomBroadcast(id, o) { const r = rooms.get(id); if (!r) return 0; bcast(r, o); return r.members.size; }   // phase 2 (yoda-say)
 /* bridge-20261019a (Dan approved): read-only hooks for the bridge gateway (bridge.mjs) */
@@ -136,7 +139,7 @@ export function roomLiveUpgrade(q, sock, head) {
       if (room.members.size >= HARD_CAP) { ws.send({ t: 'error', code: 'room-full', msg: `This room is full (${HARD_CAP} people).` }); return ws.close(1008, 'full'); }
       const host = isOwner(q, row, o.ownerKey);
       const guestName = clean(o.name, 40) || 'Guest ' + crypto.randomInt(1000, 10000);
-      me = { id: crypto.randomUUID(), name: user && user.name ? user.name : guestName, user: user && user.name ? user.name : null, role: host ? 'host' : 'guest', mic: !!o.mic, cam: !!o.cam, at: now, ws };
+      me = { id: crypto.randomUUID(), name: user && user.name ? user.name : guestName, user: user && user.name ? user.name : null, role: host ? 'host' : 'guest', mic: !!o.mic, cam: !!o.cam, photo: okPhoto(o.photo), at: now, ws };
       if (me.role === 'host') listenDefault(room.id, 'host-join');   // listendefault-20261020a: before the welcome so it carries listen:on
       const others = [...room.members.values()].map(pub);
       room.members.set(me.id, me);
@@ -147,7 +150,7 @@ export function roomLiveUpgrade(q, sock, head) {
       return;
     }
     if (!me) return;
-    if (o.t === 'state') { me.mic = !!o.mic; me.cam = !!o.cam; if (typeof o.name === 'string' && !me.user) { const n = clean(o.name, 40); if (n) me.name = n; } bcast(room, { t: 'peer-state', peer: pub(me) }, me.id); return; }
+    if (o.t === 'state') { me.mic = !!o.mic; me.cam = !!o.cam; if ('hand' in o) me.hand = !!o.hand; if ('photo' in o) me.photo = okPhoto(o.photo); /* floppy-photo-20261025a */ /* raisehand-20261025a */ if (typeof o.name === 'string' && !me.user) { const n = clean(o.name, 40); if (n) me.name = n; } bcast(room, { t: 'peer-state', peer: pub(me) }, me.id); return; }
     if (o.t === 'chat') {
       chats = chats.filter((t) => now - t < 10000); if (chats.length >= 8) return ws.send({ t: 'error', code: 'chat-rate', msg: 'Slow down a little.' }); chats.push(now);
       const text = clean(o.text, 1000); if (!text) return;

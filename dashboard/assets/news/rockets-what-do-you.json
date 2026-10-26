@@ -1,12 +1,20 @@
 {
  "subject": "rockets what do you",
- "fetched_at": "2026-10-25T04:00:17.792047+00:00",
+ "fetched_at": "2026-10-26T04:00:18.145950+00:00",
  "items": [
   {
    "title": "3 Questions: What Can Spurs Expect From Rockets on Friday Night?",
    "source": "Sports Illustrated",
    "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOLWdxYnR3YnhtX0FIZUc5QmNzaGp6Nm8wd0pDdkc2aHhhTHFfdkhWUW1GQzlHUTFYMjZjVGhuNHFGR0xoY21IMmNSVEFvbVlUQVdLUkdoQ1RXNWoyQnhDLU40SkJ1TGVqRVlGcFcyUWpQZmpyUWtWUjR4bFQ1VTREXy1US2dzQUE0TVBvOEhwUUUzdy1JczhSMGxieHJTT2lLQnFyMVdEWmh4eDhkVkhlV1VHN0d6Q0U?oc=5",
    "published": "2026-10-23T22:40:55+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Rockets zoom past Hawks 121-114",
+   "source": "The Dream Shake",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNYXhWX05hT2pvc2VKaHN6ZW1iTWlrcGtyakxEa0VwczhLdVZHWkMtTWNsYjZTeE9fZE5vYmpIVS15Q1h5VGdmbWx2NjR6X1E0SXN6RzVoeXFZSVE2MTl6STdUenhodWFVbGdtaTV3T25td0NCQ094MDhHWjBsMnBlSGhwYzE0TlJsblRDOWdWWkxBVEg3?oc=5",
+   "published": "2026-10-25T05:04:00+00:00",
    "tag": "standard",
    "video": false
   },
@@ -35,14 +43,6 @@
    "video": false
   },
   {
-   "title": "5 Model Rocket Kits You Can Get On Amazon For Under $40",
-   "source": "SlashGear",
-   "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPX3kzY0RrTVo0eXlGX3F3LU9SbWJYM1hQT2cwcWFBN1h0ek1vcUdoVUpzaEpiOTlEZmJ0ZERKai0zRWNVVG5iNER5eE5Rdi16WHZmWERaVV9sTEE3UjEyYTZWaDZBSk5tdklaanpyOGVLWXJlOGt1VUlDVDJGOURjU1Rn?oc=5",
-   "published": "2026-10-19T17:15:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
    "title": "Mavericks vs. Rockets Quoteboard: “They outworked us, to be honest. They did a better job.”",
    "source": "Mavs Moneyball",
    "link": "https://news.google.com/rss/articles/CBMiqAJBVV95cUxPWnA4OFFxWUVfQXctWll0NUVBSjF0OV9KTDFKTDZKQmI5NUZzQ21hdlBacjM1dmZHYzd1TGdZUjl0aXFFN3otM3RUeVVNcmktdTNSdmd4Rl9yQ1h2c3QzQXk2R29QbW9mUWhsUVFpRVJWS1gxMzBXZTJ1dnZab0tqaVNFMHkybkFSV0JZVDQyODdyX1B1aDNUaFh5MDg0cjhZa3BxeS15ckJsVERpYndkRnJNX3FpVmMzNXBQTFZKQU5HY2JFdUZTR1ZwTEFCREo2ekNmRzhfWEg2N250b3VKc3Z2aHZVU0hSdmNITWhsLU9DRnMtSWFYR25DZjZlZ2tyeGloaGFoRlZxeUtWeTEtQnRMZ0VIMnN1YmphOFRjV1VTc3RiNmNJVg?oc=5",
@@ -59,10 +59,10 @@
    "video": false
   },
   {
-   "title": "Rockets kickoff 2026-2027 NBA season with matchup with Mavs",
-   "source": "The Dream Shake",
-   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPdnE1WGsxQlBCMG9YMXlQaTA0N3ZXNUVaS1FDamtOcnlBYmNzcXBtTmRqVFQxNmNHVGlZVDNhZzNELVlSUTRrRDVRMjFJX2FUQjAwNHVRQVlUYjNSN3FFc09oalJCemZpM0d3eEN0ZkpFRVg1RVJDTjZhZE5Qb1pPVms4QU9mN3RmMFl5QzUxM0h2WGJMdFhwT0h3ZTdUMUF2Yk1rNTZTYXFwQ1NacnpEMjdKbGc2UnJVejhNLWt2cFg2Zw?oc=5",
-   "published": "2026-10-21T23:30:00+00:00",
+   "title": "5 Model Rocket Kits You Can Get On Amazon For Under $40",
+   "source": "SlashGear",
+   "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPX3kzY0RrTVo0eXlGX3F3LU9SbWJYM1hQT2cwcWFBN1h0ek1vcUdoVUpzaEpiOTlEZmJ0ZERKai0zRWNVVG5iNER5eE5Rdi16WHZmWERaVV9sTEE3UjEyYTZWaDZBSk5tdklaanpyOGVLWXJlOGt1VUlDVDJGOURjU1Rn?oc=5",
+   "published": "2026-10-19T17:15:00+00:00",
    "tag": "standard",
    "video": false
   }

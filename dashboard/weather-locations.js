@@ -53,10 +53,13 @@ var KNOWN="Acapulco,Cancun,Mexico City,Guadalajara,Monterrey,Puerto Vallarta,Cab
     ["click","mousedown","pointerdown","dblclick","keydown"].forEach(function(ev){w.addEventListener(ev,function(e){e.stopPropagation();});});
     var baseH=null,baseTop=null;
     function fit(){
-      if(baseH===null){baseH=box.offsetHeight||150;}
+      /* wxinline-20261025a: was cached on first run; if Weather was closed/collapsed then, top=6px put the add box under the
+         drag handle (.fhandle) which swallowed every click. Only measure while the box is really shown. */
       var foot=box.querySelector(".w-clock")||box.querySelector(".w-foot");
-      var top=foot?foot.offsetTop+foot.offsetHeight+6:baseH-6;
-      if(baseTop===null)baseTop=top;w.style.top=baseTop+"px";
+      if(box.offsetHeight<60||!foot||!foot.offsetHeight){setTimeout(fit,700);return;}
+      if(baseH===null)baseH=box.offsetHeight;
+      var top=foot.offsetTop+foot.offsetHeight+6;
+      if(baseTop===null||baseTop<40)baseTop=top;w.style.top=baseTop+"px";w.style.zIndex="5";
       var need=baseTop+w.offsetHeight+10;box.style.height=Math.max(baseH,need)+"px";
       /* 20261021b: keep the saved-places list visible over boxes below it (Morning layout: Priorities) without moving
          anyone's saved positions. The dashboard pins floating boxes at z-index 4400 !important, so lift Weather one step
@@ -101,3 +104,16 @@ var KNOWN="Acapulco,Cancun,Mexico City,Guadalajara,Monterrey,Puerto Vallarta,Cab
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start);else start();
 })();
+/* wxinline-20261025a: one place for locations. Old pin/location-name popup is disabled; the add box (typed + mic)
+   is always open under the weather and the saved list sits below it. Clicking the location name focuses the box. */
+(function(){function go(){var w=document.getElementById("wxLocs");if(!w)return setTimeout(go,400);
+  var s=document.createElement("style");s.textContent="#wLoc,.wxloc-btn,#wxLocPop{display:none!important}#wxLocs .wxa{display:none!important}#wxLocs .wxf{display:flex!important}#wxLocs .wxl{max-height:160px;overflow:auto}#wxLocs .wxm{display:none!important}#wxLocs .fmic{transform:scale(1.25)}";document.head.appendChild(s);
+  w.classList.add("adding");
+  /* voice: reuse the shared in-field dictation mic (.fmic, same as other fields); when dictation fills the box, search on its own */
+  var ip=w.querySelector("input"),dt=0;if(ip)ip.addEventListener("input",function(){clearTimeout(dt);var v=ip.value.trim();if(v.length<3)return;
+    dt=setTimeout(function(){var g=w.querySelector(".wxg");if(g&&ip.value.trim()===v)g.click();},window.__fieldMicActive?1200:900);});w.setAttribute("data-inline","wxinline-20261025a");
+  function grab(e){var t=e.target;if(t&&t.closest&&t.closest("#wCond,#wLoc")){e.stopImmediatePropagation();e.preventDefault();var i=w.querySelector("input");if(i)i.focus();}}
+  ["click","pointerdown","mousedown"].forEach(function(ev){document.addEventListener(ev,grab,true);});
+  document.querySelectorAll("#wCond").forEach(function(c){c.title="Add or switch locations below";});
+  window.dispatchEvent(new Event("resize"));}
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();})();

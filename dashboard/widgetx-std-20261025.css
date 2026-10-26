@@ -1,0 +1,14 @@
+/* widgetx-std-20261025 (Dan, Oct 25): one close-X standard for every floating widget.
+   18px round hit target, 10px glyph, 6px in from the right edge, centred on the header icon row (top 7.5px).
+   Roll back: remove the tag; backup /root/hubface-backups/widget-x-20261025/ */
+html:not(.rb-room) #ui > section.box > .ctl.boxclose,
+html:not(.rb-room) #ui > section.box.collapsed > .ctl.boxclose{left:auto!important;right:6px!important;top:7.5px!important;translate:none!important;width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;padding:4px!important;box-sizing:border-box!important;margin:0!important}
+html:not(.rb-room) #ui > section.box > .ctl.boxclose svg{width:10px!important;height:10px!important;display:block}
+html:not(.rb-room) #ui > .wbx > .whead > .wx{width:18px!important;height:18px!important;min-width:18px!important;min-height:18px!important;padding:4px!important;box-sizing:border-box!important;margin-right:5px!important}
+html:not(.rb-room) #ui > .wbx > .whead > .wx svg{width:10px!important;height:10px!important}
+/* collapsed strips keep the same spacing to the X */
+html:not(.rb-room) #ui > section.floatbox.collapsed:not(.ava) > .boxmin{right:28px!important}
+html:not(.rb-room) #ui > section.floatbox.collapsed:not(.ava) > .fogbtn{right:46px!important}
+/* the old 4px nudge on fog/minimize made them touch the smaller X: drop it so the row keeps a 3px gap */
+html:not(.rb-room) #ui > section.box:not(.ava):not(.collapsed) > .ctl.boxmin,
+html:not(.rb-room) #ui > section.box:not(.ava):not(.collapsed) > .ctl.fogbtn{translate:none!important}

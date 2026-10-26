@@ -8,6 +8,6 @@
   try{addEventListener('hubface-auth',function(){ME=null;});}catch(e){}
   function hit(s){try{var u=new URL(s,location.href);return u.origin===location.origin&&/^\/api\/account\/email-feed\/?$/.test(u.pathname);}catch(e){return false;}}
   window.fetch=function(u,o){var s=typeof u==='string'?u:(u&&u.url)||'',m=((o&&o.method)||(u&&u.method)||'GET').toUpperCase();
-    if(m==='GET'&&hit(s)){n.local++;return me().then(function(si){return si?new Response('{"error":"no feed"}',{status:404,headers:{'Content-Type':'application/json'}}):new Response('{"error":"signed out"}',{status:401,headers:{'Content-Type':'application/json'}});});}
+    if(m==='GET'&&hit(s)){n.local++;var self=this,args=arguments;return me().then(function(si){/* emailwidget-20261025: signed in -> real network feed */return si?of.apply(self,args):new Response('{"error":"signed out"}',{status:401,headers:{'Content-Type':'application/json'}});});}
     return of.apply(this,arguments);};
 })();

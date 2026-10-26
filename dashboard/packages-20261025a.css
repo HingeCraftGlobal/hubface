@@ -1,0 +1,30 @@
+/* packages-20261025a: Packages floating glass box (owner only) */
+#ui > section.box.pkbox{overflow:hidden}
+#ui > section.box.pkbox header{display:flex;align-items:center;gap:6px}
+.pkbox .pksum{font-style:normal;font-size:9px;opacity:.85;font-weight:500;letter-spacing:.02em}
+.pkbox .pkal{font-style:normal;font-size:9px;font-weight:700;padding:0 6px;border-radius:8px;line-height:14px;background:#e5484d;color:#fff;box-shadow:0 0 8px rgba(229,72,77,.7)}
+.pkbox .pkal.amber{background:#f5a524;color:#1a1200;box-shadow:0 0 8px rgba(245,165,36,.6)}
+.pkbox .pkrows{position:absolute;left:10px;right:8px;top:34px;bottom:8px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;pointer-events:auto}
+.pkbox .pkrow{border-radius:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:5px 7px;cursor:pointer;font-size:10px;line-height:1.3}
+.pkbox .pkrow:hover{background:rgba(255,255,255,.14)}
+.pkbox .pkrow.alert{border-color:rgba(229,72,77,.8)}
+.pkbox .pkrow.alert.amber{border-color:rgba(245,165,36,.8)}
+.pkbox .pktop{display:flex;gap:6px;align-items:baseline}
+.pkbox .pkcar{font-weight:700}
+.pkbox .pktrk{opacity:.75;font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pkbox .pkst{margin-left:auto;font-size:9px;opacity:.9;white-space:nowrap}
+.pkbox .pkbar{display:flex;gap:3px;margin-top:4px}
+.pkbox .pkbar i{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.18)}
+.pkbox .pkbar i.on{background:var(--hub-blue,#4da3ff)}
+.pkbox .pklab{display:flex;justify-content:space-between;font-size:7.5px;opacity:.6;margin-top:2px}
+.pkbox .pkwarn{margin-top:4px;font-size:9px;padding:3px 5px;border-radius:4px;background:rgba(229,72,77,.25);border-left:3px solid #e5484d}
+.pkbox .pkwarn.amber{background:rgba(245,165,36,.2);border-left-color:#f5a524}
+.pkbox .pkempty{font-size:10px;opacity:.75;padding:6px 2px}
+.pkbox .pkfoot{font-size:8px;opacity:.5;padding:2px}
+#ui .panel .witem.pkitem{pointer-events:auto!important;cursor:pointer}
+#ui .panel .witem.pkitem:hover{background:rgba(255,255,255,.14)}
+#ui .panel .witem.pkitem.boxoff{opacity:.5}
+#ui .panel .witem.pkitem .pkdot{display:none;margin-left:auto;margin-right:8px;min-width:14px;height:14px;border-radius:7px;background:#ff3b3b;color:#fff;font-size:8.5px;font-weight:700;line-height:14px;text-align:center;padding:0 3px;box-shadow:0 0 6px 2px rgba(255,59,59,.85);animation:pkglow 1.6s ease-in-out infinite}
+#ui .panel .witem.pkitem.pkhas .pkdot{display:inline-block}
+#ui .panel .witem.pkitem.pkhas.boxoff{opacity:1}
+@keyframes pkglow{0%,100%{box-shadow:0 0 4px 1px rgba(255,59,59,.7)}50%{box-shadow:0 0 10px 4px rgba(255,59,59,1)}}

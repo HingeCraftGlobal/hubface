@@ -13,7 +13,7 @@
   function log(k){var st='';try{st=(new Error().stack||'').split('\n').slice(2,5).join(' | ');}catch(e){}LOG.push({via:k,at:Date.now(),stack:st});if(LOG.length>30)LOG.shift();}
   var of=window.fetch;
   if(of)window.fetch=function(u,o){var s=typeof u==='string'?u:(u&&u.url)||String(u||''),mm=((o&&o.method)||(u&&u.method)||'GET').toUpperCase();
-    if(mm==='GET'&&hit(s)){log('fetch');return Promise.resolve(new Response(BODY,{status:200,headers:{'Content-Type':'application/json'}}));}return of.apply(this,arguments);};
+    if(mm==='GET'&&hit(s)){log('fetch');/* emailwidget-20261025: pass through so the signed-in owner gets the real feed; empty feed only on non-200 */var E=function(){return new Response(BODY,{status:200,headers:{'Content-Type':'application/json'}});};return of.apply(this,arguments).then(function(r){return r&&r.ok?r:E();},function(){return E();});}return of.apply(this,arguments);};
   var X=window.XMLHttpRequest&&XMLHttpRequest.prototype;
   if(X){var oo=X.open,os=X.send;X.open=function(m,u){this.__tfEf=String(m||'GET').toUpperCase()==='GET'&&hit(u);return oo.apply(this,arguments);};
     X.send=function(){if(!this.__tfEf)return os.apply(this,arguments);log('xhr');var x=this;

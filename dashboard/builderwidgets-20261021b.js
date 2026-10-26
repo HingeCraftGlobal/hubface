@@ -10,6 +10,11 @@
     if(!p.querySelector(':scope > .bwhd')){var h=document.createElement('div');h.className='bwhd';h.textContent='Dashboard widgets';p.appendChild(h);}
     var it=[].filter.call(p.children,function(c){return c.classList.contains('witem')&&getComputedStyle(c).display!=='none';});
     it.sort(function(a,b){return (a._bwo||parseFloat(a.style.top)||0)-(b._bwo||parseFloat(b.style.top)||0);});
+    /* dragorder-20261025: a saved drag-reorder (window.__wOrder, widgetorder-20261018) wins over the native order, otherwise this re-flow put every dragged row straight back. Widget Picker stays last, like widgetfix. */
+    try{var wo=window.__wOrder;if(wo&&wo.get().dash&&wo.get().dash.length){var nmz=function(c){var sp=c.querySelector('span');return sp?sp.textContent.trim().replace(/\d+$/,'').trim():'';};
+      var base=it.slice(),names=base.map(nmz),ord=wo.apply('dash',names),rk={};ord.forEach(function(n,i){if(rk[n]===undefined)rk[n]=i;});
+      it.sort(function(a,b){var ra=rk[nmz(a)],rb=rk[nmz(b)];if(ra===undefined)ra=1e6;if(rb===undefined)rb=1e6;return ra-rb;});
+      var wpi=-1;it.forEach(function(c,i){if(nmz(c)==='Widget Picker')wpi=i;});if(wpi>=0&&wpi!==it.length-1)it.push(it.splice(wpi,1)[0]);}}catch(e){}
     it.forEach(function(c,i){if(!c._bwo)c._bwo=parseFloat(c.style.top)||(i+1)*1000;var v=(TOP+i*STEP)+'px';if(c.style.getPropertyValue('top')!==v)c.style.setProperty('top',v,'important');});}
   function rectUI(e){var u=document.getElementById('ui'),ur=u.getBoundingClientRect(),k=ur.width/u.clientWidth||1,r=e.getBoundingClientRect();return {l:(r.left-ur.left)/k,t:(r.top-ur.top)/k,r:(r.right-ur.left)/k,b:(r.bottom-ur.top)/k};}
   function hit(a,b){return a.l<b.r&&a.r>b.l&&a.t<b.b&&a.b>b.t;}

@@ -1,0 +1,4 @@
+/* finn-kill-20261025 (Dan 1:45pm ET): Finn kept talking over him. Hard mute: no speechSynthesis, no TTS/blob audio playback. Remove the script tag in index.html to restore voice. */
+(function(){window.__finnKill=true;try{var ss=window.speechSynthesis;if(ss){ss.cancel();ss.speak=function(u){try{setTimeout(function(){u&&u.onend&&u.onend({});},0);}catch(e){}};}}catch(e){}
+try{var P=HTMLMediaElement.prototype,op=P.play;P.play=function(){var s=String(this.currentSrc||this.src||"");if(/^blob:|\/api\/tts/.test(s)||this.tagName==="AUDIO"&&!/chime|\.mp3$|\.wav$/i.test(s)){var me=this;setTimeout(function(){try{me.dispatchEvent(new Event("ended"));}catch(e){}},0);return Promise.resolve();}return op.apply(this,arguments);};}catch(e){}
+setInterval(function(){try{speechSynthesis.cancel();}catch(e){}document.querySelectorAll("audio").forEach(function(a){if(/^blob:/.test(a.src)&&!a.paused)a.pause();});},1000);})();

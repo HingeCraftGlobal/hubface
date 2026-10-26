@@ -517,6 +517,131 @@ export async function internalRoute(q, r) {
   return json(r, 404, { error: 'not found' });
 }
 
+/* ---------------- botmeter-20261025a (Dan, voice Oct 25 2026): per-minute Bot Room meter ----------------
+   Server owns the clock. One meter record per Bot Room session, started the instant Bot Room is pressed (Pre-Room), carried
+   into the live relay room (same record, same clock, no second floor). Charge 1 unit immediately (floor), then 1 more per full
+   minute of active time, drawn from the SAME HingeHub minute balance (room_time.used_min). Ledger row per minute, PRIMARY KEY
+   (meter_id, minute_no) -> reconnects/restarts never double-charge. At zero: meter + relay HOLD (no overage), buy card, auto-resume
+   when the balance is topped up; 15 min with no top-up -> closed, report still written by the relay. */
+export const BOTMETER_UNIT_MIN = Math.max(1, Math.round(Number(process.env.BOTMETER_UNIT_MIN) || 1));   // ONE constant: minutes drawn per metered minute (1 = one balance minute ~$0.40 at $6/15min, ~$0.24 on Founder; 15 = one full $6 token per minute). Awaiting Dan.
+const BM_BUILD = 'botmeter-20261025a', BM_BUY_WAIT_MS = 15 * 60e3, BM_RELAY = process.env.BOTRELAY_INTERNAL_URL || 'http://127.0.0.1:3475';
+const BM_KEY = (() => { try { return fs.readFileSync(process.env.BOTMETER_RELAY_KEY_FILE || '/etc/hubface/botmeter.key', 'utf8').trim(); } catch { return ''; } })();
+db.exec(`CREATE TABLE IF NOT EXISTS bot_meter (id TEXT PRIMARY KEY, user_id INTEGER NOT NULL, started_at TEXT NOT NULL, started_ms INTEGER NOT NULL,
+  paused_ms INTEGER NOT NULL DEFAULT 0, hold_since INTEGER, phase TEXT NOT NULL DEFAULT 'pre_room', relay_room TEXT, setup TEXT,
+  state TEXT NOT NULL DEFAULT 'running', charged INTEGER NOT NULL DEFAULT 0, unit_min INTEGER NOT NULL, end_reason TEXT, ended_ms INTEGER);
+CREATE INDEX IF NOT EXISTS bot_meter_user ON bot_meter(user_id, state);
+CREATE TABLE IF NOT EXISTS bot_meter_charges (meter_id TEXT NOT NULL, minute_no INTEGER NOT NULL, user_id INTEGER NOT NULL, min_drawn INTEGER NOT NULL,
+  phase TEXT, balance_after INTEGER, created_at TEXT NOT NULL, PRIMARY KEY (meter_id, minute_no));`);
+const BQ = {
+  get: db.prepare('SELECT * FROM bot_meter WHERE id = ?'),
+  openFor: db.prepare("SELECT * FROM bot_meter WHERE user_id = ? AND state != 'ended' ORDER BY started_ms DESC LIMIT 1"),
+  open: db.prepare("SELECT * FROM bot_meter WHERE state != 'ended'"),
+  ins: db.prepare("INSERT INTO bot_meter (id, user_id, started_at, started_ms, unit_min) VALUES (?,?,?,?,?)"),
+  chg: db.prepare('INSERT OR IGNORE INTO bot_meter_charges (meter_id, minute_no, user_id, min_drawn, phase, balance_after, created_at) VALUES (?,?,?,?,?,?,?)'),
+  setCharged: db.prepare('UPDATE bot_meter SET charged = ? WHERE id = ?'),
+  hold: db.prepare("UPDATE bot_meter SET state = 'paused_balance', hold_since = ? WHERE id = ?"),
+  resume: db.prepare("UPDATE bot_meter SET state = 'running', paused_ms = paused_ms + ?, hold_since = NULL WHERE id = ?"),
+  end: db.prepare("UPDATE bot_meter SET state = 'ended', end_reason = ?, ended_ms = ?, paused_ms = paused_ms + ?, hold_since = NULL WHERE id = ?"),
+  live: db.prepare("UPDATE bot_meter SET phase = 'live', relay_room = ?, setup = ? WHERE id = ?"),
+  ledger: db.prepare('SELECT minute_no, min_drawn, phase, balance_after, created_at FROM bot_meter_charges WHERE meter_id = ? ORDER BY minute_no'),
+};
+const bmBalance = (uid) => { const m = memberRecord(uid); return m ? Number(m.subscription.remaining) || 0 : 0; };
+const bmActiveMs = (m, t) => Math.max(0, (m.ended_ms || t) - m.started_ms - m.paused_ms - (m.hold_since ? t - m.hold_since : 0));
+async function bmRelay(path, payload) {
+  if (!BM_KEY) return { status: 503, json: { error: 'meter_key_missing' } };
+  try { const r = await fetch(BM_RELAY + path, { method: 'POST', headers: { 'content-type': 'application/json', 'x-meter-key': BM_KEY }, body: JSON.stringify(payload || {}), signal: AbortSignal.timeout(4000) });
+    return { status: r.status, json: await r.json().catch(() => ({})) }; } catch { return { status: 503, json: { error: 'relay_unavailable' } }; }
+}
+/** Settle one meter on the server clock. Returns side effects for the relay (hold/unhold/stop). */
+const bmSettleTx = db.transaction((id, t) => {
+  let m = BQ.get.get(id); if (!m || m.state === 'ended') return { m, fx: null };
+  let fx = null;
+  if (m.state === 'paused_balance') {
+    if (bmBalance(m.user_id) >= m.unit_min) { BQ.resume.run(t - m.hold_since, id); fx = 'unhold'; m = BQ.get.get(id); }
+    else if (t - m.hold_since >= BM_BUY_WAIT_MS) { BQ.end.run('balance_timeout', t, t - m.hold_since, id); return { m: BQ.get.get(id), fx: 'stop' }; }
+    else return { m, fx: null };
+  }
+  const due = Math.floor(bmActiveMs(m, t) / 60e3) + 1;   // minute 1 = the floor, charged at t=0
+  let n = m.charged;
+  while (n < due) {
+    const bal = bmBalance(m.user_id);
+    if (bal < m.unit_min) { BQ.setCharged.run(n, id); BQ.hold.run(t, id); return { m: BQ.get.get(id), fx: 'hold' }; }
+    const info = BQ.chg.run(id, n + 1, m.user_id, m.unit_min, m.phase, bal - m.unit_min, new Date(t).toISOString());
+    if (info.changes) Q.rtUse.run(m.unit_min, now(), m.user_id);
+    n++;
+  }
+  if (n !== m.charged) BQ.setCharged.run(n, id);
+  return { m: BQ.get.get(id), fx };
+});
+async function bmSettle(id) {
+  const t = Date.now(); const { m, fx } = bmSettleTx(id, t);
+  if (fx && m && m.relay_room) {
+    if (fx === 'hold') await bmRelay(`/api/botrelay/rooms/${m.relay_room}/meterhold`, { meter: m.id });
+    else if (fx === 'unhold') await bmRelay(`/api/botrelay/rooms/${m.relay_room}/meterunhold`, { meter: m.id });
+    else if (fx === 'stop') await bmRelay(`/api/botrelay/rooms/${m.relay_room}/meterstop`, { meter: m.id, reason: 'meter_balance_timeout' });
+  }
+  if (fx) console.log(`[botmeter] ${id} user ${m && m.user_id}: ${fx}`);
+  return m;
+}
+function bmView(m) {
+  const t = Date.now(); const bal = bmBalance(m.user_id); const act = bmActiveMs(m, t);
+  const leftMin = Math.floor(bal / m.unit_min);   // metered minutes left at the current unit
+  return { build: BM_BUILD, id: m.id, phase: m.phase, state: m.state, relayRoom: m.relay_room || null, startedAt: m.started_at, serverNow: t,
+    elapsedSec: Math.floor(act / 1000), nextChargeInSec: m.state === 'running' ? 60 - Math.floor((act % 60e3) / 1000) : null, minutesCharged: m.charged, minDrawn: m.charged * m.unit_min,
+    unitMin: m.unit_min, balanceMin: bal, balanceTokens: Math.floor(bal / TOKEN_MIN), meteredMinutesLeft: leftMin, warn: m.state === 'running' && [1, 5, 10].find((w) => leftMin <= w) || null,
+    endReason: m.end_reason || undefined, holdLeftSec: m.state === 'paused_balance' ? Math.max(0, Math.ceil((m.hold_since + BM_BUY_WAIT_MS - t) / 1000)) : null,
+    buy: { tokenPriceCents: TOKEN_PRICE_CENTS, tokenMin: TOKEN_MIN, url: ROOM_ORIGIN + '/start?plans=1' } };
+}
+setInterval(async () => { try { for (const m of BQ.open.all()) {
+  await bmSettle(m.id);
+  const x = BQ.get.get(m.id);   // report delivered: relay ended and its receipt is written -> meter stops
+  if (x && x.state !== 'ended' && x.relay_room) { try { const r = await fetch(`${BM_RELAY}/api/botrelay/rooms/${x.relay_room}/status`, { signal: AbortSignal.timeout(3000) }); const s = await r.json();
+    if (s.mode === 'ended' && s.receiptReady) { const t = Date.now(); bmSettleTx(x.id, t); BQ.end.run('report_delivered', t, x.hold_since ? t - x.hold_since : 0, x.id); console.log(`[botmeter] ${x.id} ended: report_delivered`); }
+    else if (s.mode === 'normal' && Date.now() - x.started_ms > 60e3) { const t = Date.now(); BQ.end.run('relay_room_gone', t, x.hold_since ? t - x.hold_since : 0, x.id); } } catch {} }
+} } catch (e) { console.warn('[botmeter] sweep', String(e?.message || e).slice(0, 80)); } }, 5e3).unref();
+async function botmeterRoute(q, r, ep) {
+  const id = currentUser(q); if (!id) return json(r, 401, { error: 'Sign in to HubFace first.', signIn: '/login' });
+  const u = new URL(q.url, 'http://127.0.0.1');
+  if (q.method === 'GET' && (ep === 'status' || ep === 'ledger')) {
+    const mid = String(u.searchParams.get('id') || ''); let m = mid ? BQ.get.get(mid) : BQ.openFor.get(id);
+    if (!m || m.user_id !== id) return json(r, 404, { error: 'no meter' });
+    m = await bmSettle(m.id) || m;
+    return json(r, 200, ep === 'ledger' ? { id: m.id, unitMin: m.unit_min, charges: BQ.ledger.all(m.id) } : bmView(m));
+  }
+  if (q.method !== 'POST') return json(r, 405, { error: 'method not allowed' });
+  if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
+  const b = (await body(q)) || {};
+  if (ep === 'start') {   // idempotent: an open meter is reused (no second floor charge)
+    const ex = BQ.openFor.get(id); if (ex) { const m = await bmSettle(ex.id); return json(r, 200, { ...bmView(m), resumed: true }); }
+    const mid = 'BM-' + crypto.randomBytes(6).toString('hex'); const t = Date.now();
+    BQ.ins.run(mid, id, new Date(t).toISOString(), t, BOTMETER_UNIT_MIN);
+    console.log(`[botmeter] ${mid} started user ${id} unit ${BOTMETER_UNIT_MIN} min`);
+    return json(r, 201, { ...bmView(await bmSettle(mid)), resumed: false });
+  }
+  const m0 = BQ.get.get(String(b.id || '')); if (!m0 || m0.user_id !== id) return json(r, 404, { error: 'no meter' });
+  if (m0.state === 'ended') return json(r, 409, { error: 'meter ended', ...bmView(m0) });
+  if (ep === 'golive') {   // Pre-Room -> live relay room; same meter, same clock
+    if (m0.phase === 'live' && m0.relay_room) return json(r, 409, { error: 'already live', ...bmView(m0) });
+    const s = b.setup || {}; const internal = s.access !== 'external';
+    const room = 'BR-' + Date.now().toString(36).toUpperCase() + '-' + crypto.randomBytes(2).toString('hex').toUpperCase();
+    const clip = (v, d) => String(v || d).replace(/[\u0000-\u001f]/g, '').slice(0, 40);
+    const rr = await bmRelay('/api/botrelay/rooms/metercreate', { room, meter: m0.id, topic: String(s.topic || '').slice(0, 280), bots: [clip(s.bot0, 'Yoda'), clip(s.bot1, internal ? 'Stella' : 'Other side')],
+      owners: [clip(s.owner0, 'Dan'), clip(s.owner1, internal ? 'Dan' : 'Other owner')], sellerSeat: s.sellerSeat === 1 ? 1 : 0, ownerApproval: true });
+    if (rr.status !== 201) return json(r, 502, { error: 'Could not open the live room: ' + (rr.json.error || rr.status) });
+    BQ.live.run(room, JSON.stringify({ type: String(s.type || 'negotiation').slice(0, 30), access: internal ? 'internal' : 'external' }), m0.id);
+    if (m0.state === 'paused_balance') await bmRelay(`/api/botrelay/rooms/${room}/meterhold`, { meter: m0.id });
+    console.log(`[botmeter] ${m0.id} handoff -> relay ${room} (${internal ? 'internal' : 'external'})`);
+    return json(r, 200, { ...bmView(BQ.get.get(m0.id)), access: internal ? 'internal' : 'external', relay: rr.json });
+  }
+  if (ep === 'stop') {   // owner closes the room
+    const t = Date.now(); bmSettleTx(m0.id, t); const m1 = BQ.get.get(m0.id);
+    BQ.end.run(String(b.reason || 'owner_closed').replace(/[^a-z_]/g, '').slice(0, 30) || 'owner_closed', t, m1.hold_since ? t - m1.hold_since : 0, m0.id);
+    if (m1.relay_room) await bmRelay(`/api/botrelay/rooms/${m1.relay_room}/meterstop`, { meter: m0.id, reason: 'owner_closed' });
+    return json(r, 200, bmView(BQ.get.get(m0.id)));
+  }
+  return json(r, 404, { error: 'not found' });
+}
+
 /* ---------------- router ---------------- */
 export async function accountsRoute(q, r, p) {
   if (p === '/api/stripe/webhook') { if (q.method !== 'POST') return json(r, 405, { error: 'method not allowed' }), true; await stripeWebhook(q, r); return true; }
@@ -537,6 +662,7 @@ export async function accountsRoute(q, r, p) {
         db.prepare('INSERT INTO token_spends (k, user_id, n, created_at) VALUES (?,?,?,?)').run(k, id, n, now()); })();
       const a = publicAccount(id); if (short) { json(r, 402, { error: 'Not enough tokens.', account: a }); return true; }
       json(r, 200, { ok: true, duplicate: dup, account: a }); return true; }
+    if (ep.startsWith('botmeter/')) { await botmeterRoute(q, r, ep.slice(9)); return true; }   // botmeter-20261025a
     if (!['signup', 'login', 'logout'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
     if (q.method !== 'POST') { json(r, 405, { error: 'method not allowed' }); return true; }
     if (!sameOrigin(q)) { json(r, 403, { error: 'Cross-site request blocked.' }); return true; }

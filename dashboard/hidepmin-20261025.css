@@ -1,0 +1,4 @@
+/* hidepmin-20261025 (Dan, Oct 25): the left-corner "Expand/Collapse Priorities" button duplicated the white minimize/maximize arrows on the right.
+   Hidden (not deleted, voice and scripts still use #btnPmin) on any Priorities box that has the right-side arrows. Roll back: remove the link tag. */
+.box[data-float^="priorities"]:has(> .ctl.boxmin) .fsmini-box,
+#ui section.box[data-float="priorities"] .fsmini-box{display:none!important}

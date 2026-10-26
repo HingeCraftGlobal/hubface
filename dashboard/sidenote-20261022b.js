@@ -41,6 +41,9 @@
     '.snRow{display:flex;gap:8px;align-items:center;margin-top:7px}.snB{all:unset;cursor:pointer;border:1px solid #5a86ff;border-radius:16px;padding:4px 11px;background:rgba(61,123,255,.2);font-size:13px}'+
     '.snB.snSend{margin-left:auto;background:#3d7bff}.snB.snMic.on{background:#d33;border-color:#ff6b6b;box-shadow:0 0 0 4px rgba(255,80,80,.4)}.snLs{color:#ff8a8a;font-size:11px;margin-left:4px}'+
     '.snCard{width:240px;height:120px;padding:9px 12px;display:flex;flex-direction:column}.snCard .snTx{flex:1;overflow:auto;font-size:14px;margin:4px 0;word-wrap:break-word}'+
+    '.snCard.snS-r::before,.snCard.snS-l::before,.snCard.snS-b::before,.snCard.snS-t::before{content:"";position:absolute;width:12px;height:12px;background:rgba(12,22,60,.95);border:1.5px solid #6fa0ff;box-sizing:border-box;transform:rotate(45deg)}'+
+    '.snCard.snS-r::before{left:-7px;top:var(--snp,12px);border-top:0;border-right:0}.snCard.snS-l::before{right:-7px;top:var(--snp,12px);border-bottom:0;border-left:0}'+
+    '.snCard.snS-b::before{top:-7px;left:var(--snp,12px);border-right:0;border-bottom:0}.snCard.snS-t::before{bottom:-7px;left:var(--snp,12px);border-left:0;border-top:0}'+
     '.snBadge{position:absolute;top:4px;left:6px;z-index:9;background:rgba(20,120,60,.9);border-radius:10px;padding:1px 7px;font-size:13px;pointer-events:none}'+
     '.snMuted{position:fixed;z-index:2147483000;background:rgba(200,40,40,.88);border-radius:10px;padding:3px 9px;font:12px "Segoe UI",Arial;color:#fff;pointer-events:none}';
     document.head.appendChild(s);}
@@ -94,10 +97,25 @@
     c.innerHTML='<div class="snHd" style="margin:0"><span>\ud83d\udd12 Side note \u00b7 private \u00b7 from '+esc(nm)+'</span><span class="snX" data-a="x" title="Dismiss">\u00d7</span></div><div class="snTx"></div>'+
       '<div class="snRow" style="margin:0"><button type="button" class="snB" data-a="up" title="Thumbs up">\ud83d\udc4d</button><button type="button" class="snB" data-a="reply" title="Reply privately (mutes your room mic and dictates)">\ud83c\udfa4 Reply</button></div>';
     c.querySelector('.snTx').textContent=txt;document.body.appendChild(c);
-    var pe=selfPanel()||panelOf(from);var stack=Object.keys(cards).length;var r=pe?pe.getBoundingClientRect():{right:innerWidth-20,top:140+stack*128};place(c,r,'card');cards[sn.id]=c;
-    c.querySelector('[data-a=x]').addEventListener('click',function(ev){ev.stopPropagation();c.remove();delete cards[sn.id];});
+    var stack=Object.keys(cards).length;c.__from=from;c.__stk=stack;cards[sn.id]=c;anchorAll();
+    c.querySelector('[data-a=x]').addEventListener('click',function(ev){ev.stopPropagation();c.remove();delete cards[sn.id];anchorAll();});
     c.querySelector('[data-a=up]').addEventListener('click',function(ev){ev.stopPropagation();var w=ws();try{w&&w.send(JSON.stringify({t:'signal',to:from,data:{type:'ice',sn:{k:'ack',id:sn.id,from:myName().slice(0,40)}}}));}catch(_){}c.remove();delete cards[sn.id];});
     c.querySelector('[data-a=reply]').addEventListener('click',function(ev){ev.stopPropagation();c.remove();delete cards[sn.id];openCompose({bot:false,id:from,name:nm,el:panelOf(from)},sn.id,true);});}
+
+  /* sidenote-anchor-20261025 (Dan, Oct 25): placement only. Each received card sits against the SENDER's tile (right/left/below/above,
+     whichever side has room), a small pointer touches the tile; same-sender cards stack along that edge; recomputed on resize and
+     every 300ms while cards are open (tiles move). Sender tile not found -> old bottom-left corner. Rollback: /root/hubface-backups/sidenote-anchor-20261025/ */
+  function anchorOne(c,k){var t=panelOf(c.__from),W=innerWidth,H=innerHeight,w=c.offsetWidth,h=c.offsetHeight,G=3,M=6,r=null;
+    if(t){r=t.getBoundingClientRect();if(!(r.width>0&&r.height>0&&r.right>0&&r.bottom>0&&r.left<W&&r.top<H))r=null;}
+    c.classList.remove('snS-r','snS-l','snS-b','snS-t');
+    if(!r){var x0=16,y0=H-h-96-c.__stk*(h+10);c.style.left=Math.max(M,Math.min(W-w-M,x0))+'px';c.style.top=Math.max(M,Math.min(H-h-M,y0))+'px';c.removeAttribute('data-side');return;}
+    var side=(W-r.right>=w+G+M)?'r':(r.left>=w+G+M)?'l':(H-r.bottom>=h+G+M)?'b':(r.top>=h+G+M)?'t':'r',x,y,off=k*(side==='r'||side==='l'?h+6:w+6);
+    if(side==='r'){x=r.right+G;y=r.top+off;}else if(side==='l'){x=r.left-G-w;y=r.top+off;}else if(side==='b'){y=r.bottom+G;x=r.left+off;}else{y=r.top-G-h;x=r.left+off;}
+    x=Math.max(M,Math.min(W-w-M,x));y=Math.max(M,Math.min(H-h-M,y));c.style.left=x+'px';c.style.top=y+'px';c.classList.add('snS-'+side);c.setAttribute('data-side',side);
+    /* pointer position along the edge, aimed at the tile's middle, kept inside the card */
+    var pv=(side==='r'||side==='l')?Math.max(10,Math.min(h-18,(Math.max(r.top,y)+Math.min(r.bottom,y+h))/2-y-6)):Math.max(10,Math.min(w-18,(Math.max(r.left,x)+Math.min(r.right,x+w))/2-x-6));c.style.setProperty('--snp',pv+'px');}
+  function anchorAll(){var per={};Object.keys(cards).forEach(function(id){var c=cards[id];if(!document.contains(c)){delete cards[id];return;}var k=per[c.__from]=(per[c.__from]==null?0:per[c.__from]+1);try{anchorOne(c,k);}catch(_){}});}
+  addEventListener('resize',anchorAll);setInterval(function(){if(Object.keys(cards).length)anchorAll();},300);
   function gotAck(from,sn){var p=peerById(from),nm=String((p&&p.name)||sn.from||'Someone').slice(0,40),sp=selfPanel();css();
     if(sp){var b=document.createElement('div');b.className='snBadge';b.setAttribute('data-sn','ack');b.title=nm+' gave your side note a thumbs-up';b.textContent='\ud83d\udc4d '+nm;sp.appendChild(b);setTimeout(function(){b.remove();},12000);}
     toast(nm+' \ud83d\udc4d your side note');}

@@ -26,8 +26,10 @@ const { textOnlyRoute, isTextOnlyPath } = await import('./textonly.mjs'); // tex
 const { bridgeRoute, bridgeUpgrade, isBridgePath, bridgeHealth } = await import('./bridge.mjs'); // bridge-20261019a (Dan approved): HingeCraft bridge gateway v0.1, JSON-RPC over WSS /api/rooms/<ID>/bridge
 const { relayChat, relayTts, fastReply, chargeTts, fastInfo, canSpend } = await import('./fastpath.mjs'); // fastvoice-20261019a: + HF-room fast path for NR rooms // roomrelay-20261019a (Dan approved Oct 19): capped Yoda text + voice relay for HingeHub on the internal port
 const { userDataRoute, isUserDataPath } = await import('./userdata.mjs'); // userdata-20261019a (Dan approved via Yoda): GET /api/account/email-feed, GET/PUT /api/account/priorities (per-account, session + rate limit)
+const { hfPhotoRoute, isHfPhotoPath } = await import('./hfphoto-api.mjs'); // floppy-photo-20261025a
 const { seatcardRoute, isSeatcardPath } = await import('./seatcard-api.mjs'); // seatcard-api-20261023a (Dan approved Oct 23 3:43 PM ET): GET/PUT /api/account/seatcard
 const { yodaLineRoute, isYodaLinePath } = await import("./yodaline.mjs"); /*yodaline-20261024*/
+const { packagesRoute, isPackagesPath } = await import("./packages.mjs"); /*packages-20261025a*/
 const inner = createServer().listeners('request')[0];
 const PORT = Number(process.env.HCA_PORT || 3470);
 const VBUILD = 'vps-20261017-v1';
@@ -76,7 +78,9 @@ http.createServer(async (q, r) => {
     if (p === '/api/bridge/health') return json(r, 200, bridgeHealth());   // bridge-20261019a
     if ((p === '/api/rooms' || p.startsWith('/api/rooms/')) && await roomsRoute(q, r, p)) return;   // roomid-20261018a
     if (isYodaLinePath(p) && await yodaLineRoute(q, r, p, u, { who: sessionUser, readBody, json })) return;   /*yodaline-20261024*/
+    if (isPackagesPath(p) && await packagesRoute(q, r, p, { who: sessionUser, json })) return;   /*packages-20261025a*/
     if (isUserDataPath(p) && await userDataRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // userdata-20261019a
+    if (isHfPhotoPath(p) && await hfPhotoRoute(q, r, p, { who: sessionUser, json, ip: clientIp, yodaOk: (await import('./roomserver.mjs')).yodaKeyOk })) return;   // floppy-photo-20261025a
     if (isSeatcardPath(p) && await seatcardRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // seatcard-api-20261023a
     if (p === '/api/account/layout' && await layoutRoute(q, r, p)) return;   // layouts-20261017-v1
     if ((p === '/api/account/home-plan' || p.startsWith('/api/account/home-plan/')) && await homePlanRoute(q, r, p)) return;   // homeplan-20261024a

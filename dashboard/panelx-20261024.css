@@ -1,3 +1,3 @@
 /* fullsize-20261025: only the close-X styling remains; panel text/size rules removed (Dan: columns stay full size) */
-#ui > .ctl.x.hfclosex{position:absolute;width:20px;height:20px;padding:1.5px;box-sizing:border-box;z-index:30;cursor:pointer;color:#fff;opacity:.9;pointer-events:auto!important}
+#ui > .ctl.x.hfclosex{position:absolute;width:20px;height:20px;padding:1.5px;box-sizing:border-box;z-index:2147483000;cursor:pointer;color:#fff;opacity:.9;pointer-events:auto!important}
 #ui > .ctl.x.hfclosex:hover{opacity:1}#ui > .ctl.x.hfclosex *{pointer-events:none}

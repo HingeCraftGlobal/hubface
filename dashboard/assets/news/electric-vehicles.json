@@ -1,12 +1,12 @@
 {
  "subject": "electric vehicles",
- "fetched_at": "2026-10-25T04:00:14.323670+00:00",
+ "fetched_at": "2026-10-26T04:00:14.268008+00:00",
  "items": [
   {
-   "title": "Someone Put 470,000 Miles on a Chevy Bolt EV. Here’s How It’s Holding Up",
-   "source": "The Drive",
-   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZlRTUEVVRUFOUFRQbnBLS0JmZHY0OFFfN0FtQ1NMckFReGpnY2dmbVBxVHFNbktxT080NGRhNkhZZXI3Zm1fT3hHNFVFQU9EbUhIUnpxaF9JaU5fbnBXTkZhQ3J0Sm9wMjJjQ2FCRDFXaGxZcl9xakRieDg5TEFnY1oyd1ZnYVlBd1JXMVp6MEdaZUVKMzZsYUV2a0dlU2s?oc=5",
-   "published": "2026-10-24T16:00:00+00:00",
+   "title": "I Took America’s Cheapest EV Into the Charging Desert of the Deep South",
+   "source": "WSJ",
+   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOSmlJOGNzQzNwQ094VkFOY0JCUlNmc2lZQ09mTTR6a2tKNFhyQUozdDh0S3lPeDlSdUlCYXhBempMTk1UcVJCWlBVSnJTMVVqY3FqQjhEY1pHNDJXVnMyeWhfRF9wT0tiSFRuYkdoUHNTR1JmcFhFd05UTngzWjU4M1VJOWF2T2Z5?oc=5",
+   "published": "2026-10-23T01:00:00+00:00",
    "tag": "standard",
    "video": false
   },
@@ -19,10 +19,42 @@
    "video": false
   },
   {
-   "title": "GM's Future Cars Will Be Very Different. Here's Everything We Learned",
+   "title": "This $400,000 RV Delivers EV Camping Without The Range Anxiety",
    "source": "InsideEVs",
-   "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5yMVFyZ0ZIT2VVQUMxanV2anFKbUxqWnFmRm1uZi01eVZld19KczJYYzU5d0VDMzQ1bDdRcGhSMy1GcmFHMVVKMlU3bE9kV182T1kydmRTbW5FMjhtcXFvZUltYmFrYkNWUHdIaXFWdGw3UDB2cEdORk03bG8?oc=5",
-   "published": "2026-10-24T12:06:20+00:00",
+   "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNSXBwYmloLWFGS2pER2ppODVrdEZwRnVzMkp3R0lINllWMHFUcDZYMThfU3BNNjRhaklBUG1ZaXRDeThNcGZaVW12d2Vfa2dhWW9zSnVGRVFKLUpvdjVZeDlYQVR4d3J5c3F6MVQ0LVh2VkVxQ2VuaGZaR01rc2x5d1FoUjJQQQ?oc=5",
+   "published": "2026-10-25T14:13:19+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "GM outlines plan for next-gen EV platform, Level 4 autonomous cars",
+   "source": "Driving",
+   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNNE5jd18tYXZjZGtDb250bW41ZU9HeTFtZ1NnelYwcjRKN09TQmo2S3h1OHNXdTFUMDd1QnJhS2pMVGl1YjFLYkh5TWE2RlEtX3daQWZPbGhwak4tWUtvQzNIVmhxaERtWXF3NWdnRXRmOG95WTdrOWdQNGh1TXI0VDJKazcyRnAtY1ZremNaa2EyQXIzM1BNYkVJTzRGOTRPWWJnM3lSYm01QmZQaUM0RFRR?oc=5",
+   "published": "2026-10-23T20:43:28+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Aging EVs Are Creating a New Market for Cheaper Batteries",
+   "source": "Autoblog",
+   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNMXhPeVFGYkItbnBfQUFmTkY3QVdCd0lEeDU5YUN6S3BFZUpIbGxiaHB0VHVidkJfeW9PV0NweWExQVhzLXVuV2tuQXM1RlpLeU5MYjlUeWpXMnV1cVhuRjh4d2hSNUhzZVNUbXBNMC05QzJCQ29jMzA2Ul9sLUhMOEt2STQ5aVBxemY4QzZsYWQ?oc=5",
+   "published": "2026-10-25T15:45:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Tesla Thought It Owned EV Charging Forever, But Ionna, Rivian And Mercedes Showed Up to Take The Throne",
+   "source": "CarBuzz",
+   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNRWFTMHpQZ2JvNUJ5cF9fUDE4UGpzSHk3U3RNM2IyYnBhTDN5UDBGZ2owc1NBdkp3VThYRExSOEZGelBXMWQ3cXZ6SWZILXk1VU1mdFlYQkhiaWNmcF9TQmhFcjR5b3JUWVM4YTJpWmpKVEdCY3h5Q0pIV2ozcVpTRUZCRU5JSk9jRm5xNVA1VEFCTWY2aFBzVA?oc=5",
+   "published": "2026-10-24T19:03:14+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Someone Put 470,000 Miles on a Chevy Bolt EV. Here’s How It’s Holding Up",
+   "source": "The Drive",
+   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZlRTUEVVRUFOUFRQbnBLS0JmZHY0OFFfN0FtQ1NMckFReGpnY2dmbVBxVHFNbktxT080NGRhNkhZZXI3Zm1fT3hHNFVFQU9EbUhIUnpxaF9JaU5fbnBXTkZhQ3J0Sm9wMjJjQ2FCRDFXaGxZcl9xakRieDg5TEFnY1oyd1ZnYVlBd1JXMVp6MEdaZUVKMzZsYUV2a0dlU2s?oc=5",
+   "published": "2026-10-24T16:00:00+00:00",
    "tag": "standard",
    "video": false
   },
@@ -31,38 +63,6 @@
    "source": "USA Today",
    "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPUnpMVjJ3eVIyeHBPNmdreThydVNlUzVkY3ZVNlgyQXBZemNHQUJNZ0Z3cUptUjlhMFZRVE5wV1V0aXBiUnpYYnQ1eEJRUy13cnhpVWQ0UUF5NG5Vc0I2bVBtQlFvTEczMjhfbFNkbmFFQ3hJdFdFTUtobGlyUzFLMnlUMG9nZ2V5S3RhRmhiXzN6UHdKazhUMnl1Z2tBSGhvVTVvM3pTQVNhRmNzU08tcEIzdGItQzZV?oc=5",
    "published": "2026-10-24T10:31:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "This Liquid Nitrogen-Powered Car Was Built To Kill The EV Boom",
-   "source": "SlashGear",
-   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOZGRURzRWdHpfX05EM1g2MTd3X2NXZGl0Z1dVMUdOMlR0ckFIVVBaV0tFeVctTUVJRWZIU0dNVFdpcW53MTc3a1B4NkJlN3MtQnVYckFYd1U0cFVDcnNTbURvYXBPclY3WU15RzZUVVRnRjUyaDBnMGVJdmRfbHR3ZHNXUQ?oc=5",
-   "published": "2026-10-24T21:15:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Should You Go Electric? Here’s a Guide to EV Math",
-   "source": "Bloomberg.com",
-   "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPTmlqaXdQQ2NuOHlLNFdUdEVSejFxTzZvMGs2UENjVGRoQkEtcm5sSGYxZHV3dXN4R2hKYXAyX2VGSmU0WTVNN0R1NkdLeEl3X05QRENoNWRzc2Y4T19ncGZpR3BDZVVNdEJ4aHQ1QkRJeV9KTkNKc09lTzdmRUxVellCQmlFenZQYnRwTTNsU184YmdWS0dsRC1R?oc=5",
-   "published": "2026-10-20T10:00:08+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "This Chevy EV is here for a good time, but not a long time. Here's why",
-   "source": "Detroit Free Press",
-   "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxObjA2RTZSSUpUTzhhSWVvenBCYzFINU5SOHYwaDZ1ajlfcTVPRXc1R1ZuN0E5UXN2Y25jWHJHaTN3RXhRMFN1Q0JwaUxzdmhpdE1mYzJyaE0zZHpTUkJWRHhaczBIdkNKWl9VWGZRVHBlMC04YzlMWWJTS1pmbk4tNXRxWWlaTldpR1E4STVsSzB5bnBiWE9UVnNMZUJfWFgzZU56X3l5aEUzblNGSDNCeWxpWE9lSEhweFFhQmdCTFdqX0JQSzBkX1dTdERuZ1UycTBveE5INkJCZTQ?oc=5",
-   "published": "2026-10-24T11:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Future EVs from GM and Ford Travel Parallel Paths",
-   "source": "Car and Driver",
-   "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPWm9mNDFYaFU4M3J2QzFXSE8zcmR4NEdxempyamE0UEVyRHcyQk1EcXJFTkZ4UXdoRGtvblYzMnNiaGEtNC15bnFTems2NWZwLXo4ck1rS0dYMzdLQ3VkTFJaOFlqcHMxbnBvcVdPbEhpMVV6Wnl0c1pOcV9TNXVVcA?oc=5",
-   "published": "2026-10-22T14:52:46+00:00",
    "tag": "standard",
    "video": false
   }
