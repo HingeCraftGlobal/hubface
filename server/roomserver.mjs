@@ -139,7 +139,7 @@ export function roomLiveUpgrade(q, sock, head) {
       if (room.members.size >= HARD_CAP) { ws.send({ t: 'error', code: 'room-full', msg: `This room is full (${HARD_CAP} people).` }); return ws.close(1008, 'full'); }
       const host = isOwner(q, row, o.ownerKey);
       const guestName = clean(o.name, 40) || 'Guest ' + crypto.randomInt(1000, 10000);
-      me = { id: crypto.randomUUID(), name: user && user.name ? user.name : guestName, user: user && user.name ? user.name : null, role: host ? 'host' : 'guest', mic: !!o.mic, cam: !!o.cam, photo: okPhoto(o.photo), at: now, ws };
+      me = { id: crypto.randomUUID(), name: user && user.name ? user.name : guestName, user: user && user.name ? user.name : null, role: host ? 'host' : 'guest', mic: !!o.mic, cam: !!o.cam, photo: okPhoto(o.photo), at: now, ws, ip: who, uid: user && user.id || null };
       if (me.role === 'host') listenDefault(room.id, 'host-join');   // listendefault-20261020a: before the welcome so it carries listen:on
       const others = [...room.members.values()].map(pub);
       room.members.set(me.id, me);
@@ -685,3 +685,49 @@ export function looksLikeCommand(t) {
     || /\b(can you|could you|would you|i want you to|i need you to|go ahead and|make sure|don't forget to|let's get)\b/i.test(s);
 }
 console.log(`[roomserver] sessionpacket-20261020a on (empty ${SESS_EMPTY_MS / 1000}s / leave ${SESS_LEAVE_MS / 1000}s, parts <= ${SESS_PART_MAX} chars)`);
+
+/* brchat-20261026 (Dan, Oct 26): Bot Room owner chat -> the same Yoda routine webhook (same URL, key and auth headers as room chat).
+   Called by accounts.mjs brChatRoute only (owner already verified there). Key never leaves this process. Roll back: delete this block. */
+export async function botroomHook(b) {
+  if (!hookOn()) return { status: 'not_configured' };
+  const room = String((b && b.room) || '');
+  if (!/^BR-[A-Z0-9]{4,20}-[A-F0-9]{4}$/.test(room) || !String(b.text || '').trim()) return { status: 'bad_item' };
+  hookStats.sent++; const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), HOOK_TIMEOUT);
+  try {
+    const res = await fetch(HOOK_URL, { method: 'POST', signal: ctl.signal, headers: Object.assign({ 'Content-Type': 'application/json', 'User-Agent': 'HubFace-roomserver/brchat' }, HOOK_HEADERS(HOOK_KEY)), body: JSON.stringify(b) });
+    try { await res.arrayBuffer(); } catch {}
+    if (res.ok) hookStats.ok++; else hookStats.fail++;
+    hookStats.last = { at: Date.now(), status: res.status };
+    console.log(`[roomserver] yoda-hook BR room ${room} len ${String(b.text).length} -> ${res.status}`);
+    return { status: res.status };
+  } catch (e) { hookStats.fail++; hookStats.last = { at: Date.now(), status: 'error' }; console.log(`[roomserver] yoda-hook BR room ${room} -> error ${String(e && e.name || e).slice(0, 40)}`); return { status: 'error' }; }
+  finally { clearTimeout(t); }
+}
+
+/* fastlane-20261026 (Dan, Oct 26): Bot Room owner-chat fast lane. Same fast model, key (never leaves fastpath.mjs) and daily cap as the voice-room fast path.
+   accounts.mjs only calls this for short greeting/ping/small-talk lines it has already gated; returns null on skip/timeout/task so the caller uses its rule reply. */
+export async function botroomFastReply(b) {
+  try {
+    const item = { room: String(b.room || ''), from: String(b.from || 'Dan'), role: 'host', source: 'botroom', text: String(b.text || ''), at: Date.now(), recent: Array.isArray(b.recent) ? b.recent : [] };
+    const r = await Promise.race([fastReply(item, { humans: 1, afterYoda: true, pack: '' }), new Promise((ok) => setTimeout(() => ok({ skip: 'timeout' }), +b.timeoutMs || 2500))]);
+    if (r && r.needsAction) { chargeTts(0, r.usd); return { task: true }; }   // fastlane2: actionable -> full routine
+    if (r && r.text && !r.needsAction) { chargeTts(0, r.usd); return { text: String(r.text).slice(0, 300), ms: r.ms }; }
+    return null;
+  } catch (e) { return null; }
+}
+
+/* roster1-20261026 (Dan approved, voice 3de05dfe 11:07 PM ET Oct 26): GET /api/rooms/<ID>/roster -> people the room server sees joined + server bot seats.
+   Access: caller must be in that room now (same signed-in user or same IP as a joined member) or be the room owner. Roll back: delete this block + the route lines in hubface-vps.mjs. */
+export async function roomRosterRoute(q, r, p, { json }) {
+  const m = /^\/api\/rooms\/([^/]+)\/roster$/.exec(p); if (!m) return false;
+  if (q.method !== 'GET') { json(r, 405, { error: 'GET only' }); return true; }
+  const id = decodeURIComponent(m[1]).toUpperCase(); if (!roomName(id)) { json(r, 404, { error: 'Room not found' }); return true; }
+  const room = rooms.get(id), mem = room ? [...room.members.values()] : [], u = sessionUser(q), ipq = clientIp(q);
+  let ok = mem.some((x) => (u && x.uid && x.uid === u.id) || x.ip === ipq);
+  if (!ok) { const look = lookupForJoin(q, id); ok = look.status === 200 && isOwner(q, look.row, null); }
+  if (!ok) { json(r, 403, { error: 'Not in this room' }); return true; }
+  let bots = [];
+  try { const rr = await fetch('http://127.0.0.1:3481/api/yoda-rooms/seats/' + encodeURIComponent(id), { signal: AbortSignal.timeout(1500) }); if (rr.ok) { const j = await rr.json(); if (Array.isArray(j.bots)) bots = j.bots; } } catch {}
+  json(r, 200, { room: id, people: mem.map((x) => ({ id: x.id, name: x.name, role: x.role, user: x.user, mic: !!x.mic, cam: !!x.cam, joinedAt: x.at })), bots });
+  return true;
+}

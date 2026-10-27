@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sticky Note Vault · HubFace</title>
+<!-- hubface-sticky-vault-20261026b (Dan, Brain OS task #129): HubFace Sticky Note vault: personal vault of your stickies. Reopen/tweak, reuse, take off a door, delete forever. -->
+<style>
+body{margin:0;background:#15151b;color:#f3f3f3;font:15px system-ui}
+header{display:flex;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid #fff2}
+header h1{font-size:20px;margin:0;flex:1}a{color:#fde68a}
+.btn{background:#ffffff1c;color:#fff;border:0;border-radius:9px;padding:7px 11px;font:700 13px system-ui;cursor:pointer}.btn:hover{background:#ffffff30}.btn.red{background:#7f1d1d}.btn.pri{background:#16a34a}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;padding:22px}
+.card{background:#ffffff0a;border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.card .pv{position:relative;height:300px;overflow:visible}
+.card .meta{font-size:12px;opacity:.75}.card .acts{display:flex;gap:6px;flex-wrap:wrap}
+.empty{padding:40px;opacity:.8}
+</style></head><body>
+<header><h1>🗃 Your Sticky Note Vault</h1><span id="who"></span><button class="btn pri" id="new" type="button">＋ New sticky</button><a class="btn" href="/interface/">Back to HubFace</a></header>
+<div id="grid"></div>
+<script>window.HF_STICKY_MANUAL=true;</script>
+<script src="/interface/hubface-sticky-20261026b.js?v=hs2-resize-dl"></script>
+<script>
+(function(){var H=window.HFStickyHub,g=document.getElementById('grid');
+function nice(k){return !k?'In the vault only':k==='hubface'?'Stuck on HubFace':'Elsewhere ('+k.replace(/^vw:/,'').replace(/-/g,' ')+')';}
+function load(){H.who().then(function(u){document.getElementById('who').textContent=u?('Signed in as '+(u.name||'member')):'';
+ if(!u){g.innerHTML='<div class="empty">Sign in to HubFace first (<a href="/">hubface.org</a>), then come back to see your stickies.</div>';return;}
+ H.api('GET','/vault').then(function(j){var L=j.stickies||[];if(!L.length){g.innerHTML='<div class="empty">No stickies yet. Press ＋ New sticky, or open Sticky Note from the HubFace Widgets list.</div>';return;}
+  g.innerHTML='';L.forEach(function(s){var c=document.createElement('div');c.className='card';c.dataset.id=s.id;
+   c.innerHTML='<div class="pv"></div><div class="meta">'+(s.saved?'💾 Saved':'Not saved')+' · '+nice(s.door)+(s.forName?' · For '+s.forName.replace(/[<>&]/g,''):'')+'<br>Updated '+new Date(s.updated).toLocaleString()+'</div>'+
+   '<div class="acts"><button class="btn ed" type="button">Reopen &amp; tweak</button><button class="btn ru" type="button">Reuse</button><button class="btn dl" type="button">Download</button>'+(s.door?'<button class="btn off" type="button">Take off HubFace</button>':'')+(s.saved?'':'<button class="btn sv" type="button">Save</button>')+'<button class="btn red del" type="button">Delete forever</button></div>';
+   var n=H.noteEl(s),sc=Math.min(1,250/s.w,250/s.h);n.style.left='50%';n.style.top='50%';n.style.marginLeft=(-s.w/2)+'px';n.style.marginTop=(-s.h/2)+'px';n.style.transform='scale('+sc+') rotate('+s.rot+'deg)';c.querySelector('.pv').appendChild(n);
+   c.querySelector('.ed').onclick=function(){H.openBoard('hubface',{edit:s});};
+   c.querySelector('.dl').onclick=function(){window.hfStickyDownload(s);};
+   c.querySelector('.ru').onclick=function(){H.openBoard('hubface',{reuse:s});H.toast('A copy is on your board.');};
+   var o=c.querySelector('.off');if(o)o.onclick=function(){H.api('PUT','/'+s.id,{door:null,saved:true}).then(load);};
+   var v=c.querySelector('.sv');if(v)v.onclick=function(){H.api('PUT','/'+s.id,{saved:true}).then(load);};
+   c.querySelector('.del').onclick=function(){if(confirm('Delete this sticky forever? This also removes it from HubFace.'))H.api('DELETE','/'+s.id).then(function(){H.toast('Deleted.');load();});};
+   g.appendChild(c);});});});}
+document.getElementById('new').onclick=function(){H.openBoard('hubface');};
+var oc=H.closeBoard;H.closeBoard=function(){oc();load();};
+setInterval(function(){var b=H.board();if(b&&!b.__hk){b.__hk=1;b.querySelector('.bx').onclick=function(){oc();load();};}},300);
+load();})();
+</script></body></html>

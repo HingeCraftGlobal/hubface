@@ -1,28 +1,44 @@
 {
  "subject": "science",
- "fetched_at": "2026-10-26T04:00:06.797339+00:00",
+ "fetched_at": "2026-10-27T04:00:06.402651+00:00",
  "items": [
   {
-   "title": "Ranked: Countries With the Most Trust in Science",
-   "source": "Visual Capitalist",
-   "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBSY0o5cEJWSWhUMEd4VnRFdEZsbllPVmFfd1BZaW8yejBmODZCZ1RpLXBwc21HdWVfaG41RG1zZmFIX3VKMzdaQ0E2Z0hJQTQ0OXpQMTZteGJmTnhNR2NRdGJmajJabzZ4UlJhYUxONE9aNlk?oc=5",
-   "published": "2026-10-25T14:06:32+00:00",
+   "title": "Working with academic communities to build scientific understanding",
+   "source": "OpenAI",
+   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOeHBEWEZtNngxZnVFcFlMRGFkb0xZZ3ViYUVzcTZXa3hpdWhhZzQxYVg1ZkhRMmI3ek5jU2hEVkdQMzlaV3hpV1R1enBucVJkQWsxNmhCVmE4LVc2UXpnZ2dQQnBXRGdzc3dSdnhFaXlxdjdxdDU0Sy02dWoxSTE5SUtnZXE1akZYN2VxeWRn?oc=5",
+   "published": "2026-10-26T21:42:50+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "A hidden bias in human language challenges 70 years of science",
-   "source": "Science Daily",
-   "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5qa2JBNkZzcHdPZVFiU3lyZjNtSGNXSl8wMXRwVDhjQ0VPNEVwRUNLZndCVU10WEtBV016cTJxa2o5Wk5qWjMxQUdlN1dNRm9RdEs5bDFfWkRpTncxb1NkdzVWWDBCRHFaa0k2ZDJMTQ?oc=5",
-   "published": "2026-10-24T13:03:09+00:00",
+   "title": "A neglected particle from the dawn of time could explain why everything in the universe exists",
+   "source": "Live Science",
+   "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOUkNjMHZNVEthV0NreEZYMTZlTFhQUG1iVjd4bmR3aEJDdERRSHZyV1VPTFJocy0xUFRUZGxMX1ZSZXQ4bmZKUmxxZ2NBcjZnX21iRk5wS1B0QkxQWXRReTZ5WU1JVl9sSkMwMXhONTM0UVppdFJ2TlFINmxLRzY3Q1BWdGJFdjVCaEtMVHo3VF8zSVE3Z09TWGFlZzQ4QUJ1bTFjSkNNRWJMTUh5LXFXUmtqQzJsdmp0bmEyXy1xeGNvbzZHdWE0RWhJdlhWdXpWV3RfUlhkVTRQTEpZOEtuS2NmbWNjSTJxNWdkVTV6anM?oc=5",
+   "published": "2026-10-26T17:50:27+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Scientists overcome a hidden obstacle to more powerful quantum computers",
-   "source": "Science Daily",
-   "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE03Q2JiaWh4b0pLT3ZfS1k1ak1Vd1B0dTBlRTVGNDhha1hSZVVzaHpFd3Zpbk1JcGxzUkRSYUY1VzFnZGhGSFFpVlBrR3lWbWhYWWpCVVJiR2VyWjlLZlVFNk5Vdzk3cTV4Nkl3Skhn?oc=5",
-   "published": "2026-10-26T01:44:20+00:00",
+   "title": "What Happened to the Neanderthals?",
+   "source": "The New York Times",
+   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPZm1QR3A0dkFfRGFOVGNUTERibU5ETnlLQ21uRkh4NjdPQ19zT29YdC1jTkI3SVJQVjBxUDJuS2syd29BQ0pEVDZZOVU1WV81d1FlVkN5b2ZHTzJGMHZJMkI3UXY0ZHU1bVdia2NrMDdhR0h5ZFNrVmhwUGhMZ2k1SXRDSWJPMi1P?oc=5",
+   "published": "2026-10-26T09:00:45+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "UBC synthetic chemist named one of Canada's top young researchers",
+   "source": "The University of British Columbia",
+   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQeXA0Z1d3dEU4WXpsaWFrVElwVFBnejE5b2dGeC12V3lBSTNnd29zSUlWWFRzNV9UUGpHa2RfV0tWNW53WVBaNENYNFY3RjRXUjNzRjlwd1FYbDVhcC1WQXppVUVRUml5NnBwZElUU0xHWFY5Z19aNnJ4eGpyWWtZcUFEU0I3YVZuRnNqR045NFJfRU5kT204ZGNHWEItQQ?oc=5",
+   "published": "2026-10-26T15:22:19+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "APOD: 2026 October 26 - M42: The Great Nebula in Orion",
+   "source": "NASA Science (.gov)",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPaGVtcGdzejdCeVlOSk5MM2U2STFBblZjeDkwd0dOUmJuRmNkbDJVQjNtb094UmkwaHpYNFQ2c29jNkt5R3ZPd05nUEJyMzljbVJPaTd0bW5YQmxXdjZ6MldWaDFNcFZNMUNkZDFrTmd5MlowcDdFNVlfQ001Um9ITTVGc0gwSW1GSTdtYW1xN0JRZExz?oc=5",
+   "published": "2026-10-26T04:05:00+00:00",
    "tag": "standard",
    "video": false
   },
@@ -30,39 +46,23 @@
    "title": "‘It’s magic’: scientists rediscover how to make ancient Roman colour-changing glass",
    "source": "The Guardian",
    "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOOVY0TTJQSlZ6Qlh3WDc5eEFlbVBmYnJuZjZWNGlTcFhvTzBRTHJOUnVOel9VeXZtbXlEMVJRSmdWN2dDcnFhZmF4TmpWaE4yUmVrdnF0WVVBQXpxeGVDY0c4Y3B2VW5wSlVJdEVEUmVZN203eTd0MUtrbm95MG96Q0lvRWltRTFTUDZoMWVaUGlCd1BMQkY5Qi15SVZLNlhxU2VicGFadFc?oc=5",
-   "published": "2026-10-25T10:22:00+00:00",
+   "published": "2026-10-25T06:00:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Scientists were unsure of how microplastics harmed the body — until now",
-   "source": "The Washington Post",
-   "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPVTBRMUh3UC1hV3ZmN2p3MlJ1MDlRVDZQQlRxaDlXMFdyMDJodnVVcEMzc1hqcTd3VjRFUi13UVV5RlZPOVdWUUJrQ1BKelhZYy1lUXpsYndCSEktMi02WGtnRVlkdUxRNWRzbnNLaFBMT0wyRkxwZ01lQTREZUl3Nkw5THBEaUZ5dWplaEFGUE1YTTNGRTdkNFNDYkpDSDI2T2dmd1d4WFVXbU83N0ZXeHZHaTdUXzJJT290Y2Z5aE1PTlFsSWZVZVd6YlNtcHgtM0daOHh4OFAtUQ?oc=5",
-   "published": "2026-10-25T16:00:00+00:00",
+   "title": "6 stellar images of the early universe",
+   "source": "Popular Science",
+   "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1TUlBUYXIyVVdyX3VGRkMwVUNMc2l6ZXV6VFRLbm0taV8yTEJqYnRPRURUZUhkdVRWRlRwa2hfYjdOcy03MTJ5NzQ3N3RScnRIQWJQWkdYUTdnZ3p3QUZ3eEtMUlpOOEk?oc=5",
+   "published": "2026-10-26T00:01:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "What Amy Poehler’s New Series, ‘Dig,’ Gets Right About Archaeology",
-   "source": "The New York Times",
-   "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOOTlVeXpyTHR3RXBJa3ZZOFRfbXp3WjN4MnB2OFlHN2U3MXFyOEl6amJ6MnpucU1PZW13anB1a1RiWUMzQlRwQmlsVkJxeDZ0a1VkWC1idmUzbWFWMU95a0dJdm44WTFzbVlCeExHWVJfZWVoekwzT3Uwby1BNXhkcXBRVHBfemczZHRR?oc=5",
-   "published": "2026-10-24T09:01:44+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Scientists Discovered an Amazing Practical Use For The World's Leftover Coffee Grounds",
-   "source": "ScienceAlert",
-   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQelZOcHc1UU9XQXRUVUdKRnV3VU9fVlNGT1dzc1ZLVmRjWWhpdzNjT0I5ZTJWOV9nRktBTkVjTEpFQnlpeTQxSFVwX1NsMlZpdThxTDNzRThlRE1RaV81WDA2U2lBZXBBYmVNRUNFbnVMWDFvUHJiUWpTWEotQTFTbndkZXU5dE0wWmkyXzNOcmhEeE50T3hxMW9iQVEtU0hTMlFpdnFiRHppOHlXY0MxSlZiWHE?oc=5",
-   "published": "2026-10-25T20:01:47+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "A cosmic 'seagull' is staring down Earth, Vera C. Rubin Observatory reveals in stunning test image",
-   "source": "Live Science",
-   "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxQZUk1Wm5rdmFENzBCQy1aZTFlRGRLRU92SnRFcElLZnhLb2YtVE42TFFTdzJ3TzdsN2dTdzlYYVBPSS05UDlaX1NHVHRMUjJJSXRsb3hqdDQ4akFNdklZVGlwVFhYcWhxNEROZjJUNDZMcFpRZkRhcXA5NW0waUR5ZkQ2dTdhUVFSYXBhcmZydnBWYW9fWldsMjRKdWxyNjJuYkp6NmVGUWJyM09kSVdDNWZCYkFIRHdyQjM5QU14ZkNVNm44eVNPUEwzTmR1VlQ5Z1M2Z0xDbklLRDFPd2Znc0pRZjlDWUFUSlE?oc=5",
-   "published": "2026-10-25T15:43:05+00:00",
+   "title": "Saskatchewan Science Centre aiming to educate public on nuclear power",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNU3hhNDVGM2JDLU9RQjdfT0VRazhCQWY3Q2tZZTVXdU9qdXpJNHlkbzhJaFVudWJ3QTJ1QU1XVjljTW1CZ0J0eVRUUEZ0NUJ5Q211M0Rrc0Y1M3R0THdUWlVKemtoekVWNmtpbFFCM0c3c3M3SDlCcWZoZS05SEFhTVpyMXVXb2VQc1dpRklEWEc0d3hCZ1ozV2xSQXZhcUp5RkM2RHk3M0gtd3FmSWt1QXR0TUE3VU44M2lkSA?oc=5",
+   "published": "2026-10-26T12:45:29+00:00",
    "tag": "standard",
    "video": false
   }

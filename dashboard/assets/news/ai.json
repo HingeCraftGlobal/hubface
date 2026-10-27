@@ -1,68 +1,68 @@
 {
  "subject": "ai",
- "fetched_at": "2026-10-26T04:00:06.313223+00:00",
+ "fetched_at": "2026-10-27T04:00:05.872061+00:00",
  "items": [
   {
-   "title": "Opinion | The A.I. Boom Looks a Lot Like the Housing Bubble",
-   "source": "The New York Times",
-   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNQjJUaXZ4MW0xNTEwVWFNZGYtS200cHVkX3lKYnhhNGlxNFZaWU50SXFtaFlqYjI0eS11SVVtUTM5cjRJTncybGpzMjREZ29Md1dWU2FzbUV3SGFMcmNHZUd3ZDRrMWlJeVdyUVA4R0lfcUFzVnBrM19KZ2p3eXlTeGJySm9IM2dE?oc=5",
-   "published": "2026-10-25T13:00:07+00:00",
+   "title": "In China, the AI bubble has already burst",
+   "source": "Reuters",
+   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPTnhLb1ZGYUdnbENkWmMyZDZqTHlsckJwbEsxWVZGTnI5U2lPcFNXLXFoYmRRZm1rU2NWREZrWGVRblRES2FmdkwtUVIzMDlTS2N4ZW5vNno1Y2JCR1FzclhmdUVBOU5jMElCd2FwTlN1VzdfOU94YXlFc2VSWmRObXZyMVhyNnlf?oc=5",
+   "published": "2026-10-26T12:02:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Smart TV annoying you? You could use AI to make it dumber. But should you?",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1DQkRGQl90aDJNS2ltSTZEdUx1ZlBHWms2aXBBMzl4VWU1NEFycEk5bGNleXBGeW1FU3BobmpacUpVRVhTcGJvbDhUaGcxSjhITElsOGhzYk5yNXBYRmhnd2h2UmNkeHhRZjBqb3VoTW10QQ?oc=5",
-   "published": "2026-10-25T08:00:00+00:00",
+   "title": "Meta Plans up to $95 Billion in Financing to Power Its AI Growth",
+   "source": "WSJ",
+   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOWWVJZlJtQjJkZTMyWV9zMXNqV3RxZERPOE1CZlliQTVqR3VaTFk5anp5bHViM0pVTlVlc3lmMTU2YzVkb01hRXVsYU9yWUVFWjJxVHlrbW5TRVZoMWw3SzM1VUZ3UmpZN1NRODBhZmpHQXI4OXFCZDI5dWpMOGlTcGlWblREUUhmWHRCLWtZeW9zcnNUMVlRa2JTN0pwZ2dkSXBKQS14emotVmM1LWMtb2RxMEF5Y3RqNHBFZndn?oc=5",
+   "published": "2026-10-26T13:49:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "SpaceX closes $40 billion debt deal for AI chips, Elon Musk says",
+   "title": "Meta announces $95 billion stock offering to fund AI expansion",
    "source": "CNBC",
-   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQVTJ4MWVBeEtEdjR1T3U3TDJvZnFSd1UtTVJ5RFljSG90MUs3OW0xRUFTZ2p3T3FjRGZINFUzY1Qwa2MyZWZ3cmlYbkQwd09xTzF1cEdZSFkzTHdpNGhaNno5bW13RXdmaldaSlpBYTN4djJnTUF0YXRsX0ZaX0FQYXlfQnBWSzU4bWJweC1CcjNPNGVKNV9MMHhqTdIBoAFBVV95cUxNOExaVU8tRkNSSVpLS19wVmxBMzl3a2tvYVJfQy1PTzBoTUlGc21yQ2pHNWpnSWxxN1IzN0RiSHZROFBqNFlTR2dfeS11T1BWMUxKMktpMHVlbFRmTjVGdmxqbFBBeUJHelM0eU8tSWQyRDhEVGc3cmdnbGxlSDVDbE1hc3BqNUlNUktNUUR5SGNNT3poc1k4QUxOczJNNm5j?oc=5",
-   "published": "2026-10-26T00:37:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DMHRxU0FJYU1FQ2Q5NFlWX0ZLa3dZQlhnWnlRcU9UZ2N1V0tmRklSTGFoN2h4cmRTNTVzN3BDR0MwS0tBNVg3M0k5eUpoMFp1X1FKd2xPdWE3MTM4YjBONFVXX3JpQTBmTXlV0gFwQVVfeXFMTmZORnFJWGJWQ296RnRpdXY1aFRXRElQZWw2Y3dpNWFtekxSZlc4eTc5NEJuVWFSLUFLWDNfOWV4aGxBTENheXpVMXo0Z0ZmQVRjSVo2bGo2MnFqdGVlSVNrNnJIbEdWZTIzQklXQmEwNQ?oc=5",
+   "published": "2026-10-26T11:34:42+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Elon Musk's Grok Releases First AI-Generated \"Odyssey\" Episode",
-   "source": "Variety",
-   "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbS1tQkhfZnZpNnk5blNBUG01ZjZnb19LVmJqdi0yeWphdWhjS0xzbEFoVExNZXlrbFJQYkNCT2hPMUx1c3R3NThPdXp6ZzFMaW9FdllRcFJOeDJCTkVVYzlDbGthN0djWV9QUk8zMmt2UDN2REtwWG1jTnpCTEx1NXlWRldsZ1Vsd1hZ?oc=5",
-   "published": "2026-10-25T18:22:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Elon Musk Says 200+ AI Cloud Firms Face Wipeout: Will CoreWeave Survive?",
-   "source": "Yahoo Finance",
-   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQb3BnXzVxdDVvTE1JbDRGSUU5cW1ubTZXeWNqN2YzZnB4bVpxa0ROenpsNFVsN091WlZNRzk1LXhURTZyQkZHZUdvWjV5UFN5aGExcy14TUx3azJFSFNXTUMySS1ISkhMc1ktc3Z0RDFMaThyblQ0VFJKaWw4UmM0MDFrODlyeVZGd191Y1NB?oc=5",
-   "published": "2026-10-25T22:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "China increasingly depends on copying American AI",
-   "source": "The Economist",
-   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQaW9HM2JjOUNBblBtb1dTQkI5bThOdTFZVUh0ZDZ1WTVJbHZsN200YVhSNlUzc2ZtYnRmdFFHU1JzRVBWeUVOLXVQcDdZR3M1eVZLbnJkczlzNVNIQll2dEV0c2w0MzgtczdtOUpDZGJ5OWJnTVcwYXBUR0F0R19EdmJBV3BTVEcyQmVGZFNmUEZUa0JuSTd3LVptNGRJWnlWaV9IcGIzQktXV0pSOUE?oc=5",
-   "published": "2026-10-25T17:44:35+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Anthropic sued for allegedly using 274 Elvis Presley songs to train AI models",
+   "title": "Anthropic files for stock market IPO; Meta announces $95bn fundraising drive to pay for AI expansion – as it happened",
    "source": "The Guardian",
-   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNelFOZFdTZmw2a1FtcjAxZk5lYktWT09FRTRaT0g0MmFrRFpHX0dIbk1IeVJNYmxVVlhBZHRYWk1YZzFHRjh0N29jSEdWd2s3OEJrcFM4SW9Tb29tLTQ5VjJaQ3BFQThpRXNJUzVPbXcwOElvcVJUNl9aZE1SaWVZTTR1VTYtcHNGZVdjU2t4MVItd2ZKYlhZZGd3cw?oc=5",
-   "published": "2026-10-25T18:41:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxOUWotUGVkWjd5bGMybG41akpmYm1oMGpFQWpmYWJxVjVWSnEtaFBXWXhQaWdMQ3dhcWJFeUhteEM0X0dHQXNxRHVUZHExVmVoMFZlVS1qZ1phUGlhLWRLV0s4TlR2WG5kMzJRLXRsdTNHNnI5Z2pjSUF2eWFYX1lKeDJyNmNjQkdVRGdPUXF0Wi1TNmpqdUM0bTV2dFpoLWM0cUxuQVRDMkZ4Nl8wYndTd3g4YWFJdW1aYl82TWNaM19fSXdPZk50ZmZVVlRvSXVBWlNqUEI4TExreHBRb0UzVm9MeWZDVEdjdjdwUC1Ed1VfR2JGZ1dhdzVn?oc=5",
+   "published": "2026-10-26T07:33:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "A Mathematician Reads the AI Future",
-   "source": "The Atlantic",
-   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1nX0k5c01pTjlvYy1JNHdqdWE4M0xaNkwwZjFkeUJadGpBY2dCQnhadC1KTVEzcHJjQkc4MEJGR2stMFk4SUN1NzRiZEJoVjJIeWc4N2poU2pMRUJHaEROMmlWdGxCSmdQcWxnZ0JvWFFNR0d0SlVLMjBB?oc=5",
-   "published": "2026-10-25T12:00:00+00:00",
+   "title": "Anthropic sets stage for blockbuster IPO, highlighting AI’s benefits and risks for humanity",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQQjZNWW42REhVNmNlWTJadGpZdzdaSzNPUmpSVWN5NkVhZkltNWpRQmRuREhINkZqSm9tVUcyWGdKS2VsOUEtem5ETE1Jb3pUTlI4TUsxdy0zR293ZkYwbGFXZEVnUDhrRDVVRnViY1RFRnpoc3l4Y2pJZEpxNC1pVTFzODRWQU1xQkFkZjZwRQ?oc=5",
+   "published": "2026-10-26T23:45:02+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Not Palantir. Not Snowflake. This AI Software Stock Could Be the Next Multibagger.",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOZ1UzbjczdTduSVVoMEx0Y25tcVp3dVVkSUlWYm05Uk1MMG5BMmV3djVQZkx5TEphR3F3Z1Q4NmFzMTJOV2JENjlLZFNYdXkyZWNac29jWms4eG5fYWs2dWpDQzFHdFlISU1qWEFFRmszWmFmM1hkTmIzcERYY3ZWb29OaVotUFlXc1BKZ3Iyb183VGtjNk9NLTRqSUdqdTRTVXRNSFhtTnNhTG1jU1JMb1poSzJfdU5ROFFMVi1NQ3pPOTNmZmpxdmpxRFFYazNOVDVvUWY0VExsRkMxd2hzNTlGamVRXzFtWnN5Q1dyenM4VmRLX3FJ?oc=5",
+   "published": "2026-10-27T03:05:54+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Working with academic communities to build scientific understanding",
+   "source": "OpenAI",
+   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOeHBEWEZtNngxZnVFcFlMRGFkb0xZZ3ViYUVzcTZXa3hpdWhhZzQxYVg1ZkhRMmI3ek5jU2hEVkdQMzlaV3hpV1R1enBucVJkQWsxNmhCVmE4LVc2UXpnZ2dQQnBXRGdzc3dSdnhFaXlxdjdxdDU0Sy02dWoxSTE5SUtnZXE1akZYN2VxeWRn?oc=5",
+   "published": "2026-10-26T21:42:50+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Women 'risk being left behind' in AI push, advocates warn Canadian lawmakers",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1tbmg4ejdMeHR1allyaVlhcVpUY0FEQ1BWUFo3Ui1yaXVpZUhVRnVnaHVSUlQwQ0FTWjdMd014cl9OaDB2WU5OSFBDUUx6MnA4eVB0UEpBN1BCeDRrS3VBX0gtWk9SelZIUDhxcC1WZHI5Nzc3cENV?oc=5",
+   "published": "2026-10-26T19:12:27+00:00",
    "tag": "standard",
    "video": false
   }

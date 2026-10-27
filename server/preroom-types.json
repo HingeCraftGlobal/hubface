@@ -1,0 +1,423 @@
+{
+  "_note": "prerooms-20261026a: editable room-type config. internal = only your own team/bots; external = another company/person joins. Each type: id, label, ready (button text), about (center default), goal (center goal default), prompts (per-participant card questions). Seating (prerooms-20261026c): seatLead/seatFollow are the two role phrases; sellerSeat 0 = creator's side takes seatLead, 1 = joining side takes seatLead. mySide/otherSide = default (sellerSeat 0) wording.",
+  "internal": [
+    {
+      "id": "engineering",
+      "label": "Engineering meeting",
+      "ready": "Ready to build",
+      "about": "Technical design / engineering decisions.",
+      "goal": "Agreed approach, owners and next steps.",
+      "prompts": [
+        "What are you working on?",
+        "Blockers or risks",
+        "What you need from others"
+      ],
+      "mySide": "My side is engineering",
+      "otherSide": "Other side is the other party",
+      "seatLead": "engineering",
+      "seatFollow": "the other party"
+    },
+    {
+      "id": "procurement-internal",
+      "label": "Procurement (decide what to buy)",
+      "ready": "Ready",
+      "about": "",
+      "goal": "",
+      "prompts": [
+        "What do you need the room for?",
+        "Budget you can approve",
+        "Must-haves vs nice-to-haves"
+      ],
+      "mySide": "My side is requesting the purchase",
+      "otherSide": "Other side is approving the budget",
+      "seatLead": "requesting the purchase",
+      "seatFollow": "approving the budget"
+    },
+    {
+      "id": "financial",
+      "label": "Financial meeting",
+      "ready": "Ready to review",
+      "about": "Review numbers: budget, cash, spend.",
+      "goal": "Approved budget changes and actions.",
+      "prompts": [
+        "Numbers you're bringing",
+        "Concerns",
+        "Decisions you need"
+      ],
+      "mySide": "My side is presenting the numbers",
+      "otherSide": "Other side is reviewing",
+      "seatLead": "presenting the numbers",
+      "seatFollow": "reviewing"
+    },
+    {
+      "id": "standup",
+      "label": "Standup",
+      "ready": "Ready for standup",
+      "about": "Daily standup: yesterday, today, blockers.",
+      "goal": "Everyone unblocked.",
+      "prompts": [
+        "Yesterday",
+        "Today",
+        "Blockers"
+      ],
+      "mySide": "My side leads",
+      "otherSide": "Other side joins",
+      "seatLead": "leads",
+      "seatFollow": "joins"
+    },
+    {
+      "id": "board-review",
+      "label": "Board review",
+      "ready": "Ready to present",
+      "about": "Board-level review of company status.",
+      "goal": "Board sign-off on key decisions.",
+      "prompts": [
+        "Your update",
+        "Asks of the board",
+        "Risks to flag"
+      ],
+      "mySide": "My side is presenting to the board",
+      "otherSide": "Other side is the board",
+      "seatLead": "presenting to the board",
+      "seatFollow": "the board"
+    },
+    {
+      "id": "hiring",
+      "label": "Hiring",
+      "ready": "Ready",
+      "about": "Discuss a candidate or open role.",
+      "goal": "Hire / no-hire or next step.",
+      "prompts": [
+        "Role / candidate",
+        "Your assessment",
+        "Concerns"
+      ],
+      "mySide": "My side is interviewing",
+      "otherSide": "Other side is the candidate",
+      "seatLead": "interviewing",
+      "seatFollow": "the candidate"
+    },
+    {
+      "id": "legal-internal",
+      "label": "Legal review",
+      "ready": "Ready to review",
+      "about": "Internal legal review of a contract or issue.",
+      "goal": "Clear legal position and actions.",
+      "prompts": [
+        "Issue or clause",
+        "Risk level",
+        "Recommended position"
+      ],
+      "mySide": "My side is legal / counsel",
+      "otherSide": "Other side is the business side",
+      "seatLead": "legal / counsel",
+      "seatFollow": "the business side"
+    },
+    {
+      "id": "strategy-offsite",
+      "label": "Strategy offsite",
+      "ready": "Ready to plan",
+      "about": "Long-range strategy and priorities.",
+      "goal": "Agreed priorities for the period.",
+      "prompts": [
+        "Top opportunity",
+        "Top threat",
+        "What we should stop doing"
+      ],
+      "mySide": "My side leads",
+      "otherSide": "Other side joins",
+      "seatLead": "leads",
+      "seatFollow": "joins"
+    },
+    {
+      "id": "sales-pipeline",
+      "label": "Sales pipeline review",
+      "ready": "Ready to review",
+      "about": "Walk the pipeline: deals, stages, forecast.",
+      "goal": "Updated forecast and deal actions.",
+      "prompts": [
+        "Deals you own",
+        "Forecast",
+        "Help needed"
+      ],
+      "mySide": "My side is presenting the pipeline",
+      "otherSide": "Other side is reviewing",
+      "seatLead": "presenting the pipeline",
+      "seatFollow": "reviewing"
+    },
+    {
+      "id": "product-planning",
+      "label": "Product planning",
+      "ready": "Ready to plan",
+      "about": "Roadmap and what to build next.",
+      "goal": "Prioritised roadmap.",
+      "prompts": [
+        "Feature ideas",
+        "Customer evidence",
+        "Cost / effort"
+      ],
+      "mySide": "My side is product (proposing)",
+      "otherSide": "Other side is engineering (sizing)",
+      "seatLead": "product (proposing)",
+      "seatFollow": "engineering (sizing)"
+    },
+    {
+      "id": "one-on-one",
+      "label": "1:1",
+      "ready": "Ready to talk",
+      "about": "One-on-one check-in.",
+      "goal": "Feedback and next steps.",
+      "prompts": [
+        "What's going well",
+        "What's hard",
+        "What you need"
+      ],
+      "mySide": "My side is the manager",
+      "otherSide": "Other side is the report",
+      "seatLead": "the manager",
+      "seatFollow": "the report"
+    },
+    {
+      "id": "retro",
+      "label": "Retro",
+      "ready": "Ready for retro",
+      "about": "Look back: what worked, what didn't.",
+      "goal": "A short list of changes.",
+      "prompts": [
+        "Went well",
+        "Didn't go well",
+        "Try next time"
+      ],
+      "mySide": "My side is facilitating",
+      "otherSide": "Other side is the team",
+      "seatLead": "facilitating",
+      "seatFollow": "the team"
+    },
+    {
+      "id": "incident-review",
+      "label": "Incident review",
+      "ready": "Ready to review",
+      "about": "Blameless review of an incident.",
+      "goal": "Root cause and follow-ups.",
+      "prompts": [
+        "What you saw",
+        "Timeline facts",
+        "Fix ideas"
+      ],
+      "mySide": "My side is the incident owner",
+      "otherSide": "Other side is reviewing",
+      "seatLead": "the incident owner",
+      "seatFollow": "reviewing"
+    },
+    {
+      "id": "training",
+      "label": "Training",
+      "ready": "Ready to learn",
+      "about": "Training / onboarding session.",
+      "goal": "Attendees can do the task.",
+      "prompts": [
+        "What you want to learn",
+        "Current level",
+        "Questions"
+      ],
+      "mySide": "My side is training",
+      "otherSide": "Other side is learning",
+      "seatLead": "training",
+      "seatFollow": "learning"
+    },
+    {
+      "id": "research-internal",
+      "label": "Research / conversation room",
+      "ready": "Ready to explore",
+      "about": "Open research or discussion topic.",
+      "goal": "Shared notes and open questions.",
+      "prompts": [
+        "Your angle",
+        "Sources",
+        "Questions"
+      ],
+      "mySide": "My side leads",
+      "otherSide": "Other side joins",
+      "seatLead": "leads",
+      "seatFollow": "joins"
+    }
+  ],
+  "external": [
+    {
+      "id": "negotiation",
+      "label": "Negotiation",
+      "ready": "Ready to negotiate",
+      "about": "Negotiate a deal with the other side.",
+      "goal": "A deal both sides accept, or a clean walk-away.",
+      "prompts": [
+        "Your target",
+        "Your walk-away (private)",
+        "What you can trade"
+      ],
+      "mySide": "My side is opening the offer",
+      "otherSide": "Other side is responding",
+      "seatLead": "opening the offer",
+      "seatFollow": "responding"
+    },
+    {
+      "id": "selling",
+      "label": "Selling room",
+      "ready": "Ready to sell",
+      "about": "Sell a product or service to the other side.",
+      "goal": "A signed order or clear next step.",
+      "prompts": [
+        "What you're selling",
+        "Price / floor (private)",
+        "Proof points"
+      ],
+      "mySide": "My side is selling / presenting",
+      "otherSide": "Other side is buying",
+      "seatLead": "selling / presenting",
+      "seatFollow": "buying"
+    },
+    {
+      "id": "procurement-external",
+      "label": "Procurement (negotiate with supplier)",
+      "ready": "Ready to negotiate",
+      "about": "Negotiate a purchase with another company.",
+      "goal": "Terms, price and delivery agreed.",
+      "prompts": [
+        "What you need",
+        "Max price (private)",
+        "Terms that matter"
+      ],
+      "mySide": "My side is buying",
+      "otherSide": "Other side is the supplier (selling)",
+      "seatLead": "buying",
+      "seatFollow": "the supplier (selling)"
+    },
+    {
+      "id": "customer-call",
+      "label": "Customer call",
+      "ready": "Ready for the call",
+      "about": "Call with a customer.",
+      "goal": "Customer issue resolved / next step.",
+      "prompts": [
+        "Account context",
+        "What they want",
+        "What you can offer"
+      ],
+      "mySide": "My side is the vendor (supporting)",
+      "otherSide": "Other side is the customer",
+      "seatLead": "the vendor (supporting)",
+      "seatFollow": "the customer"
+    },
+    {
+      "id": "partnership",
+      "label": "Partnership",
+      "ready": "Ready to partner",
+      "about": "Explore a partnership with another company.",
+      "goal": "Agreed partnership outline.",
+      "prompts": [
+        "What you bring",
+        "What you want",
+        "Deal-breakers (private)"
+      ],
+      "mySide": "My side is proposing the partnership",
+      "otherSide": "Other side is evaluating",
+      "seatLead": "proposing the partnership",
+      "seatFollow": "evaluating"
+    },
+    {
+      "id": "investor-update",
+      "label": "Investor update",
+      "ready": "Ready to present",
+      "about": "Update investors on progress.",
+      "goal": "Investors informed; asks answered.",
+      "prompts": [
+        "Key metrics",
+        "Asks",
+        "Risks"
+      ],
+      "mySide": "My side is the company (presenting)",
+      "otherSide": "Other side is the investors",
+      "seatLead": "the company (presenting)",
+      "seatFollow": "the investors"
+    },
+    {
+      "id": "legal-external",
+      "label": "Legal (with the other side)",
+      "ready": "Ready to review",
+      "about": "Work through a contract with the other party.",
+      "goal": "Agreed redlines.",
+      "prompts": [
+        "Clauses to change",
+        "Fallback positions (private)",
+        "Must keep"
+      ],
+      "mySide": "My side is proposing terms",
+      "otherSide": "Other side is reviewing terms",
+      "seatLead": "proposing terms",
+      "seatFollow": "reviewing terms"
+    },
+    {
+      "id": "hiring-external",
+      "label": "Hiring interview",
+      "ready": "Ready to interview",
+      "about": "Interview with a candidate.",
+      "goal": "Mutual fit decision.",
+      "prompts": [
+        "Role / background",
+        "Questions",
+        "Compensation range (private)"
+      ],
+      "mySide": "My side is interviewing",
+      "otherSide": "Other side is the candidate",
+      "seatLead": "interviewing",
+      "seatFollow": "the candidate"
+    },
+    {
+      "id": "board-external",
+      "label": "Board meeting (external directors)",
+      "ready": "Ready to present",
+      "about": "Board meeting with outside directors.",
+      "goal": "Board resolutions passed.",
+      "prompts": [
+        "Your update",
+        "Resolutions needed",
+        "Concerns"
+      ],
+      "mySide": "My side is management (presenting)",
+      "otherSide": "Other side is the board",
+      "seatLead": "management (presenting)",
+      "seatFollow": "the board"
+    },
+    {
+      "id": "research-external",
+      "label": "Research / conversation room",
+      "ready": "Ready to explore",
+      "about": "Conversation with outside experts.",
+      "goal": "Shared findings.",
+      "prompts": [
+        "Your angle",
+        "What you want to learn",
+        "What you can share"
+      ],
+      "mySide": "My side leads",
+      "otherSide": "Other side joins",
+      "seatLead": "leads",
+      "seatFollow": "joins"
+    },
+    {
+      "id": "vendor-review",
+      "label": "Vendor review",
+      "ready": "Ready to review",
+      "about": "Review performance with a vendor.",
+      "goal": "Agreed improvements.",
+      "prompts": [
+        "What's working",
+        "Issues",
+        "Leverage (private)"
+      ],
+      "mySide": "My side is reviewing the vendor",
+      "otherSide": "Other side is the vendor",
+      "seatLead": "reviewing the vendor",
+      "seatFollow": "the vendor"
+    }
+  ]
+}

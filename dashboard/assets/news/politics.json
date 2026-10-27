@@ -1,9 +1,57 @@
 {
  "subject": "politics",
- "fetched_at": "2026-10-26T04:00:08.987131+00:00",
+ "fetched_at": "2026-10-27T04:00:11.915413+00:00",
  "items": [
   {
-   "title": "BC's new premier lucked into the job in an unexpected political turn",
+   "title": "Trump continues midterm campaign blitz in Mississippi amid outcry over racist, Islamophobic attacks – as it happened",
+   "source": "The Guardian",
+   "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxOSDFOVEU1UTJ5b0lCc0laS2E0WTdXVnNuazVITkwwQl9scEJRSWs1QjVNR1lIcUdOaVEtNW8wclU2YkRhckVTOVMzXzFzRUJseElYRE1wbEE3UTdJYlQxV2pUb1pydDdnb3JQTmRCR2tBOGFvWkhFWUlxN2JfX2ItZXVlLWZ6Y1p2ZzV4MmJIdXl3QVdETUsxQVZNa19VSDYzYi03QXVKS3NCMVZIZU9SampyLWFYUkxURTlnUnlWd09wQi05cklQSGU5dW9hUklKcU1PYjZmWDk4Zw?oc=5",
+   "published": "2026-10-26T11:20:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "U.S. officials accuse Canada of midterm meddling — but Trump has endorsed foreign candidates",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPOUlRTEUtT2d5dVVzRDEzU1FnV3doWHhQaXZzVEpOQW9veVFtangwWkktUzNtWGFjRGUyTy12UjBsUW16cTc0TnViVjNpSXBrMlp3V2VxNFpMVHJQQUFkcTQySWtucEM5cF8zXzR6ZE1zb1ppbGVrVlV0S00yMHFuOV9QNGNuRUpDeEt6NlZCdjJHTUYyZ0g0WXM1bjRyZFhoMEZwTU9wYXJWcU1vZndyN18wUzkzcXlF?oc=5",
+   "published": "2026-10-26T12:22:53+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "How 3 N.B. politicians have approached more than a decade of shale gas debates",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5QNUI4UkYtQ1RUQmlDS2t3NHB5dm5zb1VIUm9SVjBNZnF3VDRUWGpvbkxQV2tjRmVLVGhrMGNuX3J4UUY1d3pNSDc1UWJ3cXdSRG8xZThjMHRwZw?oc=5",
+   "published": "2026-10-27T03:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "PM Carney says it’s time to move beyond Indian Act",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNazdfZHRyTVR1RzNJYzFFUk50V2NFakxydFR5MTdVR0FJVmVKUmNDc0pJb0RFbVEyekJ4aFZzZHJMYXAxTkdTbjhxTm5CNzB2NXpGelU3R0Fyb2Q4d3hPdU1QN1BSWGpvWHYzTkYtRDZyeXZQTmhBZElXVzhfNklPM2piM0ctNUpsbDVSdXlwcThIX0tM?oc=5",
+   "published": "2026-10-26T22:12:57+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Canada-U.S. trade talks ‘moving quickly’ at political level ahead of midterms: sources - National",
+   "source": "Global News",
+   "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNcjNVUGZmYnBuS1NCV1Rrd2p3QnI3THJxbUpraXVONkxsRldBMTNzWFdOS2c5aTZqaXhGUWpWazQ3dUJEQXhVeXZGZ1hJMzUzemc1VkxoenFQQnE1UzcyTm1VMlZmV1M5Z3E4Sk10YVJKZUtBR21qYmR3cVRNZ3VST3Q4TkN3d21Ta1E?oc=5",
+   "published": "2026-10-26T20:43:28+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "These punks became city councillors in B.C. – and brought their progressive politics to the table",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPSlFkcjhHU2ViWGZNZUt4VTlFTy1jcWJqNlljZUE0dFhaR2JtYUFFRzBteG5ZNDRrZGpxMWdvT0hrT0pUel85LTlUTURZMHQ2ckhTdjAwZ2lDVHhUVE9GXy1XMFFPcTJLWExSeGJRcTB2MW5aTDBBa2tUb1ZzRXk5VWZDT1F5UnJReVpPZGc1TTlJN2lNU1NkbGl5b2FFSU1OeDQyM0RPT3lQb0xGeGc?oc=5",
+   "published": "2026-10-26T17:56:37+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "British Columbia's new premier lucks into the job in unexpected political turn",
    "source": "BBC",
    "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBTLWJ1a1dtUnRMNWRWOHFrNHgxOTFWOVczRXJNR2hELUdKM1V0TUFKYk9FVHNkS3h5cEVVZjJqT0lheXhuUWE1OC1Qdm5GYkxiZm1ZVTE2SUVXdkk?oc=5",
    "published": "2026-10-25T20:58:39+00:00",
@@ -11,58 +59,10 @@
    "video": false
   },
   {
-   "title": "Politics, not strategy, could mean more Israeli strikes on Iran",
-   "source": "The Economist",
-   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQR2JHeGwwWlVfNFp6OE5XQUpnZE9LY1BPQXdzZnkzRVhvNkdkQXhPcXNvOUFvdGJJR0FXTllYaFlfenBneXpDQ1NBZ25ia3gtRU9fWG1HWW1kNXRoMllhcUYyQTZpN2E1eEk0SVkwT1lKdDJGNVp4OHdOTFg0cnpqQjZ3VTlld0JPVU13eGJucjlpdTNKRTZ1dXNQMFNnTGZTdzJKMmUxWHNYTFYwNl90T3N1YnZqNWE4ZFFjcm9n?oc=5",
-   "published": "2026-10-25T18:27:31+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "B.C. Conservatives form majority in a cautionary tale of political miscalculation",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPVXQ5WHZhd0pUSWhFVkZ1Yk5hYVBISGxQR3h0RjBuTUk1M3AxbjAzR0daYVh4VlFJcktxNm5SSDk2SXlMM3hFT1I2SUJQX2dqOGdVTTFRcHhTZDR6Q0JYQ09NS3l6ekM3QmNDaXVrZXZkSGJOcG95QlN0eHNTbXVOaG8tVEM1ei1qa1RaajZnX25XdlctVkJrdEVqWXFwbHZNQWN0YzlkcUQ3VmYzSmJfVk04YVFVZTkwMHBvcA?oc=5",
-   "published": "2026-10-26T03:07:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "2 Dan Sullivans on the ballot? It's actually happened before",
-   "source": "CNN",
-   "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNcDVCVUZlMDU4NENkbmhPNzAwbTBvSWtLNTFXU010VlFpZnpQNi0wOTBwSGpNeU4yYkpZMWFENnd6YXZuakpiTU5Ob1MtTGNjaVVQTnJoRV94Tm56SFJCMVl4YkszTTBHUWdsTndJM0xzQ1hWMW1zcjcxTS1QbnRYVVNkczMzRUhrLXpyc2JZRUpwSE81Z0REcXBVczB4S1BBQWZTOGxfMW9PSmFKSHBPYnUtN0NncHJwZ05fMi00T3ZWV3l4Y1o0Q2pEN3hOcU4xV0owdEk1Si1JUkdhcUlFa21meG1UakxjWl9yRmpnbnQtdEl1eW9B?oc=5",
-   "published": "2026-10-26T03:00:07+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Carney's geopolitical ambitions tested in defence industry co-operation with Turkey",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNLWx0WGFXYTQ0cUZJVXdhUXlSOVkxeFRvSnpTRm82bVhKaENZaVliUndoeXR6Sm9SRDdSQUZIOGc2OTRHaXNNUGhvUmVneE9UU0NiVWJWTG4tWS1UUUVLVnZwMWZSVUR1dDVlOVJ6UWlpZjVxa1hSV2pxVFlBMFpHWEZGNnA5RXNFWXptSmNjeTRCcEh2Ymc?oc=5",
-   "published": "2026-10-25T20:01:24+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Serbia’s Vucic concedes parliamentary election to student-led movement in huge political shift",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNT2pMbHdlbDdfb2pKdWl2aGdHaDFhbUpSRU9WSFRNbnpDOUZVbmpWRmQ0cFRnWU02NW9BNUNGNC1rVXd1N3poSGFBcEc2VDZQMzNncGdqQThRN182WG9USExNUlFySjdtOXFsSkZyakwtWEhwRzloSkh6SFBRMGZES2thWVM5Zmk2ektZUjdoczNVaHZvbHAxamVvQkRfTXVhM2Zr?oc=5",
-   "published": "2026-10-25T12:44:35+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Canada once tried to pivot from the U.S. to Europe. Here’s why it didn’t last",
-   "source": "Toronto Star",
-   "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPbS00RE9LM1VGV0h6ektZNi1mdzJqXzhhU242amVCOUwxSy10RW01QlhpeTJMOFI4M2tEblZXRHNlYWZyLWJFR3Q0RWo0TWNHMWs2QXdRQUVESzdNR1AxSk9BNXJxdlluanVueHBnUGVfU2ZPNlRvZ3ZnU2V5OEF0cFVJVExzUFk3eVVpRTlyNEwzREF2NWFWTlNRdEhZdDVRYXJ2QjZpdUx0SG8zVjBFWGdSeUI3dWFmV2ZsTG1LZjhKVTZIcEZUT3FlSHB1TzhjampPQV9VTmh4R3pNM25xRUZYbnFjUFlNX0RVR1R5bzdLMnlPSEE2TkRn?oc=5",
-   "published": "2026-10-25T11:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Lula wins reelection in historic runoff, setting up tense political battle",
-   "source": "Politico",
-   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNb29aRng4aEJSejYtWTd0RGZLREROUXhDVzlQYUlwNVNQQWwtVkpvaW5PYUJ0a1cza1FYQ0JzbVFTM2s3LVlTOFE4VU9xVV9KSERfaEp6YkdXUjA0ZTQzQXlrUkFsdVIwMkxDWDlKOEdaSW5USzlyaThLU0tSWE1pYkJkVFpNaXNfVUwyQnpIQnZKS1BXeTJ5N2hHS1I2dkRvYl8wTThDSEs2VUNvYldFOTd4VU0wVmU1QUtRUHI2YW0?oc=5",
-   "published": "2026-10-26T01:44:00+00:00",
+   "title": "PM Carney Announces First Nations Funding, Sovereign Wealth Fund Possibility - Headline Politics",
+   "source": "CPAC",
+   "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNRVpPdEtUajRoYmNseHNsTXAyZ3NOZlktOHlwNmRjdlYyZ3J2WmdNUlUwRDkxM0I2Q2plVmNzeUVJenZEb0ZCQU5heFo4Y1NncmpyNUwycmRYTE5vQXItVVdPZWdyblhzLTlXYUlMQUJUTElXUENIWGVwWkNkQjZVRmtZOTVZZDJfQU5UNXptUmQ0Qy1UU2QzOGVpU0NCSG12cF9yNGRaTEZWR3lsVFRuSy1CaF9JbENVWHo0YlhXSE00QnUwcVpHU05zc1V1aldfd1ZpVEd0RnFlakZPWmxVeS1PM0s3UEtSQUlzS1VEQ0lwLWs?oc=5",
+   "published": "2026-10-26T22:31:07+00:00",
    "tag": "standard",
    "video": false
   }

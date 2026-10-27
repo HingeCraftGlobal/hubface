@@ -15,11 +15,8 @@
     var T=function(en,hi){var l=(document.documentElement.lang||"").toLowerCase();return l.indexOf("hi")===0?hi:en;};
     var ic="\ud83e\udd16", tx=T("Bot room","\u092c\u0949\u091f \u0930\u0942\u092e");
     var key=ic+"|"+tx;
-    if(b.getAttribute("data-k")!==key){b.setAttribute("data-k",key);b.innerHTML="";
-      var i=document.createElement("span");i.textContent=ic;i.style.cssText="font-size:15px;line-height:15px;display:block";
-      var t=document.createElement("span");t.textContent=tx;t.style.cssText="display:block;white-space:nowrap";
-      b.appendChild(i);b.appendChild(t);}
-    b.style.setProperty("flex-direction","column");
+    if(b.getAttribute("data-k")!==key+"|stack"){b.setAttribute("data-k",key+"|stack");b.innerHTML="";var w=tx.split(" ");[ic].concat(w).forEach(function(s,n){if(n)b.appendChild(document.createElement("br"));b.appendChild(document.createTextNode(s));});}
+    b.style.removeProperty("flex-direction");
     if(y.nextSibling!==b)y.parentNode.insertBefore(b,y.nextSibling);
   }
   setInterval(add,700);

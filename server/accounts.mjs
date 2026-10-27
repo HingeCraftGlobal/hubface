@@ -586,7 +586,8 @@ async function bmSettle(id) {
 function bmView(m) {
   const t = Date.now(); const bal = bmBalance(m.user_id); const act = bmActiveMs(m, t);
   const leftMin = Math.floor(bal / m.unit_min);   // metered minutes left at the current unit
-  return { build: BM_BUILD, id: m.id, phase: m.phase, state: m.state, relayRoom: m.relay_room || null, startedAt: m.started_at, serverNow: t,
+  let su = {}; try { su = JSON.parse(m.setup || '{}') || {}; } catch {}   // engroom-20261026: room type for the live view (no token here)
+  return { build: BM_BUILD, id: m.id, phase: m.phase, state: m.state, relayRoom: m.relay_room || null, roomType: su.type || null, access: su.access || null, startedAt: m.started_at, serverNow: t,
     elapsedSec: Math.floor(act / 1000), nextChargeInSec: m.state === 'running' ? 60 - Math.floor((act % 60e3) / 1000) : null, minutesCharged: m.charged, minDrawn: m.charged * m.unit_min,
     unitMin: m.unit_min, balanceMin: bal, balanceTokens: Math.floor(bal / TOKEN_MIN), meteredMinutesLeft: leftMin, warn: m.state === 'running' && [1, 5, 10].find((w) => leftMin <= w) || null,
     endReason: m.end_reason || undefined, holdLeftSec: m.state === 'paused_balance' ? Math.max(0, Math.ceil((m.hold_since + BM_BUY_WAIT_MS - t) / 1000)) : null,
@@ -606,6 +607,8 @@ async function botmeterRoute(q, r, ep) {
     const mid = String(u.searchParams.get('id') || ''); let m = mid ? BQ.get.get(mid) : BQ.openFor.get(id);
     if (!m || m.user_id !== id) return json(r, 404, { error: 'no meter' });
     m = await bmSettle(m.id) || m;
+    if (ep === 'status' && m.phase === 'live' && m.relay_room && m.state !== 'ended') { let w = ''; try { w = JSON.parse(m.setup || '{}').w0 || ''; } catch {}   // brchat-20261026: owner's own re-entry link (auth: this owner's session only)
+      if (w) return json(r, 200, { ...bmView(m), ownerLink: { room: m.relay_room, w } }); }
     return json(r, 200, ep === 'ledger' ? { id: m.id, unitMin: m.unit_min, charges: BQ.ledger.all(m.id) } : bmView(m));
   }
   if (q.method !== 'POST') return json(r, 405, { error: 'method not allowed' });
@@ -625,10 +628,10 @@ async function botmeterRoute(q, r, ep) {
     const s = b.setup || {}; const internal = s.access !== 'external';
     const room = 'BR-' + Date.now().toString(36).toUpperCase() + '-' + crypto.randomBytes(2).toString('hex').toUpperCase();
     const clip = (v, d) => String(v || d).replace(/[\u0000-\u001f]/g, '').slice(0, 40);
-    const rr = await bmRelay('/api/botrelay/rooms/metercreate', { room, meter: m0.id, topic: String(s.topic || '').slice(0, 280), bots: [clip(s.bot0, 'Yoda'), clip(s.bot1, internal ? 'Stella' : 'Other side')],
+    const rr = await bmRelay('/api/botrelay/rooms/metercreate', { room, meter: m0.id, topic: String(s.topic || '').slice(0, 280), bots: [clip(s.bot0, 'Yoda'), clip(s.bot1, internal ? BR_OPEN_SEAT : 'Other side')],   /* brchat-20261026: no default 'Stella' */
       owners: [clip(s.owner0, 'Dan'), clip(s.owner1, internal ? 'Dan' : 'Other owner')], sellerSeat: s.sellerSeat === 1 ? 1 : 0, ownerApproval: true });
     if (rr.status !== 201) return json(r, 502, { error: 'Could not open the live room: ' + (rr.json.error || rr.status) });
-    BQ.live.run(room, JSON.stringify({ type: String(s.type || 'negotiation').slice(0, 30), access: internal ? 'internal' : 'external' }), m0.id);
+    BQ.live.run(room, JSON.stringify({ type: String(s.type || 'negotiation').slice(0, 30), access: internal ? 'internal' : 'external', w0: (rr.json.bots && rr.json.bots[0] && rr.json.bots[0].watch) || undefined }), m0.id);   // brchat-20261026: owner re-entry (returned to this owner only)
     if (m0.state === 'paused_balance') await bmRelay(`/api/botrelay/rooms/${room}/meterhold`, { meter: m0.id });
     console.log(`[botmeter] ${m0.id} handoff -> relay ${room} (${internal ? 'internal' : 'external'})`);
     return json(r, 200, { ...bmView(BQ.get.get(m0.id)), access: internal ? 'internal' : 'external', relay: rr.json });
@@ -649,7 +652,11 @@ export async function accountsRoute(q, r, p) {
   const ep = p.slice('/api/account/'.length);
   try {
     if (ep === 'me' && (q.method === 'GET' || q.method === 'HEAD')) { me(q, r); return true; }
-    if (ep === 'room-pass' && q.method === 'GET') { roomPass(q, r); return true; }   // memberauth-20261018-v1
+    if (ep === 'room-pass' && q.method === 'GET') { roomPass(q, r); return true; }
+    if (ep === 'room-time' && q.method === 'GET') {   // buyscreen-20261026a: own room-time state only (read-only), for the out-of-time buy screen
+      const id = currentUser(q); if (!id) { json(r, 401, { authenticated: false }); return true; }
+      const m = memberRecord(id); const sb = m ? m.subscription : null; const rem = sb ? Number(sb.remaining) || 0 : 0;
+      json(r, 200, { authenticated: true, state: sb ? sb.state : 'none', remainingMin: rem, outOfTime: !sb || rem <= 0 || ['used_up', 'overage', 'canceled', 'none'].includes(sb.state), tokenPriceCents: TOKEN_PRICE_CENTS, tokenMin: TOKEN_MIN }); return true; }   // memberauth-20261018-v1
     if (ep === 'spend' && q.method === 'POST') {   // tokenspend-20261021a: room timer Start / Add time debits plans.tokens once per key
       if (!sameOrigin(q)) { json(r, 403, { error: 'Cross-site request blocked.' }); return true; }
       const id = currentUser(q); if (!id) { json(r, 401, { error: 'Sign in first.' }); return true; }
@@ -662,6 +669,7 @@ export async function accountsRoute(q, r, p) {
         db.prepare('INSERT INTO token_spends (k, user_id, n, created_at) VALUES (?,?,?,?)').run(k, id, n, now()); })();
       const a = publicAccount(id); if (short) { json(r, 402, { error: 'Not enough tokens.', account: a }); return true; }
       json(r, 200, { ok: true, duplicate: dup, account: a }); return true; }
+    if (ep === 'botmeter/yoda-reply' || ep === 'botmeter/owner-message' || ep === 'botmeter/owner-messages' || ep === 'botmeter/owner-stream' || ep === 'botmeter/stt' || ep === 'botmeter/stt-token' || ep === 'botmeter/speak' || ep === 'botmeter/latency' || ep === 'botmeter/buy-intent' || ep === 'botmeter/buy-test-order') { await brChatRoute(q, r, ep.slice(9)); return true; }   // brchat-20261026
     if (ep.startsWith('botmeter/')) { await botmeterRoute(q, r, ep.slice(9)); return true; }   // botmeter-20261025a
     if (!['signup', 'login', 'logout'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
     if (q.method !== 'POST') { json(r, 405, { error: 'method not allowed' }); return true; }
@@ -676,3 +684,273 @@ export async function accountsRoute(q, r, p) {
 }
 export function accountsHealth() { try { return { ok: true, users: db.prepare('SELECT COUNT(*) n FROM users').get().n }; } catch { return { ok: false }; } }
 export function backupTo(file) { return db.backup(file); }
+
+/* ---------------- prerooms-20261026a (Dan, voice Oct 26 2026; Brain OS #133): server-side hooks for the pre-room card flow ----------------
+   Same meter + same golive relay path as the Pre-Room (botmeter-20261025a). Called by prerooms.mjs only. Roll back: delete this block. */
+export async function preroomMeterStart(uid) {
+  const ex = BQ.openFor.get(uid); if (ex) return bmSettle(ex.id);
+  const mid = 'BM-' + crypto.randomBytes(6).toString('hex'); const t = Date.now();
+  BQ.ins.run(mid, uid, new Date(t).toISOString(), t, BOTMETER_UNIT_MIN);
+  console.log(`[botmeter] ${mid} started user ${uid} unit ${BOTMETER_UNIT_MIN} min (prerooms)`);
+  return bmSettle(mid);
+}
+export async function preroomGoLive(uid, meterId, s) {
+  const m0 = BQ.get.get(String(meterId || '')); if (!m0 || m0.user_id !== uid) return { status: 404, json: { error: 'no meter' } };
+  if (m0.state === 'ended') return { status: 409, json: { error: 'meter ended' } };
+  if (m0.phase === 'live' && m0.relay_room) return { status: 409, json: { error: 'already live in ' + m0.relay_room } };
+  const internal = s.access !== 'external';
+  const room = 'BR-' + Date.now().toString(36).toUpperCase() + '-' + crypto.randomBytes(2).toString('hex').toUpperCase();
+  const clip = (v, d) => String(v || d).replace(/[\u0000-\u001f]/g, '').slice(0, 40);
+  const rr = await bmRelay('/api/botrelay/rooms/metercreate', { room, meter: m0.id, topic: String(s.topic || '').slice(0, 280), bots: [clip(s.bot0, 'Yoda'), clip(s.bot1, internal ? BR_OPEN_SEAT : 'Other side')],   /* brchat-20261026: no default 'Stella' */
+    owners: [clip(s.owner0, 'Owner'), clip(s.owner1, 'Other owner')], sellerSeat: s.sellerSeat === 1 ? 1 : 0, ownerApproval: true });
+  if (rr.status !== 201) return { status: 502, json: { error: 'Could not open the live room: ' + (rr.json.error || rr.status) } };
+  BQ.live.run(room, JSON.stringify({ type: String(s.type || 'negotiation').slice(0, 30), access: internal ? 'internal' : 'external', preroom: String(s.preroom || '').slice(0, 40), w0: (rr.json.bots && rr.json.bots[0] && rr.json.bots[0].watch) || undefined }), m0.id);   // brchat-20261026
+  if (m0.state === 'paused_balance') await bmRelay(`/api/botrelay/rooms/${room}/meterhold`, { meter: m0.id });
+  console.log(`[botmeter] ${m0.id} prerooms handoff -> relay ${room}`);
+  return { status: 200, json: { room, meter: m0.id, relay: rr.json } };
+}
+export async function preroomMeterStop(uid, meterId) {
+  const m0 = BQ.get.get(String(meterId || '')); if (!m0 || m0.user_id !== uid || m0.state === 'ended') return false;
+  const t = Date.now(); bmSettleTx(m0.id, t); const m1 = BQ.get.get(m0.id);
+  BQ.end.run('owner_closed', t, m1.hold_since ? t - m1.hold_since : 0, m0.id);
+  if (m1.relay_room) await bmRelay(`/api/botrelay/rooms/${m1.relay_room}/meterstop`, { meter: m0.id, reason: 'owner_closed' });
+  return true;
+}
+
+/* ---------------- brchat-20261026 (Dan, voice Oct 26 2026, call 52aaa6cd): Bot Room owner chat -> Yoda ----------------
+   POST /api/account/botmeter/owner-message {room, text}  auth: signed-in session AND Authorization: Bearer <that room's owner watch token>
+     (verified against the relay with a zero-wait events read; the relay itself is not changed or restarted). Stores the line and forwards
+     it to the existing Yoda routine webhook (same hook as room chat, event 'botroom.owner_message') with a signed reply URL.
+   GET  /api/account/botmeter/owner-messages?room=&after=   same auth -> lines for the chat box (owner + Yoda replies).
+   POST /api/account/botmeter/yoda-reply?room=&exp=&n=&sig=  {text}  signed link only (HMAC from the existing meter key, 10 min, 4 uses).
+   Roll back: delete this block + the router line + restore accounts.mjs.bak-pre-brchat-20261026. */
+const BR_OPEN_SEAT = 'Open seat';
+db.exec(`CREATE TABLE IF NOT EXISTS br_owner_chat (id INTEGER PRIMARY KEY AUTOINCREMENT, room TEXT NOT NULL, user_id INTEGER, from_name TEXT NOT NULL, to_name TEXT NOT NULL, role TEXT NOT NULL, text TEXT NOT NULL, at INTEGER NOT NULL, hook TEXT);
+CREATE INDEX IF NOT EXISTS br_owner_chat_room ON br_owner_chat(room, id);`);
+const BRC = { ins: db.prepare('INSERT INTO br_owner_chat (room, user_id, from_name, to_name, role, text, at) VALUES (?,?,?,?,?,?,?)'), hook: db.prepare('UPDATE br_owner_chat SET hook = ? WHERE id = ?'),
+  list: db.prepare('SELECT id, from_name AS "from", to_name AS "to", role, text, at FROM br_owner_chat WHERE room = ? AND id > ? ORDER BY id LIMIT 200'),
+  recent: db.prepare('SELECT from_name AS "from", role, text FROM br_owner_chat WHERE room = ? ORDER BY id DESC LIMIT 8') };
+const BRC_RE = /^BR-[A-Z0-9]{4,20}-[A-F0-9]{4}$/, BRC_MAX = 2000, BRC_REPLY_MS = 600e3, brcUses = new Map(), brcRate = new Map();
+const brcKey = () => BM_KEY ? crypto.createHash('sha256').update('brchat-reply1|' + BM_KEY).digest() : null;
+const brcSig = (room, exp, n) => { const k = brcKey(); return k ? crypto.createHmac('sha256', k).update(`${room}|${exp}|${n}`).digest('base64url') : ''; };
+const brcSeatCache = new Map();   // brfix2-20261026: room|sha(token) -> {seat,bots,mode,exp} for 60 s
+async function brcWatchSeat(room, tok) {   // relay says which seat this watch token owns (or -1)
+  if (!/^brw_[A-Za-z0-9_-]{20,80}$/.test(tok)) return { seat: -1 };
+  const ck = room + '|' + crypto.createHash('sha256').update(tok).digest('hex'), t = Date.now(), hit = brcSeatCache.get(ck);
+  if (hit && hit.exp > t) return hit;
+  // brfix2: the relay reads timeout=0 as "default 25 s" (+0 || 25), so ask for after=0, which always has events (meter_linked/joined) and returns at once
+  try { const x = await fetch(`${BM_RELAY}/api/botrelay/rooms/${room}/events?after=0&timeout=1`, { headers: { authorization: 'Bearer ' + tok }, signal: AbortSignal.timeout(4000) });
+    if (x.status === 401 || x.status === 404) return { seat: -1 };
+    if (!x.ok) return { seat: -1, down: true, why: 'relay_' + x.status };
+    const j = await x.json();
+    if (!(j && j.watcher === true && j.seat >= 0)) return { seat: -1 };
+    const v = { seat: j.seat, bots: j.bots || [], mode: j.mode, exp: t + 60e3 }; brcSeatCache.set(ck, v);
+    if (brcSeatCache.size > 500) for (const [k, o] of brcSeatCache) if (o.exp <= t) brcSeatCache.delete(k);
+    return v; } catch (e) { return { seat: -1, down: true, why: e && e.name === 'TimeoutError' ? 'relay_timeout' : 'relay_unreachable' }; }
+}
+/* push-20261026: server push for the Bot Room owner chat. GET owner-stream?room=&after= (same session + Bearer watch token as owner-messages)
+   is a text/event-stream; every row stored in br_owner_chat (owner message or Yoda reply) is pushed to that room's subscribers at once. */
+const brcSubs = new Map();   // room -> Set(res)
+/* latency-20261026: timestamp trace for every Bot Room owner message and reply. JSONL at /var/lib/hubface/brchat-latency.jsonl
+   (owner: server receive time, client send time, route fast|routine; reply: route, latency from the owner message, SSE subscribers written).
+   Summary: GET /api/account/botmeter/latency?room= (same owner auth) or `node /opt/hubface/server/brlat.mjs [ROOM]` on the VPS. No text/tokens logged. */
+const BRL_FILE = '/var/lib/hubface/brchat-latency.jsonl', brlPend = new Map();
+function brlLog(o) { try { fs.appendFileSync(BRL_FILE, JSON.stringify(o) + '\n'); } catch (e) {} }
+function brlSubs(room) { const s = brcSubs.get(room); return s ? s.size : 0; }
+function brlReply(room, id, t, route, via) { const L = brlPend.get(room) || []; const now = t; let o = null;
+  for (let i = L.length - 1; i >= 0; i--) if (now - L[i].t < 15 * 60e3 && !(route === 'fast' ? L[i].fastDone : L[i].done)) { o = L[i]; break; }
+  if (o) { if (route === 'fast') o.fastDone = 1; else o.done = 1; }
+  const e = { k: 'reply', room, id, at: t, route, via: via || '', reply_to: o ? o.id : null, lat_ms: o ? t - o.t : null, e2e_ms: o && o.cs ? t - o.cs : null, subs: brlSubs(room) }; brlLog(e); return e; }
+function brlStats(room) { let rows = []; try { rows = fs.readFileSync(BRL_FILE, 'utf8').trim().split('\n').slice(-5000).map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter((x) => x && (!room || x.room === room)); } catch {}
+  const R = rows.filter((x) => x.k === 'reply' && x.lat_ms != null), pc = (a, p) => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y); return s[Math.min(s.length - 1, Math.floor(p * s.length))]; };
+  const by = {}; for (const k of ['fast', 'routine']) { const v = R.filter((x) => x.route === k).map((x) => x.lat_ms); by[k] = { n: v.length, p50_ms: pc(v, 0.5), p90_ms: pc(v, 0.9), max_ms: v.length ? Math.max(...v) : null }; }
+  const owner = rows.filter((x) => x.k === 'owner'), unanswered = owner.filter((o) => !R.some((x) => x.reply_to === o.id && x.room === o.room)).length;
+  return { room: room || 'all', replies: by, owner_messages: owner.length, unanswered, slowest: [...R].sort((x, y) => y.lat_ms - x.lat_ms).slice(0, 5), recent: rows.slice(-20) }; }
+function brcPush(room, m) { const set = brcSubs.get(room); if (!set) return; const line = `id: ${m.id}\nevent: msg\ndata: ${JSON.stringify(m)}\n\n`;
+  for (const res of set) { try { res.write(line); } catch (e) {} } }
+function brcStream(q, r, room, after) {
+  r.writeHead(200, { 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-store, no-transform', 'X-Accel-Buffering': 'no', Connection: 'keep-alive' });
+  try { q.socket.setNoDelay(true); q.socket.setTimeout(0); } catch (e) {}
+  r.write('retry: 2000\n: open\n\n');
+  let a = after, rows; do { rows = BRC.list.all(room, a); for (const m of rows) { r.write(`id: ${m.id}\nevent: msg\ndata: ${JSON.stringify(m)}\n\n`); a = m.id; } } while (rows.length === 200);
+  let set = brcSubs.get(room); if (!set) brcSubs.set(room, set = new Set()); set.add(r);
+  const hb = setInterval(() => { try { r.write(': hb\n\n'); } catch (e) {} }, 20e3);
+  const done = () => { clearInterval(hb); set.delete(r); if (!set.size && brcSubs.get(room) === set) brcSubs.delete(room); };
+  q.on('close', done); r.on('close', done); r.on('error', done);
+}
+/* fastlane-20261026: short greeting / ping / thanks / small talk gets an instant Yoda line (fast model, rule fallback), stored + pushed like yoda-reply.
+   Never acts. Anything else (questions about work, commands, approvals like "go", URLs, numbers, money, > 6 words / > 40 chars) -> full routine as before. */
+/* fastlane2-20261026: chatter / acknowledgements / test lines / spoken counting also count as simple chat; 12 words / 90 chars. */
+const BRF_CMD = /\b(build|fix|send|delete|change|deploy|remove|add|start|stop|check|find|make|set|restart|create|update|write|draft|email|schedule|remind|book|order|call|invite|move|rename|enable|disable|install|run|show|give|open|close|cancel|approve|accept|reject|renegotiate|buy|pay|sell|ship|push|merge|post|share|upload|download|save|price|offer|deal|counter|balance|tokens?|account|billing|bill|charge|refund|money|cost|costs|invoice|password|login|wallet|subscription|plan)\b/i;   // latency-20261026: money/account/token words never fast
+const BRF_APPROVE = /\b(go|yes|no|ok|okay|proceed|continue|confirm|yep|yeah|sure)\b/i;
+const BRF_SMALL = /^(hi+|hey+|hello+|yo+|hiya|howdy|sup|wassup|what'?s up|good (morning|afternoon|evening|night)|morning|evening|gm|thanks?|thank you|thx|ty|cheers|nice|cool|great|awesome|lol|haha+|ping|test(ing)?|you there|are you there|r u there|still there|anyone there|how are you|how'?s it going|how are things|hey yoda|hi yoda|hello yoda|yoda|bye|goodbye|see you|later|night|wow|interesting|nice work|good job|well done|amazing|excellent|love it|i see|i'?m back|back again|i'?m here|brb|sorry|my bad|no worries|oops|ha+)\b/i;   // latency-20261026 (no approval-like words: ok/sounds good/got it/perfect stay full routine)
+const BRF_PING = /^(how are you|how'?s it going|how are things|what'?s up|are you there|you there|r u there|still there|anyone there|can you hear me|do you hear me|hear me|is this working|does this work|is it working|how'?s your day|how is your day|how are you doing|how you doing|how'?s everything|how is everything|how have you been|how'?ve you been|you good|all good there|what'?s new|how'?s life)\b/;   // latency-20261026 widened status chit-chat
+function brcFastOk(text) {
+  const t = String(text).trim(), w = t.split(/\s+/).filter(Boolean);
+  const uw = new Set(w.map((s) => s.toLowerCase().replace(/[^a-z']/g, '')).filter(Boolean));
+  if (!t || t.length > 90 || uw.size > 12 || w.length > 20) return false;   // 12 distinct words (repeats like "We. Did. It." count once), 20 total, 90 chars
+  if (/https?:|www\.|\d|\$|€|£|@/.test(t)) return false;
+  const core = t.toLowerCase().replace(/[!?.,~;:"]+/g, ' ').replace(/\s+/g, ' ').trim();
+  if (!core) return false;
+  if (BRF_CMD.test(core.replace(/^(testing|test)\b/, ''))) return false;
+  if (BRF_APPROVE.test(core)) return false;
+  if (/^do\b/.test(core) && !BRF_PING.test(core)) return false;            // imperative "do <something>"
+  if (/^(done|finished|ready)\s*\?*$/.test(t.toLowerCase().replace(/[.!\s]+$/, '')) && /\?/.test(t)) return false;   // "done?" status question
+  const q = /\?/.test(t) || /^(can|could|would|will|should|does|is|are|what|why|when|where|which|who|how|whats|what's|have|has)\b/.test(core);
+  if (q && !BRF_PING.test(core)) return false;
+  return true;
+}
+const BRF_RULE = { greet: ['Here I am, Dan. Ready when you are.', 'Hello, Dan. Listening, I am.', 'Hi Dan. At your side, I am.', 'Good to hear from you, Dan. Here and ready.'],
+  ping: ['Here, Dan. Loud and clear.', 'Still here, I am. Go ahead.', 'Receiving you clearly, Dan.'],
+  thanks: ['Welcome, you are.', 'Glad to help, Dan.', 'Anytime, Dan.'], bye: ['Until next time, Dan.', 'Later, Dan. Here when you need me.'] };
+let brfN = 0;
+function brcRuleReply(t) { const c = t.toLowerCase(); const k = /thank|thx|\bty\b|cheers/.test(c) ? 'thanks' : /bye|see you|later|night/.test(c) ? 'bye' : /ping|test|there|\?/.test(c) ? 'ping' : 'greet'; const L = BRF_RULE[k]; return L[(brfN++) % L.length]; }
+/* mic2-20261026: Bot Room dictation. POST /api/account/botmeter/stt?room=  body = recorded clip (audio/webm|ogg|mp4|wav, <= 3 MB, ~30 s), same session + Bearer
+   watch token as owner-messages. Transcribed with the server's existing AssemblyAI key (process.env.ASSEMBLYAI_API_KEY, never logged / returned). No audio is stored here. */
+const brcSttRate = new Map();
+/* stream-20261026: live dictation. Mints a short-lived AssemblyAI v3 streaming token (60 s to connect, session <= 60 s) for an authenticated owner;
+   the API key stays on the server (never returned or logged). Same model / sample rate / encoding as the room STT (stt.mjs). */
+/* handsfree-20261026: daily cap for Bot Room live/hands-free dictation. Each minted token allows <= 60 s of streaming, so each mint is counted as
+   1 minute (upper bound). Cap BRMIC_DAILY_MIN (default 240 min/day, ET day), persisted in /var/lib/hubface/brmic-usage.json. */
+const BRMIC_CAP = +process.env.BRMIC_DAILY_MIN || 240, BRMIC_FILE = '/var/lib/hubface/brmic-usage.json';
+function brmicDay() { return new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); }
+function brmicUse(add) { let u = { day: '', min: 0 }; try { u = JSON.parse(fs.readFileSync(BRMIC_FILE, 'utf8')); } catch {} if (u.day !== brmicDay()) u = { day: brmicDay(), min: 0 };
+  if (add) { u.min += add; try { fs.writeFileSync(BRMIC_FILE, JSON.stringify(u)); } catch {} } return u; }
+/* tts-20261026 (Dan approved on call Oct 26): Bot Room ONLY. POST botmeter/speak?room= {text} -> audio of Yoda's reply in xAI voice 'liora'.
+   Same xAI /v1/tts + shared YODA_FAST_DAILY_USD spend cap as fastpath, plus a Bot Room cap of BR_TTS_DAY_CHARS (default 15000 chars/ET day ~ $0.23). */
+const brTts = { day: '', chars: 0 }, BR_TTS_CAP = Math.max(0, +(process.env.BR_TTS_DAY_CHARS || 15000));
+async function brcSpeak(q, r, room) {
+  if (q.method !== 'POST') return json(r, 405, { error: 'POST' });
+  if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
+  const b = (await body(q)) || {}; const text = String(b.text || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 800);
+  if (!text) return json(r, 400, { error: 'empty' });
+  const d = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); if (brTts.day !== d) { brTts.day = d; brTts.chars = 0; }
+  if (brTts.chars + text.length > BR_TTS_CAP) return json(r, 429, { error: 'daily-cap', capChars: BR_TTS_CAP });
+  const fp = await import('./fastpath.mjs');
+  if (!fp.canSpend(text.length)) return json(r, 429, { error: 'daily-cap' });
+  const o = await fp.fastTts(text, 'liora');
+  if (!o || !o.buf) return json(r, 502, { error: (o && o.error) || 'tts failed' });
+  brTts.chars += text.length; fp.chargeTts(text.length, 0);
+  console.log(`[brtts] room ${room} liora ${text.length} chars, today ${brTts.chars}/${BR_TTS_CAP}`);
+  r.writeHead(200, { 'Content-Type': o.type || 'audio/mpeg', 'Cache-Control': 'no-store', 'Content-Length': o.buf.length }); r.end(o.buf);
+}
+async function brcSttToken(q, r, room) {
+  if (q.method !== 'POST') return json(r, 405, { error: 'POST' });
+  if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
+  const key = String(process.env.ASSEMBLYAI_API_KEY || '').trim(); if (!key) return json(r, 503, { error: 'stt_unavailable' });
+  const t = Date.now(), rl = (brcSttRate.get(room) || []).filter((x) => t - x < 600e3); if (rl.length >= 40) return json(r, 429, { error: 'too many clips, wait a few minutes' }); rl.push(t); brcSttRate.set(room, rl);
+  if (brmicUse(0).min >= BRMIC_CAP) return json(r, 429, { error: 'daily dictation cap reached' });
+  try {
+    const x = await fetch('https://streaming.assemblyai.com/v3/token?expires_in_seconds=60&max_session_duration_seconds=60', { headers: { authorization: key }, signal: AbortSignal.timeout(5000) });
+    if (!x.ok) { console.log(`[brmic] stream token mint ${x.status}`); return json(r, 502, { error: 'mint_' + x.status }); }
+    const j = await x.json(); if (!j || !j.token) return json(r, 502, { error: 'mint_empty' });
+    const u = brmicUse(1); console.log(`[brmic] stream token room ${room}${/[?&]hf=1/.test(q.url || '') ? ' (hands-free)' : ''} in ${Date.now() - t}ms · ${u.min}/${BRMIC_CAP} min today`);
+    return json(r, 200, { token: j.token, url: 'wss://streaming.assemblyai.com/v3/ws', params: { speech_model: process.env.STT_MODEL || 'universal-3-6-pro', sample_rate: 16000, encoding: 'pcm_s16le', format_turns: true, min_turn_silence: 300, max_turn_silence: 1500 } });
+  } catch (e) { console.log(`[brmic] stream token error ${String(e && e.name || e).slice(0, 40)}`); return json(r, 502, { error: 'mint_unreachable' }); }
+}
+async function brcStt(q, r, room) {
+  if (q.method !== 'POST') return json(r, 405, { error: 'POST' });
+  if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
+  const key = String(process.env.ASSEMBLYAI_API_KEY || '').trim(); if (!key) return json(r, 503, { error: 'stt_unavailable' });
+  const t = Date.now(), rl = (brcSttRate.get(room) || []).filter((x) => t - x < 600e3); if (rl.length >= 40) return json(r, 429, { error: 'too many clips, wait a few minutes' }); rl.push(t); brcSttRate.set(room, rl);
+  let raw; try { raw = await readBody(q, 3 * 1024 * 1024); } catch (e) { return json(r, 413, { error: 'clip too large (30 s max)' }); }
+  if (!raw || raw.length < 800) return json(r, 400, { error: 'empty clip' });
+  const H = { authorization: key };
+  try {
+    const up = await fetch('https://api.assemblyai.com/v2/upload', { method: 'POST', headers: { ...H, 'content-type': 'application/octet-stream' }, body: raw, signal: AbortSignal.timeout(15000) });
+    if (!up.ok) { console.log(`[brmic] stt upload ${up.status}`); return json(r, 502, { error: 'stt_upload_' + up.status }); }
+    const { upload_url } = await up.json();
+    const tr = await fetch('https://api.assemblyai.com/v2/transcript', { method: 'POST', headers: { ...H, 'content-type': 'application/json' }, body: JSON.stringify({ audio_url: upload_url, language_code: 'en', punctuate: true, format_text: true }), signal: AbortSignal.timeout(10000) });
+    if (!tr.ok) { console.log(`[brmic] stt transcript ${tr.status}`); return json(r, 502, { error: 'stt_request_' + tr.status }); }
+    const { id } = await tr.json();
+    while (Date.now() - t < 28000) {
+      await new Promise((ok) => setTimeout(ok, 350));
+      const g = await fetch('https://api.assemblyai.com/v2/transcript/' + encodeURIComponent(id), { headers: H, signal: AbortSignal.timeout(8000) }); const j = await g.json();
+      if (j.status === 'completed') { const text = String(j.text || '').trim(); console.log(`[brmic] stt room ${room} ${raw.length} B -> ${text.length} chars in ${Date.now() - t}ms`); return json(r, 200, { ok: true, text, ms: Date.now() - t, audioSec: j.audio_duration || null }); }
+      if (j.status === 'error') { console.log(`[brmic] stt error room ${room}: ${String(j.error || '').slice(0, 80)}`); return json(r, 502, { error: 'stt_failed', detail: String(j.error || '').slice(0, 120) }); }
+    }
+    return json(r, 504, { error: 'stt_timeout' });
+  } catch (e) { console.log(`[brmic] stt exception ${String(e && e.name || e).slice(0, 40)}`); return json(r, 502, { error: 'stt_unreachable' }); }
+}
+async function brChatRoute(q, r, ep) {
+  const u = new URL(q.url, 'http://127.0.0.1'); const room = String(u.searchParams.get('room') || '').toUpperCase();
+  if (ep === 'yoda-reply') {
+    if (q.method !== 'POST') return json(r, 405, { error: 'POST' });
+    const exp = +u.searchParams.get('exp') || 0, n = String(u.searchParams.get('n') || ''), sig = String(u.searchParams.get('sig') || ''), t = Date.now();
+    const want = BRC_RE.test(room) && /^[0-9a-f]{12}$/.test(n) ? brcSig(room, exp, n) : '';
+    if (!want || want.length !== sig.length || !crypto.timingSafeEqual(Buffer.from(want), Buffer.from(sig))) return json(r, 403, { error: 'forbidden' });
+    if (exp < t || exp > t + BRC_REPLY_MS + 5e3) return json(r, 403, { error: 'reply link expired' });
+    for (const [k, v] of brcUses) if (v.exp < t) brcUses.delete(k);
+    const us = brcUses.get(n) || { exp, c: 0 }; if (us.c >= 4) return json(r, 429, { error: 'reply link used up' }); us.c++; brcUses.set(n, us);
+    const b = (await body(q)) || {}; const text = String(b.text || '').replace(/[\u0000-\u0008\u000b-\u001f]/g, '').trim().slice(0, BRC_MAX);
+    if (!text) return json(r, 400, { error: 'text required' });
+    const id = BRC.ins.run(room, null, 'Yoda', 'owner', 'yoda', text, t).lastInsertRowid;
+    const lr = brlReply(room, id, t, 'routine');   // latency-20261026
+    brcPush(room, { id, from: 'Yoda', to: 'owner', role: 'yoda', text, at: t, route: 'routine', lat_ms: lr.lat_ms, reply_to: lr.reply_to });
+    console.log(`[brchat] yoda reply room ${room} len ${text.length} routine ${lr.lat_ms == null ? '?' : lr.lat_ms + 'ms'}`); return json(r, 200, { ok: true, id });
+  }
+  const uid = currentUser(q); if (!uid) return json(r, 401, { error: 'Sign in to HubFace first.' });
+  if (ep === 'buy-test-order') {   // mockstripe-20261026: MOCK checkout (test mode). Test record only: no Stripe call, no charge, no token credit, no balance/plan change. Only the test card last4 4242 is accepted; no card data is stored.
+    if (q.method !== 'POST' || !sameOrigin(q)) return json(r, 403, { error: 'forbidden' });
+    const t = Date.now(), rl = (brcRate.get('buyt:' + uid) || []).filter((x) => t - x < 60e3); if (rl.length >= 20) return json(r, 429, { error: 'slow down' }); rl.push(t); brcRate.set('buyt:' + uid, rl);
+    const b = (await body(q)) || {}; const d = Math.floor(+b.dollars || 0); const kind = b.kind === 'monthly' ? 'monthly' : b.kind === 'one_time' ? 'one_time' : '';
+    if (!kind) return json(r, 400, { error: 'kind must be one_time or monthly' });
+    if (!(d >= 5 && d <= 9999999) || String(b.dollars) !== String(d)) return json(r, 400, { error: 'whole dollars, minimum $5' });
+    if (String(b.last4 || '') !== '4242') return json(r, 400, { error: 'Test mode takes only the test card.' });
+    const rec = { at: t, uid, room: BRC_RE.test(room) ? room : null, kind, tier: String(b.tier || '').slice(0, 12), dollars: d, tokens: d * 100, test: true, card: 'test-4242', balance_change: 0, renews: kind === 'monthly' ? t + 30 * 864e5 : null, note: 'mock checkout; no charge; no credit' };
+    try { fs.appendFileSync('/var/lib/hubface/buy-test-orders.jsonl', JSON.stringify(rec) + '\n'); } catch (e) { return json(r, 500, { error: 'could not record test order' }); }
+    console.log(`[brbuy] TEST order user ${uid} ${kind} $${d}`); return json(r, 200, { ok: true, test: true, kind, dollars: d, tokens: d * 100, balance_change: 0, renews: rec.renews });
+  }
+  if (ep === 'buy-intent') {   // buytokens-20261026: checkout NOT connected. Logs the click only; no charge, no balance change.
+    if (q.method !== 'POST' || !sameOrigin(q)) return json(r, 403, { error: 'forbidden' });
+    const t = Date.now(), rl = (brcRate.get('buy:' + uid) || []).filter((x) => t - x < 60e3); if (rl.length >= 20) return json(r, 429, { error: 'slow down' }); rl.push(t); brcRate.set('buy:' + uid, rl);
+    const b = (await body(q)) || {}; const d = Math.floor(+b.dollars || 0);
+    if (!(d >= 5 && d <= 9999999) || String(b.dollars) !== String(d)) return json(r, 400, { error: 'whole dollars, minimum $5' });
+    try { fs.appendFileSync('/var/lib/hubface/buy-intents.jsonl', JSON.stringify({ at: t, uid, room: BRC_RE.test(room) ? room : null, tier: String(b.tier || '').slice(0, 12), dollars: d, tokens: d * 100, note: 'checkout not connected; no charge' }) + '\n'); } catch (e) {}
+    console.log(`[brbuy] intent user ${uid} $${d}`); return json(r, 200, { ok: true, checkout: false, message: "Checkout isn't connected yet" });
+  }
+  if (!BRC_RE.test(room)) return json(r, 400, { error: 'bad room' });
+  const tok = String(q.headers.authorization || '').replace(/^Bearer\s+/i, '');
+  const ws = await brcWatchSeat(room, tok); if (ws.seat < 0) return json(r, ws.down ? 503 : 401, { error: ws.down ? (ws.why || 'relay_unavailable') : 'owner_watch_token_required' });
+  if (ep === 'stt') return brcStt(q, r, room);
+  if (ep === 'speak') return brcSpeak(q, r, room);   // tts-20261026
+  if (ep === 'stt-token') return brcSttToken(q, r, room);   // stream-20261026   // mic2-20261026
+  if (ep === 'owner-stream') { if (q.method !== 'GET') return json(r, 405, { error: 'GET' }); return brcStream(q, r, room, +u.searchParams.get('after') || 0); }
+  if (ep === 'latency') { if (q.method !== 'GET') return json(r, 405, { error: 'GET' }); return json(r, 200, brlStats(room)); }   // latency-20261026
+  if (ep === 'owner-messages') { if (q.method !== 'GET') return json(r, 405, { error: 'GET' }); return json(r, 200, { room, messages: BRC.list.all(room, +u.searchParams.get('after') || 0) }); }
+  if (q.method !== 'POST') return json(r, 405, { error: 'POST' });
+  if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
+  const t = Date.now(), rl = (brcRate.get(room) || []).filter((x) => t - x < 60e3); if (rl.length >= 20) return json(r, 429, { error: 'too many messages, wait a minute' }); rl.push(t); brcRate.set(room, rl);
+  const b = (await body(q)) || {}; const text = String(b.text || '').replace(/[\u0000-\u0008\u000b-\u001f]/g, '').trim();
+  if (!text) return json(r, 400, { error: 'empty' }); if (text.length > BRC_MAX) return json(r, 413, { error: 'too_long', max: BRC_MAX });
+  const me = ws.bots[ws.seat] || {}; const nm = (v, d) => { if (v && typeof v === 'object') v = v.name || v.realName || ''; v = String(v || '').trim(); return (!v || v === '[object Object]' ? d : v).slice(0, 40); };   // nameobj-20261026
+  const ownerName = nm(me.owner, 'Owner'), botName = nm(me.name, 'Yoda');
+  const recent = BRC.recent.all(room).reverse().map((e) => ({ ...e, from: e.from === '[object Object]' ? botName : e.from }));
+  const id = BRC.ins.run(room, uid, ownerName, botName, 'owner', text, t).lastInsertRowid;
+  brcPush(room, { id, from: ownerName, to: botName, role: 'owner', text, at: t });
+  const cs = +b.sent_at > t - 120e3 && +b.sent_at < t + 120e3 ? +b.sent_at : 0, lo = { id, t, cs, route: brcFastOk(text) ? 'fast' : 'routine' };   // latency-20261026
+  { const L = (brlPend.get(room) || []).filter((x) => t - x.t < 15 * 60e3); L.push(lo); brlPend.set(room, L.slice(-50)); }
+  brlLog({ k: 'owner', room, id, at: t, client_sent: cs || null, upload_ms: cs ? t - cs : null, route: lo.route, len: text.length, subs: brlSubs(room) });
+  // forward to the existing Yoda routine webhook (same hook + auth as room chat); no hook -> stored only
+  let hook = 'not_configured', fast = null;
+  if (brcFastOk(text)) {   // fastlane-20261026
+    const f0 = Date.now(); let via = 'rules', reply = '';
+    try { const rs0 = await import('./roomserver.mjs'); if (typeof rs0.botroomFastReply === 'function') { const fr = await rs0.botroomFastReply({ room, from: ownerName, text, recent, timeoutMs: 2500 }); if (fr && fr.task) via = 'task'; else if (fr && fr.text) { reply = fr.text; via = 'model'; } } } catch (e) {}
+    // fastlane2: model says task -> full routine only; rule fallback only for plain greetings/pings (BRF_SMALL), other chatter without a model reply -> full routine
+    if (!reply && via !== 'task' && BRF_SMALL.test(text.toLowerCase().replace(/[!?.,~;:"]+/g, ' ').trim())) reply = brcRuleReply(text);
+    if (reply) { const ft = Date.now(), fid = BRC.ins.run(room, null, botName, ownerName, 'yoda', reply, ft).lastInsertRowid;
+    const lr = brlReply(room, fid, ft, 'fast', via);   // latency-20261026
+    brcPush(room, { id: fid, from: botName, to: ownerName, role: 'yoda', text: reply, at: ft, route: 'fast', lat_ms: lr.lat_ms, reply_to: lr.reply_to });
+    fast = { id: fid, text: reply, via, ms: ft - f0 }; }
+    if (!reply) lo.route = 'routine'; brlLog({ k: 'fastlane', room, id, via, answered: !!reply, ms: Date.now() - f0 });
+    console.log(`[brchat] fastlane room ${room} via ${via}${reply ? '' : ' (no fast reply -> routine)'} ${Date.now() - f0}ms`);
+  }
+  try { const rs = await import('./roomserver.mjs'); if (typeof rs.botroomHook === 'function') {
+    const exp = t + BRC_REPLY_MS, n = crypto.randomBytes(6).toString('hex'), sig = brcSig(room, exp, n);
+    const o = await rs.botroomHook({ event: 'botroom.owner_message', room, roomName: 'Bot Room ' + room, from: ownerName, role: 'host', to: botName, text, source: 'botroom', at: t,
+      reply: sig ? `https://hubface.org/api/account/botmeter/yoda-reply?room=${room}&exp=${exp}&n=${n}&sig=${sig}` : '', reply_expires: exp, reply_body: '{"text":"..."}', relay_mode: ws.mode || '', recent, ...(fast ? { fast_answered: true, fast_reply: fast.text, needs_action: false } : {}) });
+    hook = o && o.status ? String(o.status) : 'error'; } } catch (e) { hook = 'error'; }
+  BRC.hook.run(hook, id);
+  console.log(`[brchat] owner message room ${room} seat ${ws.seat} len ${text.length} hook ${hook}`);
+  return json(r, 200, { ok: true, message: { id, from: ownerName, to: botName, role: 'owner', text, at: t }, delivered: /^2\d\d$/.test(hook), hook, ...(fast ? { fast: { id: fast.id, via: fast.via, ms: fast.ms } } : {}) });
+}

@@ -1,68 +1,68 @@
 {
  "subject": "music",
- "fetched_at": "2026-10-26T04:00:16.224997+00:00",
+ "fetched_at": "2026-10-27T04:00:18.777674+00:00",
  "items": [
+  {
+   "title": "The 31 Best Screams in Music History",
+   "source": "Rolling Stone",
+   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxORkotOWxKTXZuRk5YQjBwek1xd2poUnBCdEpia05FbmdwOHBLNlU3UG1VM2RvUUo0OEZZSlh1UkFaR2I5czhiZ2lWS2VkeUgyckRPcGdkc01tR1E0WENLVTItbEQwdUFQci1sY0RPMFI3RU5wVjRaUEJuZ1hScWYtbThtNUl5bms3VGtnc0NNZFJ1dw?oc=5",
+   "published": "2026-10-26T16:00:49+00:00",
+   "tag": "standard",
+   "video": false
+  },
   {
    "title": "Owners of Elvis Presley’s Music Sue Anthropic for Copyright Infringement",
    "source": "The New York Times",
    "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNX09XVmlSS01jT3lubFZUV2pxODhTM3JaOFpwX2k1cVNEdkItaFNCcGtNU3dRSnV3eXVTZ19JRm5pcGRFcDIxLVNLb3U0QkxZNlhSU3k2U05vZndadGNtb3FrUzhoUFNhVWpPYUVpX1FxV0hjejJiRzB1M2w3MzJSdUlDb1oxZENReEFmdE1qUU5HUQ?oc=5",
-   "published": "2026-10-25T19:33:58+00:00",
+   "published": "2026-10-26T19:23:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Music streaming: Why we're listening to so many old songs",
-   "source": "BBC",
-   "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9ucnkzTVFDRkt0WklwYm1kQlpoOS0xcGRRRkFJQ2RwbFBxQjFwcXdRdThvWFEyRVhBMGx1bGtDZ3pCakZCSmI3LVhaVnRqdm5iTGpfM3RQVkstVWM?oc=5",
-   "published": "2026-10-24T23:05:41+00:00",
+   "title": "Elvis Presley’s rights holders sue Anthropic, saying it trained AI on his music",
+   "source": "NBC News",
+   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQbG82ZXpUaVVOTDJpczU3NXh0WWRqV2VkbENhUVJBQTJKZDQ4YlFjeDdXemlvQU0zRllGTFpBb3ZjcElSVERQZmQ2X0paY1NzMXlBM0FkZUhST2FMc0xrOTBjTUtEWjNpNEFkNVZ1UG45VHlScFJTZkxBc1ZOR2s0UFVBYjRlcGNsdlEwOTAtNkRhbWl4VjdBX2FTeDRKYUp6NEhCNVJ4T19ZTEV4Y3BnQ1dyM01XZ1lB?oc=5",
+   "published": "2026-10-25T19:11:32+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "‘I’d rather live through something publicly than escape it privately’: Jack Antonoff on survivor’s guilt and still singing love songs after his breakup",
-   "source": "The Guardian",
-   "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQcjYtMGZfNFkxTFdicFk5LVVXdlJUdzNuMWZ0dENlUWx2S1JaRnBGUkZSRFkwZzVUSFVjdERPaGhYeXNYbWhSMFhUeHhjbTRqOVpEN0twZjllSlpOZ3ZmVlhDNW9pM2prekpjRWNTbGRXM0otaG9jVTM1eDNFS1ZIU2ViS0VPSEpoNERTUTc1ZkJGZE4zVFZQVXFkY2xadzFHU3VYNlJqbVk3aEp6R1NMdEJfb2RJRDk3cFprV3dUaw?oc=5",
-   "published": "2026-10-25T12:18:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "GEDfest pays tribute to late Canadian artist Gord Downie, fundraises for cancer research",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPZXpIWmp2XzdoVW5uai1aMTd4VUg1QzZMdnBfdDRkVHlLaVVWRWpMZlF6QnJNX05oSmV3VElmczNLdzZiMFBpdUJHc1c5Qm96d3dHeEljTE5hLWEyelU5YnBJeHhYdWpwQnpaVG8ycG9CTF9XbktYRWFtREtNWTNpM2lGb29YMS1IZW5UT1R0dDhVU2pPdmlTZU1acUVPeV9uRVpQWTVJWU04YWxib1BTc2VYS2VmNzVlRm1KSVlkeWlDVVV0?oc=5",
-   "published": "2026-10-25T22:55:48+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Ryan Gosling teases new music with band Dead Man's Bones",
+   "title": "Elvis still taking care of business as lawsuit alleges Anthropic used his songs to train AI",
    "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9MaW1pR2tZNEJPOENBZVl5YlZjNEstelpXanFDb1R0UTZHX0NMTkRrVWhzcEE4M1Y5Qk03bHc3MEt2ZHBmTnpXc0JtSXlpV3NwM0taTllNbGRjaW51SFdycm50WjVlX1VVNWVlQ0x0MFgwYnB3dHBjQnBOMVQ?oc=5",
-   "published": "2026-10-23T15:44:32+00:00",
+   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVHlndGlwOG5hQ3JUa2g2bHFPSmlpUU41bVQzR3p1NnJtSW56Y1BqWS1URFZ0Sm93eEVGVUg5eVpqYzZHeGJFeXVrUW5keUo0YjlMamxlWGJkaW02RTN0U0pfdTZpTERpUy1Idk5RNzZnMlB4Z3ZxVHQzVWtvYTN3Q3NJZmxheUhMLUg3Q0JWcml4Zw?oc=5",
+   "published": "2026-10-26T20:40:10+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Britney Spears Was ‘Unstoppable’ Filming ‘Slave 4 U’ Music Video: Choreographer (Exclusive)",
+   "title": "I used to think I had impeccable taste in music. My kids taught me to stop being a snob | Myke Bartlett",
+   "source": "The Guardian",
+   "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNRllUaHpybTdhNnVnb2dkOHlSZWZaS19Qa2JKcHlQRHJwYTJTel8zMTBfcms2bnVlU2FuSTRSWWhXOWhGbkNMcHFlSGNiaWw1eGNlc1QzOFB6QmxjU1dybUlqUkQ5eEZ0dTRiU3ZoN3JpQWs5TGI3bUFRTk01U0lFZGdvbUYwSEJrTWRITnBYempqVkpUd3p0SjhzWFlvYWpGak9sSUFJSXZEM0RqMUdDcDhvYi1yTWs5YlpBLXRYYWZrbjdFZVByZk13RS1LeGtUMGl6Z3BqUQ?oc=5",
+   "published": "2026-10-26T21:30:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Jay-Z Announced as 2027 Apple Music Super Bowl Halftime Show Performer",
    "source": "People.com",
-   "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNRzJ5MVJpbXNOVEtfd2Z3V2RQaDV1dFRrQUUxbHFNekpQaEVtTE9SaXBsejc2Wllwblh3cW9MX2pqbzNrX2RIb240NzV4RXRVY1FyV3VESEFscVNEcUJDR05iY3NuOEh1ay0xcWNraU1oNjh1N0IwMU5ZOG5qd1MzWGtqVm1yVlo1NUNhaV9DQjhSbDN5WTFUalRQM0FQWWI0akE4Wm1GYlh1ekxwUFFhd2xCUS1CcEdWaGFVUFdqTW9jeThpcnMxYVhHbmIwZHVSRHZ0RkcwY2lhQUhJLXgwRQ?oc=5",
-   "published": "2026-10-25T15:30:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNLTlrM2o3bGRmc3JKRnE2dzdJUjhKUFVZUXpydEREZkhrekZSdGxMV3Mzc0xMSFZMdWI2eGNneFhJa05URUZ2ZENfb0czREhxbTBMREVuWTJGb3BYcnlpYVROZkxqUWxuYUFxNFR6ZGdnc1VYOU9ieVN4U2NoMHowVEZZcjBFVXZYaWVoalVn?oc=5",
+   "published": "2026-10-27T01:59:18+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Nate Heller on putting his anxiety into words through music",
-   "source": "Global News",
-   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPNjVXV0xZNDVTYWZLaV9YTGh2OHM2MVFDYVlaZ3ZVcFRDX0ZoT0xsd19RNHBFOFZWam9Oa3laQkR5RWlzS1R3NlVCNGppdUY2a2lIRVhaNVRTQ2JrYWdNazI5Qi1rLWlqd3FZS05rWnBrVFh4UkQ2bUNhSHhTN0YwdHFFbUI2QXBVdWpBQ1lEQ2xpRkg0NE1RLVFyTUNKZw?oc=5",
-   "published": "2026-10-24T21:25:42+00:00",
+   "title": "Lennon Stella knocks big egos down a peg, and 4 more songs you need to hear",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQT2R5bXhWU3hnWGRSNllGbHMxLUF4TDRaNkRsTml0VVNRZUQ2MllUQUlOY2JqdDB5UU9FWTRpWXdoQU9jb0ZxSzFGQ24xSUdCY01DNVpNeVVPcDhRV2hKYkpqb21PbmstX0JZZ0tlQS16V1lmSjBsTWVEYzhQOFBVMVNFZS1ZUFhlbXJUeWJzRnZ6MGJwcVZnYWRNQQ?oc=5",
+   "published": "2026-10-26T19:28:22+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Chase & Status on the upside of AI for music",
-   "source": "Reuters",
-   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQeVRTdVNLdTZONl9PSVpiLVJXTjdHOXlpRG9KejZodFBHcmd4cnU0UUQ0QUl4Tmdva1BkTVNOajdsdUJDTlVxbVI2Q01mSEtYVllRVldkaG5UT0l1bW1GbXVfN25JaXFEUi1saXF3bzhXSkVXYUdmdmkxTzFkZU9PYlo5aG5pRWZnUFFrTWdFeVVNWmlB?oc=5",
-   "published": "2026-10-24T10:00:00+00:00",
+   "title": "Universal Music discussed buyout options with private equity giants - Bloomberg",
+   "source": "Yahoo! Finance Canada",
+   "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPWnQtejl1ODdVR1FDY3lyWFlLbnljVGZNb3FOb3NhdnFYaFNsemM1akI0akZpZW9RY3gtT1dsd1pzUU4xVnI5U2lDR01Jek5PdTBrZU92X1JBUmN2Y0pmQ2tOTFlwREs0b2Z5Q2lnYWZRQkhfSDVWWmhGU2FGZWM2d1h5N29wajk0S29ENXEwZ0h2QkE?oc=5",
+   "published": "2026-10-26T22:16:19+00:00",
    "tag": "standard",
    "video": false
   }

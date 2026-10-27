@@ -1,0 +1,3 @@
+/* hidevldot-20261026 (Dan, Oct 26): remove the small voice on/off dot at the bottom right. Display only, voice logic untouched. Roll back: remove the link tag in index.html */
+.vl-pill[data-state=off]{display:none!important}
+.vl-pill,.vl-layer.vl-pill,.vl-pill .vl-ring{display:none!important;visibility:hidden!important}

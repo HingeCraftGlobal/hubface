@@ -1,69 +1,69 @@
 {
  "subject": "evacuation OR warning OR wildfire OR outage OR recall",
- "fetched_at": "2026-10-26T04:00:04.159687+00:00",
+ "fetched_at": "2026-10-27T04:00:03.297258+00:00",
  "items": [
   {
-   "title": "New wildfire management model aims to empower First Nations in Northern Ontario",
-   "source": "SNNewsWatch.com",
-   "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPaG95M1FHUTgxekM5YVplWmNGcjdQbmpSajhPZTU3NTVHQlpHUlNzcXZBczJjaHFtVEJ6ZzdjS2xKazZKbXFDQ2FSMGE2SXJGeVRWZG5RV1hjeEJXaHBkMktDMmJpQlFtNl9jMmRwMmg5OWM3LXdwc2Uzc3lOd3pOckJtQW5HLS1XdGxzMUZRR1pxRzdtdTEzMW9mOVhSSTE2UV9tYUNjWXdNMUZTbm5WTWpQakVxLTQzd1BCT2tYeGx2RHJXd25jbElmQlZIcFg0cVNKeUxpdG1KMlNCS24zQ213?oc=5",
-   "published": "2026-10-25T12:01:26+00:00",
+   "title": "Jay Macdonald: Wildfire Season 2026",
+   "source": "Government of Northwest Territories",
+   "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBCcHV0dVlYR0dXRG5Sc0NWel9lbFMyRVFMWkthNG1OVFQ2NVZEdUJlajVQaGVfSGZLUEJZZ3RvNFQ2ZHZIREV1SXhiamZvSzhDd2Z4Uk9BWmVmdmdNaUN4cjdsdzZTb0x2X3UtU19uU3NwbzY1dm9N?oc=5",
+   "published": "2026-10-26T22:08:59+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Vehicle collision causes power outage in London",
+   "title": "Power outage impacting much of Downtown Kamloops",
+   "source": "CFJC Today Kamloops",
+   "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNTENuRkJsYW9mWXVWcXhnUjhkeTFBb0dlYWxqMmhTLWxNT0V4UFRyTDlhV2xhOGVxMGlwbWw0T2t6ZUNSRXlXX3QwaDhlUmxoZTl3YUdZcUFyOGROOF9kb1doNnpCVVEzRjRQR1EzeDBVcERLNGVFOWloNmpoQkJqT0dxY1dwaHhremc?oc=5",
+   "published": "2026-10-26T23:33:53+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Recall: Product sold in Canada poses shock hazard, should be destroyed",
+   "source": "insauga.com",
+   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNOUs1UTAtWFZWZzZfM1N3MDdPenhDR3NrR0g1RTRPb3pZcW9PTHNaaV9uUnBUaFdQNXRqTGs2QXpxZ096aHJnYVdJWlFWVkhBX0VaZm8xSzN1WHQ5UkNwdHctM255dl9VNkV3VUtycHR1UlEyMTNoZDBvdDlnQ1F1WEtrWExSbk81dEdVSzVseFlreEJ4WFdSMg?oc=5",
+   "published": "2026-10-26T17:39:48+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Signs of winter showing up in Canada after another blizzard warning",
+   "source": "The Weather Network",
+   "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNNHoyTm1GRzVxSjVHdnRaVGNlN2UtbDNYcnhuenl1Tjl2VlFhaGhGYXVOVG9RaGhfclF1amRlUFVpb3FxcU1XbmMtTUM4RXhSZ2pBdlpLSjV2VVhEZ19kaDlYd0ZwMXJVTWxBZ1RtNlEzenhVbUo5czhHbXFQMlltLW1MNkg4WXFPVVJPLWN2eXBsYkZaZGtTakg2WHlWaU9raUQwR18xQ2tmV0dDVlhsZUNRbVZoODJ5ZERYOHNYQWtza1NtSDlHX0YtaHhNRXN6ZW92U2lMa3E?oc=5",
+   "published": "2026-10-26T21:36:00+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "New wildfire management model empowers First Nations in Northern Ontario",
+   "source": "TimminsToday.com",
+   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPT3BVa0Jaa0NKbGVGUEIzU1hWaDBwZFZhQkN2VHdhc1hpR0RSTjhIQ2gwdlhfT2hKUnVaRE52SzFWTWdfSG1VOXBFTkxqdHNIaDV0X0dEX2VWRTU3X25rOFAtNWQ3Mkh1WmFuTFBrQThLNjBWY0tfRm5rRDRBUTAwZndhZ3hkWjhEVDVUVkhqLUdMbENITFNmelUtdnYzZVNBbmM1eW9Fc0R3cWpEbzFYUjU5b3VYb0VVNzR4N3lB?oc=5",
+   "published": "2026-10-26T15:04:30+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "More than 37,000 electric snow throwers are being recalled in Canada. Here’s why",
    "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQbVdCQ1lVNUdjZ1dmbUlpR1dEcTlxTDBtRGd0a0wtUkNxT1FRZVRnQ0h2d2JTZGo5WV9wMHhYazA1Yk90dzFybmxFYzJ1c19KN1pMUVFxSmUta3k0T2IxQTROZ3QyOUpqLTlMbS1RcDZmRjlRNmZqYkprZU9xV3FodnFlTmZZQW9kbGU5MnN1OA?oc=5",
-   "published": "2026-10-25T13:15:46+00:00",
+   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPUElVNks5a1NJb05Ba2F3M2lSV2dwMnY2QU5oRFpSQUVldkxLYS15dllvYU9XQTJ1WU15aFhsOXdiNThOT2NWSWctODk5a1NtRDBZNi04UE5LOWdIUEZmVlpLUVUzMHV3c3dVVTJDLUU2bHlTMmpReU1maTdDM1IzTndaQ3psbUd3MTlSVmptM0hMOUlMVUdsUGY4LUpVSWNXQk9CMW4wMDRvRFBiRHpWZmxlXzFrQQ?oc=5",
+   "published": "2026-10-26T20:06:36+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "Pumpkin Patch Day raises $1,600 for North Okanagan wildfire relief fund",
-   "source": "Vernon Morning Star",
-   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNSlg1cmVEZFhVQjljR1lEOGlMNWhZWFRJcDBEOWc0a0NVWmpXM29HM0NOYk5BbVFKRGRtRGpXaTRMM1Vfck5BNlBYQm9rd2pscXhVOGJGeF91bW1xMkZLMFhTcng4NTVfVnVCY3pTZENUeHZISW9qdE5WZTdsNGg3X2RhR2JMeTVjU1pQdHgxMFlnNE9yUDdGRkp5TE5ZVG1QVFJ0WEk1VXFJZ0tDNWZvVg?oc=5",
-   "published": "2026-10-25T19:01:27+00:00",
+   "title": "Human-caused wildfire northwest of Kaslo now considered ‘being held’",
+   "source": "Castanet",
+   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPeDFrdklJSE1NOUNVZW1paEtxbng4b3B3blJXWXN5RTBlbHpoUUpibm5NdV9BUV8yV0VkUzctX0VIRHM5aFF2aHQ5anZSQy1IaE96ZkEtZ25mbzRLWWx1LXcyUkFKZEUyRmdrMlk4dVlEb25mbmxaQ0FUakROVHByWWU2QktJUGtTUjVPNHZTRENtalI5bm82eUJCei1aMVhpN1I1enZoR051MWVJNVdneg?oc=5",
+   "published": "2026-10-26T23:16:00+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "Investments, Dedicated Crews Strengthened 2026 Wildfire Response",
-   "source": "Government of Nova Scotia",
-   "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPdEdnbWVjbzR2MVNIaEg4RFM2clEzaGVXSERuUEpiNkx6bXVRRXRLekJoNF9lZjI5LWYwQjl3NVlHay1jMTFoM043Tk9zaW01bzdocHBkS0NpX0xNOF8tVFRWeHJsX3ZWLU1rbm9RalhPbVhMQjBVRGxjejBvbHhGbHNLci1USUxZTFJWV29MUzlSdmdhZHZpYnZ5Rk1Fc2ZCQ3NTTWlhRQ?oc=5",
-   "published": "2026-10-22T18:09:15+00:00",
+   "title": "BC Wildfire Service members take their call for recognition to Ottawa",
+   "source": "BC General Employees' Union (BCGEU)",
+   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOelY1OU9mMTR0ZVBSa0NWTU5JQkMybnI5eEZ3SDhZSFZZeG8wdXJRbzJjZDBkYnpBSi1UMURJOXYxbG9URmQxMjVNOVVIU3R0Mmx5REM3VXVwbkthYzdweDRmWGc3Q2ZoOHdFVkM5M2o5dUpRU1JMVGJINnBQbmZpM1NtQjN2cXhQdlFxLXNRY0ZuQmpr?oc=5",
+   "published": "2026-10-26T17:29:37+00:00",
    "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Power Outage: Jets Fall 2-1 to Canadiens in Heritage Classic",
-   "source": "The Hockey News",
-   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOSFJ1SUdhM2RpVWV4Z3JrRkVQOTVDcUY0WUhra0N5NDVlNmJkT18wbVhuQVd0ZnE0WnpMQXpJUVV5cnVjbklDdW5Yd1ctUWpzcWpxRDAwd09LdWZMUHU1VG1jMVBNMGRkUHFteVJqVGwxeXhldFVaYnhwNnZMZUQxeC1Qd0ZwWFBWOFdRVzRpanplTkFkYnRXVl9kMldTMkp6Q2RCT1lDUjlWc3JQWEt1OS04ODlEUQ?oc=5",
-   "published": "2026-10-26T02:42:19+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Lambton Shores residents facing eight hour power outage Sunday",
-   "source": "Petrolia Lambton Independent",
-   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNcHN5SWFwR1duNG5PZldzcW1HZWFZeXNoX2FtRkk3VkFxeWFmdVNvelJEWlc2YTZrWllvY2MyenZZVUZNdkl1ei1NUUtLSnVmbjZjSkFpaEkzeVVNOGZxMkpJTGRwcUlyQTRsWHM4eXRHQVdJY0hOYllNWDR6X0loTno2b1Y0amFSODVkMkNpVWlSbml6WWhPUFBCRktDSkZqR0xaa1hWbTU?oc=5",
-   "published": "2026-10-25T02:25:29+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Power outage that affected roughly 2,000 customers in St. John's now resolved",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOSEJnMl9ldnVEODQ5SnhCcjhqcmFReXRtS09OQnhESUVMT3dobVhCUjVkNTAyQjBpOVBhRDBnQ2x0Z1phUFVBX3lpbUxGS1cxQ3QwU1JpUVdrdXU0SkJuUHMtX2xDQkVsRXhnUFJqaUQ0Q3F4NVFXcEh2X1JYalE4SnZ6Rk82SXNYTnZPc2d3VGVnMzMwTE5VOVA5SFlvMGVHVWVHTGxCcDJ6ZzdSUFRGeWVNa2lmWEFDb0lfaHB3TnVnUXJYSWxvZm9ZcXlzSnR3N21JUTBn?oc=5",
-   "published": "2026-10-23T22:23:27+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Success Towards Wildfire Resilience for Community of Cherryville",
-   "source": "Regional District of North Okanagan",
-   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNQnRrWHBXRGw5ODV0TG1YV3BxN0U2LUJJOTMxc1NPTmo1X241V2xKWUVpZWotRWxPOG9DRWlLa1hybG00MFA3d2o5aTR4X3B1a09FVWZwdmxDTFpsX0NaVUVfS1FxNXFCd3hpWTZ0eVowUTBpNGFaRXBVbXVjSjNPSUx4dzZMeHlXSEtuQWVoYld3R0xwVjN3YUdGeF9pdlRaNzhaMzV3?oc=5",
-   "published": "2026-10-22T12:00:00+00:00",
-   "tag": "standard",
    "video": false
   }
  ]

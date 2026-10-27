@@ -20,7 +20,7 @@ const { vaultRoute } = await import('./vault.mjs'); // vault-20261018-v2 (Dan ap
 const { inviteRoute } = await import('./invite-mail.mjs'); // inappsend-20261018-v1 (Dan approved): POST /api/invite/email (members only), GET /api/invite/email/status
 const { roomsRoute, sessionUser, clientIp } = await import('./rooms.mjs'); // roomid-20261018a (Dan approved): POST /api/rooms, GET /api/rooms/<ID>, POST /api/rooms/<ID>/name; /var/lib/hubface/rooms.db
 const { isRoomVoicePath, roomVoiceUpgrade, roomVoiceHealth } = await import('./roomvoice.mjs'); // roomvoice-20261022a (Dan approved Oct 22): native-audio room voice, WSS /api/room-voice
-const { roomLiveUpgrade, roomSayRoute, externalHook } = await import('./roomserver.mjs'); // roomserver-20261018a (Dan approved): WebSocket /api/room-live (presence, chat, WebRTC signaling)
+const { roomLiveUpgrade, roomSayRoute, externalHook } = await import('./roomserver.mjs'); const { roomRosterRoute } = await import('./roomserver.mjs'); // roster1-20261026 // roomserver-20261018a (Dan approved): WebSocket /api/room-live (presence, chat, WebRTC signaling)
 const { chatRelayRoute, isChatRelayPath, relayTake, initChatRelay } = await import('./chatrelay.mjs'); { const rs = await import('./roomserver.mjs'); initChatRelay({ roomPushChat: rs.roomPushChat, botFrom: rs.botFrom }); rs.setRelayTap(relayTake); }   // chatrelay-20261020a
 const { textOnlyRoute, isTextOnlyPath } = await import('./textonly.mjs'); // textonly-20261020a (Dan approved): standalone text-only Yoda bridge, no TTS
 const { bridgeRoute, bridgeUpgrade, isBridgePath, bridgeHealth } = await import('./bridge.mjs'); // bridge-20261019a (Dan approved): HingeCraft bridge gateway v0.1, JSON-RPC over WSS /api/rooms/<ID>/bridge
@@ -30,6 +30,8 @@ const { hfPhotoRoute, isHfPhotoPath } = await import('./hfphoto-api.mjs'); // fl
 const { seatcardRoute, isSeatcardPath } = await import('./seatcard-api.mjs'); // seatcard-api-20261023a (Dan approved Oct 23 3:43 PM ET): GET/PUT /api/account/seatcard
 const { yodaLineRoute, isYodaLinePath } = await import("./yodaline.mjs"); /*yodaline-20261024*/
 const { packagesRoute, isPackagesPath } = await import("./packages.mjs"); /*packages-20261025a*/
+const { stickiesRoute, isStickiesPath } = await import("./stickies.mjs"); /*stickies-20261026a*/
+const { preroomsRoute, isPreroomsPath } = await import("./prerooms.mjs"); /*prerooms-20261026a (Brain OS #133)*/
 const inner = createServer().listeners('request')[0];
 const PORT = Number(process.env.HCA_PORT || 3470);
 const VBUILD = 'vps-20261017-v1';
@@ -76,9 +78,12 @@ http.createServer(async (q, r) => {
     if (p.startsWith('/api/rooms/') && /\/(bridge-invite|bots|bridge-turn)$/.test(p) && await bridgeRoute(q, r, p, { readBody, json })) return;   // bridge-20261019a
     if (p === '/api/room-voice/health') return json(r, 200, roomVoiceHealth());   // roomvoice-20261022a
     if (p === '/api/bridge/health') return json(r, 200, bridgeHealth());   // bridge-20261019a
+    if (p.startsWith('/api/rooms/') && p.endsWith('/roster') && await roomRosterRoute(q, r, p, { json })) return;   // roster1-20261026
     if ((p === '/api/rooms' || p.startsWith('/api/rooms/')) && await roomsRoute(q, r, p)) return;   // roomid-20261018a
     if (isYodaLinePath(p) && await yodaLineRoute(q, r, p, u, { who: sessionUser, readBody, json })) return;   /*yodaline-20261024*/
     if (isPackagesPath(p) && await packagesRoute(q, r, p, { who: sessionUser, json })) return;   /*packages-20261025a*/
+    if (isPreroomsPath(p) && await preroomsRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   /*prerooms-20261026a*/
+    if (isStickiesPath(p) && await stickiesRoute(q, r, p, u, { who: sessionUser, json, ip: clientIp })) return;   /*stickies-20261026a*/
     if (isUserDataPath(p) && await userDataRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // userdata-20261019a
     if (isHfPhotoPath(p) && await hfPhotoRoute(q, r, p, { who: sessionUser, json, ip: clientIp, yodaOk: (await import('./roomserver.mjs')).yodaKeyOk })) return;   // floppy-photo-20261025a
     if (isSeatcardPath(p) && await seatcardRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // seatcard-api-20261023a

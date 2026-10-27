@@ -1,0 +1,10 @@
+/* dotprobe-20261026: read-only probe; reports small visible elements near the bottom (left of the account chip) to this site's own access log. Remove the tag to roll back. */
+(function(){function scan(doc,tag){var out=[];try{var W=doc.defaultView.innerWidth,H=doc.defaultView.innerHeight,e=doc.querySelector('.hfa-entry'),eb=e&&e.getBoundingClientRect();
+ doc.querySelectorAll('body *').forEach(function(el){var r=el.getBoundingClientRect();if(r.width<=0||r.height<=0||r.width>44||r.height>44||r.top<H*0.75)return;var cs=doc.defaultView.getComputedStyle(el);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return;
+  if(/^(svg|path|circle|rect|g|line|polyline|use)$/i.test(el.tagName))return;if(eb&&(r.left>eb.right||r.left<eb.left-320))return;
+  var c=el.className&&el.className.baseVal!==undefined?el.className.baseVal:el.className;
+  out.push(tag+':'+el.tagName+(el.id?'#'+el.id:'')+(c?'.'+String(c).trim().split(/\s+/).slice(0,3).join('.'):'')+'@'+Math.round(r.left)+','+Math.round(r.top)+' '+Math.round(r.width)+'x'+Math.round(r.height)+' br='+cs.borderRadius.slice(0,6)+' bg='+cs.backgroundColor.replace(/ /g,'')+' pos='+cs.position+' par='+(el.parentElement?el.parentElement.tagName+(el.parentElement.id?'#'+el.parentElement.id:'')+'.'+String(el.parentElement.className&&el.parentElement.className.baseVal!==undefined?el.parentElement.className.baseVal:el.parentElement.className).trim().split(/\s+/).slice(0,2).join('.'):''));});
+ out.unshift(tag+':ENTRY '+(eb?Math.round(eb.left)+','+Math.round(eb.top)+' '+(e.textContent||'').slice(0,40):'none')+' W='+W+' H='+H);}catch(x){out.push(tag+':err '+x.message);}return out;}
+ function run(n){var all=scan(document,'top');document.querySelectorAll('iframe').forEach(function(f,i){try{if(f.contentDocument)all=all.concat(scan(f.contentDocument,'if'+i));}catch(e){}});
+  var s=all.join(' | ').slice(0,1800);try{new Image().src='/interface/dotpx/'+n+'?d='+encodeURIComponent(s);}catch(e){}}
+ setTimeout(function(){run(1);},12000);setTimeout(function(){run(2);},30000);})();

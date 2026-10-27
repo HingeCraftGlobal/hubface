@@ -1,0 +1,251 @@
+// prerooms-20261026a (Dan, voice Oct 26 2026; Brain OS #133): Bot Room pre-room cards.
+// Center card (what the room is about, seating) visible to every member. Each participant card (human or bot) is visible ONLY to its
+// owner account: every GET filters server-side by the signed-in session; other sides only ever get a waiting/ready flag per side.
+// When every card is Ready, the server opens the live relay room through the existing botmeter golive path (same meter, same clock).
+// Data: /var/lib/hubface/prerooms.db. Types: preroom-types.json (editable). No email/invite is ever sent from here.
+// Roll back: remove the import + route line in hubface-vps.mjs (and the preroom* block at the end of accounts.mjs).
+import fs from 'node:fs'; import path from 'node:path'; import crypto from 'node:crypto'; import Database from 'better-sqlite3';
+export const PREROOMS_BUILD = 'prerooms-20261026c28-yodacard'; // c: roster (names/ready only) + invitees on the center card
+const PREROOMS_PREV = 'prerooms-20261026b'; // guestseat-20261026: ready guests (any owner) get a live pass + read-only view; seats/tokens per owner only // b: clockStartMs = moment all sides are present (room clock in the live shell)
+const ROOT = process.env.HUBFACE_DATA || '/var/lib/hubface';
+const TYPES_FILE = new URL('./preroom-types.json', import.meta.url);
+const ORIGIN = process.env.HUBFACE_ORIGIN || 'https://hubface.org';
+const db = new Database(path.join(ROOT, 'prerooms.db'));
+db.pragma('journal_mode = WAL');
+db.exec(`CREATE TABLE IF NOT EXISTS prerooms (id TEXT PRIMARY KEY, creator INTEGER NOT NULL, data TEXT NOT NULL, created_ms INTEGER NOT NULL, updated_ms INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS preroom_members (preroom TEXT NOT NULL, user_id INTEGER NOT NULL, side TEXT NOT NULL, PRIMARY KEY (preroom, user_id));
+CREATE INDEX IF NOT EXISTS prm_user ON preroom_members(user_id);
+CREATE TABLE IF NOT EXISTS preroom_files (id TEXT PRIMARY KEY, room TEXT NOT NULL, card TEXT NOT NULL, uploader INTEGER NOT NULL, name TEXT NOT NULL, size INTEGER NOT NULL, ms INTEGER NOT NULL);
+CREATE INDEX IF NOT EXISTS prf_room ON preroom_files(room);
+CREATE TABLE IF NOT EXISTS preroom_layouts (user_id INTEGER NOT NULL, room TEXT NOT NULL, data TEXT NOT NULL, updated_ms INTEGER NOT NULL, PRIMARY KEY (user_id, room));
+CREATE TABLE IF NOT EXISTS preroom_card_defaults (user_id INTEGER NOT NULL, slot TEXT NOT NULL, data TEXT NOT NULL, updated_ms INTEGER NOT NULL, PRIMARY KEY (user_id, slot));`);
+const Q = {
+  get: db.prepare('SELECT * FROM prerooms WHERE id = ?'), ins: db.prepare('INSERT INTO prerooms (id, creator, data, created_ms, updated_ms) VALUES (?,?,?,?,?)'),
+  put: db.prepare('UPDATE prerooms SET data = ?, updated_ms = ? WHERE id = ?'),
+  mem: db.prepare('SELECT side FROM preroom_members WHERE preroom = ? AND user_id = ?'), addMem: db.prepare('INSERT OR IGNORE INTO preroom_members (preroom, user_id, side) VALUES (?,?,?)'),
+  mine: db.prepare('SELECT p.id, p.data, p.updated_ms, m.side FROM preroom_members m JOIN prerooms p ON p.id = m.preroom WHERE m.user_id = ? ORDER BY p.updated_ms DESC LIMIT 20'),
+};
+const FDIR = path.join(ROOT, 'prerooms-files'); const FMAX = 25 * 1024 * 1024, FPER = 10;
+const FQ = { list: db.prepare('SELECT * FROM preroom_files WHERE room = ? ORDER BY ms'), get: db.prepare('SELECT * FROM preroom_files WHERE id = ? AND room = ?'), n: db.prepare('SELECT COUNT(*) n FROM preroom_files WHERE room = ? AND card = ?'),
+  ins: db.prepare('INSERT INTO preroom_files (id, room, card, uploader, name, size, ms) VALUES (?,?,?,?,?,?,?)'), del: db.prepare('DELETE FROM preroom_files WHERE id = ?') };
+function safeName(n) { let s = String(n || '').split(/[\\/]/).pop().normalize('NFC').replace(/[\u0000-\u001f\u007f"*:<>?|\\/]/g, '_').replace(/^\.+/, '').trim().slice(0, 120); return s || 'file'; }
+// files on a card: visible only to the card's owner (same rule as card contents); center files: every member
+function canSee(d, card, uid) { if (card === 'center') return true; const c = d.cards.find((x) => x.pid === card); return !!(c && c.owner === uid); }
+function filesFor(roomId, d, uid) { const o = {}; for (const f of FQ.list.all(roomId)) if (canSee(d, f.card, uid)) (o[f.card] = o[f.card] || []).push({ id: f.id, name: f.name, size: f.size, ms: f.ms, mine: f.uploader === uid }); return o; }
+let acc = null; async function A() { return acc || (acc = await import('./accounts.mjs')); }
+function types() { try { return JSON.parse(fs.readFileSync(TYPES_FILE, 'utf8')); } catch { return { internal: [], external: [] }; } }
+function typeOf(access, id) { const t = types(); const l = (access === 'external' ? t.external : t.internal) || []; return l.find((x) => x.id === id) || l[0] || { id: 'negotiation', label: 'Negotiation', ready: 'Ready', about: '', goal: '', prompts: [] }; }
+const txt = (v, n) => String(v == null ? '' : v).replace(/[\u0000-\u0008\u000b-\u001f]/g, '').trim().slice(0, n);
+const hits = new Map(); function limited(k, max) { const n = Date.now(), a = (hits.get(k) || []).filter((t) => n - t < 60e3); if (a.length >= max) { hits.set(k, a); return true; } a.push(n); hits.set(k, a); return false; }
+function sameOrigin(q) { const o = q.headers.origin; if (o) return o === ORIGIN; const ref = String(q.headers.referer || ''); return ref === ORIGIN || ref.startsWith(ORIGIN + '/'); }
+const pid = () => 'c' + crypto.randomBytes(5).toString('hex');
+function newCard(kind, owner, side, name, t, d) { const c = newCard0(kind, owner, side, name, t); if (kind === 'bot') c.joined = false; if (kind === 'bot') c.bi = d ? d.cards.filter((x) => x.owner === owner && x.kind === 'bot').length : 0; return applyDef(c, t.id); }
+function newCard0(kind, owner, side, name, t) { return { pid: pid(), kind, owner, side, name: kind === 'bot' ? '' : txt(name, 40), role: '', notes: '', answers: (t.prompts || []).map(() => ''), ready: false }; }
+function cleanCard(c, b) { if (b.name != null) c.name = txt(b.name, 40); if (b.role != null) c.role = txt(b.role, 80); if (b.notes != null) c.notes = txt(b.notes, 1000);
+  if (Array.isArray(b.answers)) c.answers = b.answers.slice(0, 8).map((x) => txt(x, 500)); }
+// c22: per-user saved card profile (private to its owner). slot = 'human' or 'bot:<name>'; answers kept per room type id.
+const DQ = { get: db.prepare('SELECT data FROM preroom_card_defaults WHERE user_id = ? AND slot = ?'), all: db.prepare('SELECT slot, data FROM preroom_card_defaults WHERE user_id = ?'),
+  put: db.prepare('INSERT INTO preroom_card_defaults (user_id, slot, data, updated_ms) VALUES (?,?,?,?) ON CONFLICT(user_id, slot) DO UPDATE SET data = excluded.data, updated_ms = excluded.updated_ms') };
+const slotOf = (c) => c.kind === 'bot' ? 'bot#' + (c.bi || 0) : 'human';
+function getDef(uid, slot) { try { const x = DQ.get.get(uid, slot); return x ? JSON.parse(x.data) : null; } catch { return null; } }
+function saveDef(uid, c, typeId, b, explicit) {   // never blank a saved value unless the user explicitly saved an empty field (Save / Ready)
+  const slot = slotOf(c), o = getDef(uid, slot) || { answers: {} }; o.answers = o.answers || {};
+  for (const f of ['role', 'notes']) if (b[f] != null) { if (c[f]) o[f] = c[f]; else if (explicit) o[f] = ''; }
+  if (b.name != null) { if (c.name) o.name = c.name; else if (explicit) o.name = ''; }
+  if (Array.isArray(b.answers)) { const prev = o.answers[typeId] || []; o.answers[typeId] = c.answers.map((x, i) => x ? x : (explicit ? '' : (prev[i] || ''))); }
+  DQ.put.run(uid, slot, JSON.stringify(o), Date.now()); }
+function applyDef(c, typeId, n) { const o = getDef(c.owner, slotOf(c)); if (!o) return c;
+  if (o.name && (c.kind === 'bot' || !c.edited)) c.name = o.name; for (const f of ['role', 'notes']) if (!c[f] && o[f]) c[f] = o[f];
+  const a = (o.answers || {})[typeId]; if (Array.isArray(a)) c.answers = c.answers.map((x, i) => x || a[i] || ''); return c; }
+// c24: a bot is in the room only once it has joined (new bots start joined:false; older cards without the flag count as joined)
+const act = (c) => c.kind !== 'bot' || c.joined === true;   // c27: only an explicitly joined bot counts (older bot cards without the flag must be brought in too)
+// yodacard-20261026: house bots invited from the Invite window (name or their mail address) join as a bot card instead of a waiting human invite
+const HOUSE_BOTS = { yoda: 'Yoda', ava: 'Ava', finn: 'Finn' };
+function houseBot(label) { const l = String(label || '').toLowerCase().trim(); if (HOUSE_BOTS[l]) return HOUSE_BOTS[l];
+  const m = /^([a-z]+)[-._+a-z0-9]*@([a-z0-9.-]+)$/.exec(l); if (m && HOUSE_BOTS[m[1]] && /(grokbot|hubface|hingecraft)/.test(m[2])) return HOUSE_BOTS[m[1]]; return null; }
+function bringBot(d, uid, side, t, name) { const mine = d.cards.filter((c) => c.owner === uid && c.kind === 'bot');
+  let c = mine.find((x) => (x.name || '').toLowerCase() === name.toLowerCase()) || mine.find((x) => !x.name && x.joined !== true);
+  if (!c) { if (mine.length >= 3) return false; c = newCard('bot', uid, side, name, t, d); d.cards.push(c); }
+  if (!c.name) c.name = name; if (c.joined === true) return false; c.joined = true; for (const x of d.cards) x.ready = false; return true; }
+function fixBotInvites(d, uid, side, t) { let ch = 0; for (const x of d.invites || []) { if (x.status !== 'waiting' || x.by !== uid) continue; const hb = houseBot(x.label); if (!hb) continue;
+  bringBot(d, uid, side, t, hb); x.status = 'joined'; x.side = side; x.joinedMs = Date.now(); ch = 1; } return ch; }
+function sideState(d, s) { const cs = d.cards.filter((c) => c.side === s && act(c)); return cs.length && cs.every((c) => c.ready) ? 'ready' : 'waiting'; }
+function sidesOf(d) { return [...new Set(d.cards.map((c) => c.side))].sort(); }
+function view(row, d, uid, side) {
+  const t = typeOf(d.access, d.type);
+  const v = { build: PREROOMS_BUILD, id: row.id, access: d.access, type: t.id, typeLabel: t.label, readyLabel: t.ready, prompts: t.prompts || [], status: d.status, isCreator: row.creator === uid, mySide: side,
+    center: d.center, sides: sidesOf(d).map((s) => ({ side: s, mine: s === side, label: s === side ? 'Your side' : (d.access === 'internal' ? 'Teammate' : 'Other side'), state: sideState(d, s) })),
+    expectSides: d.access === 'external' ? 2 : 1,
+    cards: d.cards.filter((c) => c.owner === uid).map((c) => ({ ...c, owner: undefined, mine: true })),   // <-- privacy: only the requester's own cards
+    roster: d.cards.filter(act).map((c) => ({ name: c.name || (c.kind === 'bot' ? 'Bot' : 'Member'), kind: c.kind, side: c.side, ready: !!c.ready, you: c.owner === uid })),   // public: names + ready only, never notes/answers/owner ids
+    invites: (d.invites || []).map((x) => ({ label: x.label, side: x.side, ms: x.ms, status: x.status })),
+    files: filesFor(row.id, d, uid),
+    error: d.error || null, clockStartMs: d.status === 'closed' ? null : (d.live ? (d.live.startMs || null) : (d.allJoinedMs || null)),   // reset-20261026: live room clock starts at its own handoff, not the pre-room's
+    serverNow: Date.now() };
+  if (row.creator === uid && d.status === 'setup') v.joinCode = d.code;
+  if (d.live) { const mine = d.live.sides[side] || [];   // guestseat-20261026: a viewer only ever gets the seats/tokens they own (old rows without uid: creator only)
+    const own = (x) => x && (x.uid != null ? x.uid === uid : row.creator === uid); const g = (d.live.guests || []).find((x) => x.uid === uid);
+    v.live = { room: d.live.room, meter: d.live.meter, seats: mine.filter(own).map((x) => ({ seat: x.seat, name: x.name, watch: x.watch, token: x.token })),
+      guest: g ? { name: g.name, pass: g.pass } : null,
+      people: [...Object.values(d.live.sides).flat().filter(Boolean).map((x) => ({ name: x.name, side: x.side || null })), ...(d.live.guests || []).map((x) => ({ name: x.name, side: x.side, guest: true, kind: x.kind }))] }; }
+  return v;
+}
+async function maybeGoLive(row, d) {
+  if (d.status !== 'setup') return;
+  const ss = sidesOf(d); if (ss.length < (d.access === 'external' ? 2 : 1)) return;
+  const AC = d.cards.filter(act); if (!AC.length || !AC.every((c) => c.ready)) return; if (!AC.some((c) => c.kind === 'bot')) return;   // c24: wait until at least one bot has joined
+  const sa = AC.filter((c) => c.side === 'A'), sb = d.access === 'external' ? AC.filter((c) => c.side === 'B') : sa;
+  const botA = sa.filter((c) => c.kind === 'bot'), botB = sb.filter((c) => c.kind === 'bot');
+  const humA = sa.find((c) => c.kind === 'human'), humB = sb.find((c) => c.kind === 'human');
+  const bot0 = botA[0] || humA, bot1 = d.access === 'external' ? (botB[0] || humB) : (botA[1] || humA);
+  d.status = 'starting'; Q.put.run(JSON.stringify(d), Date.now(), row.id);
+  const setup = { access: d.access, type: d.type, topic: [d.center.about, d.center.topic].filter(Boolean).join(' · ').slice(0, 280), bot0: bot0 && (bot0.name || (bot0.kind === 'bot' ? 'Bot' : 'Member')), bot1: bot1 && (bot1.name || (bot1.kind === 'bot' ? 'Bot 2' : 'Member')),
+    owner0: humA && (humA.name || 'Member'), owner1: (humB && (humB.name || 'Member')) || (humA && (humA.name || 'Member')), sellerSeat: 0, preroom: row.id };
+  let r; try { r = await (await A()).preroomGoLive(row.creator, d.meter, setup); } catch (e) { r = { status: 500, json: { error: String(e?.message || e).slice(0, 120) } }; }
+  if (r.status !== 200) { d.status = 'setup'; d.error = r.json.error || 'Could not open the live room'; for (const c of d.cards) c.ready = false; Q.put.run(JSON.stringify(d), Date.now(), row.id); console.warn('[prerooms]', row.id, d.error); return; }
+  const b = r.json.relay.bots || [];
+  d.status = 'live'; d.error = null;
+  if (b[0] && bot0) b[0].uid = bot0.owner; if (b[1] && bot1) b[1].uid = bot1.owner;   // guestseat-20261026: remember who owns each relay seat
+  const seated = new Set([bot0, bot1].filter(Boolean));
+  const guests = AC.filter((c) => !seated.has(c) && c.ready).map((c) => ({ uid: c.owner, name: c.name || (c.kind === 'bot' ? 'Bot' : 'Member'), kind: c.kind, side: c.side, pass: 'brg_' + crypto.randomBytes(18).toString('base64url') }));
+  d.live = { room: r.json.room, meter: r.json.meter, startMs: Date.now(), sides: d.access === 'external' ? { A: [b[0]], B: [b[1]] } : { A: [b[0], b[1]] }, guests };
+  if (guests.length) console.log(`[prerooms] ${row.id} live guests seated: ${guests.length}`);
+  Q.put.run(JSON.stringify(d), Date.now(), row.id); console.log(`[prerooms] ${row.id} all ready -> live ${r.json.room}`);
+}
+export function isPreroomsPath(p) { return p === '/api/prerooms' || p.startsWith('/api/prerooms/'); }
+export async function preroomsRoute(q, r, p, { who, readBody, json, ip }) {
+  if (!isPreroomsPath(p)) return false; r.setHeader('Cache-Control', 'no-store');
+  if (p === '/api/prerooms/types' && q.method === 'GET') { const t = types(); return json(r, 200, { ok: true, internal: t.internal, external: t.external }), true; }
+  const u = who(q); if (!u || !u.id) return json(r, 401, { error: 'Sign in to HubFace first.' }), true;
+  const uid = u.id, k = uid + '|' + (ip ? ip(q) : '');
+  if (limited((q.method === 'GET' ? 'g' : 'w') + k, q.method === 'GET' ? 240 : 90)) return json(r, 429, { error: 'slow down' }), true;
+  { const fm = /^\/api\/prerooms\/(PR-[0-9A-F]{10})\/files\/(center|c[0-9a-f]{10}|f[0-9a-f]{16})$/.exec(p);
+    if (fm) { const row = Q.get.get(fm[1]); const mem = row && Q.mem.get(row.id, uid); if (!row || !mem) return json(r, 404, { error: 'not found' }), true;
+      const d = JSON.parse(row.data);
+      if (fm[2].startsWith('f')) { const f = FQ.get.get(fm[2], row.id); if (!f || !canSee(d, f.card, uid)) return json(r, 404, { error: 'not found' }), true;
+        const fp = path.join(FDIR, row.id, f.id);
+        if (q.method === 'GET') { let st; try { st = fs.statSync(fp); } catch { return json(r, 404, { error: 'not found' }), true; }
+          const ascii = f.name.replace(/[^\x20-\x7e]/g, '_').replace(/["\\]/g, '_');
+          r.writeHead(200, { 'Content-Type': 'application/octet-stream', 'Content-Length': st.size, 'Content-Disposition': `attachment; filename="${ascii}"; filename*=UTF-8''${encodeURIComponent(f.name)}`,
+            'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; sandbox", 'Cache-Control': 'no-store' });
+          fs.createReadStream(fp).pipe(r); return true; }
+        if (q.method === 'DELETE') { if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' }), true; if (f.uploader !== uid) return json(r, 403, { error: 'Only the person who uploaded it can delete it.' }), true;
+          try { fs.unlinkSync(fp); } catch {} FQ.del.run(f.id); console.log(`[prerooms] ${row.id} file ${f.id} deleted by ${uid}`); return json(r, 200, view(row, d, uid, mem.side)), true; }
+        return json(r, 405, { error: 'method' }), true; }
+      if (q.method !== 'POST') return json(r, 405, { error: 'method' }), true;
+      if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' }), true;
+      if (!canSee(d, fm[2], uid)) return json(r, 404, { error: 'not found' }), true;
+      if (d.status === 'closed') return json(r, 409, { error: 'Room is closed.' }), true;
+      if (FQ.n.get(row.id, fm[2]).n >= FPER) return json(r, 400, { error: 'Max ' + FPER + ' files per card.' }), true;
+      const len = Number(q.headers['content-length'] || 0); if (len > FMAX) return json(r, 413, { error: 'Max 25 MB per file.' }), true;
+      const name = safeName(decodeURIComponent(String(new URL(q.url, 'http://x').searchParams.get('name') || '')));
+      const id = 'f' + crypto.randomBytes(8).toString('hex'); fs.mkdirSync(path.join(FDIR, row.id), { recursive: true, mode: 0o700 }); const fp = path.join(FDIR, row.id, id);
+      const ok = await new Promise((res) => { let n = 0, bad = false; const ws = fs.createWriteStream(fp, { mode: 0o600 });
+        q.on('data', (ch) => { n += ch.length; if (n > FMAX && !bad) { bad = true; ws.destroy(); q.unpipe(ws); res(-1); } });
+        q.pipe(ws); ws.on('finish', () => { if (!bad) res(n); }); ws.on('error', () => { if (!bad) { bad = true; res(0); } }); q.on('error', () => { if (!bad) { bad = true; res(0); } }); });
+      if (ok <= 0) { try { fs.unlinkSync(fp); } catch {} return json(r, ok < 0 ? 413 : 400, { error: ok < 0 ? 'Max 25 MB per file.' : 'Upload failed or empty file.' }), true; }
+      FQ.ins.run(id, row.id, fm[2], uid, name, ok, Date.now()); console.log(`[prerooms] ${row.id} file ${id} (${ok} B) on ${fm[2] === 'center' ? 'center' : 'card'} by ${uid}`);
+      return json(r, 201, view(row, d, uid, mem.side)), true; } }
+  let b = {};
+  if (q.method !== 'GET') { if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' }), true;
+    try { b = JSON.parse((await readBody(q)).toString('utf8') || '{}') || {}; } catch { return json(r, 400, { error: 'bad json' }), true; } }
+  if (p === '/api/prerooms/layout') {   // prerooms-20261026b: per-user overlay layout (size, hidden), per room ('' = default). Only the caller's own row.
+    const room = String(new URL(q.url, 'http://x').searchParams.get('room') || '').toUpperCase();
+    if (room && (!/^PR-[0-9A-F]{10}$/.test(room) || !Q.mem.get(room, uid))) return json(r, 404, { error: 'not found' }), true;
+    if (q.method === 'GET') { const x = db.prepare('SELECT data FROM preroom_layouts WHERE user_id = ? AND room = ?').get(uid, room) || db.prepare("SELECT data FROM preroom_layouts WHERE user_id = ? AND room = ''").get(uid); return json(r, 200, { ok: true, layout: x ? JSON.parse(x.data) : null }), true; }
+    if (q.method === 'PUT') { const L = { size: Math.max(0, Math.min(3, Math.round(Number(b.size) || 0))), hidden: b.hidden === true };
+      if (b.shell && typeof b.shell === 'object') { const wins = (Array.isArray(b.shell.wins) ? b.shell.wins : []).filter((w) => Array.isArray(w) && /^[a-z0-9_-]{1,24}$/.test(String(w[0]))).slice(0, 30).map((w) => [String(w[0]), txt(w[1], 600).replace(/url\(|expression|javascript:/gi, '')]);
+        const btns = {}; for (const [k, v] of Object.entries(b.shell.btns || {}).slice(0, 10)) if (/^btnHdr[A-Za-z0-9]{1,24}$/.test(k)) btns[k] = v === true; L.shell = { wins, btns }; }
+      if (b.x != null && b.y != null) { L.x = Math.max(0, Math.min(100, Number(b.x) || 0)); L.y = Math.max(0, Math.min(100, Number(b.y) || 0)); }
+      const ins = db.prepare('INSERT INTO preroom_layouts (user_id, room, data, updated_ms) VALUES (?,?,?,?) ON CONFLICT(user_id, room) DO UPDATE SET data = excluded.data, updated_ms = excluded.updated_ms');
+      ins.run(uid, room, JSON.stringify(L), Date.now()); if (room) ins.run(uid, '', JSON.stringify(L), Date.now()); return json(r, 200, { ok: true, layout: L }), true; }
+    return json(r, 405, { error: 'method' }), true;
+  }
+  if (p === '/api/prerooms/card-defaults' && q.method === 'GET') return json(r, 200, { ok: true, defaults: DQ.all.all(uid).map((x) => ({ slot: x.slot, ...JSON.parse(x.data) })) }), true;   // own only
+  if (p === '/api/prerooms/mine' && q.method === 'GET') return json(r, 200, { ok: true, rooms: Q.mine.all(uid).map((x) => { const d = JSON.parse(x.data); return { id: x.id, status: d.status, type: typeOf(d.access, d.type).label, access: d.access, about: d.center.about, updated: x.updated_ms }; }) }), true;
+  if (p === '/api/prerooms' && q.method === 'POST') {
+    const access = b.access === 'external' ? 'external' : 'internal'; const t = typeOf(access, b.type);
+    let meter; try { meter = await (await A()).preroomMeterStart(uid); } catch { meter = null; }
+    if (!meter || !meter.id) return json(r, 503, { error: 'Meter unavailable' }), true;
+    if (meter.phase === 'live' && meter.relay_room) return json(r, 409, { error: 'Your meter is already in live room ' + meter.relay_room + '. Close that room first.' }), true;
+    const id = 'PR-' + crypto.randomBytes(5).toString('hex').toUpperCase();
+    const d = { access, type: t.id, status: 'setup', meter: meter.id, code: crypto.randomBytes(9).toString('base64url'),
+      center: { about: txt(b.about, 400) || t.about, goal: txt(b.goal, 300) || t.goal, topic: txt(b.topic, 280), sellerSeat: 0 }, cards: [] };   // c23: payer (creator) always leads
+    d.cards.push(newCard('human', uid, 'A', b.myName || u.name, t));
+    // c27: no bot card at creation; bots come only from Bring a bot
+    const tm = Date.now(); if (access === 'internal') d.allJoinedMs = tm; Q.ins.run(id, uid, JSON.stringify(d), tm, tm); Q.addMem.run(id, uid, 'A');
+    console.log(`[prerooms] ${id} created by user ${uid} (${access}/${t.id})`);
+    return json(r, 201, view(Q.get.get(id), d, uid, 'A')), true;
+  }
+  // guestseat-20261026: guests watch the live room through this read-only proxy; their pass never maps to a relay token they can see
+  const gm = /^\/api\/prerooms\/(PR-[0-9A-F]{10})\/live\/events$/.exec(p);
+  if (gm && q.method === 'GET') { const row = Q.get.get(gm[1]); const mem = row && Q.mem.get(row.id, uid); if (!row || !mem) return json(r, 404, { error: 'not found' }), true;
+    const d = JSON.parse(row.data); const g = d.live && (d.live.guests || []).find((x) => x.uid === uid);
+    const pass = String(q.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    if (!g || !pass || pass.length !== g.pass.length || !crypto.timingSafeEqual(Buffer.from(pass), Buffer.from(g.pass))) return json(r, 401, { error: 'guest pass required' }), true;
+    const seats = (d.live.sides[g.side] || []).filter(Boolean); const w = seats.find((x) => x.uid != null && x.uid !== row.creator) || seats[seats.length - 1] || seats[0];
+    if (!w || !w.watch) return json(r, 409, { error: 'no live seat' }), true;
+    const qs = new URL(q.url, 'http://x').searchParams; const after = Math.max(0, +qs.get('after') || 0), to = Math.min(Math.max(+qs.get('timeout') || 25, 0), 25);
+    try { const rr = await fetch(`http://127.0.0.1:${+process.env.BOTRELAY_PORT || 3475}/api/botrelay/rooms/${encodeURIComponent(d.live.room)}/events?after=${after}&timeout=${to}`, { headers: { authorization: 'Bearer ' + w.watch }, signal: AbortSignal.timeout(30000) });
+      const j = await rr.json(); if (j && typeof j === 'object') { j.watcher = true; j.guest = true; j.seat = -1; j.yourTurn = false; } return json(r, rr.status, j), true;
+    } catch { return json(r, 502, { error: 'live room unavailable' }), true; } }
+  const m = /^\/api\/prerooms\/(PR-[0-9A-F]{10})(?:\/(join|center|bots|close|invites|cards\/(c[0-9a-f]{10})(\/ready|\/join)?))?$/.exec(p);
+  if (!m) return json(r, 404, { error: 'not found' }), true;
+  const row = Q.get.get(m[1]); if (!row) return json(r, 404, { error: 'not found' }), true;
+  const d = JSON.parse(row.data); const mem = Q.mem.get(row.id, uid); const side = mem && mem.side; const t = typeOf(d.access, d.type);
+  if (m[2] === 'join' && q.method === 'POST') {
+    if (side) return json(r, 200, view(row, d, uid, side)), true;
+    const c = String(b.code || ''); if (!c || c.length !== d.code.length || !crypto.timingSafeEqual(Buffer.from(c), Buffer.from(d.code))) return json(r, 404, { error: 'not found' }), true;
+    if (d.status !== 'setup') return json(r, 409, { error: 'This room has already started.' }), true;
+    const ns = d.access === 'external' ? 'B' : 'A';
+    if (d.access === 'external' && db.prepare("SELECT 1 FROM preroom_members WHERE preroom = ? AND side = 'B'").get(row.id)) return json(r, 409, { error: 'The other side has already joined.' }), true;
+    Q.addMem.run(row.id, uid, ns); d.cards.push(newCard('human', uid, ns, b.myName || u.name, t));
+    for (const n of (Array.isArray(b.bots) ? b.bots : []).slice(0, 3)) if (txt(n, 40)) d.cards.push(newCard('bot', uid, ns, n, t, d));
+    if (d.access === 'external') d.allJoinedMs = Date.now();
+    { const nm = [u.name, b.myName, u.email].filter(Boolean).map((x) => String(x).toLowerCase()); const w = (d.invites || []).filter((x) => x.status === 'waiting' && x.side === ns);
+      const hit = w.find((x) => nm.includes(String(x.label).toLowerCase())) || w[0]; if (hit) { hit.status = 'joined'; hit.joinedMs = Date.now(); } }
+    for (const x of d.cards) x.ready = false;   // new participant: everyone re-confirms
+    Q.put.run(JSON.stringify(d), Date.now(), row.id); console.log(`[prerooms] ${row.id} user ${uid} joined side ${ns}`);
+    return json(r, 200, view(row, d, uid, ns)), true;
+  }
+  if (!side) return json(r, 404, { error: 'not found' }), true;   // non-members learn nothing (not even that it exists)
+  if (!m[2] && q.method === 'GET') { if (d.status === 'setup') { let ch = fixBotInvites(d, uid, side, t); for (const c of d.cards) if (c.owner === uid && !c.edited) { const s = JSON.stringify(c); applyDef(c, d.type); if (JSON.stringify(c) !== s) ch = 1; } if (ch) Q.put.run(JSON.stringify(d), Date.now(), row.id); } return json(r, 200, view(row, d, uid, side)), true; }
+  if (d.status !== 'setup' && m[2] !== 'close') return json(r, 409, { error: 'Room already ' + d.status, ...view(row, d, uid, side) }), true;
+  if (m[2] === 'center' && q.method === 'PUT') {
+    if (row.creator !== uid) return json(r, 403, { error: 'Only the room creator edits the center card.' }), true;
+    if (b.type != null) { const nt = typeOf(d.access, b.type); if (nt.id !== d.type) { d.type = nt.id; for (const c of d.cards) { c.answers = (nt.prompts || []).map(() => ''); applyDef(c, nt.id); } } }
+    for (const [f, n] of [['about', 400], ['goal', 300], ['topic', 280]]) if (b[f] != null) d.center[f] = txt(b[f], n);
+    d.center.sellerSeat = 0;   // c23: payer leads; client value ignored
+    for (const c of d.cards) c.ready = false;   // center changed: everyone re-confirms
+    Q.put.run(JSON.stringify(d), Date.now(), row.id); return json(r, 200, view(row, d, uid, side)), true;
+  }
+  if (m[2] === 'invites' && q.method === 'POST') {   // record who was invited (labels only; nothing is sent from here)
+    d.invites = d.invites || []; const ns = d.access === 'external' && side === 'A' ? 'B' : side; let n = 0;
+    for (const l of (Array.isArray(b.labels) ? b.labels : [b.label]).slice(0, 20)) { const label = txt(l, 80); if (!label || d.invites.length >= 40) continue;
+      if (d.invites.some((x) => x.status === 'waiting' && x.label.toLowerCase() === label.toLowerCase())) continue;
+      { const hb = houseBot(label); if (hb) { if (bringBot(d, uid, side, t, hb)) d.invites.push({ label, side, ms: Date.now(), status: 'joined', joinedMs: Date.now(), by: uid }); n++; continue; } }   // yodacard-20261026: inviting Yoda/Ava/Finn by name or bot email = bot card joins
+      const bc = d.cards.find((c) => c.owner === uid && c.kind === 'bot' && c.joined !== true && c.name && c.name.toLowerCase() === label.toLowerCase());
+      if (bc) { bc.joined = true; for (const x of d.cards) x.ready = false; d.invites.push({ label, side: bc.side, ms: Date.now(), status: 'joined', joinedMs: Date.now(), by: uid }); n++; continue; }   // c24: inviting your bot by name = it joins
+      d.invites.push({ label, side: ns, ms: Date.now(), status: 'waiting', by: uid }); n++; }
+    if (n) Q.put.run(JSON.stringify(d), Date.now(), row.id); return json(r, 200, view(row, d, uid, side)), true;
+  }
+  if (m[2] === 'bots' && q.method === 'POST') {
+    if (d.cards.filter((c) => c.owner === uid && c.kind === 'bot').length >= 3) return json(r, 400, { error: 'Max 3 bots per person.' }), true;
+    { const nb = newCard('bot', uid, side, b.name, t, d); if (txt(b.name, 40)) nb.name = txt(b.name, 40); nb.joined = true; for (const x of d.cards) x.ready = false; d.cards.push(nb); } Q.put.run(JSON.stringify(d), Date.now(), row.id); return json(r, 201, view(row, d, uid, side)), true;
+  }
+  if (m[2] === 'close' && q.method === 'POST') {
+    if (row.creator !== uid) return json(r, 403, { error: 'Only the room creator can close it.' }), true;
+    try { await (await A()).preroomMeterStop(uid, d.meter); } catch {}
+    d.status = 'closed'; Q.put.run(JSON.stringify(d), Date.now(), row.id); return json(r, 200, view(row, d, uid, side)), true;
+  }
+  if (m[3]) {
+    const c = d.cards.find((x) => x.pid === m[3]);
+    if (!c || c.owner !== uid) return json(r, 404, { error: 'not found' }), true;   // someone else's card: indistinguishable from missing
+    if (!m[4] && q.method === 'PUT') { cleanCard(c, b); c.edited = true; saveDef(uid, c, d.type, b, !b.auto); c.ready = false; Q.put.run(JSON.stringify(d), Date.now(), row.id); return json(r, 200, view(row, d, uid, side)), true; }
+    if (m[4] === '/join' && q.method === 'POST') { if (c.kind !== 'bot') return json(r, 400, { error: 'Only bot cards join this way.' }), true;   // c24: owner brings their bot into the room
+      if (c.joined !== true) { c.joined = true; for (const x of d.cards) x.ready = false; Q.put.run(JSON.stringify(d), Date.now(), row.id); } return json(r, 200, view(row, d, uid, side)), true; }
+    if (m[4] && q.method === 'POST') { if (b.card) { cleanCard(c, b.card); c.edited = true; saveDef(uid, c, d.type, b.card, true); } c.ready = b.ready !== false; d.error = null; Q.put.run(JSON.stringify(d), Date.now(), row.id);
+      await maybeGoLive(row, d); const d2 = JSON.parse(Q.get.get(row.id).data); return json(r, 200, view(row, d2, uid, side)), true; }
+  }
+  return json(r, 405, { error: 'method' }), true;
+}

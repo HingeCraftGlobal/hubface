@@ -1,3 +1,4 @@
+/* botav-20261026a (Dan approved 10:44 PM ET Oct 26): rooms with server bot seats: no timer lock on mic/cam, timer box hidden. Rollback: room-timer-20261022a.js.bak-pre-botav */
 /* roomtimer-20261021c (Dan approved by voice 10:34pm ET Oct 20): room start flow.
    - On room open a small timer appears dead center, live elapsed clock from open; draggable (mouse+touch), kept on screen.
    - Mic/camera hard-gated until the timer is set (session length picked in 15-min steps, 1 step = 1 token).
@@ -91,7 +92,8 @@
   var PRESET = 0;
 
   function hint() { toast(T('Set the timer first: mic and camera unlock when the session starts', 'पहले टाइमर सेट करें: सत्र शुरू होने पर माइक और कैमरा चालू होंगे')); if (S && S.el) { S.el.classList.add('pick'); } }
-  function gated() { return inRoom() && !started(); }
+  function __hfBotRm(){try{var S=window.__hfServerSeats,m=/[?&#](?:room|r)=(HF-[A-Z0-9-]+)/.exec(location.href);return !!(S&&m&&S.room===m[1]&&S.bots&&S.bots.length);}catch(_){return false;}} /* botav-20261026a: bot rooms (server seats) skip the paid AV gate */
+  function gated() { return inRoom() && !started() && !__hfBotRm(); }
 
   // Hard gate 1: App.setAV (outermost wrapper; room-timer loads after all inline scripts)
   function wrapAV() {
@@ -123,6 +125,7 @@
   function inRoom() { var a = A(); return !!(a && a.inRoom && a.state && a.state.room && a.state.room.mode && document.documentElement.classList.contains('rb-room') && document.getElementById('rbBar')); }
   function started() { var b = document.getElementById('rtBox'); return !!(b && !/rt-not-started/.test(b.className) && window.__rtStarted); }
   function nudge() { var b = document.getElementById('rtBox'); if (b) { b.classList.add('pick'); b.animate && b.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.08)' }, { transform: 'scale(1)' }], { duration: 350 }); } }
+  function __hfBotRm(){try{var S=window.__hfServerSeats,m=/[?&#](?:room|r)=(HF-[A-Z0-9-]+)/.exec(location.href);return !!(S&&m&&S.room===m[1]&&S.bots&&S.bots.length);}catch(_){return false;}}
   function lock(btn) {
     if (!btn.dataset.rtTitle && !btn.classList.contains('rtLocked')) btn.dataset.rtTitle = btn.title || '';
     btn.disabled = true; btn.setAttribute('aria-disabled', 'true'); btn.classList.add('rtLocked'); btn.title = 'Set the timer to unlock';
@@ -137,7 +140,8 @@
     var hit = document.querySelector('.rtLockHit[data-for="' + btn.id + '"]'); if (hit) hit.remove();
   }
   setInterval(function () {
-    var on = inRoom() && !window.__rtStarted;
+    var on = inRoom() && !window.__rtStarted && !__hfBotRm();
+    var bx = document.getElementById("rtBox"); if (bx) bx.style.display = __hfBotRm() ? "none" : "";
     ['rb_avMic', 'rb_avCam'].forEach(function (id) { var b = document.getElementById(id); if (b) (on ? lock : unlock)(b); });
   }, 300);
 })();

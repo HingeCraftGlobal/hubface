@@ -41,7 +41,7 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   function live() { return !!(ws && ws.readyState === 1 && self); }
   /* hfyoda-20261019: real names - account displayName, then ?name= on the invite link, then a saved name, then ask once */
-  var meName = null, meP = (function () { try { return fetch('/api/account/me', { credentials: 'include' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { var a = j && j.authenticated && j.account; meName = a && (a.displayName || a.real_name || a.username) || null; }).catch(function () {}); } catch (_) { return Promise.resolve(); } })();
+  var meName = null, meP = (function () { try { return fetch('/api/account/me', { credentials: 'include' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { var a = j && j.authenticated && j.account; meName = a && (a.username || a.displayName || a.real_name) || null; /* roster5: account username (R2 D2) first, Dan 11:19 PM ET */ }).catch(function () {}); } catch (_) { return Promise.resolve(); } })();
   function guestName() { if (meName) return String(meName).slice(0, 40); var n = ''; try { n = new URLSearchParams(location.search).get('name') || new URLSearchParams(location.hash.replace(/^#[^?]*\?/, '')).get('name') || ''; } catch (_) {} try { if (!n) n = localStorage.getItem(GN) || ''; } catch (_) {} if (/^Guest \d{4}$/.test(n)) n = ''; if (!n) { try { n = (window.prompt('Your name for this room:', '') || '').trim(); } catch (_) {} } if (!n) n = 'Guest ' + (1000 + Math.floor(Math.random() * 9000)); n = n.slice(0, 40); try { localStorage.setItem(GN, n); } catch (_) {} return n; }
   function send(o) { if (ws && ws.readyState === 1) try { ws.send(JSON.stringify(o)); } catch (_) {} }
   function localTrack(kind) { var s = App.state.stream; if (!s) return null; var t = s.getTracks().filter(function (x) { return x.kind === kind && x.readyState === 'live'; })[0]; return t || null; }
@@ -65,14 +65,14 @@
 
   function onMsg(m) {
     if (m.t === 'welcome') {
-      self = m.self; status = 'live'; softCap = m.softCap || 4; if (Array.isArray(m.ice) && m.ice.length) ice = m.ice;
+      self = m.self; setTimeout(function () { try { flushChatQ(); } catch (_) {} }, 300); status = 'live'; softCap = m.softCap || 4; if (Array.isArray(m.ice) && m.ice.length) ice = m.ice;
       clearInterval(iceT); iceT = setInterval(function () { send({ t: 'ice' }); }, 45 * 60000);   // turn-20261018a: TURN creds live 1 h; refresh at 45 min
       chat = (m.chat || []).slice(); replayChat(); setListen(m.listen);
-      (m.peers || []).forEach(function (p) { var e = addPeer(p); ensurePc(e, true); });   // newcomer offers to everyone already here
+      (m.peers || []).forEach(function (p) { if (p && p.user && self && p.user === self.user && p.role === "host") return; var e = addPeer(p);   /* r2host-20261026: hide own-account duplicate session */ ensurePc(e, true); });   // newcomer offers to everyone already here
       if ((m.peers || []).length) openVideo();
       send(myState()); paintAll(); autoChat(); return;
     }
-    if (m.t === 'peer-join') { addPeer(m.peer); openVideo(); paintAll(); try { App.toast(m.peer.name + ' joined the room'); } catch (_) {} return; }
+    if (m.t === 'peer-join') { if (m.peer && m.peer.user && self && m.peer.user === self.user && m.peer.role === 'host') return; addPeer(m.peer); openVideo(); paintAll(); try { App.toast(m.peer.name + ' joined the room'); } catch (_) {} return; }
     if (m.t === 'peer-leave') { var e = peers.get(m.id); if (e) { closePeer(e); peers.delete(m.id); } paintAll(); try { App.toast((m.name || 'Someone') + ' left the room'); } catch (_) {} return; }
     if (m.t === 'peer-state') { var p = peers.get(m.peer.id); if (p) { var camWas = p.info.cam; p.info = m.peer; if (camWas !== p.info.cam) paintTiles(); else bindTiles(); paintRoster(); } return; }
     if (m.t === 'ice') { if (Array.isArray(m.ice) && m.ice.length) { ice = m.ice; peers.forEach(function (e) { if (e.pc) try { e.pc.setConfiguration(rtcConfig()); } catch (_) {} }); } return; }
@@ -178,7 +178,7 @@
   function initials(n) { return String(n || '?').split(/\s+/).filter(Boolean).slice(0, 2).map(function (x) { return x[0]; }).join('').toUpperCase() || '?'; }
   /* yodahear-20261018a: the Yoda tile is a STATIC picture card (no <video>, no srcObject, ever); glow ring while /say audio plays */
   function yodaTile() { return '<div class="rlTile yoda' + (yoda.speaking ? ' speaking' : '') + (listen.on ? ' listening' : '') + '" data-yoda="1" data-static="1"><div class="rlOff"><img class="rlAv" src="' + YODA_IMG + '" alt="Yoda (AI moderator, picture)" draggable="false"></div>' +
-    '<span class="rlSt rlAI">Yoda \u00b7 AI CEO \u00b7 voice only</span>' + bmBtn('yoda', 'Yoda') + '<span class="rlLive" title="Yoda is listening in this room" aria-hidden="true"><i></i><b class="on">LIVE</b><b class="off">OFF</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span></div>'; }
+    '<span class="rlSt rlAI">Yoda \u00b7 AI CEO \u00b7 voice only</span>' + bmBtn('yoda', 'Yoda') + '<span class="rlLive" title="LISTENING: Yoda hears the room (chat + mic). CHAT ONLY: Yoda is in the room and answers chat, but is not hearing live audio yet." aria-hidden="true"><i></i><b class="on">LISTENING</b><b class="off">CHAT ONLY</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span></div>'; }
   function guardYoda() { document.querySelectorAll('.rlTile.yoda').forEach(function (t) { t.querySelectorAll('video,audio,canvas,iframe').forEach(function (v) { try { v.srcObject = null; } catch (_) {} v.remove(); console.warn('[room-live] removed media element from the Yoda tile'); }); }); }
   App.renderTiles = function (b) {
     if (!wantRoom()) return origTiles.call(App, b);
@@ -247,7 +247,7 @@
   function minPaint(el) { var b = el.querySelector('.rlMin'); if (!b) return; var c = el.classList.contains('collapsed'), h = minIcon(c), t = c ? 'Expand' : 'Minimize'; if (b.innerHTML !== h) b.innerHTML = h; b.title = t; b.setAttribute('aria-label', t); b.setAttribute('aria-pressed', c ? 'true' : 'false'); }
   var MIC = '\ud83c\udf99', MUTE = '\ud83d\udd07';
   function camOff(n) { return '<div class="rlOff"><div><div class="rlIni">' + esc(initials(n)) + '</div><div style="margin-top:6px">Camera off</div></div></div>'; }
-  function yodaInner() { return '<div class="rlOff"><img class="rlAv" src="' + YODA_IMG + '" alt="Yoda (AI moderator, picture)" draggable="false"></div><span class="rlSt rlAI">Yoda \u00b7 AI CEO \u00b7 voice only</span>' + bmBtn('yoda', 'Yoda') + '<span class="rlLive" title="Yoda is listening in this room" aria-hidden="true"><i></i><b class="on">LIVE</b><b class="off">OFF</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span>'; }
+  function yodaInner() { return '<div class="rlOff"><img class="rlAv" src="' + YODA_IMG + '" alt="Yoda (AI moderator, picture)" draggable="false"></div><span class="rlSt rlAI">Yoda \u00b7 AI CEO \u00b7 voice only</span>' + bmBtn('yoda', 'Yoda') + '<span class="rlLive" title="LISTENING: Yoda hears the room (chat + mic). CHAT ONLY: Yoda is in the room and answers chat, but is not hearing live audio yet." aria-hidden="true"><i></i><b class="on">LISTENING</b><b class="off">CHAT ONLY</b></span><span class="rlNm">Yoda (AI moderator)' + (listen.on ? ' \u00b7 listening' : '') + '</span>'; }
   function selfName() { return (self && self.name) || guestName(); }
   function selfCam() { return !!(App.state.cam && localTrack('video')); }
   function selfInner() { var n = selfName(); return (selfCam() ? '<video autoplay playsinline muted></video>' : camOff(n)) + '<span class="rlSt">' + (App.state.mic ? MIC : MUTE) + '</span><span class="rlNm">' + esc(n) + ' (you)</span>'; }
@@ -303,9 +303,11 @@
   function openVideo() { try { if (wantRoom() && pv.hidden) setPanelsHidden(false); } catch (_) {} }   // tiles-20261018a: un-hide the panels (no shared box)
 
   /* chat: send through the room server when live; lines print when the server relays them (same order for everyone) */
-  var origChat = App.chatLine;
+  var origChat = App.chatLine, chatQ = [];
+  function flushChatQ() { while (chatQ.length && live()) send({ t: 'chat', text: chatQ.shift(), cid: 'q' + Date.now() + Math.random().toString(36).slice(2, 5) }); }
   App.chatLine = function (id, text, me, noPush) {
     if (id === 'roomChat' && me && !noPush && live()) { send({ t: 'chat', text: String(text), cid: String(Date.now()) }); return; }
+    if (id === 'roomChat' && me && !noPush && cur) { chatQ.push(String(text).slice(0, 1000)); if (chatQ.length > 10) chatQ.shift(); origChat.call(App, id, '(reconnecting: this will go to Yoda as soon as the room reconnects) ' + String(text), me, true); return; }   // chatfix-20261026: typed lines while the socket is down were shown locally only and never reached Yoda
     return origChat.apply(App, arguments);
   };
   function chatText(m) { var mine = self && m.from && m.from.id === self.id, g = m.src === 'voice' ? '\ud83c\udf99 ' : ''; return { mine: mine, text: mine ? g + m.text : ((m.from && m.from.name) || 'Someone') + ': ' + g + m.text }; }
