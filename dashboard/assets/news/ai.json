@@ -1,52 +1,44 @@
 {
  "subject": "ai",
- "fetched_at": "2026-10-27T04:00:05.872061+00:00",
+ "fetched_at": "2026-10-28T04:00:06.775358+00:00",
  "items": [
   {
-   "title": "In China, the AI bubble has already burst",
-   "source": "Reuters",
-   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPTnhLb1ZGYUdnbENkWmMyZDZqTHlsckJwbEsxWVZGTnI5U2lPcFNXLXFoYmRRZm1rU2NWREZrWGVRblRES2FmdkwtUVIzMDlTS2N4ZW5vNno1Y2JCR1FzclhmdUVBOU5jMElCd2FwTlN1VzdfOU94YXlFc2VSWmRObXZyMVhyNnlf?oc=5",
-   "published": "2026-10-26T12:02:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Meta Plans up to $95 Billion in Financing to Power Its AI Growth",
-   "source": "WSJ",
-   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOWWVJZlJtQjJkZTMyWV9zMXNqV3RxZERPOE1CZlliQTVqR3VaTFk5anp5bHViM0pVTlVlc3lmMTU2YzVkb01hRXVsYU9yWUVFWjJxVHlrbW5TRVZoMWw3SzM1VUZ3UmpZN1NRODBhZmpHQXI4OXFCZDI5dWpMOGlTcGlWblREUUhmWHRCLWtZeW9zcnNUMVlRa2JTN0pwZ2dkSXBKQS14emotVmM1LWMtb2RxMEF5Y3RqNHBFZndn?oc=5",
-   "published": "2026-10-26T13:49:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Meta announces $95 billion stock offering to fund AI expansion",
+   "title": "Jim Cramer warns investors not to get fooled by the latest AI stock rally",
    "source": "CNBC",
-   "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9DMHRxU0FJYU1FQ2Q5NFlWX0ZLa3dZQlhnWnlRcU9UZ2N1V0tmRklSTGFoN2h4cmRTNTVzN3BDR0MwS0tBNVg3M0k5eUpoMFp1X1FKd2xPdWE3MTM4YjBONFVXX3JpQTBmTXlV0gFwQVVfeXFMTmZORnFJWGJWQ296RnRpdXY1aFRXRElQZWw2Y3dpNWFtekxSZlc4eTc5NEJuVWFSLUFLWDNfOWV4aGxBTENheXpVMXo0Z0ZmQVRjSVo2bGo2MnFqdGVlSVNrNnJIbEdWZTIzQklXQmEwNQ?oc=5",
-   "published": "2026-10-26T11:34:42+00:00",
+   "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBFell1RHQ2LWN0U2hFU3VBZmlYZXZXanNoVE9zM0hBWXVDT3BOVVQyd1IzRTVzQTdqVGI4UC1NOFRmU0Q5V2tKZHh1Ny1XQlF0X2hGMy1sV2piMXoyb3l4R1ljZU1fRTNyLXF0QjY0YTh4SE5yQ0RzYUNrRU3SAYIBQVVfeXFMTjV1QWFQb0FNb0VpYlRyZkFIbXl6bTBlVnhqMGdtQzd2U1Nuc0MzV1oxRTFtUm1hbS1lYkRkWFlhNHk0cDJHMW9Rc0tEUjh6eFQ1Ym1nc3NpN3dPci1CQjV0VmVQMkNWZ2VpYUoxN0FRRXBKeDJoOWRFckVIQ2ZJcGdFZw?oc=5",
+   "published": "2026-10-27T22:24:19+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Anthropic files for stock market IPO; Meta announces $95bn fundraising drive to pay for AI expansion – as it happened",
+   "title": "Chinese markets lose trillions as race for AI supremacy with US takes its toll",
    "source": "The Guardian",
-   "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxOUWotUGVkWjd5bGMybG41akpmYm1oMGpFQWpmYWJxVjVWSnEtaFBXWXhQaWdMQ3dhcWJFeUhteEM0X0dHQXNxRHVUZHExVmVoMFZlVS1qZ1phUGlhLWRLV0s4TlR2WG5kMzJRLXRsdTNHNnI5Z2pjSUF2eWFYX1lKeDJyNmNjQkdVRGdPUXF0Wi1TNmpqdUM0bTV2dFpoLWM0cUxuQVRDMkZ4Nl8wYndTd3g4YWFJdW1aYl82TWNaM19fSXdPZk50ZmZVVlRvSXVBWlNqUEI4TExreHBRb0UzVm9MeWZDVEdjdjdwUC1Ed1VfR2JGZ1dhdzVn?oc=5",
-   "published": "2026-10-26T07:33:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPbzM2ekpCRDItOWdneU1qVVdIMlpNeVJLLWpUZDYtc2FPclJCM0JLTEVGc2JGS0NDbFpldXlaZlBFclJwTnFfSmFQUU0tLWRXaFI1NlFXRW1Bd1ZkbkwxdHQzcDJQOTIzOVFOZzFXLTNXVWI1T1pRd0hrQVRFdVplV3ZGb2xrYW84SXN2cUM1eWVXZEdPQVZN?oc=5",
+   "published": "2026-10-27T14:09:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Anthropic sets stage for blockbuster IPO, highlighting AI’s benefits and risks for humanity",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQQjZNWW42REhVNmNlWTJadGpZdzdaSzNPUmpSVWN5NkVhZkltNWpRQmRuREhINkZqSm9tVUcyWGdKS2VsOUEtem5ETE1Jb3pUTlI4TUsxdy0zR293ZkYwbGFXZEVnUDhrRDVVRnViY1RFRnpoc3l4Y2pJZEpxNC1pVTFzODRWQU1xQkFkZjZwRQ?oc=5",
-   "published": "2026-10-26T23:45:02+00:00",
+   "title": "Global stock markets rise as investors continue to bet on AI",
+   "source": "Al Jazeera",
+   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOT3haSUtXak44Y1ZBd1k1ckZ3WWlLS0ZtZFhpRFVUTEVGMFZlbVdENGs5S21GQ2pVWk1GNlBVNTRTcmk1a09qMGozeU1LMlhSNHBqTzNmd3A0dHlVUVdac3h4eEtFMklhN1pOQXBDbHV0Sm1SSEdmbUd4TTJrSFBCVi13ZGs0U2huMGFrZWtoYnYyb0JiUGMxWTN4TlV1ZVh6RHlVSNIBqgFBVV95cUxOUVlfdEdieVEwUUFBOEVXRm5jWER0WGhMMzdxNWJwYmdCSm4tbnJPYWNZNEhvWGJpQnI0SWZJWVRJYTZscktZQWNGb2xxRVAzcm5nd25ZdUFOU3hGV2dscmszZG16TF9tUF9OeWZ4NkhvS0ZFTFBmcG1ZWWtaSU5XYWU5UEtlQzhmZi1KYk9rS1oxUFVSM1d5VTEtVU0xMGZtN1gyUHl0XzFwUQ?oc=5",
+   "published": "2026-10-28T03:21:42+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Not Palantir. Not Snowflake. This AI Software Stock Could Be the Next Multibagger.",
+   "title": "Ranking 4 AI Power Stocks By Balance Sheet After the Sell-off: Vertiv, GE Vernova, Bloom Energy, and Plug Power.",
    "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxOZ1UzbjczdTduSVVoMEx0Y25tcVp3dVVkSUlWYm05Uk1MMG5BMmV3djVQZkx5TEphR3F3Z1Q4NmFzMTJOV2JENjlLZFNYdXkyZWNac29jWms4eG5fYWs2dWpDQzFHdFlISU1qWEFFRmszWmFmM1hkTmIzcERYY3ZWb29OaVotUFlXc1BKZ3Iyb183VGtjNk9NLTRqSUdqdTRTVXRNSFhtTnNhTG1jU1JMb1poSzJfdU5ROFFMVi1NQ3pPOTNmZmpxdmpxRFFYazNOVDVvUWY0VExsRkMxd2hzNTlGamVRXzFtWnN5Q1dyenM4VmRLX3FJ?oc=5",
-   "published": "2026-10-27T03:05:54+00:00",
+   "link": "https://news.google.com/rss/articles/CBMinAJBVV95cUxPbHZNeFM3SUpRQl8tVlh2M1BRS2Q3MldnaVYxMEJmREd5N1hUVEVWeDFnWE1iUWEwTFlwTzByUWNhMXZLZzI2X2k3M0thTjRGaTZOd2xQSzRiQzMyVXNWcThCWGpSWTQ4bmYzR3l2b2dfUDNTWXBuRV9hcEdIbDQyZ2cwR0xjVG9GZ0ZYY2xIVmdoLWpCeVZ2T2JqOGZCQ01hTFJTQUtVX0Z1NG1SNHlnQWRtTjdsZU9LcWR4VnBhbmx3aFBfRHVQNVRoeG5jaWtYNjZYUEN3T1dCTDhIeGdlaDRzbHhiQmhuRkNpUHhlR082bFBRSUgwTW5ObTJKS0xjQm9vUkZScGpwTlBHUzFwTXNicE83WG9YNnpjTg?oc=5",
+   "published": "2026-10-28T03:35:36+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Uni Chem Adds Stanford AI and Robotics Expert to Board After Independent Director Resigns",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxQUUplVmc1ZW9BVHJmdW9fQ3dWcU5SWTRtZ19zbnFXbm9xRi11Wi11YURvZDV3Z3owLWJlLW9zYWl4MnZrZjZNMjJnV0FsT2s4WXlzNUxtOVNiS1pMRm14SndkT3FMNjN3YlBGQTZibFhBY3liUGgyVnJUTEUwRGZEcXNhSHFHWkpYX3REdzExMGdZQkdfd1BUNldZTjZvLTQ3S0Jic0p0LWRkT1lLcFhWMDBFRXlWdnFFRFNtV215OVczdV9CdmZXcVR6cWdXQzNPR05TZWIyaHRWTHF3QUZldm9xV2Nnc296S21ubnJlQWl5T19KUkF0dS16cjE3ejg?oc=5",
+   "published": "2026-10-28T03:49:36+00:00",
    "tag": "standard",
    "video": false
   },
@@ -59,10 +51,18 @@
    "video": false
   },
   {
-   "title": "Women 'risk being left behind' in AI push, advocates warn Canadian lawmakers",
+   "title": "An update from Amazon engineering leadership on the role of the developer in the age of AI",
+   "source": "About Amazon",
+   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOajY2MDU2cll6ZWRoYVVWb3hXd2Zsb2xMbjhkOWNMRVQwd0twRFJUX3J5WjBFWlpycS1LS2UzTngxbU9kTmVTQnN2RW12UGh1S1UwWktOeS15bkdVSFNRNndqYjlCUmhMWTlmaW01bHI2UFhzc2NDUXc1c1lEbG1XN1JUTkdLQXVpaW91UEdDSHV2dw?oc=5",
+   "published": "2026-10-27T17:56:54+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "B.C. teen starts free literacy program to combat AI reliance among peers",
    "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1tbmg4ejdMeHR1allyaVlhcVpUY0FEQ1BWUFo3Ui1yaXVpZUhVRnVnaHVSUlQwQ0FTWjdMd014cl9OaDB2WU5OSFBDUUx6MnA4eVB0UEpBN1BCeDRrS3VBX0gtWk9SelZIUDhxcC1WZHI5Nzc3cENV?oc=5",
-   "published": "2026-10-26T19:12:27+00:00",
+   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOQlJqWThlaktIMnJWaERvUHduRGZlM3BBbl96X1Z4YzZNMWVhbkhFZUdmVVZ4YmdjWnNsMU9QVldLSzd2UktpYWN4d0pLQnNkR0kyMHJVTTdxYW4yV0lFUVVEVXZxOEFPclJmODBJdGdGai1OSnJiOG9Ga2s4M0tEeFlzbjNsa3c4Wlgxcjl1X3JiRUx4RW9aamZRNnVvR2s?oc=5",
+   "published": "2026-10-27T15:17:05+00:00",
    "tag": "standard",
    "video": false
   }

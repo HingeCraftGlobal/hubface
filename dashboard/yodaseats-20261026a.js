@@ -6,22 +6,22 @@
 (function(){
   var last={}, busy=false, quiet=false, yodaWant='', yodaDone={};
   /* ys4: Add Yoda for rooms seated with 'yoda' (once per room per page; retried until it sticks) */
-  setInterval(function(){var id=rid();if(!id||yodaWant!==id||yodaDone[id]||!inRm())return;
+  setInterval(function(){var id=rid();if(!id||yodaWant!==id||!inRm())return;
     try{var k='hubface-yoda-picked',m=JSON.parse(localStorage.getItem(k)||'{}')||{};m[id]=true;localStorage.setItem(k,JSON.stringify(m));}catch(_){}
-    if(document.documentElement.classList.contains('rxNoYoda')){var ay=document.getElementById('rx_addyoda');if(ay)ay.click();}else yodaDone[id]=true;},1000);
+    document.documentElement.classList.remove('rxNoYoda'); /* yodacard1: no hidden-button click */},1000);
   function rid(){var m=/[?&#](?:room|r)=(HF-[A-Z0-9]{5}-[A-Z0-9]{5})/.exec(location.href);return m?m[1]:'';}
   function inRm(){return document.documentElement.classList.contains('rb-room');}
   function sync(){
-    var id=rid(); if(window.__hfServerSeats&&window.__hfServerSeats.room!==id)window.__hfServerSeats=null; if(!id||busy||!inRm()||typeof window.HF_inviteBot!=='function')return; busy=true;
+    var id=rid(); if(window.__hfServerSeats&&window.__hfServerSeats.room!==id)window.__hfServerSeats=null; if(!id||busy||!inRm())return; busy=true; /* yodacard1: seats read even before the bot picker is ready */
     fetch('/api/yoda-rooms/seats/'+id,{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
       if(!j||!Array.isArray(j.bots)||rid()!==id)return;
       var prev=last[id]||[], cur=(window.HF_roomBots&&window.HF_roomBots())||[];
       quiet=true;
       try{
-        j.bots.forEach(function(b){if(b==='yoda'){yodaWant=id;return;}if(prev.indexOf(b)<0&&cur.indexOf(b)<0)window.HF_inviteBot(b);});
+        j.bots.forEach(function(b){if(b==='yoda'){yodaWant=id;return;}if(typeof window.HF_inviteBot==='function'&&prev.indexOf(b)<0&&cur.indexOf(b)<0)window.HF_inviteBot(b);});
         prev.forEach(function(b){if(b==='yoda')return;if(j.bots.indexOf(b)<0&&cur.indexOf(b)>=0&&window.HF_removeBot)window.HF_removeBot(b);});
       }finally{quiet=false;}
-      last[id]=j.bots.slice(); window.__hfServerSeats={room:id,bots:j.bots.slice()};
+      last[id]=j.bots.slice(); window.__hfServerSeats={room:id,bots:j.bots.slice()}; if(j.bots.indexOf('yoda')>=0)document.documentElement.classList.remove('rxNoYoda'); /* yodacard1 */
       document.documentElement.setAttribute('data-server-seats',j.bots.join(','));
     }).catch(function(){}).then(function(){busy=false;});
   }

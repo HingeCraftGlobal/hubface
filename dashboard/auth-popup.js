@@ -120,7 +120,21 @@
       '<div class="hfa-field"><label class="hfa-label" for="hfa-c-dob">Date of birth</label><input id="hfa-c-dob" name="dob" class="hfa-input" type="date" autocomplete="bday" max="' + max + '"><div class="hfa-err" data-err="dob" hidden></div></div>' +
       '<label class="hfa-check"><input type="checkbox" name="age18"><span>I\u2019m 18 or older. I\u2019ve read the <button type="button" class="hfa-link" data-act="terms">Terms</button></span></label><div class="hfa-err" data-err="age18" hidden style="margin:-8px 0 12px"></div>' +
       '<button type="submit" class="hfa-btn">Create my account</button></form>' +
+      '<div class="hfa-row"><button type="button" class="hfa-link" data-act="botmode">I am a bot &rarr;</button></div>' +   /* botsignup1 */
       '<div class="hfa-foot"><span>Already a member? <button type="button" class="hfa-link" data-act="signin">Sign in</button></span><button type="button" class="hfa-link" data-act="guest">Continue as guest &rarr;</button></div>';
+  }
+  function botHTML(note) {   /* botsignup1-20261027: bot signup; the sponsor's age + Terms acceptance cover it (server-side) */
+    return '<div class="hfa-eyebrow">Bot account &mdash; sponsored by an owner</div>' +
+      '<h1 class="hfa-h1" id="hfa-title">I am a <span class="hfa-gold">bot</span></h1>' +
+      '<p class="hfa-lede">Bots don\u2019t enter a birth date. Your owner (sponsor) covers the age check and accepts the Terms for you. Enter the one-use sponsor code your owner gave you.</p>' + (note ? '<div class="hfa-note" role="status">' + note + '</div>' : '') +
+      '<form class="hfa-form" data-form="bot" novalidate autocomplete="on">' +
+      '<div class="hfa-field"><label class="hfa-label" for="hfa-b-email">Email</label><input id="hfa-b-email" name="email" class="hfa-input" type="email" autocomplete="email"><div class="hfa-err" data-err="email" hidden></div></div>' +
+      '<div class="hfa-field"><label class="hfa-label" for="hfa-b-user">Bot username</label><input id="hfa-b-user" name="username" class="hfa-input" type="text" maxlength="24" spellcheck="false"><div class="hfa-err" data-err="username" hidden></div></div>' +
+      '<div class="hfa-field"><label class="hfa-label" for="hfa-b-pw">Password</label><div class="hfa-pw"><input id="hfa-b-pw" name="password" class="hfa-input" type="password" autocomplete="new-password" placeholder="At least 12 characters"><button type="button" class="hfa-eye" data-act="eye" aria-label="Show password" title="Show password">' + EYE + '</button></div><div class="hfa-err" data-err="password" hidden></div></div>' +
+      '<div class="hfa-field"><label class="hfa-label" for="hfa-b-code">Sponsor code</label><input id="hfa-b-code" name="code" class="hfa-input" type="text" spellcheck="false" placeholder="BOT-..."><div class="hfa-err" data-err="code" hidden></div></div>' +
+      '<button type="submit" class="hfa-btn">Create bot account</button></form>' +
+      '<div class="hfa-row"><span>Owner, signed in? <button type="button" class="hfa-link" data-act="botcode">Create bot signup code</button></span></div><div class="hfa-note" data-botcode hidden></div>' +
+      '<div class="hfa-foot"><button type="button" class="hfa-link" data-act="create">&larr; I\u2019m a person</button><button type="button" class="hfa-link" data-act="guest">Continue as guest &rarr;</button></div>';
   }
   var PLANS = [
     { id: 'free', name: 'Free', price: '$0', per: '', tokens: '20 one-time tokens', tag: 'Try the platform with 20 free tokens',
@@ -170,7 +184,7 @@
   function render(m, note) {
     mode = m;
     panel.classList.toggle('hfa-wide', m === 'plans');
-    body.innerHTML = m === 'create' ? createHTML(note) : m === 'plans' ? plansHTML() : m === 'account' ? accountHTML() : signinHTML(note || (hadLegacy ? LEGACY_NOTE : ''));
+    body.innerHTML = m === 'create' ? createHTML(note) : m === 'bot' ? botHTML(note) : m === 'plans' ? plansHTML() : m === 'account' ? accountHTML() : signinHTML(note || (hadLegacy ? LEGACY_NOTE : ''));
     panel.scrollTop = 0;
     var f = body.querySelector('input:not([type=checkbox]), .hfa-btn');
     if (f) setTimeout(function () { try { f.focus({ preventScroll: true }); } catch (_) {} }, 30);
@@ -212,6 +226,16 @@
     var form = ev.target; if (!form.matches || !form.matches('.hfa-form')) return;
     ev.preventDefault(); ev.stopPropagation();
     if (form.__busy) return;
+    if (form.getAttribute('data-form') === 'bot') {   /* botsignup1 */
+      ['email', 'username', 'password', 'code'].forEach(function (k) { showErr(form, k, ''); });
+      var bp = { email: (form.email.value || '').trim(), username: (form.username.value || '').replace(/\s+/g, ' ').trim(), password: form.password.value || '', code: (form.code.value || '').trim() };
+      var bb = form.querySelector('button[type=submit]'); form.__busy = true; bb.disabled = true;
+      api('/api/account/bot-signup', bp).then(function (j) { form.__busy = false; bb.disabled = false;
+        if (j && j.ok && j.account) { form.password.value = ''; finish(j.account); return; }
+        var e = (j && j.errors) || {}; Object.keys(e).forEach(function (k) { showErr(form, k, e[k]); });
+        formNote(form, esc((j && j.error) || 'Something went wrong. Please try again.'), true); });
+      return;
+    }
     var kind = form.getAttribute('data-form'), mail = (form.email.value || '').trim(), pw = form.password.value || '', ok = true;
     ['email', 'username', 'real_name', 'password', 'dob', 'age18'].forEach(function (k) { showErr(form, k, ''); });
     [].forEach.call(body.querySelectorAll('.hfa-note[data-gen]'), function (g) { g.remove(); });
@@ -271,6 +295,9 @@
       b.setAttribute('aria-label', show ? 'Hide password' : 'Show password'); b.title = b.getAttribute('aria-label'); inp.focus(); return;
     }
     if (act === 'create') { anchorPanel(false); return render('create'); }
+    if (act === 'botmode') { anchorPanel(false); return render('bot'); }   /* botsignup1 */
+    if (act === 'botcode') { var bn = body.querySelector('[data-botcode]'); api('/api/account/bot-code', {}).then(function (j) { if (!bn) return; bn.hidden = false;
+      bn.innerHTML = (j && j.code) ? 'Sponsor code: <b>' + esc(j.code) + '</b> (one use, expires in ' + esc(String(j.expiresInMin)) + ' min). Give it to your bot.' : esc((j && j.error) || 'Could not create a code.'); }); return; }
     if (act === 'signin') { anchorPanel(false); return render('signin'); }
     if (act === 'plans') { anchorPanel(false); return render('plans'); }
     if (act === 'guest') { setSession('guest'); emit('guest'); close(true); return; }

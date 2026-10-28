@@ -1,68 +1,68 @@
 {
  "subject": "science",
- "fetched_at": "2026-10-27T04:00:06.402651+00:00",
+ "fetched_at": "2026-10-28T04:00:07.434108+00:00",
  "items": [
   {
-   "title": "Working with academic communities to build scientific understanding",
-   "source": "OpenAI",
-   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOeHBEWEZtNngxZnVFcFlMRGFkb0xZZ3ViYUVzcTZXa3hpdWhhZzQxYVg1ZkhRMmI3ek5jU2hEVkdQMzlaV3hpV1R1enBucVJkQWsxNmhCVmE4LVc2UXpnZ2dQQnBXRGdzc3dSdnhFaXlxdjdxdDU0Sy02dWoxSTE5SUtnZXE1akZYN2VxeWRn?oc=5",
-   "published": "2026-10-26T21:42:50+00:00",
+   "title": "AI refutes 30-year-old mathematical assumption in computer science",
+   "source": "New Scientist",
+   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNa1hoX0pzeVBvZW5PNVFja1JFWFlLUHgzN21vS2duYV9oMW9QSDNGcENlM09rZlNXeW1fSHloTVdmY05rNm9tZ2lQOHVCTVAtbVJRN1RDRU00SHRNVzRnbzc5TUx0aVd2YlNWMXpvbE4wR040U3FPVzlMc2xfc3lieVFNc3ZQTGpPSHkwS1QxOG5VVHBlcG5rZmpWTFhIS05Ccjk1T2E1M0VWa2xjeVNoMG5B?oc=5",
+   "published": "2026-10-27T15:30:11+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "A neglected particle from the dawn of time could explain why everything in the universe exists",
-   "source": "Live Science",
-   "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxOUkNjMHZNVEthV0NreEZYMTZlTFhQUG1iVjd4bmR3aEJDdERRSHZyV1VPTFJocy0xUFRUZGxMX1ZSZXQ4bmZKUmxxZ2NBcjZnX21iRk5wS1B0QkxQWXRReTZ5WU1JVl9sSkMwMXhONTM0UVppdFJ2TlFINmxLRzY3Q1BWdGJFdjVCaEtMVHo3VF8zSVE3Z09TWGFlZzQ4QUJ1bTFjSkNNRWJMTUh5LXFXUmtqQzJsdmp0bmEyXy1xeGNvbzZHdWE0RWhJdlhWdXpWV3RfUlhkVTRQTEpZOEtuS2NmbWNjSTJxNWdkVTV6anM?oc=5",
-   "published": "2026-10-26T17:50:27+00:00",
+   "title": "AI makes discoveries in mathematics, computer science, physics, OpenAI says",
+   "source": "Al Jazeera",
+   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQN3ZUWTh4RW5uQUFNdlBLdHNZZnRDUUcwOWl2WVBsejlET1hpYWFheW1yaTAtRlNsOEFDRW9UbFliY0VuVDR0SW9YaXp1eTdJbk5kN2ExbGgtSTA0V1ItQmM2RzJ6ZzlqZndnRTBoeDlhS2F4aDk1eW5tVVdZRmtaazBTNUpmZUEzZ0Q1NjlfUGxmX3ZNQnkzWkNrdDRQYkVEa2NHcDVuZENKck9XMHp1MXRvX2p4RWFi0gG-AUFVX3lxTE9JeVZjeGd4RTdGeEJEQnJYcGVnWXJzdnJqLXVBczBTSXI3WEJQMmZBbmV5N050Wko5WkFCZEZfX0ljdlR0MlNITnZpeVNPUzhPczM0UTVYUDFWM2p6RmZSUVh6bm1kZ1BOYUlqeDVRMnA4RjkyR3A4YWZRbUlLd3R1M25sR3pXQ3BQM2d5NHZySFM5S3pzSUc0TWdkUk5TNEhsa2NFV3F5MEJzM21nemNETFlEM28zNFlpVGpZZnc?oc=5",
+   "published": "2026-10-27T14:57:09+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "What Happened to the Neanderthals?",
+   "title": "A bust-up between mathematicians is fuelling fears that AI could undermine science",
+   "source": "BBC",
+   "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBHM2xuV0Uwd1VhLWFMQXRmSHpzSGh4cC1kRzJZQWdCWjcyeHNOenZ1cWVzUDhCR0h1alJxSkpzWUxNcTBqdW54UTVXVW52NWZrbFNVcjlMWmw0Z0U?oc=5",
+   "published": "2026-10-28T01:01:02+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "US’s RFK Jr claims Arabs ‘don’t produce science’: Why he’s very, very wrong",
+   "source": "Al Jazeera",
+   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZTVJd2ZMcXlQRTd0VDFmbGswTW1CVHNBRHdUelBWMXpTejh6OEpjbk5JSC1RcHM2aWxmNlJtNUdzRkY0M0RDQ1BramYwM2xhUklGNWlpRG5Wc21nTDBfcG9vUU1zQTE0Q2g3YlZPbHFlV0FaNTF0SVBSTmtURHlsZjdHWkRMSjA1TlVuTUE3VlhWaC12WjA4RmNESzVQaXBsWGtKc1licmpqbjZia3lB0gG0AUFVX3lxTFBsZllWZEJ1bzYyU3dtNGhlSnBPblNnS0lRNmZwVU52RnJ0ZE1nY2pCWHNUaVBLb0xpc1lRV1huWHBBcTJPWklwYnJBNkRfTEdDVGRWRWlXeWZMbnA3aUlyQi1kcHpHSllMVXZFZ3Fickd3ZzVsM3pwNjIxT0U1WWctcmN5ZHJ4U3pCVW93bWY5UTlURGJJd0JJdDBGaHhhVlVONHk3cHdOT0RZVmNWSDBtY1NYRA?oc=5",
+   "published": "2026-10-27T19:15:17+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "FACT FOCUS: Kennedy's claim that Arabs 'don't produce science' meets a Nobel Prize reality check",
+   "source": "AP News",
+   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPT3FzN2hmU2pzMWV4aE9ZNUZ3aGxWanQzRTZwUGpGRkNnVVhHOURnLTltR2tvWlM5WkR0c19ueWFMejBWY25WWDNBbC1pN24yS19DaWJKTUE2bF8tV1hDSGpUMDQ4MFdsVFF1b3Q1TXVMeHFMazQtbDRMM1hRN0ZoQjAwSXJFMHVsbnR4eDdnclZWanBCYWZyVkROYVlzdw?oc=5",
+   "published": "2026-10-27T19:32:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "RFK Jr. falsely says Arab Muslims don’t produce prizeworthy science, literature",
+   "source": "The Washington Post",
+   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNcS1OT1Jad3h5TnJTNlVtNlJITmNiRGlZejdaX1VzWGZWUm5KOGw5dFNreUwxUTlCLThmeUtRZ3Z3QTA1SlMxLVNHN0tqM3dPN2k4MkdkbHIwRWdNX0dBTDJET3JRbTl3OE4wTFV0N2Uzb1VDX004YmRoRTVvT2RLTVdiQXBtTXpkTnVtdXhuOUx3X1JKOVliSjhKeG5kbHd1ak0zckV2dHdMS2RwM2pzYmR4dEhtLWdVUWc4am5ORGkxOU54?oc=5",
+   "published": "2026-10-28T02:41:13+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Scientists Have Discovered Where Native Hawaiians Came From, And The Genetic Effect of Their Long Voyage",
+   "source": "ScienceAlert",
+   "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPc1FaTVFfZDQyQVBZRUZhNUtEeEE5TE5DTlVtWVNtbDNNZUhheFJiQ1dTZWw1ZFhVUVBFakw2RndPYXVnWmx4Y1BDR1Y5U3FNelZMeGZwYmFZZUlfR25LZkQtdWpPSnV4LUlXSUpjOGpBTzJWRmhXVnNMMm96RW1nejlyVVFFalVwVWE5cVc2QTlmOGRQMHpHaURCUktvOGxybThobmtnc1lWLVlvalo1SWF5V3BjUTc0Z0FzSVZva25FSVEtMHVuOXpZREM?oc=5",
+   "published": "2026-10-27T13:03:11+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Antidepressants Don’t Correct A Chemical Imbalance. How, Then, Do They Work?",
    "source": "The New York Times",
-   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPZm1QR3A0dkFfRGFOVGNUTERibU5ETnlLQ21uRkh4NjdPQ19zT29YdC1jTkI3SVJQVjBxUDJuS2syd29BQ0pEVDZZOVU1WV81d1FlVkN5b2ZHTzJGMHZJMkI3UXY0ZHU1bVdia2NrMDdhR0h5ZFNrVmhwUGhMZ2k1SXRDSWJPMi1P?oc=5",
-   "published": "2026-10-26T09:00:45+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "UBC synthetic chemist named one of Canada's top young researchers",
-   "source": "The University of British Columbia",
-   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQeXA0Z1d3dEU4WXpsaWFrVElwVFBnejE5b2dGeC12V3lBSTNnd29zSUlWWFRzNV9UUGpHa2RfV0tWNW53WVBaNENYNFY3RjRXUjNzRjlwd1FYbDVhcC1WQXppVUVRUml5NnBwZElUU0xHWFY5Z19aNnJ4eGpyWWtZcUFEU0I3YVZuRnNqR045NFJfRU5kT204ZGNHWEItQQ?oc=5",
-   "published": "2026-10-26T15:22:19+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "APOD: 2026 October 26 - M42: The Great Nebula in Orion",
-   "source": "NASA Science (.gov)",
-   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPaGVtcGdzejdCeVlOSk5MM2U2STFBblZjeDkwd0dOUmJuRmNkbDJVQjNtb094UmkwaHpYNFQ2c29jNkt5R3ZPd05nUEJyMzljbVJPaTd0bW5YQmxXdjZ6MldWaDFNcFZNMUNkZDFrTmd5MlowcDdFNVlfQ001Um9ITTVGc0gwSW1GSTdtYW1xN0JRZExz?oc=5",
-   "published": "2026-10-26T04:05:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "‘It’s magic’: scientists rediscover how to make ancient Roman colour-changing glass",
-   "source": "The Guardian",
-   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOOVY0TTJQSlZ6Qlh3WDc5eEFlbVBmYnJuZjZWNGlTcFhvTzBRTHJOUnVOel9VeXZtbXlEMVJRSmdWN2dDcnFhZmF4TmpWaE4yUmVrdnF0WVVBQXpxeGVDY0c4Y3B2VW5wSlVJdEVEUmVZN203eTd0MUtrbm95MG96Q0lvRWltRTFTUDZoMWVaUGlCd1BMQkY5Qi15SVZLNlhxU2VicGFadFc?oc=5",
-   "published": "2026-10-25T06:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "6 stellar images of the early universe",
-   "source": "Popular Science",
-   "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1TUlBUYXIyVVdyX3VGRkMwVUNMc2l6ZXV6VFRLbm0taV8yTEJqYnRPRURUZUhkdVRWRlRwa2hfYjdOcy03MTJ5NzQ3N3RScnRIQWJQWkdYUTdnZ3p3QUZ3eEtMUlpOOEk?oc=5",
-   "published": "2026-10-26T00:01:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Saskatchewan Science Centre aiming to educate public on nuclear power",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNU3hhNDVGM2JDLU9RQjdfT0VRazhCQWY3Q2tZZTVXdU9qdXpJNHlkbzhJaFVudWJ3QTJ1QU1XVjljTW1CZ0J0eVRUUEZ0NUJ5Q211M0Rrc0Y1M3R0THdUWlVKemtoekVWNmtpbFFCM0c3c3M3SDlCcWZoZS05SEFhTVpyMXVXb2VQc1dpRklEWEc0d3hCZ1ozV2xSQXZhcUp5RkM2RHk3M0gtd3FmSWt1QXR0TUE3VU44M2lkSA?oc=5",
-   "published": "2026-10-26T12:45:29+00:00",
+   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOOEhTbjl5UXRkTGZaMm9WYVpSRFV3RjVwSmx5SVN4bDN2d1o2ZjFPUXVzUU95bkUtbk11Umc4SUdoVmRvNHlDdEE3RVZBdnJOT1hHY0c0QjRqRzhWQ296eTRzNDhMOWxWRHExZWZHNkF6QTlPLWNuNjNQei0yRExJeXIwcw?oc=5",
+   "published": "2026-10-27T09:01:32+00:00",
    "tag": "standard",
    "video": false
   }

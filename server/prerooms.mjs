@@ -196,17 +196,21 @@ export async function preroomsRoute(q, r, p, { who, readBody, json, ip }) {
   if (m[2] === 'join' && q.method === 'POST') {
     if (side) return json(r, 200, view(row, d, uid, side)), true;
     const c = String(b.code || ''); if (!c || c.length !== d.code.length || !crypto.timingSafeEqual(Buffer.from(c), Buffer.from(d.code))) return json(r, 404, { error: 'not found' }), true;
-    if (d.status !== 'setup') return json(r, 409, { error: 'This room has already started.' }), true;
+    if (d.status === 'closed') return json(r, 409, { error: 'This room has ended.' }), true;
+    if (d.status === 'starting') return json(r, 409, { error: 'This room is opening right now. Try the link again in a few seconds.' }), true;
+    const lateJoin = d.status === 'live';   // preroombatch1 #8: invite link on a live room seats the latecomer instead of refusing
+    if (d.status !== 'setup' && !lateJoin) return json(r, 409, { error: 'This room is not open.' }), true;
     const ns = d.access === 'external' ? 'B' : 'A';
     if (d.access === 'external' && db.prepare("SELECT 1 FROM preroom_members WHERE preroom = ? AND side = 'B'").get(row.id)) return json(r, 409, { error: 'The other side has already joined.' }), true;
     Q.addMem.run(row.id, uid, ns); d.cards.push(newCard('human', uid, ns, b.myName || u.name, t));
     for (const n of (Array.isArray(b.bots) ? b.bots : []).slice(0, 3)) if (txt(n, 40)) d.cards.push(newCard('bot', uid, ns, n, t, d));
-    if (d.access === 'external') d.allJoinedMs = Date.now();
+    if (d.access === 'external' && !lateJoin) d.allJoinedMs = Date.now();
     { const nm = [u.name, b.myName, u.email].filter(Boolean).map((x) => String(x).toLowerCase()); const w = (d.invites || []).filter((x) => x.status === 'waiting' && x.side === ns);
       const hit = w.find((x) => nm.includes(String(x.label).toLowerCase())) || w[0]; if (hit) { hit.status = 'joined'; hit.joinedMs = Date.now(); } }
-    for (const x of d.cards) x.ready = false;   // new participant: everyone re-confirms
-    Q.put.run(JSON.stringify(d), Date.now(), row.id); console.log(`[prerooms] ${row.id} user ${uid} joined side ${ns}`);
-    return json(r, 200, view(row, d, uid, ns)), true;
+    if (!lateJoin) for (const x of d.cards) x.ready = false;   // new participant: everyone re-confirms (not once live: the room is already running)
+    if (lateJoin && d.live) { d.live.guests = d.live.guests || []; if (!d.live.guests.some((x) => x.uid === uid)) d.live.guests.push({ uid, name: txt(b.myName || u.name, 40) || 'Member', kind: 'human', side: ns, pass: 'brg_' + crypto.randomBytes(18).toString('base64url'), late: true }); }
+    Q.put.run(JSON.stringify(d), Date.now(), row.id); console.log(`[prerooms] ${row.id} user ${uid} joined side ${ns}${lateJoin ? ' (late, room live)' : ''}`);
+    return json(r, 200, { ...view(row, d, uid, ns), lateJoin }), true;
   }
   if (!side) return json(r, 404, { error: 'not found' }), true;   // non-members learn nothing (not even that it exists)
   if (!m[2] && q.method === 'GET') { if (d.status === 'setup') { let ch = fixBotInvites(d, uid, side, t); for (const c of d.cards) if (c.owner === uid && !c.edited) { const s = JSON.stringify(c); applyDef(c, d.type); if (JSON.stringify(c) !== s) ch = 1; } if (ch) Q.put.run(JSON.stringify(d), Date.now(), row.id); } return json(r, 200, view(row, d, uid, side)), true; }

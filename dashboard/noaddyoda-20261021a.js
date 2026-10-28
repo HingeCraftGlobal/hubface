@@ -5,5 +5,5 @@
   var st = document.createElement('style'); st.id = 'noaddyoda'; st.textContent = '#rx_addyoda{display:none!important}';
   (document.head || document.documentElement).appendChild(st);
   function zap() { var b = document.getElementById('rx_addyoda'); if (b && b.parentNode) b.parentNode.removeChild(b); }
-  setInterval(zap, 500); document.addEventListener('DOMContentLoaded', zap);
+  /* nochurn2-20261027: no longer deleted from the DOM every 500 ms (room-extras re-created it each 700 ms: endless add/remove churn in the room bar). The CSS above keeps it hidden. */
 })();

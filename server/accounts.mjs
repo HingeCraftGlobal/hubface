@@ -18,7 +18,8 @@ const DB_PATH = process.env.HUBFACE_DB || '/var/lib/hubface/accounts.db';
 const ORIGIN = process.env.HUBFACE_ORIGIN || 'https://hubface.org';
 const COOKIE = 'hf_session';
 const SESSION_DAYS = 30;
-export const PLAN_TOKENS = { free: 20, starter: 20, builder: 91, executive: 560 };
+export const FREE_ROOM_MIN = 50;   // invitefree1-20261027 (Dan): one-time free Bot Room minutes at signup
+export const PLAN_TOKENS = { free: 50, starter: 20, builder: 91, executive: 560 };
 const PLAN_BY_CENTS = { 500: 'starter', 2000: 'builder', 10000: 'executive' };
 const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/;
 
@@ -148,7 +149,7 @@ const Q = {
   ovList: db.prepare('SELECT block_no, block_min, room_id, usage_id, created_at, amount_cents, currency, status FROM room_overage WHERE user_id = ? AND period_start = ? ORDER BY block_no'),
 };
 const createUser = db.transaction((email, username, realName, hash, dob) => {
-  const t = now(); const info = Q.insUser.run(email, username, realName, hash, dob, t, t); Q.insPlan.run(info.lastInsertRowid, PLAN_TOKENS.free, t); return info.lastInsertRowid;
+  const t = now(); const info = Q.insUser.run(email, username, realName, hash, dob, t, t); Q.insPlan.run(info.lastInsertRowid, PLAN_TOKENS.free, t); Q.rtUpsert.run(info.lastInsertRowid, 'Free', FREE_ROOM_MIN, t, '2099-12-31T00:00:00.000Z', 'stripe', 'free-signup-20261027', t); return info.lastInsertRowid;   // invitefree1-20261027: one-time 50 free room minutes for new free signups
 });
 setInterval(() => { try { Q.purge.run(now()); Q.purgeRoom.run(now()); Q.purgePass.run(now()); } catch {} }, 3600e3).unref();
 
@@ -208,7 +209,8 @@ export const safeName = (u) => cleanUsername(u).replace(/[^A-Za-z0-9 _.-]/g, '')
 export function sessionUsername(q) { try { const id = currentUser(q); const u = id ? Q.userById.get(id) : null; return u && u.username ? safeName(u.username) : null; } catch { return null; } }
 function publicAccount(userId) {
   const u = Q.userById.get(userId); if (!u) return null; const p = Q.plan.get(userId) || {};
-  return { id: u.id, email: u.email, username: u.username || null, real_name: u.real_name || null, plan: p.plan || 'free', tokens: p.tokens ?? 0, status: p.status || 'active', created_at: u.created_at };
+  let bot = null; try { const bb = BQS.get.get(userId); if (bb) bot = { sponsor: bb.sponsor_name || null, label: 'bot, sponsored by ' + (bb.sponsor_name || 'owner') }; } catch {}   // botsignup1
+  return { id: u.id, email: u.email, username: u.username || null, real_name: u.real_name || null, plan: p.plan || 'free', tokens: p.tokens ?? 0, status: p.status || 'active', created_at: u.created_at, bot };
 }
 function currentUser(q) {
   const tok = cookies(q)[COOKIE]; if (!tok || !/^[A-Za-z0-9_-]{30,80}$/.test(tok)) return null;
@@ -231,6 +233,55 @@ function hit(key, limit, windowMs) {
 function count(key, windowMs) { const t = Date.now(); return (buckets.get(key) || []).filter((x) => t - x < windowMs).length; }
 setInterval(() => { const t = Date.now(); for (const [k, a] of buckets) if (!a.some((x) => t - x < 3600e3)) buckets.delete(k); }, 600e3).unref();
 const LOGIN_IP = { n: 20, ms: 15 * 60e3 }, LOGIN_EMAIL_FAIL = { n: 5, ms: 15 * 60e3 }, SIGNUP_IP = { n: 10, ms: 60 * 60e3 };
+
+
+/* ---------------- botsignup1-20261027 (Dan, call 4104bc3d): "I am a bot" signup. Sponsor (signed-in owner or one-use sponsor code)
+   satisfies age + Terms; sponsor dob copied server-side, never returned or logged. Roll back: /root/notes/bot-signup-rollback.md */
+db.exec(`CREATE TABLE IF NOT EXISTS bot_accounts (user_id INTEGER PRIMARY KEY, sponsor_id INTEGER NOT NULL, terms_by_sponsor_at TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS bot_codes (code_hash TEXT PRIMARY KEY, sponsor_id INTEGER NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, used_by INTEGER, used_at TEXT);`);
+const BOT_MAX_PER_SPONSOR = 5, BOT_CODE_MIN = 30;
+const BQS = { get: db.prepare('SELECT b.*, u.username sponsor_name FROM bot_accounts b LEFT JOIN users u ON u.id = b.sponsor_id WHERE b.user_id = ?'),
+  n: db.prepare('SELECT COUNT(*) n FROM bot_accounts WHERE sponsor_id = ?'), ins: db.prepare('INSERT INTO bot_accounts (user_id, sponsor_id, terms_by_sponsor_at, created_at) VALUES (?,?,?,?)'),
+  code: db.prepare('SELECT * FROM bot_codes WHERE code_hash = ?'), insCode: db.prepare('INSERT INTO bot_codes (code_hash, sponsor_id, created_at, expires_at) VALUES (?,?,?,?)'),
+  useCode: db.prepare('UPDATE bot_codes SET used_by = ?, used_at = ? WHERE code_hash = ? AND used_by IS NULL') };
+export function isBot(uid) { try { return !!BQS.get.get(uid); } catch { return false; } }
+async function botCode(q, r) {
+  const id = currentUser(q); if (!id) return json(r, 401, { error: 'Sign in as the owner first.' });
+  if (isBot(id)) return json(r, 403, { error: 'Bot accounts cannot create bot signup codes.' });
+  if (!hit('bc:' + id, 10, 3600e3)) return json(r, 429, { error: 'Too many codes this hour.' });
+  if (BQS.n.get(id).n >= BOT_MAX_PER_SPONSOR) return json(r, 403, { error: `You already sponsor ${BOT_MAX_PER_SPONSOR} bots (the limit).` });
+  const code = 'BOT-' + crypto.randomBytes(9).toString('base64url'); const t = Date.now();
+  BQS.insCode.run(sha(code), id, new Date(t).toISOString(), new Date(t + BOT_CODE_MIN * 60e3).toISOString());
+  console.log(`[accounts] bot code created by sponsor ${id}`);
+  return json(r, 201, { ok: true, code, expiresInMin: BOT_CODE_MIN });
+}
+async function botSignup(q, r) {
+  if (!hit('su:' + clientIp(q), SIGNUP_IP.n, SIGNUP_IP.ms)) return json(r, 429, { error: 'Too many sign-ups from this network. Try again later.' });
+  const b = await body(q); if (!b) return json(r, 400, { error: 'Bad request.' });
+  const email = String(b.email || '').trim().toLowerCase(), pw = String(b.password || ''), username = cleanUsername(b.username), code = String(b.code || '').trim();
+  const errors = {}; const up = usernameProblem(username); if (up) errors.username = up;
+  if (!EMAIL_RE.test(email) || email.length > 254) errors.email = 'Enter a valid email address.';
+  if (pw.length < 12) errors.password = 'Password must be at least 12 characters.'; else if (pw.length > 256) errors.password = 'Password is too long (256 characters max).';
+  let sponsorId = null, codeRow = null; const sess = currentUser(q);
+  if (code) { codeRow = /^BOT-[A-Za-z0-9_-]{8,40}$/.test(code) ? BQS.code.get(sha(code)) : null;
+    if (!codeRow || codeRow.used_by || codeRow.expires_at < now()) errors.code = 'That sponsor code is invalid, used, or expired. Ask your owner for a new one.'; else sponsorId = codeRow.sponsor_id; }
+  else if (sess) sponsorId = sess; else errors.code = 'Enter the sponsor code from your owner.';
+  if (Object.keys(errors).length) return json(r, 400, { error: Object.values(errors)[0], errors });
+  const sp = Q.userById.get(sponsorId); if (!sp) return json(r, 400, { error: 'Sponsor account not found.', errors: { code: 'Sponsor account not found.' } });
+  if (isBot(sponsorId)) return json(r, 403, { error: 'Bots cannot sponsor other bots.', errors: { code: 'Bots cannot sponsor other bots.' } });
+  const sa = ageFrom(sp.dob); if (sa === null || sa < 18 || sa > 120) return json(r, 400, { error: 'Your sponsor has no valid date of birth on file, so a bot account cannot be created yet.', errors: { code: 'Sponsor has no valid date of birth on file.' } });
+  if (BQS.n.get(sponsorId).n >= BOT_MAX_PER_SPONSOR) return json(r, 403, { error: 'Your sponsor has reached the bot limit.', errors: { code: 'Your sponsor has reached the bot limit.' } });
+  if (Q.userByUsername.get(username)) return json(r, 409, { error: 'That username is taken. Please pick another.', errors: { username: 'That username is taken. Please pick another.' } });
+  if (Q.userByEmail.get(email)) return json(r, 409, { error: 'An account with this email already exists. Sign in instead.', errors: { email: 'An account with this email already exists.' } });
+  const hash = await hashPassword(pw); let id;
+  try { id = db.transaction(() => { if (codeRow && BQS.useCode.run(-1, now(), codeRow.code_hash).changes !== 1) throw new Error('code race');
+      const nid = createUser(email, username, null, hash, sp.dob); BQS.ins.run(nid, sponsorId, now(), now());
+      if (codeRow) db.prepare('UPDATE bot_codes SET used_by = ? WHERE code_hash = ?').run(nid, codeRow.code_hash); return nid; })(); }
+  catch (e) { if (String(e.message).includes('code race')) return json(r, 400, { error: 'That sponsor code was just used.', errors: { code: 'That sponsor code was just used.' } });
+    if (String(e.message).includes('UNIQUE')) return json(r, 409, { error: 'That username or email is already taken.' }); throw e; }
+  console.log(`[accounts] bot signup user ${id} sponsor ${sponsorId}`);
+  return json(r, 201, { ok: true, account: publicAccount(id) }, code ? { 'Set-Cookie': startSession(q, id) } : {});
+}
 
 /* ---------------- handlers ---------------- */
 async function body(q) { const b = await readBody(q); try { return JSON.parse(b.toString('utf8') || '{}'); } catch { return null; } }
@@ -496,6 +547,7 @@ export async function internalRoute(q, r) {
   if (p === '/internal/room/buy') {   // v6: Stripe TEST Checkout for room tokens; only with a test key in the service env, never live
     if (!okTok(b.token)) return json(r, 401, { error: 'invalid' });
     const s = Q.roomSes.get(sha(b.token)); if (!s || s.expires_at < now()) return json(r, 401, { error: 'invalid' });
+    if (isBot(s.user_id)) return json(r, 403, { error: 'Bot accounts cannot buy tokens.' });   // botsignup1
     const qty = Math.round(Number(b.qty)); if (![1, 4, 8, 28].includes(qty)) return json(r, 400, { error: 'bad quantity' });
     const key = String(process.env.STRIPE_SECRET_KEY || '').trim();
     if (!/^(sk|rk)_test_/.test(key)) return json(r, 503, { error: 'Token checkout is not set up yet (no Stripe test key on the server).' });
@@ -671,10 +723,11 @@ export async function accountsRoute(q, r, p) {
       json(r, 200, { ok: true, duplicate: dup, account: a }); return true; }
     if (ep === 'botmeter/yoda-reply' || ep === 'botmeter/owner-message' || ep === 'botmeter/owner-messages' || ep === 'botmeter/owner-stream' || ep === 'botmeter/stt' || ep === 'botmeter/stt-token' || ep === 'botmeter/speak' || ep === 'botmeter/latency' || ep === 'botmeter/buy-intent' || ep === 'botmeter/buy-test-order') { await brChatRoute(q, r, ep.slice(9)); return true; }   // brchat-20261026
     if (ep.startsWith('botmeter/')) { await botmeterRoute(q, r, ep.slice(9)); return true; }   // botmeter-20261025a
-    if (!['signup', 'login', 'logout'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
+    if (!['signup', 'login', 'logout', 'bot-signup', 'bot-code'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
     if (q.method !== 'POST') { json(r, 405, { error: 'method not allowed' }); return true; }
     if (!sameOrigin(q)) { json(r, 403, { error: 'Cross-site request blocked.' }); return true; }
     if (!/^application\/json\b/i.test(String(q.headers['content-type'] || ''))) { json(r, 415, { error: 'JSON required.' }); return true; }
+    if (ep === 'bot-signup') await botSignup(q, r); else if (ep === 'bot-code') await botCode(q, r); else   // botsignup1
     if (ep === 'signup') await signup(q, r); else if (ep === 'login') await login(q, r); else logout(q, r);
   } catch (e) {
     console.warn('[accounts] error', String(e?.message || e).slice(0, 120));
@@ -890,6 +943,7 @@ async function brChatRoute(q, r, ep) {
     console.log(`[brchat] yoda reply room ${room} len ${text.length} routine ${lr.lat_ms == null ? '?' : lr.lat_ms + 'ms'}`); return json(r, 200, { ok: true, id });
   }
   const uid = currentUser(q); if (!uid) return json(r, 401, { error: 'Sign in to HubFace first.' });
+  if ((ep === 'buy-test-order' || ep === 'buy-intent') && isBot(uid)) return json(r, 403, { error: 'Bot accounts cannot buy tokens.' });   // botsignup1
   if (ep === 'buy-test-order') {   // mockstripe-20261026: MOCK checkout (test mode). Test record only: no Stripe call, no charge, no token credit, no balance/plan change. Only the test card last4 4242 is accepted; no card data is stored.
     if (q.method !== 'POST' || !sameOrigin(q)) return json(r, 403, { error: 'forbidden' });
     const t = Date.now(), rl = (brcRate.get('buyt:' + uid) || []).filter((x) => t - x < 60e3); if (rl.length >= 20) return json(r, 429, { error: 'slow down' }); rl.push(t); brcRate.set('buyt:' + uid, rl);

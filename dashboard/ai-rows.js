@@ -31,7 +31,14 @@
     if (!ok) list.forEach(function (r) { dd.insertBefore(r, add || null); });   // fixed order, right above + Add assistant
   }
   /* keep the widened dropdown on screen */
-  function clamp() { var d = document.getElementById('aiDd'); if (!d) return; d.style.translate = ''; if (!d.classList.contains('open')) return; var b = d.getBoundingClientRect(), dx = 0;
+  /* aipicker1-20261027 (Dan): open the picker right beside the AI Assistant row (left = row's right edge, top = row's top, flowing down),
+     moved up if it would run off the bottom of the window. Rollback: ai-rows.js.bak-aipicker1 */
+  function place(d) { try { var a = document.getElementById('witAi'), u = document.getElementById('ui'); if (!a || !u || !a.offsetHeight || d.parentNode !== u) return;
+    var ur = u.getBoundingClientRect(), k = (ur.width / u.clientWidth) || 1, ar = a.getBoundingClientRect();
+    var L = Math.round((ar.right - ur.left) / k), T = Math.round((ar.top - ur.top) / k);
+    var h = d.offsetHeight * k; if (ar.top + h > innerHeight - 8) T = Math.round(Math.max(8 - ur.top, innerHeight - 8 - h - ur.top) / k);
+    if (d.style.left !== L + 'px') d.style.setProperty('left', L + 'px', 'important'); if (d.style.top !== T + 'px') d.style.setProperty('top', T + 'px', 'important'); } catch (e) {} }
+  function clamp() { var d = document.getElementById('aiDd'); if (!d) return; d.style.translate = ''; if (!d.classList.contains('open')) return; place(d); var b = d.getBoundingClientRect(), dx = 0;
     if (b.right > innerWidth - 8) dx = innerWidth - 8 - b.right; if (b.left + dx < 8) dx = 8 - b.left; if (dx) { var k = d.offsetWidth ? b.width / d.offsetWidth : 1; d.style.translate = (dx / k) + 'px 0'; } }
   setInterval(function () { rows(); clamp(); }, 250); rows(); addEventListener('resize', clamp);
   window.__hfAiRows = { build: 'airows-20261021d', ids: IDS.map(function (b) { return b[0]; }) };

@@ -16,7 +16,7 @@
   ['pointerdown','mousedown','pointerup','mouseup'].forEach(function(t){document.addEventListener(t,function(e){if(hitX(e)){e.stopPropagation();e.preventDefault();}},true);});
   document.addEventListener('click',function(e){var x=hitX(e);if(!x)return;e.stopPropagation();e.stopImmediatePropagation();e.preventDefault();closeItem(x.parentNode);},true);
   function run(){if(room()){[].forEach.call(document.querySelectorAll('.wfdx'),function(x){x.remove();});return;}
-    [].forEach.call(document.querySelectorAll('#ui > aside.panel:not(.props) > .witem'),function(it){if(it.classList.contains('ai')||it.classList.contains('callitem'))return;
+    [].forEach.call(document.querySelectorAll('#ui > aside.panel:not(.props) > .witem'),function(it){if(it.classList.contains('ai'))return;/* callsx2-20261027: Calls gets the X too */
       if(it.querySelector(':scope > .wfdx'))return;var s=it.querySelector('span'),n=s?s.textContent.trim():'widget';
       var x=document.createElement('span');x.className='wfdx';x.setAttribute('role','button');x.title='Close '+n;x.setAttribute('aria-label',x.title);x.textContent='\u2715';it.appendChild(x);});}
   function css(){if(document.getElementById('wfd-css'))return;var s=document.createElement('style');s.id='wfd-css';

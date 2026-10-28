@@ -28,7 +28,7 @@
     var o=d.others.slice();o.splice(d.ix,0,d.el);var vis=o.map(nameOf),W=window.__wOrder;if(!W)return;
     var all=[].filter.call(d.P.children,function(x){return x.matches&&x.matches(ROW);}).map(nameOf);
     var full=W.apply('dash',all),on={};vis.forEach(function(k){on[k]=1;});var i=0;full=full.map(function(k){return on[k]?vis[i++]:k;});
-    W.set('dash',full);setTimeout(function(){try{var L=window.__layoutSave;if(L&&L.saveNow&&W.mode&&W.mode()==='account'&&(!L.isDirty||L.isDirty()))L.saveNow(true);}catch(_){}},1500);/* autosave like dragsave-20261025 */try{window.dispatchEvent(new CustomEvent('hf:widget-order',{detail:{order:full}}));}catch(_){}}
+    W.set('dash',full);/* noautosave1-20261027 (Dan): autosave after a row drop removed; order saves only with the Save button. Rollback: .bak-noautosave1 *//* autosave like dragsave-20261025 */try{window.dispatchEvent(new CustomEvent('hf:widget-order',{detail:{order:full}}));}catch(_){}}
   window.addEventListener('pointerdown',function(e){if(D||room()||(e.pointerType==='mouse'&&e.button!==0))return;
     var el=e.target&&e.target.closest&&e.target.closest(ROW);if(!el)return;
     if(e.target.closest('button,input,select,textarea,.boxclose,.wx,[data-nodrag]')&&e.target!==el)return;

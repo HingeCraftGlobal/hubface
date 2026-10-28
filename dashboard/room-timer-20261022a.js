@@ -1,3 +1,4 @@
+/* invitefree1-20261027: rooms with server bot seats (Yoda-created/invited rooms): no timer box, no Start session, no token spend. Rollback: .bak-invitefree1 */
 /* botav-20261026a (Dan approved 10:44 PM ET Oct 26): rooms with server bot seats: no timer lock on mic/cam, timer box hidden. Rollback: room-timer-20261022a.js.bak-pre-botav */
 /* roomtimer-20261021c (Dan approved by voice 10:34pm ET Oct 20): room start flow.
    - On room open a small timer appears dead center, live elapsed clock from open; draggable (mouse+touch), kept on screen.
@@ -107,6 +108,7 @@
 
   setInterval(function () {
     wrapAV();
+    if (inRoom() && __hfBotRm()) { if (S) reset(); return; }
     if (inRoom()) { if (!S) { S = { open: Date.now(), tokens: 0 }; build(); if ((typeof App !== "undefined" && App) && App.state && (App.state.mic || App.state.cam)) killLive(); S.iv = setInterval(paint, 500); } }
     else if (S) reset();
   }, 300);

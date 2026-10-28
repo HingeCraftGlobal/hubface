@@ -22,7 +22,7 @@
     if(t.closest('.wfeadd,.bnew,.wcback,input,textarea'))return null;return t.closest('.build');}
   ['pointerdown','mousedown','touchstart','pointerup','mouseup','touchend','click','dblclick'].forEach(function(ty){window.addEventListener(ty,function(e){if(btn(e))return;var r=rowHit(e);if(r&&!r.classList.contains('dwdiv'))eat(e);},{capture:true,passive:false});});
   function act(b){var t=b.parentNode,n=t&&t.querySelector(':scope > b, :scope > .wfnm'),R=window.__dashRow;if(!n||!R||!t.classList.contains('dwother'))return;
-    var nm=n.textContent.trim();if(t.classList.contains('wfrow')){setHidden(nm,false);return;}
+    var nm=n.textContent.trim();if(t.classList.contains('wfrow')){setHidden(nm,false);/* callsx2: re-adding Calls also opens its box (openspot1 puts it at the fixed spot) */if(nm==='Calls'){try{var cc=document.querySelector('#ui > section.call');if(cc)cc.classList.remove('closed');}catch(er){}}return;}
     try{R.toRow(nm);if(R.save)R.save();}catch(err){}setAdded(nm,true);}
   var K='hf-wff-bar-v1';
   function st(){try{var o=JSON.parse(localStorage.getItem(K)||'{}');return {hidden:o.hidden||[],added:o.added||[]};}catch(e){return {hidden:[],added:[]};}}
@@ -56,13 +56,14 @@
       if(wx)wx.click();setAdded(n,false);try{if(A){A.toOther(n);if(A.save)A.save();}}catch(er){}return;}
     closeBuiltin(it,n);setHidden(n,true);},true);
   function closeBuiltin(it,n){var nn=low(n).replace(/[^a-z0-9]+/g,'-');if(nn==='widget-picker')nn='other';
+    /* callsx2-20261027: Calls box is section.call, closed by its own .callx */if(nn==='calls'){var cx=document.querySelector('#ui > section.call:not(.closed) .callx');if(cx)cx.click();return;}
     var q=[].filter.call(document.querySelectorAll('#ui > section.box[data-float]'),function(s){var h=s.querySelector(':scope > header > b');return s.getAttribute('data-float')===nn||(h&&low(h.textContent).replace(/[^a-z0-9]+/g,'-')===nn);})[0];
     if(q&&!q.classList.contains('closed')){var c=q.querySelector(':scope > .boxclose');if(c)c.click();return;}
     var w=[].filter.call(document.querySelectorAll('#ui > .wbx.open'),function(w){var a=low(w.getAttribute('aria-label')).replace(/[^a-z0-9]+/g,'-');return a===nn||(nn==='youtube'&&w.dataset.w==='ent')||(nn==='photos-videos'&&w.dataset.w==='media');})[0];
     if(w){var c2=w.querySelector(':scope > .whead > .wx');if(c2)c2.click();}}
   function bar(){if(room())return;var p=document.querySelector('#ui > aside.panel:not(.props)'),l=document.querySelector(PK);if(!p)return;var o=st();var rowN=[];try{rowN=window.__dashRow.state().row||[];}catch(e){}rowN.forEach(function(n){if(o.added.indexOf(n)<0)o.added.push(n);});
     var items=[].slice.call(p.querySelectorAll(':scope > .witem'));
-    items.forEach(function(it){if(it.classList.contains('wfadd'))return;var n=itemName(it);if(!n||n==='Widget Picker'||it.classList.contains('ai')||it.classList.contains('callitem'))return;
+    items.forEach(function(it){if(it.classList.contains('wfadd'))return;var n=itemName(it);if(!n||n==='Widget Picker'||it.classList.contains('ai'))return;/* callsx2: Calls row now hides/re-lists like the others */
       var h=o.hidden.indexOf(n)>=0;if(h!==it.classList.contains('wfhid'))it.classList.toggle('wfhid',h);});
     /* added picker widgets as left-list items, before the Widget Picker item */
     var wp=items.filter(function(it){return itemName(it)==='Widget Picker';})[0];
@@ -80,8 +81,12 @@
     var wpNat=wp&&parseFloat(wp.dataset.wfNat);
     all.forEach(function(it,i){if(it.classList.contains('wfadd'))it.dataset.wfNat=(isNaN(wpNat)?9999:wpNat)-0.5+o.added.indexOf(it.dataset.wff)*0.001;});
     var vis=all.filter(function(it){return !it.classList.contains('wfhid');}).sort(function(a,b){return (parseFloat(a.dataset.wfNat)||0)-(parseFloat(b.dataset.wfNat)||0);});
+    /* shakefix2-20261027: honor the saved drag order (window.__wOrder 'dash', set by widgetdnd) that builderwidgets flow() used to apply */
+    try{var WO=window.__wOrder;if(WO&&WO.get&&WO.get().dash&&WO.get().dash.length){var nmz=function(c){var sp=c.querySelector('span');return sp?sp.textContent.trim().replace(/\d+$/,'').trim():'';};var ord=WO.apply('dash',vis.map(nmz)),rk={};ord.forEach(function(n,i){if(rk[n]===undefined)rk[n]=i;});var pos=new Map();vis.forEach(function(c,i){pos.set(c,i);});vis.sort(function(a,b){var ra=rk[nmz(a)],rb=rk[nmz(b)];if(ra===undefined)ra=1e6;if(rb===undefined)rb=1e6;return ra-rb||pos.get(a)-pos.get(b);});}}catch(e){}
     if(wp&&vis.indexOf(wp)>=0){vis.splice(vis.indexOf(wp),1);vis.push(wp);}
     var nats=all.map(function(it){return parseFloat(it.dataset.wfNat);}).filter(function(v){return v>0&&!isNaN(v);});var y0=nats.length?Math.min.apply(null,nats):62,step=25;
+    /* hubrowfix1-20261027 (Dan): first row sits directly under the "Dashboard widgets" header (.bwhd), not above it (Hub Rooms' static top:38px used to set y0). Rollback: .bak-hubrowfix1 */
+    try{var bh=p.querySelector(':scope > .bwhd');if(bh&&bh.offsetHeight){var hb=bh.offsetTop+bh.offsetHeight+3;if(y0<hb)y0=hb;}}catch(e){}
     vis.forEach(function(it,i){var v=(y0+i*step)+'px';if(it.dataset.wfSet!==v)it.dataset.wfSet=v;if(it.style.top!==v)it.style.setProperty('top',v,'important');});
     /* fit: grow to content but never past the screen bottom; scroll inside */
     var need=y0+vis.length*step+16,r=p.getBoundingClientRect(),k=(p.offsetHeight&&r.height/p.offsetHeight)||1,maxh=Math.max(120,(innerHeight-r.top-10)/k);

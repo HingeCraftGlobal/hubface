@@ -148,7 +148,7 @@
     quiet(4500); imp(g || { cur: L.current(), custom: [], over: {} }); lastCur = savedCur = L.current(); lastContent = content(); needUpload = false; commit(['hinge-layouts']); applyCur(); try { if (window.__wOrder) window.__wOrder.loadGuest(); } catch (e) {} pbase = pk(); paint('');
   }
   var syncP = null;
-  function sync() { if (syncP) return syncP; syncP = sync1().finally(function () { syncP = null; }); return syncP; }
+  function sync() { if (syncP) return syncP; syncP = sync1().finally(function () { syncP = null; try { if (window.__hfReveal) window.__hfReveal('sync'); } catch (e) {} }); return syncP; }   /* flashfix1: reveal widgets once the server layout is applied */
   function sync1() {
     return fetch('/api/account/me', { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
       if (j && j.authenticated && j.account) { if (mode === 'account' && acct && acct.id === j.account.id) return; return enterAccount(j.account); }

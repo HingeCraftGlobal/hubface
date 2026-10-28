@@ -57,7 +57,7 @@
     D.getElementById('prLiveMin').onclick=function(){var mn=f.style.display==='none';f.style.display=mn?'':'none';p.style.height=mn?'':'auto';p.style.bottom=mn?'':'auto';};tick();}
   function overlay(q){if(D.getElementById('prWrap'))return;var w=D.createElement('div');w.id='prWrap';
     w.innerHTML='<div id="prBar"><span>🤖 Bot room · Pre-room</span><span id="prClock"></span><span id="prChip" style="display:none;font:600 12px ui-monospace,monospace;color:#7dd3fc;border:1px solid #38bdf8;border-radius:999px;padding:2px 8px;margin-left:8px">Room <b id="prChipId"></b> <button id="prCpId" style="font-size:11px;padding:1px 6px">Copy</button> <button id="prCpLink" style="font-size:11px;padding:1px 6px">Copy invite link</button></span><span class="sp"></span><button id="prSm" title="Smaller">−</button><button id="prBg" title="Bigger">+</button><button id="prHide" title="Hide cards (room stays open)">Hide</button></div>';
-    var f=D.createElement('iframe');f.id='prFrame';f.allow='camera; microphone; autoplay';f.setAttribute('allowtransparency','true');f.src='/botroom/prerooms-overlay-20261026a.html?embed=1&v=pv1'+(q||'');w.appendChild(f);host().appendChild(w);applySize();
+    var f=D.createElement('iframe');f.id='prFrame';f.allow='camera; microphone; autoplay';f.setAttribute('allowtransparency','true');f.src='/botroom/prerooms-overlay-20261026a.html?embed=1&v=preroombatch2'+(q||'');w.appendChild(f);host().appendChild(w);applySize();
     D.getElementById('prSm').onclick=function(){if(size>0){size--;applySize();}};D.getElementById('prBg').onclick=function(){if(size<SIZES.length-1){size++;applySize();}};
     D.getElementById('prHide').onclick=function(){setHidden(f.style.display!=='none');};
     if(!clockT)clockT=setInterval(function(){tick();applySize();},1000);}
@@ -70,7 +70,7 @@
   function hookExit(){var R=RB();if(!R||!R.App||R.App.__prHooked)return;var A=R.App,old=A.exit;A.exit=function(){if(hasPR()){hardClose();cleanup();}return old.apply(this,arguments);};R.exit=A.exit;A.__prHooked=true;}
   function openPR(q){var R=RB();hookExit();
     if(R&&R.App){try{if(!R.App.inRoom){R.begin({title:'Bot room',desc:'Per-minute bot room',src:'Bot rooms'});R.enter();}}catch(e){console.warn('[prerooms] enter',e);}
-      D.documentElement.classList.add('br-botroom');window.__prActive=true;try{if(!R.App.state.cam&&R.App.setAV)R.App.setAV('cam',true);}catch(e){}}
+      D.documentElement.classList.add('br-botroom');window.__prActive=true;/* camoptin-20261027: no auto camera on guest/pre-room entry; user turns it on */}
     hubBox(true);overlay(q);wantInv=false;loadLayout('',true);}
   function setHidden(h){var w=D.getElementById('prWrap'),f=D.getElementById('prFrame'),b=D.getElementById('prHide');if(!w||!f)return;f.style.display=h?'none':'';w.__hid=h;w.style.height=h?'auto':'';if(b)b.textContent=h?'Show cards':'Hide';applySize();}
   var layoutRoom=null,wantInv=false;
@@ -94,6 +94,12 @@
   function recInv(labels){var v=st.cur;if(!window.__prActive||!v||!v.id||v.status!=='setup'||!labels.length)return;fetch('/api/prerooms/'+v.id+'/invites',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({labels:labels})}).catch(function(){});}
   (function(){var of=window.fetch;if(!of||of.__prWrapped)return;var nf=function(u,o){var p=of.apply(this,arguments);try{if(window.__prActive&&String(u).indexOf('/api/invite/email')>=0&&o&&o.body){var to=(JSON.parse(o.body).to)||[];p.then(function(r){if(!r.ok)return;r.clone().json().then(function(j){var ok=Array.isArray(j&&j.results)?j.results.filter(function(x){return x&&x.ok;}).map(function(x){return String(x.email);}):to.map(String);recInv(ok);}).catch(function(){recInv(to.map(String));});}).catch(function(){});}}catch(x){}return p;};nf.__prWrapped=1;window.fetch=nf;})();
   D.addEventListener('click',function(e){var t=e.target&&e.target.closest&&e.target.closest('#rb_invC,#prCpLink');if(t)recInv(['Invite link (copied)']);},true);
+  /* preroombatch1 #7: latecomer (joined a live room by invite link) -> bottom-bar Bot room button glows + "live" badge; pressing it enters the live table */
+  (function(){var c=D.createElement('style');c.textContent='@keyframes prLateGlow{0%,100%{box-shadow:0 0 4px 1px rgba(52,211,153,.5)}50%{box-shadow:0 0 16px 5px rgba(52,211,153,.95)}}#rx_botroom.prLate{position:relative;animation:prLateGlow 1.6s ease-in-out infinite;border-color:#34d399!important}#rx_botroom .prLiveBadge{position:absolute;top:-7px;right:-7px;background:#dc2626;color:#fff;font:700 9px/1 system-ui;padding:2px 5px;border-radius:999px;letter-spacing:.04em;pointer-events:none}';D.head.appendChild(c);
+    function fw(){var f=D.getElementById('prFrame');try{return f&&f.contentWindow&&f.contentWindow.prCards?f.contentWindow:null;}catch(e){return null;}}
+    function isLate(){var w=fw();try{return !!(window.__prActive&&w&&w.prCards.late&&w.prCards.late());}catch(e){return false;}}
+    setInterval(function(){var b=D.getElementById('rx_botroom');if(!b)return;var on=isLate(),g=b.querySelector('.prLiveBadge');b.classList.toggle('prLate',on);if(on&&!g){g=D.createElement('span');g.className='prLiveBadge';g.textContent='LIVE';b.appendChild(g);}else if(!on&&g)g.remove();},500);
+    D.addEventListener('click',function(e){var b=e.target&&e.target.closest&&e.target.closest('#rx_botroom');if(!b||!isLate())return;e.preventDefault();e.stopImmediatePropagation();try{fw().prCards.enterLive();}catch(x){}},true);})();
   window.__prOpen=openPR;
   window.addEventListener('message',function(e){if(e.origin!==location.origin||!e.data)return;if(e.data.brClose){var l=D.getElementById('prLive');if(l){var f=l.querySelector('iframe');if(f)f.style.display='none';l.style.height='auto';l.style.bottom='auto';}}});
   function isBR(b){return b&&b.classList&&b.classList.contains('hrnew')&&/^\s*Bot rooms?\s*$/i.test(b.textContent||'');}

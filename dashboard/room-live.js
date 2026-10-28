@@ -512,7 +512,7 @@
     w2.binaryType = 'arraybuffer'; aai.ws = w2; aai.open = false;
     w2.onmessage = function (ev) { if (aai.ws !== w2) return; var d; try { d = JSON.parse(ev.data); } catch (_) { return; }
       if (d.type === 'Begin') { aai.open = true; aai.opened = Date.now(); aai.fails = []; stt.running = true; stt.audio = true; stt.starts++; stt.lastErr = ''; aaiAudio(); send({ t: 'stt-session', state: 'open' }); paintListen(); report(); return; }
-      if (d.type === 'Turn') { var tx = String(d.transcript || ''); if (tx) stt.soundAt = Date.now(); if (d.end_of_turn && tx.trim()) { aai.turns++; aai.lastTurnAt = Date.now(); sttFinal(tx); } else paintListen(); return; }
+      if (d.type === 'Turn') { var tx = String(d.transcript || ''); if (tx) stt.soundAt = Date.now(); try { window.__hfLivePartial = { t: tx, at: Date.now(), fin: !!d.end_of_turn }; } catch (_) {} /* livetext1: expose live words for the shared bot room box */ if (d.end_of_turn && tx.trim()) { aai.turns++; aai.lastTurnAt = Date.now(); sttFinal(tx); } else paintListen(); return; }
       if (d.error) stt.lastErr = 'aai: ' + String(d.error).slice(0, 80); };
     w2.onclose = function (ev) { if (aai.ws !== w2) return; var was = aai.open; aaiTeardown(); if (was) send({ t: 'stt-session', state: 'close', why: 'closed ' + ev.code }); stt.lastErr = 'aai closed ' + ev.code + (ev.reason ? ' ' + String(ev.reason).slice(0, 60) : ''); if (sttWanted()) aaiFail('closed ' + ev.code); paintListen(); report(); };
     w2.onerror = function () {};

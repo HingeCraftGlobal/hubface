@@ -205,7 +205,8 @@
   /* ---------- 5 Yoda optional ---------- */
   var KY = 'hubface-yoda-picked', lastListen = null, yodaBtn = null;
   function prYoda() { try { var v = window.__prView; return !!(v && v.status !== 'closed' && (v.roster || []).some(function (x) { return x.kind === 'bot' && /^yoda/i.test(x.name || ''); })); } catch (_) { return false; } } /* yodaface-20261026: Yoda bot card joined in the pre-room -> Yoda tile shows by default */
-  function yodaPicked() { var m = LS(KY, {}), k = rid() || '_'; if (k in m && m[k] === false && !prYoda()) return false; return !!m[k] || prYoda(); }
+  function srvYoda() { try { var S = window.__hfServerSeats; return !!(S && S.room && S.room === rid() && (S.bots || []).indexOf('yoda') >= 0); } catch (_) { return false; } } /* yodacard1-20261027: Yoda seated on the server -> card always shows, no Add Yoda click */
+  function yodaPicked() { if (srvYoda()) return true; var m = LS(KY, {}), k = rid() || '_'; if (k in m && m[k] === false && !prYoda()) return false; return !!m[k] || prYoda(); }
   function setYoda(on, quiet) {
     var m = LS(KY, {}); m[rid() || '_'] = !!on; LSs(KY, m); document.documentElement.classList.toggle('rxNoYoda', !on);
     try { var RL = window.__roomLive; if (RL && RL._setListen) RL._setListen(on ? (lastListen || { on: false }) : { on: false }); } catch (_) {}

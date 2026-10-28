@@ -9,7 +9,7 @@ import http from 'node:http'; import crypto from 'node:crypto'; import fs from '
 import { createRequire } from 'node:module';
 const require = createRequire('/opt/hubface/server/package.json');
 const Database = require('better-sqlite3');
-const BUILD = 'yodarooms-20261026a', PORT = 3481, ORIGIN = 'https://hubface.org';
+const BUILD = 'yodarooms-20261026a+sendbot-20261027a', PORT = 3481, ORIGIN = 'https://hubface.org';
 const YODA_UID = Number(process.env.YODA_UID || 45);
 const BOTS = ['yoda', 'ava', 'avadan', 'finn', 'moderator', 'companion-f', 'companion-m'];
 const ALPHA = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
@@ -61,7 +61,7 @@ function setSeats(id, b, by) {
 function inviteText(row, bots) {
   const who = bots.length ? bots.map((b) => b[0].toUpperCase() + b.slice(1)).join(' and ') + ' are already seated.' : '';
   const subject = `Join me in "${row.name}" on HubFace`;
-  const text = `Hi,\n\nYou're invited to the HubFace room "${row.name}". ${who}\nJoin here: ${link(row.id)}\n\nThe session timer is off until someone in the room starts it.\n\n- Yoda (HubFace)`;
+  const text = `Hi,\n\nYou're invited to the HubFace room "${row.name}". ${who}\nJoin here: ${link(row.id)}\nCan't make it? Open this link and tap "Send my bot" - your bot takes your seat, listens, and saves you a recap: ${link(row.id)}&sendbot=1\n\nThe session timer is off until someone in the room starts it.\n\n- Yoda (HubFace)`;
   return { subject, text };
 }
 let tx = null;
