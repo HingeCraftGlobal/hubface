@@ -1,69 +1,69 @@
 {
  "subject": "evacuation OR warning OR wildfire OR outage OR recall",
- "fetched_at": "2026-10-28T04:00:04.340142+00:00",
+ "fetched_at": "2026-10-29T04:00:03.210065+00:00",
  "items": [
   {
-   "title": "Update: Power outage in Okotoks affecting more than 7,000 customers",
-   "source": "OkotoksOnline",
-   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNenFLS2p3dzR2UHNpSHlCYUJuUEdVMHJ6Vnc4dkd2THRKTURneUs3ZE55WHA0Tkt6S1dPZmxUVGxUOFhVMWFvd2l4NTNicmRCbExIZnBndXJGSld4YUtDbnVyaVZJRV9QbW1yTE1vX2FqdWZpR3JDMWEtUXMtcHlhc1BNQTdOdEdCSURNQUt0d3pwNlRSVXpMVw?oc=5",
-   "published": "2026-10-27T20:33:37+00:00",
+   "title": "Deaths associated with wildfire smoke up about 275% in Canada, new report says",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNV0V6d212RV82Ymlyd3VqcDZnWTBJd01YWGFUUnBMSXJaYTJOZFduM2NWaEdlNWdVTFlFNVBjdHowWHFONFIzb1pCLTYxVEwyNlNUY2pVY1l2OUtDaDRQUG9TTnNxSnFBbDVVUDVQTFlrNmpkVU5RbU1kZ2ZjS2tNWm5fOEg2M3FZZHF1OA?oc=5",
+   "published": "2026-10-28T15:04:59+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "New wildfire management model aims to empower First Nations in Northern Ontario",
-   "source": "Sudbury News",
-   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQWTV0cV81czI0alVjZ3FOZDJaS3J1dk9YRER2bzkwN0huUFY3Xy11VVNmYW5EMGdqaEx2QjB3VjVQSFNUSm5QM2syZWMxMVNyRXk2R2JVZS1adnBnWHJPdHBCUXAyZTVIUFlMa1FwWXBibjZUWHdYLUdlR1RSWU4tdldrMnNIM0g1ZUVuODJfcnpTVUstb2kwMFV3c1Z3QkpaRFFfazhrcjJSYjhvVlR6UjFUOFNQcVBQbUdpdHR0UFVXaEtDa2JNag?oc=5",
-   "published": "2026-10-28T00:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Wildfire smoke threatens local air quality gains",
-   "source": "CKPG Today",
-   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOSHdzbmdsQXJFdkl6Tm85SksxQlNQUFkwZk04dTRoaGw3Ungzbm1MYkZMOWxHNHp2U3NkRTFQS3ppSl9CdVFYUVhtNVhxX1pnMzR4c1E4YzlTXzBreVp3TnN0cjl5UDc0Z0loYmc3QnhlbGpUNHJTRUlaTTgtSTR3OW1QY0p6RURE?oc=5",
-   "published": "2026-10-27T21:47:00+00:00",
+   "title": "Crown Land Wildfire Risk Reduction",
+   "source": "Government of British Columbia",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOTmpiMGQzaWhhbElIMTVSRjY2UHBVczVwNV9GRjhFOTFJdVhsN0JySmtHbEk5bDdsMnVROE1ia2FNUjNBUHBJYU9GQTRCVmlPajhzclRRYmdRbGFraVRnQ25TSUVkRTBlYlZfOU1uaUxPWkEyTGJSU0h0c3NBbXdPdFozQmNTYkhzNVQ4TVJkQXVMSldtVHZ1Y01Qa2FhYVpLZFJyLUdPWkN6VVRpN0E?oc=5",
+   "published": "2026-10-26T07:00:00+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "De Havilland wants to sell Canada more wildfire water bombers. Are they really a solution?",
-   "source": "The Narwhal",
-   "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBBR0xTWXFTWG13eXk0MmQ4ekxIbHFTeDhHQU1ZaTdwY0lzdWVLdlVBcDFUTWE5YkRVd2VzS3JmeW92aWpzdFMxTlJtUlllYi1lRVFIMm9RcG91U1ZfUWJnUFdfNF9PNFNkTEF4UU1RYUZHWDA?oc=5",
-   "published": "2026-10-27T12:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Flyers Recall Forward Jacob Gaucher from Lehigh Valley",
-   "source": "NHL.com",
-   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQU3Zsak4yNFVCcGVIQlcwb3ZIUHVkRzZzbTFjVDlJU1U5RHNFU2NfVExFZUFNWWd0bmtWWXZvbktOc0FfekhvNzRrZFJEMDJYX2RyTHdZVUxhUDltaVUwTV9YTy1CMFNzZmlpNWFTZWNsc0xkN045RHJySnNYVHo0MmNMTzhCQkIzUnQ5TXRCVQ?oc=5",
-   "published": "2026-10-27T14:33:35+00:00",
+   "title": "Product recall issued for items sold at Walmart, Winners, HomeSense and Marshalls",
+   "source": "Inside Halton",
+   "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQQlNJbmRtMmg0akR4LURhYXRpb2RtaUZTSmZ5Y2N6Y3JOMnZ6ZFk1T0hTYnBKNkpxUnViVjRHYjg4c1FlNUN5cTJ6T3ZyMVFIcjNyWnE1aVRNUkwwdUJ0a1ZUY1pUMTZQZUpwdUtZNk5OMVpOSFI4S0tRZ1ZDa3d4UEo0dFJQZDNocUpXSjc0eHhncGREXzJINEZZWkdvek13Y0Y5akt5d21rT0FJdklaQ2xvMVU4NHlSTExDNGh0bGU3YWdHYU5qWHFRYkU?oc=5",
+   "published": "2026-10-28T16:09:00+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "Adventures in Wildfire Smoke Stratospheric Ballooning",
-   "source": "NASA Science (.gov)",
-   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOZVlIeGdZNV9xclZaWTd4XzMwci1wVmFTalVzZEg1WjRYaWFZakk3dFYtV3dNZVRDbVhQa05hVVp2QnRkWVlFNzlWdEVHdk10ZVRtUEQ2ampUTjFlQUJYN0pLdXpwZk9OTEZuVHZVWC1wUi1EVzkxcXRtcU5abmd3RXlTXzBNZFh1MjY1UmdocTJEZ2xHTUgySXlXajhYQWcxcjBBWVBvSnZNallNNDliaWJhVWZvSFVl?oc=5",
-   "published": "2026-10-27T20:38:25+00:00",
+   "title": "Deaths from wildfire smoke up 275% over recent years, new report says - National",
+   "source": "Global News",
+   "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQRFVnVkRlOFY2dWZKdTRyUWE0OVVSQmQ3bFFaaEZhT1owRF9LR0pLNC1jMDE1dVVpQ1NoNHJkTkUxNXU3ajk3djZxcDdMOG5PWnZqeFdubXdpejR0QXJVS3pjY1UxMzFrbWIyeENYc0M3QU9FNklqVkFzOXh6bWdpbW9raXRFcVVHRXpN?oc=5",
+   "published": "2026-10-28T19:08:02+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "Federal travel warning hangs over Etihad's first flight linking UAE to Western Canada",
-   "source": "Calgary Herald",
-   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNT2NFakRGaE55U0VJd3ZscFJMa3pfc0ZHTFE5ZWd3dnBZTjItTTZrLXc4SURET1hiZ0lvc1M0M04tTzMyYS1uNEVUTFgxZHhxY2JWSnFHM2FjeThUYnZIc0pPVmRtUFRCVGxYQTh0MHN3bVpGVmhObTRCUU02YS1CZExLX1I0eUx4dGxrX0tOSmVob3BpOXNJY2JmaDc1eDh4dk9fdUhn?oc=5",
-   "published": "2026-10-27T11:06:15+00:00",
-   "tag": "standard",
+   "title": "Update: Power restored to thousands of customers in Chilliwack, Abbotsford",
+   "source": "Fraser Valley Today",
+   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPTlNQcHAya2Y5VTVINkFHMnlVaTdqcENtekt3ZzVQSGxsRGZRQUFub3FZUHlKTzJaOHJkbl8tRDlkUm9yTGZmSGxlNHZscTNTOGlkazJ2NUc1Z3BYb0g2Y2doNDBSNnBBaHYxOHpyVTBScUdwWXFMNDJEYndLZTFXODVObUJIR0h1VnF0ZlNhY0VROExud0pPbDgxRE4xQmRXdWx4NWRhT1VTdFhTRlNTczRuVEU?oc=5",
+   "published": "2026-10-29T02:59:35+00:00",
+   "tag": "positive",
    "video": false
   },
   {
-   "title": "Voters send a ‘warning shot’ as many incumbents lose in fall elections",
-   "source": "CP24",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQX1N0ZGluazZrWE1rakRqdFpwc3JBZzU0NWR3ZERKUnNoaTlnejZwRnU3Y2NDSXNKSURxUFF4WDZrRnNmQmx2aEdsY2p6ai02clZUbHp4Y1MzRktvZ2lxc0dFbzg0cHhrcmROaW5KdjY0UnlWck5GQWRwWml6OVc3UnJGeG0yVXFWSm93MVdPUWtsaDdKejNlZUJRTGVXR1JRYjRmNl9veEJFemNYaVVERUxBdw?oc=5",
-   "published": "2026-10-27T21:29:55+00:00",
-   "tag": "standard",
+   "title": "Sidney power outage leaves 5,000 residents in the dark",
+   "source": "Peninsula News Review",
+   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNazlZMlltTm1YX3Iwd3MxemM5YlYxM3QyNl85UHlmd0xmSXI3N3JUWEhrOHk5R1M4VmdfYkd6cmFaeTlsQUZicEd0NFZsZlQ2X2wyN1hjczVrd0xVQkRmYldXaHdjUV9WZ2dNbDZvbU9FZnFONUdreXlwQ3JPRmljR3RFT1BISTVNN2dqaHRycThybGRnYmc1LWJWVEloQQ?oc=5",
+   "published": "2026-10-28T15:28:20+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Hinton pushes for continued funding of wildfire team",
+   "source": "Penticton Herald",
+   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQYWhGN2tZbWw4eDFpMzBHSXFwdUxOakQyOHEwSUgxZkVESjV4cmlUVEQzT1R4OVptMWlZWFI3SjFEQnZ1d1ZuX1NvSHF5UU9PNWJncGk3VFFGZUtKYlpJT0xlYjllZnFYeHRRWjZ1UUxLZDZBVXJMZWUwUmk1bmRsM0I0TThJV2lIT3czN0RpQ0pPdlNWeUE?oc=5",
+   "published": "2026-10-28T22:27:03+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Wildfire at New Brunswick military base not threat to public: defence officials",
+   "source": "CityNews Halifax",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNbDNhd1N4YjNYVzc3Y3dyZzNyOG00MGp6UTU5YkZFdFYycDQwbjl6SWotOWNOai1BZU5GbWZxMnZkR0JoXzhmN1pPVkdISGdBN1JfdGY5cWRoVVlDd1RSWjIxazVPTHVfZWZhbXJtT3NnQ3ZSVjJRT3gzUEtUSlhGME5HUHR6YjQyR3Z3WG9HcU9NeTgwZ0VhQWtTc3VxZkFuc2J6NUxRWHFJOGhoSEdvODdhR2p6YWtBMEE?oc=5",
+   "published": "2026-10-29T03:28:58+00:00",
+   "tag": "emergency",
    "video": false
   }
  ]

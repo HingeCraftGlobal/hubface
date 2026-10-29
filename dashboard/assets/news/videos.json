@@ -1,144 +1,267 @@
 {
- "fetched_at": "2026-10-28T04:05:01.286170+00:00",
+ "fetched_at": "2026-10-29T04:05:01.178873+00:00",
  "channels": [
   [
-   "NASA",
-   "UCLA_DiR1FfKNvjuUpBHmylQ"
+   "BBC News",
+   "UC16niRr50-MSBwiO3YDb3RA"
+  ],
+  [
+   "Al Jazeera English",
+   "UCNye-wNBqNL5ZzHSJj3l8Bg"
   ]
  ],
  "items": [
   {
-   "title": "Artemis Acceleration (Oct. 23, 2026)",
-   "link": "https://www.youtube.com/watch?v=pAKqJxuxDgk",
-   "published": "2026-10-23T20:16:18+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Tune in as agency leaders provide an update on NASA's plans to return American astronauts to the surface of the Moon by 2028. \n\nParticipants include:\n- NASA Administrator Jared Isaacman\n- NASA Associate Administrator Amit Kshatriya\n- Jeremy Parsons, NASA’s Artemis program manager\n\nAs part of a Golde"
+   "title": "US civil rights leader Dolores Huerta dies aged 96 | BBC News",
+   "link": "https://www.youtube.com/watch?v=nDM2ixVYPbI",
+   "published": "2026-10-29T02:30:20+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "Pioneering US civil rights leader Dolores Huerta, who advocated for poor farm workers, has died at the age of 96, her family has announced.\n \nThe prominent labour organiser campaigned alongside fellow labour leader Cesar Chavez for farm workers' rights in the 1960s and 1970s, founding the transforma"
   },
   {
-   "title": "Live High-Definition Views from the International Space Station (Official NASA Stream)",
-   "link": "https://www.youtube.com/watch?v=ROboUHfPUrU",
-   "published": "2026-10-22T14:29:44+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Live views from the International Space Station are streaming from an external camera mounted on the station's Harmony module. \n\nThe camera is looking forward at an angle so that International Docking Adapter 2 is visible. If the Harmony module camera is not available due to operational consideratio"
+   "title": "The election that could change Trump's presidency | BBC News",
+   "link": "https://www.youtube.com/watch?v=GPqhFpXvbu4",
+   "published": "2026-10-29T01:30:17+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "The US midterm elections are fast approaching with power in Washington very much up for grabs. \n\nBut what exactly is at stake? And how could the results shape the second half of Donald Trump's presidency? \n\n00:00 Intro\n01:02 What are the midterms? \n01:40 Who is running in the midterms?\n02:38 What's "
   },
   {
-   "title": "U.S. Spacewalk Preview News Conference (Oct. 20, 2026)",
-   "link": "https://www.youtube.com/watch?v=UleiRdWFG7o",
-   "published": "2026-10-20T18:30:12+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "We're giving a preview of two upcoming spacewalks on Oct. 29 and Nov. 5 to finish installing solar arrays that will provide more power to the International Space Station. \n\nNASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk will participate in both spacewalks. The spac"
+   "title": "How data centres might decide a Senate race in Ohio | BBC News",
+   "link": "https://www.youtube.com/watch?v=PAAyy7O5qIM",
+   "published": "2026-10-29T00:30:01+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "In Ohio, the topic of data centres has sparked a huge debate in the US midterm elections. \n \nBBC News presenter Sumi Somaskanda has travelled to the state to look at a grassroots movement to prevent a data centre in southern Ohio and visits the state’s silicon heartland near the capital Columbus.\n\nS"
   },
   {
-   "title": "U.S. Spacewalk 100",
-   "link": "https://www.youtube.com/watch?v=hv867HnY4j4",
-   "published": "2026-10-20T16:54:06+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Join us for a spacewalk milestone!\n\nNASA astronaut Anil Menon and CSA (Canadian Space Agency) astronaut Joshua Kutryk are participating in the 100th spacewalk conducted from the International Space Station's Quest airlock without the space shuttle present. This will be the 285th spacewalk conducted "
+   "title": "King Charles shows off dance moves on second day of Caribbean tour. #BBCNews",
+   "link": "https://www.youtube.com/shorts/dObgR9ogUlw",
+   "published": "2026-10-29T00:15:30+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": ""
   },
   {
-   "title": "NASA Moon Base: Rovers and Lunar Terrain Vehicles (October 2026 Update)",
-   "link": "https://www.youtube.com/watch?v=Zezt6EsG9WE",
-   "published": "2026-10-20T15:02:15+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "There's a lot of ground to cover when you're building a Moon Base. \n\nFrom robotic rovers exploring the rugged lunar landscape to lunar terrain vehicles carrying Artemis astronauts across the surface, mobility will play a crucial role in establishing an enduring human presence on the Moon.\n\nDuring th"
+   "title": "Russell Brand tells court allegations had 'devastating' impact on him. #BBCNews",
+   "link": "https://www.youtube.com/shorts/RYeLytm7-fA",
+   "published": "2026-10-28T23:30:25+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": ""
   },
   {
-   "title": "NASA's SpaceX Crew-12 Postflight News Conference (Oct. 15, 2026)",
-   "link": "https://www.youtube.com/watch?v=ivng4U5xeYM",
-   "published": "2026-10-15T20:12:26+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "After spending over seven months in space, members of NASA’s SpaceX Crew-12 will discuss their mission aboard the International Space Station during a news conference at the agency’s Johnson Space Center in Houston.\n\nNASA astronauts Jessica Meir and Jack Hathaway, ESA (European Space Agency) astrona"
+   "title": "What next for the war in Iran after Israeli elections? | BBC News",
+   "link": "https://www.youtube.com/watch?v=7_xCGTvhflg",
+   "published": "2026-10-28T23:00:05+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "Benjamin Netanyahu and Gadi Eisenkot - the two men hoping to be Israel’s next prime minister - have very different views of the war in Iran. With no clear winner at this stage, Israel’s next steps in the conflict are also uncertain.\n \nQatar said it has presented a new potential peace plan to Iran, b"
   },
   {
-   "title": "NASA's SpaceX 35th Commercial Resupply Services Rendezvous and Docking",
-   "link": "https://www.youtube.com/watch?v=-jPQmjMWy9I",
-   "published": "2026-10-15T14:49:15+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Following a successful launch on Oct. 13, 2026, an uncrewed SpaceX Dragon cargo spacecraft will plan to rendezvous with and dock to the International Space Station. The spacecraft, which is carrying over 6,300 pounds of supplies, is scheduled to dock autonomously at about 10:30 a.m. EDT (1430 UTC).\n"
+   "title": "Spain rail disaster: 68 dead after “inexplicable” instruction to train driver | BBC News",
+   "link": "https://www.youtube.com/watch?v=PfkEVP2ZQkw",
+   "published": "2026-10-28T22:54:27+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "At least 68 people are known to have died in Spain’s high-speed rail disaster, with many more injured. \n\nIt took place when a train travelling from Madrid to Seville smashed into another train which had come to a halt due to a computer failure. The force pushed several carriages fall down an embankm"
   },
   {
-   "title": "Planetary Defenders: This Is Not an Exercise",
-   "link": "https://www.youtube.com/watch?v=5b3n-u_0QAI",
-   "published": "2026-10-14T15:05:17+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "When a newly discovered asteroid posed a potential risk to Earth, a global planetary defense system was put to the test like never before. \n\nPlanetary Defenders: This Is Not an Exercise tells the story of how NASA, its international partners, the astronomy community, and scientists around the world "
+   "title": "At the scene of fatal Spain train crash as investigation gets under way. #Spain #BBCNews",
+   "link": "https://www.youtube.com/shorts/aHEpZmGHRKc",
+   "published": "2026-10-28T22:45:34+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": ""
   },
   {
-   "title": "NASA's SpaceX 35th Commercial Resupply Services Launch",
-   "link": "https://www.youtube.com/watch?v=f8FE2R7esZ0",
-   "published": "2026-10-13T11:06:09+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Tune in as a new shipment of science and supplies lifts off to the International Space Station.\n\nNASA and SpaceX are targeting 6:33 a.m. EDT (1033 UTC), Tuesday, Oct. 13, for the next cargo launch of SpaceX's Dragon spacecraft to the space station. Dragon will lift off from Space Launch Complex 40 a"
+   "title": "How the Budget might impact your bank balance. #Budget #CostOfLiving #Money #MinimumWage #BBCNews",
+   "link": "https://www.youtube.com/shorts/MLHuvFYiF54",
+   "published": "2026-10-28T22:01:55+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": ""
   },
   {
-   "title": "NASA's Northrop Grumman Commercial Resupply Services 24 Departure",
-   "link": "https://www.youtube.com/watch?v=IoL51xLkMSY",
-   "published": "2026-10-09T17:14:27+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Watch Northrop Grumman’s Cygnus XL spacecraft undock and depart from the International Space Station. \n\nFlight controllers on the ground will send commands for the space station’s Canadarm2 robotic arm to detach the Cygnus XL spacecraft from the Unity module’s Earth-facing port and maneuver it into "
+   "title": "Did Melania Trump broker a ceasefire in Ukraine? | The Global Story",
+   "link": "https://www.youtube.com/watch?v=BSwS3lizR00",
+   "published": "2026-10-28T22:00:23+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "A ceasefire has come into effect in the Ukrainian city of Oleshky, on the front line of the war with Russia. Thousands of residents have been trapped there, cut off from food, water and electricity.\n\nThe ceasefire has been brokered by an unexpected figure: the US First Lady Melania Trump. But the Va"
   },
   {
-   "title": "NASA's SpaceX Crew-12 Re-Entry & Splashdown",
-   "link": "https://www.youtube.com/watch?v=x6p9Ri0DlNE",
-   "published": "2026-10-08T16:52:21+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Welcome Crew-12 back to Earth with us!\n\nNASA astronauts Jessica Meir and Jack Hathaway, ESA (European Space Agency) astronaut Sophie Adenot, and Roscosmos cosmonaut Andrey Fedyaev are scheduled to splash down off the coast of California at 11:34 a.m. EDT (1534 UTC) on Thursday, Oct. 8.\n\nWe'll have l"
+   "title": "How YOU will be impacted by the Budget | BBC News",
+   "link": "https://www.youtube.com/watch?v=PtDn268FEko",
+   "published": "2026-10-28T20:00:33+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "Chancellor John Healey has just announced the Budget: setting out the government’s tax and spending plans for the coming years.\nSo what does and doesn’t the Budget include, how could it impact you and are you eligible for the one-off energy bills payment of £100?\nBBC economics editor Faisal Islam ha"
   },
   {
-   "title": "NASA's SpaceX Crew-12 Undocking",
-   "link": "https://www.youtube.com/watch?v=dGSqblvgLIE",
-   "published": "2026-10-07T12:32:13+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Watch the four members of NASA's SpaceX Crew-12 mission — NASA astronauts Jessica Meir and Jack Hathaway, ESA (European Space Agency) astronaut Sophie Adenot, and Roscosmos cosmonaut Andrey Fedyaev — set off to return to Earth. The SpaceX Dragon spacecraft will undock from the International Space St"
+   "title": "Luxury cruise residents stranded in Cambodia due to soaring fuel costs. #BBCNews",
+   "link": "https://www.youtube.com/shorts/TRjVqvfAZKE",
+   "published": "2026-10-28T19:30:19+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": ""
   },
   {
-   "title": "NASA's SpaceX Crew-12 Hatch Close",
-   "link": "https://www.youtube.com/watch?v=JB5HKi8Pxqs",
-   "published": "2026-10-07T10:40:46+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Watch as NASA astronauts Jessica Meir and Jack Hathaway, ESA (European Space Agency) astronaut Sophie Adenot, and Roscosmos cosmonaut Andrey Fedyaev begin final preparations for their return to Earth aboard a SpaceX Dragon spacecraft. \n\nAfter the four enter the spacecraft, the hatch is scheduled to "
+   "title": "Is Flávio Bolsonaro fleeing justice after Brazil presidential election defeat? #BBCNews",
+   "link": "https://www.youtube.com/shorts/znAZZC7y9yA",
+   "published": "2026-10-28T18:45:39+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": ""
   },
   {
-   "title": "From the Moon to the 50-Yard Line",
-   "link": "https://www.youtube.com/shorts/-62C9R_41Sc",
-   "published": "2026-10-05T23:21:46+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "From the Moon to the 50-yard line.\n \nSix months ago, NASA astronaut Christina Koch flew Philadelphia Eagles Super Bowl confetti around the Moon on the Artemis II mission. Yesterday, in a full circle moment, she served as honorary captain at an Eagles game, bringing a little Moon Joy to the field.\n \n"
+   "title": "What Israel's election means for Netanyahu, Gaza and Palestinian statehood | Global News Podcast",
+   "link": "https://www.youtube.com/watch?v=2pr6f_alqCU",
+   "published": "2026-10-28T18:45:29+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "With counting almost complete in Israel's first general election since the 7th October attacks by Hamas and the start of the war in Gaza, Prime Minister Benjamin Netanyahu's bloc is in the lead. But neither Mr Netanyahu, nor his main opponent, Gadi Eisenkot, have enough support to form a government."
   },
   {
-   "title": "NASA’s SpaceX Crew-12 Farewell and International Space Station Change of Command",
-   "link": "https://www.youtube.com/watch?v=RU6gEobXVHA",
-   "published": "2026-10-04T14:33:39+00:00",
-   "source": "NASA",
-   "cid": "UCLA_DiR1FfKNvjuUpBHmylQ",
-   "desc": "Watch as the members of NASA's SpaceX Crew-12 mission – NASA astronauts Jessica Meir and Jack Hathaway, ESA (European Space Agency) astronaut Sophie Adenot, and Roscosmos cosmonaut Andrey Fedyaev – sum up their experiences aboard the International Space Station and say goodbye to the space station c"
+   "title": "The Budget: What you need to know | BBC Newscast",
+   "link": "https://www.youtube.com/watch?v=uiprfP7pYfo",
+   "published": "2026-10-28T18:07:05+00:00",
+   "source": "BBC News",
+   "cid": "UC16niRr50-MSBwiO3YDb3RA",
+   "desc": "Today, the chancellor John Healey presented his first budget, and the first since Andy Burnham became Prime Minister.\n\nAmong some 98 measures on the Treasury scorecard were a £100 energy payment for millions, a tax rise for banks and pledges on fiscal devolution and defence spending.\n\nHow significan"
+  },
+  {
+   "title": "Incredible celebrations as last patient leaves a DRC Ebola centre | AJ #shorts",
+   "link": "https://www.youtube.com/shorts/WeM8w2GqGWU",
+   "published": "2026-10-29T03:38:04+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Footage shows healthcare workers singing and dancing at an Ebola treatment centre in DR Congo after the last patient made a full recovery and left. The Doctors Without Borders-run centre in Mongbwalu was where the latest outbreak began.\n\nSubscribe to our channel: http://bit.ly/AJSubscribe\nFollow us "
+  },
+  {
+   "title": "Israeli settlers savagely attack journalists in occupied West Bank",
+   "link": "https://www.youtube.com/shorts/y5hLltVZEA8",
+   "published": "2026-10-29T02:43:16+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Videos circulating on social media show Israeli settlers assaulting three foreign journalists, Andrey X, Adele Shoko and Jasper Nathaniel, near Hebron. Andrey reportedly lost consciousness, was taken to a police station and remained detained without receiving medical care.\n\nSubscribe to our channel:"
+  },
+  {
+   "title": "Al Jazeera speaks to El-Sayed as religion becomes flashpoint in Senate race | AJ #shorts",
+   "link": "https://www.youtube.com/shorts/PDa-d4AP764",
+   "published": "2026-10-29T02:40:31+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Democratic candidate Abdul El-Sayed is pushing back against attacks over his Muslim faith as religion becomes a campaign issue in Michigan’s tight Senate race. Al Jazeera’s Mikail Malik spoke to El-Sayed in Wyandotte, ahead of the November 3 vote.\n\nSubscribe to our channel: http://bit.ly/AJSubscribe"
+  },
+  {
+   "title": "Serbians storm TV studio as pro-Vucic media faces reckoning | AJ #shorts",
+   "link": "https://www.youtube.com/shorts/4yo0rxIDLMA",
+   "published": "2026-10-29T02:01:29+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Serbians stormed a TV studio and confronted its editor-in-chief after a student-led protest movement swept into power during national elections. A regional public broadcaster also apologised for years of one-sided reporting, raising hopes for a new era in the country’s media.\n\nSubscribe to our chann"
+  },
+  {
+   "title": "US Midterms 2026: Young voters could decide key Michigan congressional race",
+   "link": "https://www.youtube.com/watch?v=kbdI5ti58bY",
+   "published": "2026-10-29T02:00:22+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Democratic and Republican campaigns in Michigan's 7th district are racing to mobilise young voters ahead of a tightly contested House race. Democrat Will Lawrence and Senate hopeful Abdul El Sayed are relying on student canvassers and backing from Maxwell Frost, America's youngest congressman, while"
+  },
+  {
+   "title": "Bolsonaro in Miami: I am the ‘true president-elect’ | AJ #shorts",
+   "link": "https://www.youtube.com/shorts/fr6vu4FgHko",
+   "published": "2026-10-29T01:52:02+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Flavio Bolsonaro claimed to be the ‘true president-elect’ of Brazil in his first statement since fleeing the country to the US. He made the claim in a post on X before taking it down. Bolsonaro lost Sunday’s vote to Lula da Silva.\n\nSubscribe to our channel: http://bit.ly/AJSubscribe\nFollow us on X :"
+  },
+  {
+   "title": "Riot police deployed in Madrid as protests erupt over deadly train crash",
+   "link": "https://www.youtube.com/shorts/k2GPXUf-rVc",
+   "published": "2026-10-29T00:35:05+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "A deadly train crash fuelled anger in Spain as far-right demonstrators clashed with police during an anti-government protest in Madrid. Hundreds demanded the transport minister’s resignation amid questions over the authorities’ handling of the disaster, which killed 68 people.\n\nSubscribe to our chan"
+  },
+  {
+   "title": "Israelis rally for Jewish-Arab government after election gains | AJ #shorts",
+   "link": "https://www.youtube.com/shorts/0qktwJrOvk8",
+   "published": "2026-10-29T00:32:28+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Israelis rallied in Tel Aviv for a Jewish-Arab gov’t after parties representing Israel’s Arab citizens made major gains in Tuesday’s election. The two main Arab parties are projected to win around 19 of the Knesset’s 120 seats, potentially giving them a say in who forms gov’t.\nSubscribe to our chann"
+  },
+  {
+   "title": "Trump’s trade war hits Kentucky’s $10bn bourbon industry",
+   "link": "https://www.youtube.com/shorts/e10dpUUdHz8",
+   "published": "2026-10-28T23:53:04+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Trump’s trade war with Canada is hitting Kentucky’s bourbon industry, threatening jobs and turning trade policy into an election issue. | Heidi Zhou-Castro\n\n#Bourbon #TrumpTariffs #USCanada #TradeWar #Kentucky #AlJazeera"
+  },
+  {
+   "title": "Israel can now put an end to Netanyahu’s  genocide, and war : Marwan Bishara",
+   "link": "https://www.youtube.com/watch?v=h0Bjyir1psA",
+   "published": "2026-10-28T23:33:16+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "What do Israel’s 2026 election results mean for Palestinians, and could an opposition coalition prevent Benjamin Netanyahu from remaining in power?\n\nAl Jazeera’s Marwan Bishara analyses the election results against the backdrop of continued Israeli military operations and violence in Hebron and the "
+  },
+  {
+   "title": "Russia-Africa Summit: What are African nations gaining from closer ties with Moscow?",
+   "link": "https://www.youtube.com/watch?v=8O9ERmv1ii4",
+   "published": "2026-10-28T23:00:33+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "African leaders are gathering in Moscow for the third Russia-Africa Summit, as Russian military and economic influence grows across the continent. Russian paramilitary forces have backed campaigns in Mali and the wider Sahel, while hundreds of African fighters have reportedly died fighting for Russi"
+  },
+  {
+   "title": "Brazil’s Flávio Bolsonaro arrives in Miami after leaving the country",
+   "link": "https://www.youtube.com/shorts/VOrw6xq3xXk",
+   "published": "2026-10-28T22:51:45+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Flávio Bolsonaro arrives in Miami after leaving Brazil, repeating election fraud claims as investigations against him continue.\n#brazil \n #FlavioBolsonaro #BrazilPolitics #ElectionFraud #AlJazeera"
+  },
+  {
+   "title": "UK budget: Can the government ease the cost-of-living crisis?",
+   "link": "https://www.youtube.com/shorts/rinI2At88Jw",
+   "published": "2026-10-28T22:48:21+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Can the UK budget ease pressure on households facing high food, fuel and energy costs? Sonia Gallego reports from London.\n  \n#CostOfLiving #UKEconomy #Britain #AlJazeera #ukbudget"
+  },
+  {
+   "title": "Brazil divided over Flávio Bolsonaro’s departure to the US",
+   "link": "https://www.youtube.com/shorts/_0hW2gXF6xQ",
+   "published": "2026-10-28T21:42:44+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Flávio Bolsonaro’s departure from Brazil for the US sparks debate over judicial restrictions, allegations under investigation and claims of political persecution. \nAl Jazeera's Monica Yanakiew reports\n\n#Brazil #FlavioBolsonaro #JairBolsonaro #BrazilPolitics #AlJazeera"
+  },
+  {
+   "title": "US Midterms 2026 Latest: The storm before the vote",
+   "link": "https://www.youtube.com/watch?v=3tg3QS-a-7E",
+   "published": "2026-10-28T21:23:36+00:00",
+   "source": "Al Jazeera English",
+   "cid": "UCNye-wNBqNL5ZzHSJj3l8Bg",
+   "desc": "Political heavyweights have been making stops in North Carolina, where there’s another tight Senate race. Vice President JD Vance campaigned in Kinston on Wednesday and the President is also expected to make his third stop in the coming days. Two years on from Hurricane Helene, residents are still d"
   }
  ],
  "errors": [
   "CBC News: HTTPError",
-  "BBC News: HTTPError",
   "Reuters: HTTPError",
-  "Al Jazeera English: HTTPError",
   "Sky News: HTTPError",
   "Global News: HTTPError",
   "Associated Press: HTTPError",
   "PBS NewsHour: HTTPError",
   "Bloomberg: HTTPError",
   "CNBC: HTTPError",
+  "NASA: HTTPError",
   "SpaceX: HTTPError",
   "NASASpaceflight: HTTPError",
   "Scott Manley: HTTPError",

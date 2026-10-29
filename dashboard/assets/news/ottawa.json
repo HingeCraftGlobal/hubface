@@ -1,12 +1,44 @@
 {
  "subject": "ottawa",
- "fetched_at": "2026-10-28T04:00:10.777662+00:00",
+ "fetched_at": "2026-10-29T04:00:09.427885+00:00",
  "items": [
   {
-   "title": "Mark Sutcliffe re-elected mayor of Ottawa",
+   "title": "Will Ottawa listen to loud calls for tax reform in the budget?",
+   "source": "Financial Post",
+   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQdnBSZXVvbC1VeFEwSU5fOFJxckRCU0tVaXUtZ3Vqd200ajJLcW5lQncxVW1vU2NDU0RtOEh3dGZuemNLblNaeS0wTWZOQ0lGMGYxN1lqcEY1QVdsaV9tS2l0OWRDNW5GdVhJbnZBTm1sSm9EdFVnaDZRQkVDTlFxNXFOSVVtbHNhalBVbmw5MmVwMDFpSFZ3?oc=5",
+   "published": "2026-10-28T19:21:31+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "OC Transpo staff awarded 14% salary raise over 4 years",
    "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNbWU4NnBubGE4NHZqVHIzN0cxamNrYWtwM2h4Q3c2SEVObEJKNU9TaXdkTnpmdXgtUUVKVk5naU9sUGRPanhpNkpKRDlUeVhjVmxZRWJGdUx1aElxUWkxa2pubFl5bzhOeFZPZjZ5a3hXNEdzWHM4b0ZhMEdSWjIxbEd6d3hlOVU?oc=5",
-   "published": "2026-10-27T02:29:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOYnM1R1czTmwwR0RkUDZqdjN1Q0F6VS05T1NrVVhUOHhEdmxfVi1JS0hLWW1kS3E2enV4cGZhVmpqaTJCSUM4a3d1Q0VpbjI3ZEU5c2VxdWk5U29xMWtxZzJ0UHRWbHA5b1NxYVFIbzUxWDY4aktoaDFGdFVSV01XeFZwbk9LYWZjeV9fQ2s0Tmh2QXRQSmZR?oc=5",
+   "published": "2026-10-28T11:18:18+00:00",
+   "tag": "positive",
+   "video": false
+  },
+  {
+   "title": "Clocks turn back 1 hour this weekend. Here is what you need to know about the end of daylight saving time",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOU0xkdGJLY0VpN0xuOXd5Q25NdHFKRENGQ194SWpmMUxvakJ2Qi1WQkJXS1ZNdDQ0RWxGRVhublBlQjdXNTZ6YUlRazdyX281RmxVRnJsUFNqM01sZVRlSHlXRUZDbC1sS2kycWJ3VlVZNTdWeUNBc3NKRFA1UW1kUHhfVHhyY2RhZjFHWkRNZjV3eUhzMGVRc3ZiVDBzRnJUcjJqRTd5elRRWlRRMWNmZEhHNzF0LTFDZURFM3A3akpwdjVVT1RpTlVZb1FrajFWSGlkeTVYdXd5V3c?oc=5",
+   "published": "2026-10-28T12:36:39+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Quebec eyeing no more clock changes; what does that mean for Ottawa?",
+   "source": "CityNews Ottawa",
+   "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQb2oxTHRZNzV5bDFCbTFZaWNBNHl5d3k4ZlEzaGV3SDJZNVduNy1xZVpIcE9kU1RCT2t0OWhhRDRBZUo3NktLNndfOUtJeEEzVFZFMng0RTFBR1BCS0RvZkJMZlpMdzJNZTRJczE1NkI4VEFKTjZIb1pGSmZGeU0wRVRpczVqdw?oc=5",
+   "published": "2026-10-28T19:50:10+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "What does the PQ's pledge to abolish time change mean for Ottawa-Gatineau?",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPTm1mWnBKNnI5Z1dMbHhDZVVFRFlPS2JfUnNNU0RLcDBXTUQ2WWR6S2s4d3N4YnBHbTNvekRNR014eXdpNU1MMkNDYkh2YTNTQWQyRkdlN2V5eXMtenBUMktHMFc5bVN0aDBvZG5oclBHa1I0Nk54aHZUc3dwSjZXeGFUdkZWaWFsdVpoLVZRZGtwTkx5ZnFsNmVlY1NRTTd3dzF2OG9DQU0tRU9S?oc=5",
+   "published": "2026-10-28T22:57:58+00:00",
    "tag": "standard",
    "video": false
   },
@@ -14,55 +46,23 @@
    "title": "Mark Sutcliffe to return as Ottawa mayor with 3 new councillors",
    "source": "CBC",
    "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxORldmblR3ZF9HRnZrZFBIZW1mQ2YwWEw0Tk14d0hFSTJfVFBJNzNXR2hhVHZOck9adlJ3Ql82cm4xWlRIMzZXdHhrWGFxWWF0WnFNaWZXSWVHNnlKYjBLeDJlYW9MV192bVpTN2F2MWNGUTBIa1VpZzA3MzhaZlFLUVFiUGtYTm9jX1V0Y0ZMWlU2UWJ4X3lpWUp4T09uYUJtNlJMemw4N2hGbHBuVVBnUklyRnNWbjlrT0RZ?oc=5",
-   "published": "2026-10-27T07:32:39+00:00",
+   "published": "2026-10-27T04:25:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Here are the new trustees for Ottawa's four school boards",
-   "source": "Ottawa Citizen",
-   "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5jbVJieE92NkFRcGNtNkg0U3NSand2T09jY01hZ19zZDR5VEZTdVpTZllmS2tlYVhEWUdmM0FMN1Zvd3Y5OWdkalgzNW9ZSDQzU3hISWFhdEJzdms1WUlsWjVKb0xvY2NKUThBZXlKc05PcXVBN25V?oc=5",
-   "published": "2026-10-27T21:05:05+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "St-Pierre Plamondon to boycott Canada-EU summit amid dispute with Ottawa",
-   "source": "Global News",
-   "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQY3JrQTJ4S3lrelpURW5uNmNnWWxKWlhCZUdVRUdpOVlKSjl0MUNEd3FlYXBPMVhvM3JlbmNCWG9BVHVqa2pYWnNPdzRINHlLWEdPZEFfOERKUEhqYVU3eDZmRkYtdFlESEtqSXlVV1hkUloxTFFEVm0yQ3BvV0hQRDliTmRMUFNKMHFMWk0wYjU4eGRBa045OHQxTXg?oc=5",
-   "published": "2026-10-27T17:12:44+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "PQ accuses Ottawa of muzzling Quebec during upcoming Canada-EU summit",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOdlV5U2l3R295Vl9GQWt2T0tHMFNDUUZkU1Raa1BsenVWa19CTXNuQmFoRFU0TFRVSmpCUllkX1JseXN2bWtHNHZSSktseU1kQldIYlR2T1hYMXd0TlhKeUQxakxyOEV0Ti1JYlpER2x0SmZLQy1Valo0VTRCdlFBRzVyMkQ1LTFRYVo3SzlDbFRMWU9PVTM2dFRybmlpdw?oc=5",
-   "published": "2026-10-27T12:20:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "After skipping premiers summit in Ottawa, Quebec premier to meet Indigenous leaders Wednesday",
+   "title": "Mark Sutcliffe back to work after re-election, vows $95 transit pass will be in 2027 budget",
    "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNQ1dRNnVYMTAtbWNlNW5uMktkbXMwYUFOWGFZUUxzOFlSUjFuNWVvUndvUktycTFJUFNZWTNuT0tKcVQ2SGRMazZfRDRhcDdESm1ZNy1OeURWVjBSU3N3Rk9sTXZPbVJudVVWX3ZubUp0d3dTWWZoOHpzVmRmbTVZaHNkLXcxdDhEQmsyME52ajdqajF2Q2E4N3RldWI1djZ3U1UyTTZzMnpFalpWcE14czln?oc=5",
-   "published": "2026-10-26T19:47:24+00:00",
+   "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOTERpZHc1NTd2WXZrclBQWUliOFBFMnl6QnRzUklCOWpuZnlNQXZwYjVJd0JHNUZ1S2JSa3BYemxGM05TTEFvM2tHaGpxREZZMW5HUDJiWnFwNUhSM05ZMDhvRGszak1PU0tCUEFDSVVBTjN4V2tfVDlIdk0xWFhseHBMMVphUUVDQlRURTcwYnRzeFNpWkZUWWJhUVpCdEtFenp2a3pqMmZZSndGbExWTm03UmNaeXJlNlZlVk9mZnRwcTU2QktZ?oc=5",
+   "published": "2026-10-27T21:57:18+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Cleveland-Cliffs says Stelco in 'full compliance' with commitments to Ottawa, wants to meet with Joly",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOa1E5SXVYR3QwM0t3SjJQYkMzVzlaYUF4WnNZYnR0cWh5Mm1ObUtKMnFWR1BCWlRJNy1GcHJLWEkxYmZTb1ZIMWpPWFMyUjFvc05Ma2Zid0tKbUFtdVNOQU9YZzl6Vm9yaTc1YnRucnl4NVoxbC03RUZZa0lTZjdQaDMtQUs4SHFGTDQ1WU1TZmhvSE5DZjFoc091QTVYT01iQWJEOGFpS3l4Zw?oc=5",
-   "published": "2026-10-27T14:53:16+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Ottawa demands plan to restore Stelco jobs before meeting Cleveland-Cliffs CEO",
-   "source": "Global News",
-   "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1udzRXa09pdE80YXVZbC1xeE00RjRHeE5WMzBRbURiY3ZDUG1RQlpfcHVBS0U0VGVxZm1qcG1rNWl3d3VSdVRHemxpWkpPclZYeXMzaUViRTJHM0ZlN2Vjb0lIWncwNU81MUlKXzVjZU5icEVpcmU4?oc=5",
-   "published": "2026-10-27T14:28:25+00:00",
+   "title": "Steve Staios exploring trade market as Senators seek scoring help",
+   "source": "Ottawa Citizen",
+   "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOZUQxLVh4dkRsQkZIUnNjQnlOVDFBeXpqbzNNOXV3TFlJSEd1Q0lxWVJzbGJ4cjVfdjdpV01XYmRoRkN6LUhWZklZb29UWk1JZDlKd0VoN256QlBSTUVnQ21XV1RaWTZhaVl0VGtlUHkzTUFHUlJ2bTNyVGhNMDMwNDczamxRNTg?oc=5",
+   "published": "2026-10-28T20:04:03+00:00",
    "tag": "standard",
    "video": false
   }

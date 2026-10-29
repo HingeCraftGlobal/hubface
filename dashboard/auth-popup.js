@@ -11,7 +11,7 @@
 (function () {
   'use strict';
   if (window.HubFaceAuth) return;
-  var LAST_KEY = 'hubface-last-email', SES_KEY = 'hubface-auth-session', BUILD = 'auth-popup-20261017-v6';
+  var LAST_KEY = 'hubface-last-email', SES_KEY = 'hubface-auth-session', BUILD = 'auth-popup-20261017-v6+resetpw-20261028a';
   var ME = null;   // server account {id,email,plan,tokens,status} or null
   var PLAN_NAMES = { free: 'Free', starter: 'Starter', builder: 'Builder', executive: 'Executive' };
   // Stripe Payment Links go here once Dan supplies them (opened with ?prefilled_email=&client_reference_id=<user id>). Empty = "Checkout coming soon".
@@ -184,7 +184,7 @@
   function render(m, note) {
     mode = m;
     panel.classList.toggle('hfa-wide', m === 'plans');
-    body.innerHTML = m === 'create' ? createHTML(note) : m === 'bot' ? botHTML(note) : m === 'plans' ? plansHTML() : m === 'account' ? accountHTML() : signinHTML(note || (hadLegacy ? LEGACY_NOTE : ''));
+    body.innerHTML = m === 'forgot' ? forgotHTML(note) : m === 'reset' ? resetHTML(note) : m === 'create' ? createHTML(note) : m === 'bot' ? botHTML(note) : m === 'plans' ? plansHTML() : m === 'account' ? accountHTML() : signinHTML(note || (hadLegacy ? LEGACY_NOTE : ''));
     panel.scrollTop = 0;
     var f = body.querySelector('input:not([type=checkbox]), .hfa-btn');
     if (f) setTimeout(function () { try { f.focus({ preventScroll: true }); } catch (_) {} }, 30);
@@ -222,8 +222,45 @@
       greet(true); return; }
     close(true); greet(true);
   }
+  /* resetpw-20261028a: Forgot password + Set a new password views (token read from #reset=, removed from the address bar at once) */
+  var RESET_TOK = '';
+  function forgotHTML(note) {
+    return '<div class="hfa-eyebrow">Forgot password</div><h1 class="hfa-h1" id="hfa-title">Reset your <span class="hfa-gold">password</span></h1>' +
+      '<p class="hfa-lede">Enter your HCG account email. If it has an account, we\u2019ll email a link to set a new password. The link works once and expires in 30 minutes.</p>' + (note ? '<div class="hfa-note" role="status">' + note + '</div>' : '') +
+      '<form class="hfa-form" data-form="forgot" novalidate><div class="hfa-field"><label class="hfa-label" for="hfa-f-email">Email</label><input id="hfa-f-email" name="email" class="hfa-input" type="email" autocomplete="email" value="' + esc(lastEmail()) + '"><div class="hfa-err" data-err="email" hidden></div></div>' +
+      '<button type="submit" class="hfa-btn">Email me a reset link</button></form>' +
+      '<div class="hfa-foot"><button type="button" class="hfa-link" data-act="signin">&larr; Back to sign in</button></div>';
+  }
+  function resetHTML(note) {
+    return '<div class="hfa-eyebrow">HubFace account</div><h1 class="hfa-h1" id="hfa-title">Set a new <span class="hfa-gold">password</span></h1>' +
+      '<p class="hfa-lede">Choose a new password (at least 12 characters). Then sign in with it.</p>' + (note ? '<div class="hfa-note" role="status">' + note + '</div>' : '') +
+      '<form class="hfa-form" data-form="reset" novalidate><div class="hfa-field"><label class="hfa-label" for="hfa-r-pw">New password</label><div class="hfa-pw"><input id="hfa-r-pw" name="password" class="hfa-input" type="password" autocomplete="new-password" placeholder="At least 12 characters"><button type="button" class="hfa-eye" data-act="eye" aria-label="Show password" title="Show password">' + EYE + '</button></div><div class="hfa-err" data-err="password" hidden></div></div>' +
+      '<button type="submit" class="hfa-btn">Set new password</button></form>' +
+      '<div class="hfa-foot"><button type="button" class="hfa-link" data-act="forgot">Need a new link?</button><button type="button" class="hfa-link" data-act="signin">Sign in</button></div>';
+  }
+  function onSubmitReset(form) {
+    var kind = form.getAttribute('data-form'), btn = form.querySelector('button[type=submit]');
+    Array.prototype.forEach.call(form.parentNode.querySelectorAll('[data-gen]'), function (n) { n.remove(); });
+    if (kind === 'forgot') {
+      var em = (form.email.value || '').trim(); showErr(form, 'email', '');
+      if (!EMAIL_RE.test(em)) { showErr(form, 'email', 'Enter a valid email address.'); return; }
+      form.__busy = true; btn.disabled = true;
+      api('/api/account/forgot-password', { email: em }).then(function (j) { form.__busy = false; btn.disabled = false;
+        formNote(form, esc((j && (j.message || j.error)) || 'Something went wrong. Please try again.'), !(j && j.ok)); });
+      return;
+    }
+    var pw = form.password.value || ''; showErr(form, 'password', '');
+    if (pw.length < 12) { showErr(form, 'password', 'Password must be at least 12 characters' + (pw ? ' (' + pw.length + ' so far)' : '') + '.'); return; }
+    if (!RESET_TOK) { formNote(form, 'This reset link is missing or already used. Request a new one from \u201cForgot password?\u201d.', true); return; }
+    form.__busy = true; btn.disabled = true;
+    api('/api/account/reset-password', { token: RESET_TOK, password: pw }).then(function (j) { form.__busy = false; btn.disabled = false;
+      if (j && j.ok) { RESET_TOK = ''; form.password.value = ''; return render('signin', esc(j.message || 'Your password is updated. Sign in with your new password.')); }
+      var e = (j && j.errors) || {}; Object.keys(e).forEach(function (k) { showErr(form, k, e[k]); });
+      formNote(form, esc((j && j.error) || 'Something went wrong. Please try again.'), true); });
+  }
   function onSubmit(ev) {
     var form = ev.target; if (!form.matches || !form.matches('.hfa-form')) return;
+    var fk = form.getAttribute('data-form'); if (fk === 'forgot' || fk === 'reset') { ev.preventDefault(); ev.stopPropagation(); if (!form.__busy) onSubmitReset(form); return; }
     ev.preventDefault(); ev.stopPropagation();
     if (form.__busy) return;
     if (form.getAttribute('data-form') === 'bot') {   /* botsignup1 */
@@ -301,7 +338,7 @@
     if (act === 'signin') { anchorPanel(false); return render('signin'); }
     if (act === 'plans') { anchorPanel(false); return render('plans'); }
     if (act === 'guest') { setSession('guest'); emit('guest'); close(true); return; }
-    if (act === 'forgot') return render('signin', 'Password reset isn\u2019t available on HubFace yet. Create an account or continue as guest for now.');
+    if (act === 'forgot') { anchorPanel(false); return render('forgot'); }   /* resetpw-20261028a */
     if (act === 'terms') {
       var f = b.closest('form'), n = body.querySelector('.hfa-note');
       if (!n) { n = document.createElement('div'); n.className = 'hfa-note'; n.setAttribute('role', 'status'); f.parentNode.insertBefore(n, f); }
@@ -424,7 +461,11 @@
   function queuePlace() { if (placeQueued) return; placeQueued = true; requestAnimationFrame(function () { placeQueued = false; placeEntry(); if (isOpen() && mode === 'account') anchorPanel(true); }); }
   window.addEventListener('resize', queuePlace); window.addEventListener('orientationchange', queuePlace);
   setInterval(queuePlace, 700);   // the controls can be dragged, collapsed or opened; cheap re-measure
-  function init() { updateEntry(); document.body.appendChild(entry); document.body.appendChild(ov); hookWidgets(); refreshMe().then(function (a) { if (a) greet(false); }); }
+  function readResetTok() {   /* resetpw-20261028a */
+    var m = /(?:^#|&)reset=([A-Za-z0-9_-]{30,100})/.exec(location.hash || ''); if (!m) return false;
+    RESET_TOK = m[1]; try { history.replaceState(null, '', location.pathname + location.search); } catch (_) {} return true;
+  }
+  function init() { if (readResetTok()) setTimeout(function () { open('reset'); }, 0); updateEntry(); document.body.appendChild(entry); document.body.appendChild(ov); hookWidgets(); refreshMe().then(function (a) { if (a) greet(false); }); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
   window.HubFaceAuth = { build: BUILD, open: function (m) { open(m || 'signin'); }, close: function () { close(false); }, isOpen: isOpen,

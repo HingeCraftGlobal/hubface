@@ -175,6 +175,11 @@ export function roomLiveUpgrade(q, sock, head) {
       to.ws.send({ t: 'signal', from: me.id, data: d }); return;
     }
     if (o.t === 'leave') { me.left = true; return ws.close(1000, 'bye'); }   // sessionpacket-20261020a: explicit Leave/End
+    if (o.t === 'react') {   // reactions-20261028a (Dan approved, task 166): standard emoji only, 1/s per person, broadcast only - no chat, no transcript, no hooks/TTS/meter
+      if (me.lastReact && now - me.lastReact < 1000) return; const REACT_OK = ['\u{1F44D}', '\u{1F44E}', '\u2764\uFE0F', '\u{1F602}', '\u{1F44F}', '\u{1F389}', '\u{1F64F}', '\u{1FABD}', '\u{1F62E}', '\u{1F44B}', '\u2705', '\u2753', '\u{1F525}'];
+      const e = String(o.e || ''); if (!REACT_OK.includes(e)) return; me.lastReact = now;
+      bcast(room, { t: 'react', e, from: { id: me.id, name: String(me.name || '').split(/\s+/)[0].slice(0, 20) }, at: now }); return;
+    }
     if (o.t === 'ping') return ws.send({ t: 'pong', at: now });
   }, () => {
     perIp.set(who, Math.max(0, (perIp.get(who) || 1) - 1)); if (!perIp.get(who)) perIp.delete(who);

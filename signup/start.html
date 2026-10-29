@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HubFace · Get started</title><link rel="manifest" href="/start/manifest.webmanifest"><link rel="icon" href="/favicon.png"><meta name="theme-color" content="#0b1020">
+<style>body{margin:0;font:16px system-ui,sans-serif;background:#0b1020;color:#eef;display:flex;justify-content:center}main{max-width:460px;width:100%;padding:32px 20px}
+h1{font-size:26px;margin:0 0 6px}p{color:#b8c0e0}.card{background:#151b33;border-radius:14px;padding:20px;margin:16px 0}label{display:block;margin:12px 0 4px;font-size:14px}
+input{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #334;background:#0e1328;color:#fff;font-size:16px}
+button,a.btn{display:inline-block;margin-top:14px;padding:12px 16px;border:0;border-radius:10px;background:#4f7cff;color:#fff;font-size:16px;text-decoration:none;cursor:pointer}
+.sec{background:#2a3355}.err{color:#ff8a8a;min-height:1em}.plan{display:flex;justify-content:space-between;border-top:1px solid #263;padding:10px 0}.small{font-size:13px;color:#8890b0}.row{display:flex;gap:8px}.row input{flex:1}</style></head>
+<body><main><img src="/app/icon-192-v2.png" width="56" height="56" alt=""><div id="app"><p>Loading…</p></div></main>
+<script>
+const $=s=>document.querySelector(s),app=$('#app'),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const code=(location.pathname.match(/^\/start\/j\/([A-Za-z0-9_-]+)/)||[])[1];const k=new URLSearchParams(location.search).get('k');
+let deferred=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferred=e;const b=$('#inst');if(b)b.hidden=false});
+if('serviceWorker'in navigator)navigator.serviceWorker.register('/start/sw.js',{scope:'/start/'}).catch(()=>{});
+async function post(u,b){const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',body:JSON.stringify(b)});return[r.status,await r.json().catch(()=>({}))]}
+function signupForm(){app.innerHTML=`<h1>Get your own HubFace room</h1><p>Just your name and email. Your room is ready in seconds, free for 7 days. Nothing to install.</p>
+<div class="card"><label>Your name</label><input id="n" autocomplete="name"><label>Email</label><input id="e" type="email" autocomplete="email"><div class="err" id="er"></div><button id="go">Create my room</button></div>`;
+$('#go').onclick=async()=>{$('#go').disabled=true;const[s,j]=await post('/start/api/signup',{name:$('#n').value,email:$('#e').value});if(s===201)show(j);else{$('#er').textContent=j.error||'Something went wrong.';$('#go').disabled=false}}}
+function joinForm(){app.innerHTML=`<h1>You're invited</h1><p>Enter your name to join as a guest. No account or install needed.</p><div class="card"><label>Your name</label><input id="n" autocomplete="name"><div class="err" id="er"></div><button id="go">Join the room</button></div>`;
+$('#go').onclick=async()=>{$('#go').disabled=true;const[s,j]=await post('/start/api/join',{code,name:$('#n').value});if(s===201)show(j);else{$('#er').textContent=j.error||'Something went wrong.';$('#go').disabled=false}}}
+function shortcutCard(){return `<div class="card"><b>Add HubFace to your desktop</b><p class="small">It's just a shortcut, not software. One tap puts the HubFace icon where you can find it, and you can move it anywhere you like. You can also just use this page in your browser.</p>
+<button id="inst" hidden>Add HubFace icon</button> <a class="btn sec" href="/start/shortcut.url" download>Download shortcut</a></div>`}
+function wall(j){app.innerHTML=`<h1>Your free 7 days are up</h1><p>Pick a plan to keep using ${j.kind==='owner'?'your':esc(j.owner)+"'s"} room.</p><div class="card">${(j.plans||[]).map(p=>`<div class="plan"><span><b>${esc(p.name)}</b><br><span class="small">${esc(p.allowance)}</span></span><span>$${p.usd.toFixed(2)}/${esc(p.interval)}</span></div>`).join('')}
+<p class="small">Extra time: $${j.token.usd} per token (${j.token.minutes} min).</p><button disabled>Choose a plan</button><p class="small">Checkout is not connected yet. Nothing is charged.</p></div>`}
+function show(j){if(j.wall)return wall(j);
+const inv=j.kind==='owner'?`<div class="card"><b>Invite people</b><p class="small">Copy this link and share it yourself. Guests join under your free trial, no room of their own needed.</p><div class="row"><input id="il" readonly value="${esc(j.inviteLink)}"><button id="cp">Copy</button></div></div>`:'';
+app.innerHTML=`<h1>Hi ${esc(j.name)}</h1><p>${j.kind==='owner'?'Your room':'You are a guest in '+esc(j.owner)+"'s room"} · free trial: <b>${j.trial.daysLeft} day${j.trial.daysLeft==1?'':'s'} left</b></p>
+<a class="btn" href="${esc(j.roomLink)}">Open ${j.kind==='owner'?'my':'the'} room</a>${inv}${shortcutCard()}`;
+if($('#cp'))$('#cp').onclick=()=>{$('#il').select();navigator.clipboard?.writeText($('#il').value);$('#cp').textContent='Copied'};
+$('#inst').hidden=!deferred;$('#inst').onclick=async()=>{if(deferred){deferred.prompt();deferred=null}};
+if(k)history.replaceState(null,'',location.pathname)}
+(async()=>{const j=await fetch('/start/api/me'+(k?'?k='+encodeURIComponent(k):''),{credentials:'same-origin'}).then(r=>r.json()).catch(()=>({kind:'none'}));
+if(j.kind!=='none'&&!code)return show(j);code?joinForm():signupForm()})();
+</script></body></html>

@@ -697,6 +697,60 @@ async function botmeterRoute(q, r, ep) {
   return json(r, 404, { error: 'not found' });
 }
 
+/* ---------------- resetpw-20261028a (Dan approved, Oct 28 2026 call): self-serve forgot / set-new-password.
+   POST /api/account/forgot-password {email} -> always 200 same generic reply (per-IP + per-email limits). If the account exists: one-time
+   token (only its SHA-256 stored), 30 min, single use, older unused tokens for that user burned. Link uses a #fragment so the token never
+   reaches server/nginx logs. Mail goes straight to the recipient's MX from no-reply@hubface.org (no personal SMTP credentials); the link is
+   never logged. POST /api/account/reset-password {token,password} -> min 12 chars, same scrypt hashPassword as signup, burns the token,
+   ends all HubFace + room sessions for that account. Rollback: restore accounts.mjs.bak-resetpw-20261028 + auth-popup.js.bak-resetpw-20261028. */
+db.exec('CREATE TABLE IF NOT EXISTS pw_resets (token_hash TEXT PRIMARY KEY, user_id INTEGER NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, used_at TEXT)');
+const RESET_MIN = 30, FORGOT_IP = { n: 5, ms: 60 * 60e3 }, FORGOT_EMAIL = { n: 3, ms: 60 * 60e3 }, RESET_IP = { n: 20, ms: 60 * 60e3 };
+const FORGOT_REPLY = { ok: true, message: 'If that email has a HubFace account, a reset link is on its way. It works once and expires in 30 minutes.' };
+const RESET_BAD = 'This reset link is invalid, used, or expired. Request a new one from "Forgot password?".';
+async function sendResetMail(to, link) {
+  const nm = (await import('nodemailer')).default; const dnsp = await import('node:dns/promises');
+  const mxs = (await dnsp.resolveMx(to.split('@')[1])).sort((a, b) => a.priority - b.priority); if (!mxs.length) throw new Error('no MX');
+  const mx = mxs[0].exchange; const t = nm.createTransport({ host: mx, port: 25, secure: false, name: 'hubface.org', tls: { servername: mx }, connectionTimeout: 15000, greetingTimeout: 15000, socketTimeout: 30000 });
+  const info = await t.sendMail({ from: 'HubFace <no-reply@hubface.org>', to, subject: 'Set a new HubFace password',
+    text: 'Someone asked to set a new password for the HubFace account with this email.\n\nSet your new password here (works once, expires in ' + RESET_MIN + ' minutes):\n' + link + '\n\nIf you did not ask for this, ignore this email. Your password stays the same.\n\nHubFace' });
+  return String(info && info.response || '').slice(0, 3);
+}
+async function forgotPassword(q, r) {
+  const ip = clientIp(q); const b = await body(q); if (!b) return json(r, 400, { error: 'Bad request.' });
+  const email = String(b.email || '').trim().toLowerCase();
+  if (!EMAIL_RE.test(email) || email.length > 254) return json(r, 400, { error: 'Enter a valid email address.', errors: { email: 'Enter a valid email address.' } });
+  if (!hit('fp:' + ip, FORGOT_IP.n, FORGOT_IP.ms)) return json(r, 429, { error: 'Too many reset requests. Wait a while and try again.' });
+  if (!hit('fe:' + sha(email), FORGOT_EMAIL.n, FORGOT_EMAIL.ms)) return json(r, 200, FORGOT_REPLY);
+  const u = Q.userByEmail.get(email);
+  if (u) {
+    const tok = crypto.randomBytes(32).toString('base64url'); const t = Date.now();
+    db.transaction(() => { db.prepare('UPDATE pw_resets SET used_at = ? WHERE user_id = ? AND used_at IS NULL').run(now(), u.id);
+      db.prepare('INSERT INTO pw_resets (token_hash, user_id, created_at, expires_at) VALUES (?,?,?,?)').run(sha(tok), u.id, new Date(t).toISOString(), new Date(t + RESET_MIN * 60e3).toISOString()); })();
+    sendResetMail(u.email, 'https://hubface.org/interface/#reset=' + tok)
+      .then((code) => console.log('[accounts] resetpw mail accepted uid ' + u.id + ' smtp ' + code), (e) => console.warn('[accounts] resetpw mail failed uid ' + u.id + ' ' + String(e && (e.code || e.message) || e).slice(0, 60)));
+  }
+  return json(r, 200, FORGOT_REPLY);
+}
+async function resetPassword(q, r) {
+  if (!hit('rp:' + clientIp(q), RESET_IP.n, RESET_IP.ms)) return json(r, 429, { error: 'Too many attempts. Wait a while and try again.' });
+  const b = await body(q); if (!b) return json(r, 400, { error: 'Bad request.' });
+  const tok = String(b.token || ''), pw = String(b.password || '');
+  if (pw.length < 12) return json(r, 400, { error: 'Password must be at least 12 characters.', errors: { password: 'Password must be at least 12 characters.' } });
+  if (pw.length > 256) return json(r, 400, { error: 'Password is too long (256 characters max).', errors: { password: 'Password is too long (256 characters max).' } });
+  if (!/^[A-Za-z0-9_-]{30,100}$/.test(tok)) return json(r, 400, { error: RESET_BAD });
+  const row = db.prepare('SELECT * FROM pw_resets WHERE token_hash = ?').get(sha(tok));
+  if (!row || row.used_at || row.expires_at < now() || !Q.userById.get(row.user_id)) return json(r, 400, { error: RESET_BAD });
+  const h = await hashPassword(pw);
+  const ok = db.transaction(() => {
+    if (!db.prepare('UPDATE pw_resets SET used_at = ? WHERE token_hash = ? AND used_at IS NULL').run(now(), row.token_hash).changes) return false;
+    db.prepare('UPDATE users SET password_hash = ? WHERE id = ?').run(h, row.user_id);
+    db.prepare('DELETE FROM sessions WHERE user_id = ?').run(row.user_id); Q.delRoomSesUser.run(row.user_id);
+    db.prepare('UPDATE pw_resets SET used_at = ? WHERE user_id = ? AND used_at IS NULL').run(now(), row.user_id); return true; })();
+  if (!ok) return json(r, 400, { error: RESET_BAD });
+  console.log('[accounts] resetpw password changed uid ' + row.user_id);
+  return json(r, 200, { ok: true, message: 'Your password is updated. Sign in with your new password.' });
+}
+
 /* ---------------- router ---------------- */
 export async function accountsRoute(q, r, p) {
   if (p === '/api/stripe/webhook') { if (q.method !== 'POST') return json(r, 405, { error: 'method not allowed' }), true; await stripeWebhook(q, r); return true; }
@@ -723,10 +777,11 @@ export async function accountsRoute(q, r, p) {
       json(r, 200, { ok: true, duplicate: dup, account: a }); return true; }
     if (ep === 'botmeter/yoda-reply' || ep === 'botmeter/owner-message' || ep === 'botmeter/owner-messages' || ep === 'botmeter/owner-stream' || ep === 'botmeter/stt' || ep === 'botmeter/stt-token' || ep === 'botmeter/speak' || ep === 'botmeter/latency' || ep === 'botmeter/buy-intent' || ep === 'botmeter/buy-test-order') { await brChatRoute(q, r, ep.slice(9)); return true; }   // brchat-20261026
     if (ep.startsWith('botmeter/')) { await botmeterRoute(q, r, ep.slice(9)); return true; }   // botmeter-20261025a
-    if (!['signup', 'login', 'logout', 'bot-signup', 'bot-code'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
+    if (!['signup', 'login', 'logout', 'bot-signup', 'bot-code', 'forgot-password', 'reset-password'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
     if (q.method !== 'POST') { json(r, 405, { error: 'method not allowed' }); return true; }
     if (!sameOrigin(q)) { json(r, 403, { error: 'Cross-site request blocked.' }); return true; }
     if (!/^application\/json\b/i.test(String(q.headers['content-type'] || ''))) { json(r, 415, { error: 'JSON required.' }); return true; }
+    if (ep === 'forgot-password') await forgotPassword(q, r); else if (ep === 'reset-password') await resetPassword(q, r); else   // resetpw-20261028a
     if (ep === 'bot-signup') await botSignup(q, r); else if (ep === 'bot-code') await botCode(q, r); else   // botsignup1
     if (ep === 'signup') await signup(q, r); else if (ep === 'login') await login(q, r); else logout(q, r);
   } catch (e) {
