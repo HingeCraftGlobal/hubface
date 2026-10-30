@@ -1,15 +1,7 @@
 {
  "subject": "rock",
- "fetched_at": "2026-10-29T04:00:16.380127+00:00",
+ "fetched_at": "2026-10-30T04:00:16.898549+00:00",
  "items": [
-  {
-   "title": "‘90s rock song hits No. 1 on the charts nearly 30 years after its debut",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPNGNpTjRpZWJWNFY1SFhuVW9PMXlaMDBoMVVqSXJ0dmdIdDdXZVlfNkVsanBmVDZsZTlpNnVEWHRQNWZwaTAwTGhSUmF5d2gtcXM3Q19OZTRKUWltMEItYllBbE5ab3N5aUZVNk1RS1h0RXJLc0dpX044S2lBUzVpbEZsd0VtY2M0YXdJand4NzVzTmtmNV9BQnRXREkxVFBNaFN6aE1FQ0w1Vkt6?oc=5",
-   "published": "2026-10-28T21:07:58+00:00",
-   "tag": "standard",
-   "video": false
-  },
   {
    "title": "The 200 Greatest Rock Songs of the 21st Century So Far",
    "source": "Rolling Stone",
@@ -19,18 +11,34 @@
    "video": false
   },
   {
-   "title": "From the Moody Blues to Electric Light Orchestra, Symphonic Rock's Best Songs Redefined Music",
-   "source": "Ultimate Classic Rock",
-   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPSmszOVowalFlaEh6NlVFRmZjWlVpRVdPRG9tNFpnR29lb0RNRXd2ZXZhQVpOUFp1R2dhaG53WDdzbXZiN2FldjhiUFJUQ1ptTjFZMDJjenJMVDhkUTZtaldka2ZHZUdvZTBXaldsbnFqa1U5MWM4THQ4SGZzWWY2VTlhOA?oc=5",
-   "published": "2026-10-28T12:15:08+00:00",
+   "title": "Kid Rock and Eminem’s New Song Fails to Bring People Together, at Least on the Charts",
+   "source": "Consequence of Sound",
+   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQU0FrNEpCTEx6SkY0YzYtZnZvWGpkUnFsMXg3Y2dXRUNTZ04tNUxZR29mZ1UteUMxTnlZMlNTU3VrMVZEUmNvb2FwOVJoeURFM0VPSVZYNzVLdWxQeFRyM2hnRVRUbzM5X0RCQVBKczE1WmRPNC1IcWRRTEJ5eTVCanhFVFM4cE1reEJEME5JbU1sakltc0VzUEZ1cWpPV2s3djN5cGtpVF9hVGZnTFd0VWJoSUlDVzA?oc=5",
+   "published": "2026-10-28T20:22:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "3 Country Rock Songs From 1969 That Helped Invent the 1970s Sound",
-   "source": "American Songwriter",
-   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNQ0JpSHEwa0hPMnVvRVJ6Q3YwaHNEaURLbjNmMEREZWRxZ1VvWXEtdFFUTFg5dWktSlU4SXJHdDZyeUtJWmNQdlFuS2lpNEJpdnZqREFPcW02Y2xVNVdpVXpqTzFST2M2cTRfSFJ1YmlkajFCMFNOVEpxaUJ0Rm11UHY2VnNrdUpySUt3OG85N1JXMW95ODJEcUpEbmZMZw?oc=5",
-   "published": "2026-10-28T14:00:00+00:00",
+   "title": "‘90s rock song hits No. 1 on the charts nearly 30 years after its debut",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPNGNpTjRpZWJWNFY1SFhuVW9PMXlaMDBoMVVqSXJ0dmdIdDdXZVlfNkVsanBmVDZsZTlpNnVEWHRQNWZwaTAwTGhSUmF5d2gtcXM3Q19OZTRKUWltMEItYllBbE5ab3N5aUZVNk1RS1h0RXJLc0dpX044S2lBUzVpbEZsd0VtY2M0YXdJand4NzVzTmtmNV9BQnRXREkxVFBNaFN6aE1FQ0w1Vkt6?oc=5",
+   "published": "2026-10-28T21:07:58+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "A rock formation collapse in Turkey’s touristic Cappadocia region kills at least 3",
+   "source": "CNN",
+   "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQZEtoRk9WWk5vNENWYWIyRkRIcjdhdk1KSUpQQmE3cEM0cjhuaWg1ZTNnM1RKa2lvWEFjUnFVUTh0eGVvVGhXNDBtaGZDbUcwSUhjQ1RaYkxsX195YkJtRS1ZLWlTX00temx3N1RKZlUwT1Z2Q3laZ18wM2FPZTQ5RlhIWDJLdw?oc=5",
+   "published": "2026-10-29T16:12:01+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "NASA-funded Study Details One of Oldest Mars Meteorites Ever Found",
+   "source": "NASA Jet Propulsion Laboratory (JPL) (.gov)",
+   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxObEs0UzdnZHp1cHhudDNsa1BwX3p4eTc4REM4dzJ4ZnMwOWtTX3BubGdWSEdFMXVEeUFYU3AwNEJpRnFqdS1PMVcxbnBGR29yZWk5R2lhZ3h4cUhKemVvLWlfQ0RQakdZV28xUjdFa2tyclN1a2RwRjJKMDFuY19MUVpZa1UteWdjV1kwQkItdWFhU1VGdHRETkYwUjYyZw?oc=5",
+   "published": "2026-10-29T18:42:20+00:00",
    "tag": "standard",
    "video": false
   },
@@ -43,26 +51,18 @@
    "video": false
   },
   {
-   "title": "From championship hopes to rock bottom, what went wrong for Oregon?",
-   "source": "ESPN",
-   "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPWVdUT1o5TG9XZHE3WGlvckVxcUlzSVk0UEJlOGI5UlZlMWNxbV9EYVZXYVRCNnRIbWw3VEJ3N2ZoUEM5Y2UxNkhaNUYxSDh1QVlEWDljNnZhZFQwb3Rvc3FKN05NRnNRdHp5a0hDWHhWdHlrRmU2TjZ2aS03ZEl6dWc5QUtjUEZiaEpMRlhKUUVQOWJjelQ3blln?oc=5",
-   "published": "2026-10-27T10:23:55+00:00",
+   "title": "Deadly rock collapse at famous Turkiye tourist site",
+   "source": "Al Jazeera",
+   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPU0pHWVhjblZXaTJXc2w5eDMzRl9YTDhfeF9oYnlPbnZwUkF3ejlQRENoREhkNGlaelVCN2hKRm5YTTRTRkZoRXFzQkpEcUVqdXR2SWdCUGp5U0ozdjRHMk16Y203X1AyZC1fMEZ6eHp6eUJOWk50UEdPQXNzQlpLZDZZNlJVcEJIclhGWXFHTTRlMnEyQjZtdno4aXlfY2piRkE1akxR0gGrAUFVX3lxTE16REJzd0RoSF9mbUdEc2dmMi1EZUJyX0oxaGdZUV9kdUlGcFByRWpKNm4zRUpMU1YzYUpuZU1GNmFfMG1LQ0FCMFlDVlBtR0U4QUw5ckd4SGRpaUIycWFTX2FEQjFRbUtuYjNfTFp6LW5tY3lrZzRBTGVONktfT1hZdWMxdjZJYVNOT08zcXowT3lWTzNaYm5uUzMzRlprR28zWGNXOGFIMVc3QQ?oc=5",
+   "published": "2026-10-29T16:20:40+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "The '70s Rock Band That Time Forgot Gave Us One Of The Era's Catchiest Hits",
-   "source": "Grunge",
-   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNZlJONGN2Rml5MEpic3BzdjczTFk1bW5TMERDNTVXRW9oYWVwVTRjMW9XYjBENGtqWkNMS3E1eEwxME5NTlo5V1ZLT19WbXdpNktLZmlwWHRfOUVTaTNSSjBmY2ZOZkRJczd1djd1ajR6b1NOR2hvVzNrRHUzbVVseHlrMjZXQ2o4Q2ttUEptMkdBZw?oc=5",
-   "published": "2026-10-28T18:07:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Seven players join Rock League in first-ever draft",
-   "source": "Sportsnet.ca",
-   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcEN0dmxIVnVrUVJ4TWZXY3lRTVlEZlhYN0hsSnJYWmNxM3dxbjliVnlyNFpNUlUwWTRoMHRnQmU5OTA4cFJ3bWJDTHl3UkRHZFpuNk5saE5VTEtBeDd6LWRXUWVzV1ZmcFhOTl9mNHBrWUlnWVVOcE9ZV2JfMFRRRW1wSW9tMUdpMnhSa2Nxem0wemtRdlJV?oc=5",
-   "published": "2026-10-26T19:49:00+00:00",
+   "title": "Chatham curling club makes rock solid investment for future with $100K grant",
+   "source": "Chatham Daily News",
+   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxORGdRdTBpNlRiTEtNWlQ4MXpwbWhwSFFacGo4TVJOdDg1VHJEdTA1c05PaFEzWlRZRzJqb3dPVFRzbVYxS1pFR2pRbVYtenRERTBiR3IxXzh1dE9vczU4aVlObFJBcXZfRzh3REs4NF9LU25WYWJMd1N5Z3p3RWpsMDBaTEdJUDFMNGc3dTlmSk1hdUZkUW5aekJsbHZRZ3hTaGdmOE55dnFXX3Qxb2pqcDkyRQ?oc=5",
+   "published": "2026-10-27T20:11:48+00:00",
    "tag": "standard",
    "video": false
   }

@@ -9,9 +9,21 @@ import http from 'node:http'; import crypto from 'node:crypto'; import fs from '
 import { createRequire } from 'node:module';
 const require = createRequire('/opt/hubface/server/package.json');
 const Database = require('better-sqlite3');
-const BUILD = 'yodarooms-20261026a+sendbot-20261027a', PORT = 3481, ORIGIN = 'https://hubface.org';
+const BUILD = 'yodarooms-20261026a+sendbot-20261027a+registry-20261029a', PORT = 3481, ORIGIN = 'https://hubface.org';
 const YODA_UID = Number(process.env.YODA_UID || 45);
-const BOTS = ['yoda', 'ava', 'avadan', 'finn', 'moderator', 'companion-f', 'companion-m'];
+const BOTS_FALLBACK = ['yoda', 'ava', 'avadan', 'finn', 'moderator', 'companion-f', 'companion-m'];
+// registry-20261029a (Dan, Oct 29): seatable bots = the hardcoded house bots above (always, even if the lookup fails) PLUS every
+// registered account's username in accounts.db users (any account; bot_accounts is empty today so it is not the registry).
+// Cached 45 s, so a new account is seatable without a restart. Only explicit seat requests ({bots|add|remove:[name]}) resolve here;
+// a human joining a room as a human never goes through this list.
+const REG_TTL = 45e3; let regCache = { at: 0, names: new Set() };
+function regNames() {
+  if (Date.now() - regCache.at < REG_TTL) return regCache.names;
+  try { regCache = { at: Date.now(), names: new Set(acc.prepare("SELECT lower(username) AS u FROM users WHERE username IS NOT NULL AND username <> ''").all().map((r) => r.u)) }; }
+  catch (e) { console.error('[yodarooms] registry lookup failed, fallback list only', e && e.message); regCache.at = Date.now(); }
+  return regCache.names;
+}
+const isBot = (x) => BOTS_FALLBACK.includes(x) || (/^[a-z0-9_.-]{2,40}$/.test(x) && regNames().has(x));
 const ALPHA = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
 const TOKEN = (() => { try { return fs.readFileSync(path.join(process.env.CREDENTIALS_DIRECTORY || '/nonexistent', 'token'), 'utf8').trim(); } catch { return ''; } })();
 if (TOKEN.length < 32) { console.error('[yodarooms] no token; refusing to start'); process.exit(1); }
@@ -47,7 +59,7 @@ function sameOrigin(q) { const o = q.headers.origin; if (o) return o === ORIGIN;
 function body(q) { return new Promise((res) => { let n = 0; const ch = []; q.on('data', (c) => { n += c.length; if (n > 16384) { q.destroy(); res(null); } else ch.push(c); }); q.on('end', () => { try { res(ch.length ? JSON.parse(Buffer.concat(ch).toString('utf8')) : {}); } catch { res(null); } }); }); }
 function newId() { const out = []; while (out.length < 10) for (const b of crypto.randomBytes(16)) if (b < 248 && out.length < 10) out.push(ALPHA[b % 31]); return 'HF-' + out.slice(0, 5).join('') + '-' + out.slice(5).join(''); }
 const seatList = (id) => Q.seats.all(id).map((s) => s.bot);
-const botsIn = (a) => (Array.isArray(a) ? a : []).map((x) => String(x).toLowerCase()).filter((x, i, s) => BOTS.includes(x) && s.indexOf(x) === i);
+const botsIn = (a) => (Array.isArray(a) ? a : []).map((x) => String(x).toLowerCase()).filter((x, i, s) => isBot(x) && s.indexOf(x) === i);
 function setSeats(id, b, by) {
   const t = now();
   sd.transaction(() => {

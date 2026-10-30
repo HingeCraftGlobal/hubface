@@ -7,6 +7,8 @@
 //   POST /api/stripe/webhook   Stripe events; signature verified with STRIPE_WEBHOOK_SECRET (env). Without the secret it refuses (503).
 // Sessions: random 32-byte token in an HttpOnly; Secure; SameSite=Lax cookie; only its SHA-256 is stored. CSRF: POSTs to
 // /api/account/* must carry Origin (or Referer) https://hubface.org. No email is ever sent from here.
+import * as VT from './voices.mjs';
+import * as SH from './br-seathook.mjs';   // stellapush-20261029 (staged)   // voicetype-20261029
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -692,6 +694,7 @@ async function botmeterRoute(q, r, ep) {
     const t = Date.now(); bmSettleTx(m0.id, t); const m1 = BQ.get.get(m0.id);
     BQ.end.run(String(b.reason || 'owner_closed').replace(/[^a-z_]/g, '').slice(0, 30) || 'owner_closed', t, m1.hold_since ? t - m1.hold_since : 0, m0.id);
     if (m1.relay_room) await bmRelay(`/api/botrelay/rooms/${m1.relay_room}/meterstop`, { meter: m0.id, reason: 'owner_closed' });
+    try { const pdb = new Database((process.env.HUBFACE_DATA || '/var/lib/hubface') + '/prerooms.db', { fileMustExist: true }); try { for (const pr of pdb.prepare('SELECT id, data FROM prerooms WHERE data LIKE ?').all('%"meter":"' + String(m0.id).replace(/[^A-Za-z0-9-]/g, '') + '"%')) { const pd = JSON.parse(pr.data); if (pd.meter === m0.id && pd.status === 'live') { pd.status = 'closed'; pdb.prepare('UPDATE prerooms SET data = ?, updated_ms = ? WHERE id = ?').run(JSON.stringify(pd), Date.now(), pr.id); console.log(`[botmeter] ${m0.id} owner stop -> pre-room ${pr.id} closed`); } } } finally { pdb.close(); } } catch (e) { console.log('[botmeter] pre-room close on stop failed', String(e && e.message || e).slice(0, 80)); }   // closepre-20261029: Exit room also closes its pre-room record
     return json(r, 200, bmView(BQ.get.get(m0.id)));
   }
   return json(r, 404, { error: 'not found' });
@@ -758,6 +761,13 @@ export async function accountsRoute(q, r, p) {
   const ep = p.slice('/api/account/'.length);
   try {
     if (ep === 'me' && (q.method === 'GET' || q.method === 'HEAD')) { me(q, r); return true; }
+    if (ep.startsWith('admin/')) {   // admin-20261029: owner/admin accounts widget (./admin-accounts.mjs). Roll back: accounts.mjs.bak-pre-admin-*
+      const AD = await import('./admin-accounts.mjs');
+      if (ep === 'admin/login' && q.method === 'POST') { AD.adminLogin(q, r, (await body(q)) || {}, { json }); return true; }
+      if (ep === 'admin/logout' && q.method === 'POST') { AD.adminLogout(q, r, { json }); return true; }
+      if (ep === 'admin/accounts' && q.method === 'GET') { AD.adminAccounts(q, r, { json }); return true; }
+      json(r, 404, { error: 'not found' }); return true;
+    }
     if (ep === 'room-pass' && q.method === 'GET') { roomPass(q, r); return true; }
     if (ep === 'room-time' && q.method === 'GET') {   // buyscreen-20261026a: own room-time state only (read-only), for the out-of-time buy screen
       const id = currentUser(q); if (!id) { json(r, 401, { authenticated: false }); return true; }
@@ -874,7 +884,7 @@ function brlStats(room) { let rows = []; try { rows = fs.readFileSync(BRL_FILE, 
   const by = {}; for (const k of ['fast', 'routine']) { const v = R.filter((x) => x.route === k).map((x) => x.lat_ms); by[k] = { n: v.length, p50_ms: pc(v, 0.5), p90_ms: pc(v, 0.9), max_ms: v.length ? Math.max(...v) : null }; }
   const owner = rows.filter((x) => x.k === 'owner'), unanswered = owner.filter((o) => !R.some((x) => x.reply_to === o.id && x.room === o.room)).length;
   return { room: room || 'all', replies: by, owner_messages: owner.length, unanswered, slowest: [...R].sort((x, y) => y.lat_ms - x.lat_ms).slice(0, 5), recent: rows.slice(-20) }; }
-function brcPush(room, m) { const set = brcSubs.get(room); if (!set) return; const line = `id: ${m.id}\nevent: msg\ndata: ${JSON.stringify(m)}\n\n`;
+function brcPush(room, m, fromSeat) { try { SH.deliver(room, m, fromSeat); } catch (e) {} /* stellapush-20261029 */ const set = brcSubs.get(room); if (!set) return; const line = `id: ${m.id}\nevent: msg\ndata: ${JSON.stringify(m)}\n\n`;
   for (const res of set) { try { res.write(line); } catch (e) {} } }
 function brcStream(q, r, room, after) {
   r.writeHead(200, { 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-store, no-transform', 'X-Accel-Buffering': 'no', Connection: 'keep-alive' });
@@ -927,6 +937,11 @@ function brmicUse(add) { let u = { day: '', min: 0 }; try { u = JSON.parse(fs.re
 /* tts-20261026 (Dan approved on call Oct 26): Bot Room ONLY. POST botmeter/speak?room= {text} -> audio of Yoda's reply in xAI voice 'liora'.
    Same xAI /v1/tts + shared YODA_FAST_DAILY_USD spend cap as fastpath, plus a Bot Room cap of BR_TTS_DAY_CHARS (default 15000 chars/ET day ~ $0.23). */
 const brTts = { day: '', chars: 0 }, BR_TTS_CAP = Math.max(0, +(process.env.BR_TTS_DAY_CHARS || 15000));
+const brVoiceCache = new Map();   // voicetype-20261029: room -> {ms, map}; 60 s
+function brSeatVoice(room, spk) { let map = null; const k = String(room || '').replace(/[^A-Za-z0-9-]/g, '').slice(0, 40); const c = brVoiceCache.get(k);
+  if (c && Date.now() - c.ms < 60e3) map = c.map; else if (k) { try { const pdb = new Database((process.env.HUBFACE_DATA || '/var/lib/hubface') + '/prerooms.db', { fileMustExist: true, readonly: true });
+      try { for (const pr of pdb.prepare('SELECT data FROM prerooms WHERE data LIKE ?').all('%"room":"' + k + '"%')) { const pd = JSON.parse(pr.data); if (pd.live && pd.live.room === k) { map = pd.live.voices || null; break; } } } finally { pdb.close(); } } catch {} brVoiceCache.set(k, { ms: Date.now(), map }); }
+  return VT.pickVoice(map, spk); }
 async function brcSpeak(q, r, room) {
   if (q.method !== 'POST') return json(r, 405, { error: 'POST' });
   if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
@@ -936,10 +951,11 @@ async function brcSpeak(q, r, room) {
   if (brTts.chars + text.length > BR_TTS_CAP) return json(r, 429, { error: 'daily-cap', capChars: BR_TTS_CAP });
   const fp = await import('./fastpath.mjs');
   if (!fp.canSpend(text.length)) return json(r, 429, { error: 'daily-cap' });
-  const o = await fp.fastTts(text, 'liora');
+  const spk = String(b.bot || '').toLowerCase(); const vc = brSeatVoice(room, spk); /* voicetype-20261029: card voice from the pre-room (d.live.voices) else default (iris-20261029: Licorice Iris, others Liora) */
+  const o = await fp.fastTts(text, vc);
   if (!o || !o.buf) return json(r, 502, { error: (o && o.error) || 'tts failed' });
   brTts.chars += text.length; fp.chargeTts(text.length, 0);
-  console.log(`[brtts] room ${room} liora ${text.length} chars, today ${brTts.chars}/${BR_TTS_CAP}`);
+  console.log(`[brtts] room ${room} ${vc} ${text.length} chars, today ${brTts.chars}/${BR_TTS_CAP}`);
   r.writeHead(200, { 'Content-Type': o.type || 'audio/mpeg', 'Cache-Control': 'no-store', 'Content-Length': o.buf.length }); r.end(o.buf);
 }
 async function brcSttToken(q, r, room) {
@@ -992,10 +1008,11 @@ async function brChatRoute(q, r, ep) {
     const us = brcUses.get(n) || { exp, c: 0 }; if (us.c >= 4) return json(r, 429, { error: 'reply link used up' }); us.c++; brcUses.set(n, us);
     const b = (await body(q)) || {}; const text = String(b.text || '').replace(/[\u0000-\u0008\u000b-\u001f]/g, '').trim().slice(0, BRC_MAX);
     if (!text) return json(r, 400, { error: 'text required' });
-    const id = BRC.ins.run(room, null, 'Yoda', 'owner', 'yoda', text, t).lastInsertRowid;
+    const who = (u.searchParams.get('as') === 'licorice' || String(b.as || '').toLowerCase() === 'licorice') ? 'Licorice' : 'Yoda';   // licbr-20261029
+    const id = BRC.ins.run(room, null, who, 'owner', 'yoda', text, t).lastInsertRowid;
     const lr = brlReply(room, id, t, 'routine');   // latency-20261026
-    brcPush(room, { id, from: 'Yoda', to: 'owner', role: 'yoda', text, at: t, route: 'routine', lat_ms: lr.lat_ms, reply_to: lr.reply_to });
-    console.log(`[brchat] yoda reply room ${room} len ${text.length} routine ${lr.lat_ms == null ? '?' : lr.lat_ms + 'ms'}`); return json(r, 200, { ok: true, id });
+    brcPush(room, { id, from: who, to: 'owner', role: 'yoda', text, at: t, route: 'routine', lat_ms: lr.lat_ms, reply_to: lr.reply_to }, who === 'Yoda' ? 0 : null);
+    console.log(`[brchat] ${who.toLowerCase()} reply room ${room} len ${text.length} routine ${lr.lat_ms == null ? '?' : lr.lat_ms + 'ms'}`); return json(r, 200, { ok: true, id });
   }
   const uid = currentUser(q); if (!uid) return json(r, 401, { error: 'Sign in to HubFace first.' });
   if ((ep === 'buy-test-order' || ep === 'buy-intent') && isBot(uid)) return json(r, 403, { error: 'Bot accounts cannot buy tokens.' });   // botsignup1
@@ -1036,30 +1053,34 @@ async function brChatRoute(q, r, ep) {
   const ownerName = nm(me.owner, 'Owner'), botName = nm(me.name, 'Yoda');
   const recent = BRC.recent.all(room).reverse().map((e) => ({ ...e, from: e.from === '[object Object]' ? botName : e.from }));
   const id = BRC.ins.run(room, uid, ownerName, botName, 'owner', text, t).lastInsertRowid;
-  brcPush(room, { id, from: ownerName, to: botName, role: 'owner', text, at: t });
+  brcPush(room, { id, from: ownerName, to: botName, role: 'owner', text, at: t }, ws.seat);
   const cs = +b.sent_at > t - 120e3 && +b.sent_at < t + 120e3 ? +b.sent_at : 0, lo = { id, t, cs, route: brcFastOk(text) ? 'fast' : 'routine' };   // latency-20261026
   { const L = (brlPend.get(room) || []).filter((x) => t - x.t < 15 * 60e3); L.push(lo); brlPend.set(room, L.slice(-50)); }
   brlLog({ k: 'owner', room, id, at: t, client_sent: cs || null, upload_ms: cs ? t - cs : null, route: lo.route, len: text.length, subs: brlSubs(room) });
   // forward to the existing Yoda routine webhook (same hook + auth as room chat); no hook -> stored only
   let hook = 'not_configured', fast = null;
-  if (brcFastOk(text)) {   // fastlane-20261026
+  let licTo = false; try { const rsL = await import('./roomserver.mjs'); licTo = typeof rsL.licAimed === 'function' && rsL.licAimed(text) && !/\byoda\b/i.test(text) && !/^licorice$/i.test(botName) && typeof rsL.botroomLicHook === 'function'; } catch (e) {}   // licbr-20261029
+  if (!licTo && ws.seat === 0 && brcFastOk(text)) {   // fastlane-20261026 // stellafix-20261029: fast lane only for the Yoda seat (seat 0), never answers as a seat-1 guest
     const f0 = Date.now(); let via = 'rules', reply = '';
     try { const rs0 = await import('./roomserver.mjs'); if (typeof rs0.botroomFastReply === 'function') { const fr = await rs0.botroomFastReply({ room, from: ownerName, text, recent, timeoutMs: 2500 }); if (fr && fr.task) via = 'task'; else if (fr && fr.text) { reply = fr.text; via = 'model'; } } } catch (e) {}
     // fastlane2: model says task -> full routine only; rule fallback only for plain greetings/pings (BRF_SMALL), other chatter without a model reply -> full routine
     if (!reply && via !== 'task' && BRF_SMALL.test(text.toLowerCase().replace(/[!?.,~;:"]+/g, ' ').trim())) reply = brcRuleReply(text);
     if (reply) { const ft = Date.now(), fid = BRC.ins.run(room, null, botName, ownerName, 'yoda', reply, ft).lastInsertRowid;
     const lr = brlReply(room, fid, ft, 'fast', via);   // latency-20261026
-    brcPush(room, { id: fid, from: botName, to: ownerName, role: 'yoda', text: reply, at: ft, route: 'fast', lat_ms: lr.lat_ms, reply_to: lr.reply_to });
+    brcPush(room, { id: fid, from: botName, to: ownerName, role: 'yoda', text: reply, at: ft, route: 'fast', lat_ms: lr.lat_ms, reply_to: lr.reply_to }, 0);
     fast = { id: fid, text: reply, via, ms: ft - f0 }; }
     if (!reply) lo.route = 'routine'; brlLog({ k: 'fastlane', room, id, via, answered: !!reply, ms: Date.now() - f0 });
     console.log(`[brchat] fastlane room ${room} via ${via}${reply ? '' : ' (no fast reply -> routine)'} ${Date.now() - f0}ms`);
   }
-  try { const rs = await import('./roomserver.mjs'); if (typeof rs.botroomHook === 'function') {
+  if (licTo) { try { const rsL2 = await import('./roomserver.mjs'); const exp = t + BRC_REPLY_MS, n = crypto.randomBytes(6).toString('hex'), sig = brcSig(room, exp, n);   // licbr-20261029
+    const o = await rsL2.botroomLicHook({ event: 'botroom.owner_message', room, roomName: 'Bot Room ' + room, from: ownerName, role: 'host', to: 'Licorice', text, source: 'botroom', at: t, reply: sig ? `https://hubface.org/api/account/botmeter/yoda-reply?room=${room}&exp=${exp}&n=${n}&sig=${sig}&as=licorice` : '', reply_expires: exp, reply_body: '{"text":"..."}', recent });
+    hook = o && o.status ? 'lic' + String(o.status) : 'licerror'; } catch (e) { hook = 'licerror'; } }
+  else try { const rs = await import('./roomserver.mjs'); if (typeof rs.botroomHook === 'function') {
     const exp = t + BRC_REPLY_MS, n = crypto.randomBytes(6).toString('hex'), sig = brcSig(room, exp, n);
     const o = await rs.botroomHook({ event: 'botroom.owner_message', room, roomName: 'Bot Room ' + room, from: ownerName, role: 'host', to: botName, text, source: 'botroom', at: t,
       reply: sig ? `https://hubface.org/api/account/botmeter/yoda-reply?room=${room}&exp=${exp}&n=${n}&sig=${sig}` : '', reply_expires: exp, reply_body: '{"text":"..."}', relay_mode: ws.mode || '', recent, ...(fast ? { fast_answered: true, fast_reply: fast.text, needs_action: false } : {}) });
     hook = o && o.status ? String(o.status) : 'error'; } } catch (e) { hook = 'error'; }
   BRC.hook.run(hook, id);
   console.log(`[brchat] owner message room ${room} seat ${ws.seat} len ${text.length} hook ${hook}`);
-  return json(r, 200, { ok: true, message: { id, from: ownerName, to: botName, role: 'owner', text, at: t }, delivered: /^2\d\d$/.test(hook), hook, ...(fast ? { fast: { id: fast.id, via: fast.via, ms: fast.ms } } : {}) });
+  return json(r, 200, { ok: true, message: { id, from: ownerName, to: botName, role: 'owner', text, at: t }, delivered: /^(lic)?2\d\d$/.test(hook), hook, ...(fast ? { fast: { id: fast.id, via: fast.via, ms: fast.ms } } : {}) });
 }

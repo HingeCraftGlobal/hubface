@@ -32,6 +32,7 @@ const { yodaLineRoute, isYodaLinePath } = await import("./yodaline.mjs"); /*yoda
 const { packagesRoute, isPackagesPath } = await import("./packages.mjs"); /*packages-20261025a*/
 const { stickiesRoute, isStickiesPath } = await import("./stickies.mjs"); /*stickies-20261026a*/
 const { preroomsRoute, isPreroomsPath } = await import("./prerooms.mjs"); /*prerooms-20261026a (Brain OS #133)*/
+const { voiceroomRoute, isVoiceroomPath } = await import("./voiceroom.mjs"); /*voiceroom-20261029 (Dan voice, staged): recording, room files, record.zip*/
 const inner = createServer().listeners('request')[0];
 const PORT = Number(process.env.HCA_PORT || 3470);
 const VBUILD = 'vps-20261017-v1';
@@ -83,6 +84,7 @@ http.createServer(async (q, r) => {
     if (isYodaLinePath(p) && await yodaLineRoute(q, r, p, u, { who: sessionUser, readBody, json })) return;   /*yodaline-20261024*/
     if (isPackagesPath(p) && await packagesRoute(q, r, p, { who: sessionUser, json })) return;   /*packages-20261025a*/
     if (isPreroomsPath(p) && await preroomsRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   /*prerooms-20261026a*/
+    if (isVoiceroomPath(p) && await voiceroomRoute(q, r, p, { who: sessionUser, json })) return;   /*voiceroom-20261029*/
     if (isStickiesPath(p) && await stickiesRoute(q, r, p, u, { who: sessionUser, json, ip: clientIp })) return;   /*stickies-20261026a*/
     if (isUserDataPath(p) && await userDataRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // userdata-20261019a
     if (isHfPhotoPath(p) && await hfPhotoRoute(q, r, p, { who: sessionUser, json, ip: clientIp, yodaOk: (await import('./roomserver.mjs')).yodaKeyOk })) return;   // floppy-photo-20261025a

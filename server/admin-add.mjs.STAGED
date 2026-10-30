@@ -1,0 +1,25 @@
+/* STAGED, NOT RUN. Owner-only: add/remove an admin. Run as root on the VPS:
+     node admin-add.mjs add <email> [admin|owner]   (asks owner email+password, then new admin password, on stdin, hidden)
+     node admin-add.mjs remove <email>
+   Writes only the scrypt hash. Never prints passwords or hashes. */
+import fs from 'node:fs'; import crypto from 'node:crypto'; import readline from 'node:readline';
+const P = '/etc/hubface/admin-widget-cred.json';
+const ask = (q) => new Promise((res) => { const rl = readline.createInterface({ input: process.stdin, output: process.stdout, terminal: true });
+  rl._writeToOutput = (s) => { if (s.includes(q)) process.stdout.write(s); }; rl.question(q, (a) => { rl.close(); process.stdout.write('\n'); res(a); }); });
+const c = JSON.parse(fs.readFileSync(P, 'utf8')); const admins = Array.isArray(c.admins) ? c.admins : [{ ...c, email: c.email || c.email_normalized, role: 'owner' }];
+const [cmd, email0, role0] = process.argv.slice(2); const email = String(email0 || '').trim().toLowerCase();
+if (!['add', 'remove'].includes(cmd) || !email) { console.log('usage: add <email> [admin|owner] | remove <email>'); process.exit(1); }
+const oe = (await ask('Owner email: ')).trim().toLowerCase(), op = await ask('Owner password: ');
+const owner = admins.find((a) => a.role === 'owner' && a.email.toLowerCase() === oe);
+const ok = owner && (() => { const w = Buffer.from(owner.hash_b64, 'base64'); return crypto.timingSafeEqual(crypto.scryptSync(op, Buffer.from(owner.salt_b64, 'base64'), w.length, { N: owner.N, r: owner.r, p: owner.p, maxmem: 256 * 1024 * 1024 }), w); })();
+if (!ok) { console.log('Owner check failed.'); process.exit(2); }
+let out = admins.filter((a) => a.email.toLowerCase() !== email);
+if (cmd === 'add') {
+  const pw = await ask('New admin password: '); if (pw.length < 12 || pw !== await ask('Repeat: ')) { console.log('Passwords too short or differ.'); process.exit(3); }
+  const N = 16384, r = 8, p = 1, salt = crypto.randomBytes(16);
+  out.push({ email, role: role0 === 'owner' ? 'owner' : 'admin', scheme: 'scrypt', N, r, p, salt_b64: salt.toString('base64'),
+    hash_b64: crypto.scryptSync(pw, salt, 64, { N, r, p }).toString('base64'), approved_by: owner.email, approved_at: new Date().toISOString() });
+} else if (!out.some((a) => a.role === 'owner')) { console.log('Refusing to remove the last owner.'); process.exit(4); }
+fs.copyFileSync(P, `${P}.bak-${Date.now()}`); fs.writeFileSync(P + '.tmp', JSON.stringify({ admins: out }), { mode: 0o640 }); fs.renameSync(P + '.tmp', P);
+fs.appendFileSync('/var/lib/hubface/admin-audit.jsonl', JSON.stringify({ at: new Date().toISOString(), ev: 'admin_' + cmd, by: owner.email, email }) + '\n');
+console.log(`${cmd} done: ${email}. Restart not needed (route rereads the file each login).`);

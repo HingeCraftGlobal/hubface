@@ -1,13 +1,37 @@
 {
  "subject": "evacuation OR warning OR wildfire OR outage OR recall",
- "fetched_at": "2026-10-29T04:00:03.210065+00:00",
+ "fetched_at": "2026-10-30T04:00:03.752016+00:00",
  "items": [
   {
-   "title": "Deaths associated with wildfire smoke up about 275% in Canada, new report says",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNV0V6d212RV82Ymlyd3VqcDZnWTBJd01YWGFUUnBMSXJaYTJOZFduM2NWaEdlNWdVTFlFNVBjdHowWHFONFIzb1pCLTYxVEwyNlNUY2pVY1l2OUtDaDRQUG9TTnNxSnFBbDVVUDVQTFlrNmpkVU5RbU1kZ2ZjS2tNWm5fOEg2M3FZZHF1OA?oc=5",
-   "published": "2026-10-28T15:04:59+00:00",
+   "title": "Summerland landslides raise concerns after wildfire leaves slopes vulnerable",
+   "source": "Global News",
+   "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNWXo1c0NxRnZsS0gxV0pEVkNRY1lDODd5ZmtkSUxMUlVFVkZ5aUNhWG8zcWU0REdOMXpTUjFpZ3pUZE5RdFdtR0pHTWM2XzlSN3I5S1N3VU11MUZ0bFBLQ2F0T3Y0UnVpX3h0ajN4OHJJeEotZk03NzduTmdTWHctU1VrTmJVZU9Nc3VhcU1fY1l3TlVpMnVrckl3?oc=5",
+   "published": "2026-10-30T00:38:14+00:00",
    "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "$55K in support helping victims of Bradley Creek wildfire near Vernon",
+   "source": "Penticton Western News",
+   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOMkc2MFJ0ckJSeHktYkZZTllneld1dU5vSEFYVXBHdVFCS1pic0VOdlJ1LW1MQWdXRS0xd2J4MzBJWDBqWjJ4cVFWNWdpWkJZNUY5SDBHWmI3ZXRodUYwLU80dTBQNkdSN2pZUVowNzZLSHdqdkJ0c3hWeE11cUU4VndPa2NIb0dhV2pkMF9aM2hCVDJ1TE9iaUZoeWl1bUg3bkt2RF9rMUhRZ2dxd1N5WjZuRQ?oc=5",
+   "published": "2026-10-30T00:42:28+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Bodum USA Recalls 5.9 Million French Press Coffee Makers with Replaceable Glass Carafes Due to Risk of Serious Burn Injury",
+   "source": "CPSC.gov",
+   "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQdmNhVlZQNVh3VXpobnRYSWNaVWNwcndxd1VkMmE2T3VZd19wWHJucmI1SWw2bzM4YXpKaHB4WTd5T3daZ2tVSGxNV0dZQnZ6dTVWR1NWV0VFV3hqeTg4X0VURHdkNnVfWHRWelF1N0NMejh0ZXJjeFQtSU52MXVCMmdSWUMzUU5uUFROczJGUW5tcjZybUdpQlhPdkpEclQ3WTNYR2ZYQ0FENDBxVjl4aVE0X2lWSFVOd1hNUmdSZGlTRFB5VWp4ZEVGdThNaXJUVWZJSnpsUnpBRU9wXy1NT2w2TGJpOXVzNWJfZw?oc=5",
+   "published": "2026-10-29T13:07:22+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "City of Victoria issues warning after owl attacks same person twice in three days",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQTDFPZ0l3TDNFTTZ2aHRYOTNQSUNXOUZBeVpWeFJLSzVwUVotSE5kMzFxN2FXY3hCRm5IUjQ2c0ZpUU82T25sbHBGSGN4d1F4ZjR6TUhSazNVYW5kVTRKcXMtX3dqNzFMRDJHVnBlNDFQYzkyMlFfVmJORFF4SWg0Uk9LUlVmblN4eHF6QnEzSjJoUkRYeWt5cl9jMUxsNG5sekRfTXNLQkVDR3d4NGc2RnRKMUtrMU5wR1NvTTQtZHU?oc=5",
+   "published": "2026-10-29T23:11:27+00:00",
+   "tag": "standard",
    "video": false
   },
   {
@@ -19,51 +43,27 @@
    "video": false
   },
   {
-   "title": "Product recall issued for items sold at Walmart, Winners, HomeSense and Marshalls",
-   "source": "Inside Halton",
-   "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQQlNJbmRtMmg0akR4LURhYXRpb2RtaUZTSmZ5Y2N6Y3JOMnZ6ZFk1T0hTYnBKNkpxUnViVjRHYjg4c1FlNUN5cTJ6T3ZyMVFIcjNyWnE1aVRNUkwwdUJ0a1ZUY1pUMTZQZUpwdUtZNk5OMVpOSFI4S0tRZ1ZDa3d4UEo0dFJQZDNocUpXSjc0eHhncGREXzJINEZZWkdvek13Y0Y5akt5d21rT0FJdklaQ2xvMVU4NHlSTExDNGh0bGU3YWdHYU5qWHFRYkU?oc=5",
-   "published": "2026-10-28T16:09:00+00:00",
+   "title": "Fire forces evacuation at UBCO",
+   "source": "Vernon Matters",
+   "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB3dEVleWlwN2ZDNDA4U1YtdXBsV3dOQ2JTUlNjakhOV3R2Q0FocldqQ1U2Ti1vVkgzWmZ4d0YzUmtFVThVeW9qYXlHOE82SjFWSzRaRGJmRGhDVVFLY09lSzh0ekcza1Yxd040LWM4bzF0eWxCSlE?oc=5",
+   "published": "2026-10-30T00:06:02+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "Deaths from wildfire smoke up 275% over recent years, new report says - National",
-   "source": "Global News",
-   "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQRFVnVkRlOFY2dWZKdTRyUWE0OVVSQmQ3bFFaaEZhT1owRF9LR0pLNC1jMDE1dVVpQ1NoNHJkTkUxNXU3ajk3djZxcDdMOG5PWnZqeFdubXdpejR0QXJVS3pjY1UxMzFrbWIyeENYc0M3QU9FNklqVkFzOXh6bWdpbW9raXRFcVVHRXpN?oc=5",
-   "published": "2026-10-28T19:08:02+00:00",
+   "title": "Deaths associated with wildfire smoke up about 275% in Canada, new report says",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNV0V6d212RV82Ymlyd3VqcDZnWTBJd01YWGFUUnBMSXJaYTJOZFduM2NWaEdlNWdVTFlFNVBjdHowWHFONFIzb1pCLTYxVEwyNlNUY2pVY1l2OUtDaDRQUG9TTnNxSnFBbDVVUDVQTFlrNmpkVU5RbU1kZ2ZjS2tNWm5fOEg2M3FZZHF1OA?oc=5",
+   "published": "2026-10-28T15:04:59+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "Update: Power restored to thousands of customers in Chilliwack, Abbotsford",
-   "source": "Fraser Valley Today",
-   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPTlNQcHAya2Y5VTVINkFHMnlVaTdqcENtekt3ZzVQSGxsRGZRQUFub3FZUHlKTzJaOHJkbl8tRDlkUm9yTGZmSGxlNHZscTNTOGlkazJ2NUc1Z3BYb0g2Y2doNDBSNnBBaHYxOHpyVTBScUdwWXFMNDJEYndLZTFXODVObUJIR0h1VnF0ZlNhY0VROExud0pPbDgxRE4xQmRXdWx4NWRhT1VTdFhTRlNTczRuVEU?oc=5",
-   "published": "2026-10-29T02:59:35+00:00",
-   "tag": "positive",
-   "video": false
-  },
-  {
-   "title": "Sidney power outage leaves 5,000 residents in the dark",
-   "source": "Peninsula News Review",
-   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNazlZMlltTm1YX3Iwd3MxemM5YlYxM3QyNl85UHlmd0xmSXI3N3JUWEhrOHk5R1M4VmdfYkd6cmFaeTlsQUZicEd0NFZsZlQ2X2wyN1hjczVrd0xVQkRmYldXaHdjUV9WZ2dNbDZvbU9FZnFONUdreXlwQ3JPRmljR3RFT1BISTVNN2dqaHRycThybGRnYmc1LWJWVEloQQ?oc=5",
-   "published": "2026-10-28T15:28:20+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Hinton pushes for continued funding of wildfire team",
-   "source": "Penticton Herald",
-   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQYWhGN2tZbWw4eDFpMzBHSXFwdUxOakQyOHEwSUgxZkVESjV4cmlUVEQzT1R4OVptMWlZWFI3SjFEQnZ1d1ZuX1NvSHF5UU9PNWJncGk3VFFGZUtKYlpJT0xlYjllZnFYeHRRWjZ1UUxLZDZBVXJMZWUwUmk1bmRsM0I0TThJV2lIT3czN0RpQ0pPdlNWeUE?oc=5",
-   "published": "2026-10-28T22:27:03+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Wildfire at New Brunswick military base not threat to public: defence officials",
-   "source": "CityNews Halifax",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNbDNhd1N4YjNYVzc3Y3dyZzNyOG00MGp6UTU5YkZFdFYycDQwbjl6SWotOWNOai1BZU5GbWZxMnZkR0JoXzhmN1pPVkdISGdBN1JfdGY5cWRoVVlDd1RSWjIxazVPTHVfZWZhbXJtT3NnQ3ZSVjJRT3gzUEtUSlhGME5HUHR6YjQyR3Z3WG9HcU9NeTgwZ0VhQWtTc3VxZkFuc2J6NUxRWHFJOGhoSEdvODdhR2p6YWtBMEE?oc=5",
-   "published": "2026-10-29T03:28:58+00:00",
-   "tag": "emergency",
+   "title": "LA Kings Recall Martin Chromiak from AHL-Ontario",
+   "source": "NHL.com",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQNlpqRUFiOGtlU3lDQ1NUZ3FCa0V6YkpzcXlVLWE1Nklfc0JLNDRKV3ZudlI0MVprNFJQWDJCTGR4bW82bTNTbVJuUGdzNXRNWThuNHlpVmNwRUJBaUUwTk42Wi1uWVRBb3FONmJZd0VsVHdjYVlHelctMWZNQ2VYNmRURDdRVkRGTTBndmFXZ2xsdFFVZFhiRXJrT3YzbzhGak84cnFhMm1vakwzVTFfWTY1Wk8wVG5wQkE?oc=5",
+   "published": "2026-10-29T17:37:39+00:00",
+   "tag": "standard",
    "video": false
   }
  ]

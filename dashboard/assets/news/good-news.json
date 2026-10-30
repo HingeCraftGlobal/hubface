@@ -1,12 +1,36 @@
 {
  "subject": "good news",
- "fetched_at": "2026-10-29T04:00:02.674189+00:00",
+ "fetched_at": "2026-10-30T04:00:03.123445+00:00",
  "items": [
   {
    "title": "Opinion | Want good news? Look at health care innovation.",
    "source": "The Washington Post",
    "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQaUptZ2xPcENVd09lbmN1djl3RkgtU1lpWFRULVpVMTZJNHBhdEl2YWczSV9xUWlMMHNoZmZWVVNuNFRfUVV1MTdPVjBqTmFPX285MjJyU3lOOWZwVUxrMDNvUjJjRnFRZDFwRkV4M3hwRjdJQndncWppZkg0cVY0THgzZ0J0VE9iS1JHTXlLTkNkS2gyWW16WFN3Nms?oc=5",
    "published": "2026-10-28T17:30:00+00:00",
+   "tag": "positive",
+   "video": false
+  },
+  {
+   "title": "(Some good news!) Treasuries rally as AI selloff drives flight to safety, 10-year yield at one-month low",
+   "source": "investingLive",
+   "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOb2pWeDJGcnFmblZyeDJqWC13eUE2VExNRjhadWVPZkkyZVo4eDNpVXBEMFFxbnNUY3dQZWtrYWNTRG5wNS1reS1fbnl2cHZOaHc1WGtBZjk3QS1GRFJIbERIcV9yQTRSTGxGRllvMm5tQ1hOdTVxNTRSa19oQTdMNjJ5MHNLTnltN1ZlUjAyRVRTU25ZSEhMcS1LSnoxbHJRT2tQTU9WUVZQTnp2SXQ0SVNWc3JQLUx3MlQ2OGtfbkpqN21YQ1RXVUV1bUg?oc=5",
+   "published": "2026-10-30T02:01:41+00:00",
+   "tag": "positive",
+   "video": false
+  },
+  {
+   "title": "Tesla's Free Cash Flow Beat: Good News, Bad News, and What It Means for the Future",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxNSzVfNld2N2pBTjR3Rk9rQ1YwTGJQdDJ0Mk82ZnprOUMwYkR4ZXRscXJqNHAwWTVSQTdoMmRHSlJaWDJUTEdKcVlKZU9reFJSbGlJbERQLXB4Zm5pSVdNVWh5ejBzcXMyZTJlVlpQTzhMUURZQlNNdF9kVFI2VGt5dE5lVzdnTTlOdFZ4MnY0TlpFZ0pIdFl2LW55YThKZnA2Qm1IbndzT2VJUDFSLXJWdU52d1NwQmZoRi1xZjZjbmhuT0Rmb1RKS2hFc2FkRXh1WFJMVl9JWjF2OF9UMzV6cmpPQl9rSktYSFVyVDdqUQ?oc=5",
+   "published": "2026-10-29T10:38:02+00:00",
+   "tag": "positive",
+   "video": false
+  },
+  {
+   "title": "Birdwatching Rewires the Brain and Slows Cognitive Decline",
+   "source": "Good News Network",
+   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNRzZiOXhDbjgzZ2k4M21QYXlmSkh4M29GTllxXzc3WmwtSzZtWGlzRlZVSFBVc183TGRoajdJNFlzMzJwNC10ZEFHenZackhSUWItUWQyd3Y5eGNnSUN0YlRPbU9xdEd0OEdwNWdSSmxEbkxNWFN3TUVVTjVyMTk4dzY5R1Fua0dLS3Rta1ktMHlWS25HMnc?oc=5",
+   "published": "2026-10-29T15:30:03+00:00",
    "tag": "positive",
    "video": false
   },
@@ -19,50 +43,26 @@
    "video": false
   },
   {
-   "title": "Pacers get bad news about Haliburton but good news on Nembhard, McConnell on injury report",
-   "source": "IndyStar",
-   "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNTWhKSkhBQnBFNjNhX0RUY0gyTDlRREN5TWRORjZKNVB5T2JyZ0xyVHdiY2hxdmktbnd0MW44OWlvQ3ZxY3QxMkhvbmZuTEFVSzkyWDkzanFIZkJGN2lOdmpuVTg5Z0VJSGZaZWRWMnVveVpXdTlnUURUa2p0Nk9Nbnl1WGsyVkhnUS1nWlNEREtkd1llSUlYYi1jTV9aNVM1T3ZtYU1TUTNhZUdNMnMtYXdnbzY5bzMwbi1XRFhhcm5rS3o0XzN0ZEd5b1VJTVJJaWZaUUxwUDNqNmRud3pYZjNn?oc=5",
-   "published": "2026-10-28T23:10:00+00:00",
-   "tag": "positive",
-   "video": false
-  },
-  {
-   "title": "Zelda 40th Anniversary Nintendo Switch 2 restock signals good news for launch day buyers",
-   "source": "The Shortcut | Matt Swider",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOWHVTc00xTFNUVV9qc2pVMXd1Nk9DcHNwUHJZdi1JMFdqbEtnV09HY1cycEozejd1UmROTjh0NDROMnd0YzdEa3BRRmZVN25XUlhrYzZvUzlhX3hwZEJQdWgxQ2EtVUJFbG5fUFVBaWJoRHNKUDFtazR4Z3UzM2xwN1lCMmpmWWU1dWh4WWlnTGJRcktqZ2owS1dpQjAwNFNnQlN3MFV2cUVDNkpYQ0xveHJEQjNWMEYzc0E?oc=5",
-   "published": "2026-10-27T15:35:23+00:00",
-   "tag": "positive",
-   "video": false
-  },
-  {
-   "title": "The iMac M6 and MacBook Pro M6 are official — and they give you more powerful local AI for the same price",
-   "source": "TechRadar",
-   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQM0FSS3pLQnhObHVoeU12THR3WG01VkFOczNjVUtXR2o4TjlMRk5xcUlBLVBkMFJ5US1NU05EejlmSFBzYWREMzNxT0RjRkFsRDR5TWFxTWY3VVpfeG5WdU5uanp5ejdTcElmeXRiaUJCVVhHQ0JTem5FMWMxXzU2czc4SVgyVGs1VGNmREdDZU12U1ppX1JWZnRGYW8zc2dnaUdta0UwcGRvelNlNW1iZDhmYUJ2Z2RDd3NXVF80dUNlbmV4NmxXMG8xMA?oc=5",
-   "published": "2026-10-27T15:29:41+00:00",
-   "tag": "positive",
-   "video": false
-  },
-  {
-   "title": "Lions injury news: Good news for Amon-Ra St. Brown, Ennis Rakestraw",
-   "source": "Pride Of Detroit",
-   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPT29QM0YzU2p0YVlnSDhzVl96N04zOVdLMnNQTllJU1JkcDNucnV2N0tOa21DRzdkTzFxQWJIZnBPQ1JYX3BhY2h5UC1JaG5EQ3RNLWVwblpKNE02eC1BMVRTdUxkWWhNSVhHX1FRbVlvS1hqTVk3T0dQV0hWaU5ncFdlVmxBS1lJVV8tME1MOW9YdnJlNnVpSHdvZnRqb3ptZ1paenNUSmZiVHdpZklQZThWbVBJelhPTTZOWFZ3?oc=5",
-   "published": "2026-10-26T20:13:13+00:00",
-   "tag": "positive",
-   "video": false
-  },
-  {
-   "title": "stefan sagmeister’s artworks turn global data into good news at la gaîté lyrique",
-   "source": "Designboom",
-   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5neWdkWFJoQ3ZFU1ZtamhET0xQUFhZdXBtVkx1aWcwQ3Z5cmM0TGg5Vl9NNEdPdF9mMU5PTW1CZVBDRGRuNXc1NkJ6cDRuOVNfdEc3V2Z3bmdMakNFZllJVm5ibG5OeHhmZ0F5MjRUbC14bURxSDVkTTFn?oc=5",
-   "published": "2026-10-26T11:00:50+00:00",
-   "tag": "positive",
-   "video": false
-  },
-  {
-   "title": "High School Baseball Team Has All the Vibes of Success But Never Won a Game: Kids Don't Mind",
+   "title": "Bereaved Parents Ask Court to Consider 'Lightest Possible Sentence' for Driver Who Killed Their Son",
    "source": "Good News Network",
-   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORE1lYXNNLTNWMGFtZlItSkVaWXUtYmhDRmw3cmVtTk1RUWxCODBPNk05dEY1ZWYyR2NHbGM2NUV1d3ByaUZRSU91MGEzenhWZmxjVUwyNHFvSTYxY2J3NGxXVEpDZlBCa1FBc2JnVEhqblpyOXVyNGtOZWNydmhMelozMHZYUjRjRGdsTVBlY3NfZzBPQm02WUNVbWdrVXozbG4tU01uajdzWHBYam9zZDBXRkhhMk0tdllfYTJKN0o?oc=5",
-   "published": "2026-10-27T15:30:59+00:00",
+   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOZEVGRFZrZXN5MjBZNDFQZ3dtWTdsVVNodEdPTWI4OUNSU1hVeDVWR29qQ0QwLWpwM0FUR0JsTTVuRkNQNGRIMFpaMWtHSmxCNm9NQUR0WDI3QnhYQmg2Y0d2OGFLcEg1dHhmUjNxeFhJdFZFT0VwbElobWxITEU3eXEtb2xrXzMyejBseU02UXFUVW9EeEJQM2ZYOXlOcDFGQ2o3YlQtZ2xzQkZabU9HYVdMdEJISlVRYU5STXd6bHhpVHZWV3BSMEd3?oc=5",
+   "published": "2026-10-29T11:00:58+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "JoyDrops: Short Films Big on Inspiration and Bigger Awards Aspirations",
+   "source": "Good News Network",
+   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQN0Z6NmxISmx2UXd1WWdvcnRyWUI5RlN1cm1tek5MZFF1S0poTzFjUlhSbkNoU01xODd3SUZkTEtlTlRiN1AxZE04aGlLVG5DcWhOcFplUC1SaFRSOTNqbTQ5ZWczcGozWVhpLUNxTUxuOHV4bzF5ZmZBWHRKM2NZalpvd0dnX0ZJX1R2SzBqdUNNSEp1RjVCSmZ1Q010d1Z3Snd5NQ?oc=5",
+   "published": "2026-10-29T19:06:13+00:00",
+   "tag": "positive",
+   "video": false
+  },
+  {
+   "title": "Bizarre Rescue Sees Divers Save Kangaroo That Found Itself Over a Mile from Dry Land",
+   "source": "Good News Network",
+   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNWmpadjFJWGFDTUxLSUJsZWpFaENkd1VCOWRJRTZRaVBZVTVkdXpYM1R5R1pJU1k5V3VjNnpSWVRHcWFuTEtEVmFWMzNYZV9tQkFiMGtyYmZ1cGJhd2tXdHZJM0tMclhEVWFyOGtVY1BxSlRjdE1iaGp5Z3BObGRFS2lWMHQzdGlNcndISTVwUGs5czFzdlBadHFyRFhSMkJ5RDk5bWNNVGxRZHU2SGppNUVhblYzZ0lu?oc=5",
+   "published": "2026-10-28T15:30:15+00:00",
    "tag": "positive",
    "video": false
   }

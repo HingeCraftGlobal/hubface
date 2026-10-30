@@ -1,68 +1,68 @@
 {
  "subject": "ai",
- "fetched_at": "2026-10-29T04:00:05.541246+00:00",
+ "fetched_at": "2026-10-30T04:00:06.132470+00:00",
  "items": [
   {
-   "title": "What Should You Do With Your Money in the Age of AI?",
-   "source": "The Atlantic",
-   "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPZktXMm92WTRPRWV1MUNZOXlmQmt4d2FBSFV3cGRTN2JFNzhhRmYtdk8yMUtPSmRoNFhFNlBLZEI3YnBfQy1tU1Y5emE2ZGJwNGNHOWEzRWpiWkJRVUhQWlRSdGlWWk1JSFhkc2VqaDZBODE3NEdRbTh6VnJVWUswdmVpVkg?oc=5",
-   "published": "2026-10-28T17:26:45+00:00",
+   "title": "Google value plunges by $500bn as AI fears rattle Wall Street",
+   "source": "BBC",
+   "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5HNW9FUzgyTXVpc0pmUHo2T3F2bWh1T0pxaFhGZzFueWhsNjdWVXdNYzJwcXBPeUdVSUdGYVZDdUZwUDl3bzBESUdkb24zdmJHNV9iR2toaWUyYlk?oc=5",
+   "published": "2026-10-29T22:17:52+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "‘There is no inevitable dystopia’: Jeanette Winterson on AI and the future of humanity",
-   "source": "The Guardian",
-   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNWHhoWTNGUmExLUN0c2w4SkJ5cUllajMta0Q1VEFlakdvOVMwVjV4TE0xNGoweFQxc28wSFV6THByeUVGcFZQWW5HXzkzUFdXTXJjU3Y4ems3MzZDWUNudHFwcWwxNnFSSUtSNGdYclQyc3VMM3VOVDJIeVVLd2VNYllkN0YyaGR6ZnAtTUUxenJPTUZQWDhVTGt3OWlxVHNYX1RmYS1TQjlNYXI4ZFE?oc=5",
-   "published": "2026-10-28T12:29:00+00:00",
+   "title": "Alphabet earnings miss reflects first real sign that AI is taking a bite out of search",
+   "source": "CNBC",
+   "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1jam9HMHZIWF9Qa012UFpWSDdXR05uS19yQTdoNnhxQzF5TE9KQ1VSYm1RR2YtZ2pvelkzUnQ4QncyamJtOXEwUk0xMGdFdWJIWFkyM0h4UGFmcVlWRHQ3angtYzl3ZTJsUkJENlpnS3hXWUZNdUh6WlBGNNIBgAFBVV95cUxNNHc4N2kwVENwVmxsU1pPY0FkX1FDd2FlYW83MDlFd2QweG02NkdoQU5lMmZCVVh3bXhLclJzVXAxcTF5ZU5uQXAtZGp3Qy1ZdWFpWUszT1hQNXhIMVhYZFR3aXF3a0NhaUF1T05XcnNIUHVMZEVBdGpKT3NZVFI1WQ?oc=5",
+   "published": "2026-10-29T11:00:02+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "AI agents banned by several of Canada’s biggest banks as fears grow",
-   "source": "Global News",
-   "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBEdzF4Zi1VOWZUeW5RUUR5ajBsWTR6aTJMMHltZnNiT2NET3lKbFNvQmhZdzZUVzlZc1dOWWhRTERuRXN1b3Z5OXN6SV9TT2QxcjBMLUhEYlNUY0xaWTRDeWN2eTh2andxTUU3Z3Fn?oc=5",
-   "published": "2026-10-28T19:59:28+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "BMO, TD block use of third-party AI agents",
+   "title": "Is AI Killing Google's Golden Goose?",
    "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNQk5mbU9UZTRoTUF4Ym1Tdll1aHlLcGhwbXQyNVVxNGhRYmFGTEEtaHNGVWFnaG1JeWJ4Tm9Gak02TmpuMlVuc3hDNEJ4SjN3Ui1TVC1aOXhIZG1NUXhPRDRlWjRiUzhCanVoc1VnNXplMjFjZGlHX051ZXMzc2d5ak1xVXRsU1BYUmhQNXpBcW1lUFRyVXFEZTNXcjFQU0o2c0g5ZQ?oc=5",
-   "published": "2026-10-28T19:22:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPUU0ySUxfVlhlcnVNTHkwUnZYTjJZbUNhWWF0eWpfNzhVNVdILWFKdlYydUROTTBrbllLWGxFQ3hWSC1mYVdYcjRLUG11QkdGQVVqU3NlaUgya3pRRFdTUHRDSDRvQko1eHU5MXZCb21pdlZQTzdlbWNPWS1aRWFfcm1faFN4clcxd3htWXJGZWZRb1hVU1FPZmdqcGpVbFpFemFwbmJpVnVmVTU1UVRzb1lvOUp5dmRIWkthZg?oc=5",
+   "published": "2026-10-30T03:35:48+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Some Canadian banks blocking personal AI agents amid security concerns",
-   "source": "Winnipeg Free Press",
-   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNdmtSNFM2d1g0Mzd2THl5WnpTY1pibmZRWFJ4b19PYzVsYmFyV1ZmNlY1Wm1WMVROaHh5SGJ5VndQUDk4TGxLWnotVnpyNVU5MVhqbWJtVU9zUE52UmRhYjlvMHQ5blN3RHNyN0lRdTh5NDRKbi1kdmtLQ29Ec1VDQUNuNENKMEtqUVkxVmpLOVRGaUhlZVhmUGR5bldRSUxGbnhrQnp4M3BrRW9MTF9OWWl4NDFTRHBMNy1tNXNfOFRjQQ?oc=5",
-   "published": "2026-10-29T02:52:20+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Samsung keeps shattering profit records as AI boom lifts chip demand",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPMHdQb0JNcC1mZjI1bW1sSHNKRTNHam1Rd2N2YnMtS3IwWGxURUJLRVpJeWxtcXhOTTNiRmJ2Q0t4NlhFRk13bzlqMmhjTGIwZDd5UmlmMUpHUm1sMkZVVGJudzJwRHY1UFVjSnZkZi0yNkJmbzByTjhONXFTWDFlTTZEZUk0ZkMxWFZDakFxUmJRcm01NkY0NDFDbEFEX29SNzA0aUpJalpQMklER3ZkWFl0WUo0UGZudHl5YTVSbDVCTWMxNFlSTHlzX0hKU3RVbW9vUmdQSHlQVU1LVFgwb2JZTGFvd2dJTlE?oc=5",
-   "published": "2026-10-29T03:07:46+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "N.S. premier's office criticizes Toronto professor over comments on AI data centre",
+   "title": "Canada to invest up to $1.6B in Toronto-based AI company Cohere",
    "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPTEo1SHNKWS1KdlpVaWp4bmVtU3hBYmxLdF9BUVZTbGQ5TlNXbUVOMlZld01ibldsdkVNVDM0VkIwaFByXzVDcUMzZTN6Qmhmdk90c1ptaWhseVNRLU4wbUNMRVhMZ1JmNW9zRnJSNFVyVU02WmZqZ0tvY1lSbU1BcWVUb29CeFp1dWxJMTRWVFQzODJPbTlFcHU3Nlo0ZGhqODlxWkQ1N2Fvdw?oc=5",
-   "published": "2026-10-28T19:54:37+00:00",
+   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE80QzFvaVEtR1JBancxd3BTNGhyRkJYTVN1cnE4ZUtua2VQMlBNU0VPZXVZMzA0M2tJc3FPVHVYUkd1UEkzVzJyYURpZVhteGE3X3J2cTF3cWVyWll2NzdzT093SkxxSjM2eEVrVVFrVmJwSWg0R0ROcmVn?oc=5",
+   "published": "2026-10-29T17:12:24+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "N.S. premier doubles down on complaint to professor over comments on AI data centre",
-   "source": "CP24",
-   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNN1BXNVI4Q1lNUHRoaXhkYkZKbkFtNnQxV20tdzRvVmJ4TWFRQmk5OXhXcF84TmZFc0puVnY3MGtiSlVoQ2xGcVhIMXhJeXNXRkhyMnJxc2VqR2o1WEQ1LTFUemJsUkVOcWhpdjVrNU95RmZvVVNURldmaGNGbS1hMzkyUk02RGpXZ1F2VzVHNFpXVW1EbzBtYXd0NnVEME0yb3BidHRUZ1RnREJIMEFPN1hNNlY?oc=5",
-   "published": "2026-10-28T21:13:38+00:00",
+   "title": "Federal Government Investing Up to $1.6B in AI Firm Cohere",
+   "source": "CPAC",
+   "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNUkJzR0lyeWJ6a244cHdlU0dVX3dLakRGWFBCQ01lMWU2SnJ1dHZ2SHNydEdrVzFUdVdfRElZWlZwUC1mZWhLUWZHbW51bjFxeFh2Vk9MR29kZXQxek1xbGZLZnFyY1J1MTItZF93eFlxZFpkMzhfckd4cXlmZS1PU3hITWcyZGJwSDFZV0pnYkI0TVFOYTZyZjFBUHNYUjJWdFozbXhudDNac1hHZ1pXMEU3LVNBTjFWMGtxWVhGNWVFY2Q0R1VXdGdONXB1LUdOQjRvbGhvVndGZw?oc=5",
+   "published": "2026-10-29T18:24:05+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Ottawa to invest up to $1.6-billion in Cohere as AI firm’s valuation soars to $35.7-billion",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNeGJlb1pvWktqeU11WENkWlJkdjZjc1FBcEVXTXA5UnlaMHlGNW9CU3ZjRmRpSWRZSXFITVJnX1FZbHRUYzJLY2dlYl84bUtnVVF0SmJsRjM5eE40UGFXMG90Zm5PQmNsZzFBZ2thOFRIeUJfYld0Ym9SRF9oN2NZLTdZOGZScmdfM2p6dndhX1hEMGRwVlJ3LTNOY1VIYk9jVVJGcVpyZ3NSUQ?oc=5",
+   "published": "2026-10-29T16:03:13+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Foxconn Ecosystem Enabling Token Factory For AI In Spotlight At Hon Hai Tech Day 2026",
+   "source": "Yahoo! Finance Canada",
+   "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOZXZHclNLM2RRb25ib3RENGdVX1poUmNibURYUEJEcjAyRlJER2k2UU03QWFLMzRCcUdRMW85cEtDemJDdTQ1U0FZVk9tV0RrZEVrVllnQUlaaXUyWGxOTVJscThRUWVLdVQ1aUlzUnRRa1Z2cmdDU3F5aWxxVWdQdXBnZVN6RDlrRWRjdk44N3p1blU?oc=5",
+   "published": "2026-10-30T03:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Stocks slump, bonds leap as AI giants' spending spooks investors",
+   "source": "Reuters",
+   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPODMxOENneGV3TmZjN25YblpGTWpPOWRUV3Boay12aGxXWENUbUFLTnJzUURrYklnTkZjUHVOTTFCNkM5V0luRXRLcExGdXJxSEt4SzhFNzNSZG9qQ0F2c3RWclhFVnMySTNvRkJITU9OTVZfZUZ1NFEwX2x2enZVNFhuX2x5bGxRMnA3NElR?oc=5",
+   "published": "2026-10-30T02:45:00+00:00",
    "tag": "standard",
    "video": false
   }

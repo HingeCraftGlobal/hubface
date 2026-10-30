@@ -1,0 +1,15 @@
+/* activerooms-20261029a (Dan, Oct 29 2026): "Active rooms" list on the right of the Hub Rooms start list. Shows live pre-rooms / bot rooms the viewer is a member of (GET /api/prerooms/mine, status live) with a Re-enter button. Roll back: remove the script tag in index.html. */
+(function(){var D=document,rooms=[],last=0;
+function css(){if(D.getElementById('arCss'))return;var s=D.createElement('style');s.id='arCss';s.textContent='.arBox{position:absolute;top:8px;right:8px;width:170px;max-height:calc(100% - 16px);overflow:auto;padding:6px 8px;border:1px solid rgba(255,255,255,.18);border-radius:8px;background:rgba(0,0,0,.25);font-size:12px;z-index:3}.arBox b{display:block;margin-bottom:4px;letter-spacing:.04em}.arRow{display:flex;align-items:center;justify-content:space-between;gap:6px;margin:4px 0}.arRow span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.arRow button{font-size:11px;padding:2px 6px;cursor:pointer}.arNone{opacity:.6}';D.head.appendChild(s);}
+function load(){if(Date.now()-last<10000)return;last=Date.now();fetch('/api/prerooms/mine',{credentials:'same-origin',cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j)return;rooms=(j.rooms||[]).filter(function(x){return x.status==='live';});draw(true);}).catch(function(){});}
+function fw(){var f=D.getElementById('prFrame');return f&&f.contentWindow;}
+function reenter(id){var bt=[].filter.call(D.querySelectorAll('.hrw .hrnewcol button.hrnew'),function(b){return /^Bot rooms?$/i.test(b.textContent.trim());})[0];
+ if(!(window.__prActive&&fw()))if(bt)bt.click();var n=0,opened=false,t=setInterval(function(){n++;var w=fw();if(n>60){clearInterval(t);return;}
+ try{if(!w||!w.prCards)return;var c=w.prCards.current&&w.prCards.current();if(!c||c.id!==id){if(!opened){opened=true;w.prCards.open(id);}return;}
+ if(c.live&&w.prCards.enterLive()){clearInterval(t);}}catch(e){}},250);}
+function draw(force){D.querySelectorAll('.hrw .hrnewcol').forEach(function(col){var host=col.parentElement;if(!host)return;var box=host.querySelector(':scope > .arBox');
+ if(box&&!force)return;if(!box){css();if(getComputedStyle(host).position==='static')host.style.position='relative';box=D.createElement('div');box.className='arBox';host.appendChild(box);load();}
+ box.innerHTML='';var h=D.createElement('b');h.textContent='Active rooms';box.appendChild(h);
+ if(!rooms.length){var e=D.createElement('div');e.className='arNone';e.textContent='No live rooms';box.appendChild(e);}
+ rooms.forEach(function(r){var row=D.createElement('div');row.className='arRow';var s=D.createElement('span');s.textContent=(r.about||r.type||'Bot room')+' ('+r.id+')';s.title=r.id;var b=D.createElement('button');b.type='button';b.textContent='Re-enter';b.addEventListener('click',function(e){e.stopPropagation();reenter(r.id);});row.appendChild(s);row.appendChild(b);box.appendChild(row);});});}
+new MutationObserver(function(){draw(false);}).observe(D.documentElement,{childList:true,subtree:true});setInterval(function(){if(D.querySelector('.hrw .hrnewcol')){last=0;load();}},30000);draw(false);})();

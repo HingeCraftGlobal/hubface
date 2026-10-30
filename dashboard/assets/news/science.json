@@ -1,68 +1,68 @@
 {
  "subject": "science",
- "fetched_at": "2026-10-29T04:00:06.048607+00:00",
+ "fetched_at": "2026-10-30T04:00:06.592476+00:00",
  "items": [
   {
-   "title": "Working with academic communities to build scientific understanding",
-   "source": "OpenAI",
-   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOeHBEWEZtNngxZnVFcFlMRGFkb0xZZ3ViYUVzcTZXa3hpdWhhZzQxYVg1ZkhRMmI3ek5jU2hEVkdQMzlaV3hpV1R1enBucVJkQWsxNmhCVmE4LVc2UXpnZ2dQQnBXRGdzc3dSdnhFaXlxdjdxdDU0Sy02dWoxSTE5SUtnZXE1akZYN2VxeWRn?oc=5",
-   "published": "2026-10-26T21:42:50+00:00",
+   "title": "An AI Breakthrough Has Made Decades of Computer Science Research ‘Irrelevant’",
+   "source": "WIRED",
+   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNUUZwci12S2x3U1g0M19pWWl1RjY0clg0MFhoQVc0Z3ZkQXFfaWZFZE5IV0pqd0xoV3J3R0VSWnk0OTlJeGdBNWVTc1JyZ3JHcWw1WXZQSkF3b2ZEUVptQ00tZnFVWnJrOXE3djNfc2F3THJtQnNuX3VmVXNYVGtPM3R2T29Ja0Ytc2JkYw?oc=5",
+   "published": "2026-10-29T10:45:00+00:00",
+   "tag": "positive",
+   "video": false
+  },
+  {
+   "title": "A golden age of science is coming",
+   "source": "Noahpinion",
+   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9UTldZTjlIdHRENlVnOFpla1dTQi1Yang2UTBRWkNuRzkyZENlQldLMDNETUJ5R1NVeWtuMXA4Q3NhOHh2YkdkM3V2dlBQZUlZdXppWDNxRFRGby1yS191aXhmanRiUFV4bklwbWRIdjk?oc=5",
+   "published": "2026-10-29T09:55:51+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "A bust-up between mathematicians is fuelling fears that AI could undermine science",
-   "source": "BBC",
-   "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBHM2xuV0Uwd1VhLWFMQXRmSHpzSGh4cC1kRzJZQWdCWjcyeHNOenZ1cWVzUDhCR0h1alJxSkpzWUxNcTBqdW54UTVXVW52NWZrbFNVcjlMWmw0Z0U?oc=5",
-   "published": "2026-10-28T01:01:02+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "New Vera C. Rubin telescope spots possible new dwarf planet beyond Pluto",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE02Z2RzaEhJdF9sbjI1WFYtRTVpUkY3cnh5Zm5DcDcyNFEyQUl0aGo5TmkzOEo3QnZwMEFjRGt6dEVJVW8ySUFydW9QU0JfdmhmVWF4R0hwZmtnREhxa1NJV01UTlljZ1QzLXBUUVVjdlA1MEV2c0E?oc=5",
-   "published": "2026-10-28T19:50:27+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "China’s super-secret space plane visible in clearest photo yet",
-   "source": "Popular Science",
-   "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBvY3dKc0RyT0ZNWHlZQ1VmelVuQWlnMDJ4MjNKYUNqellRLU5FcmVOMm5yZDRTRW5IT0NkdGNRQklvdEpFUFlCVmNOMVRQV1ZzZV9MbXlrMjdiOC1NQzFCQVktNGlEWS1XQ19jQWRlUURHQQ?oc=5",
-   "published": "2026-10-27T18:51:46+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Scientists discover a hidden reason why muscles weaken with age",
+   "title": "Scientists confirm global warming is accelerating faster than ever recorded",
    "source": "Science Daily",
-   "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE1mWFdVZ1o0VkpLV2VHbUZRa25LRzJZVGtxUHZ3QmVaVUhyeXNvUVFhTXV0WFVWMU5zR05zNWVsRVR5M0JMQVBGZ2tRNC1fYUhadGlXa181SFNZUmg2SWcwOXBXYjJ1cFBZU25HcUp4MA?oc=5",
-   "published": "2026-10-28T13:07:10+00:00",
+   "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9OYUprdnhtNDdaRDEwQ2VWb0hkcWlyWk9mRGRtSnVfSGdmUnM2OHNrNGZaSVBxWjdSY1ltTUhFc2hzREk0bzVoQ29oam9VQ1lseFp5R1ZMbWZEaGRpSkNfd3V4aVJtcmtvX3NLVkRn?oc=5",
+   "published": "2026-10-30T03:52:35+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "‘World class’ science collection on display at the University of Calgary",
+   "title": "‘She could have gotten away with’ murder: The dangerous science behind the Queen of Crime",
+   "source": "CNN",
+   "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNYk1FZnYxUFpFSWNxbEwzN2xkVWhFNUlYZnRSTVdFRFBDbTlXdlZ5amZVUEJDWktNSlJ1cjFUZGQ0UTZzVUFKWlkweGJEVUZteExKVG1GS3hsVnBid25jRVU1cVZaQ1UzaXBqc3Q5bzBfdW5qMTQ5TFF1MjZZcnRQb3NPLURGU2M?oc=5",
+   "published": "2026-10-29T10:00:15+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "As N.B. reconsiders fracking, here’s how science and tech have evolved since the moratorium",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNcjlyLUUwSGoxTXRZM2poWFVMSXpFNl9tSHdlTHljXzFENUpoMHozbGZnMGloT1kzZWs0MzlGTUtXdFliajdfNXdIazlPbjM5RmxTZ3d2WUhJOERuUFpuLVN0OFVGTHNqNlZOeU5XWkF2YjRudkgtWDAxT0I4TTkwSnV2NzlIcHN3YWpfVDVkZWRMdw?oc=5",
+   "published": "2026-10-29T09:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Waterloo battery researcher wins Canada’s top science prize",
+   "source": "University Affairs",
+   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQdmJyLXpJYXB5ZEZ2YTREelg1dk9UdEhoVVhfR3VmSFpvV2FwdG9VU3FqWUI5bWRfVmFaY3ZXaHZDWHJjUU1DWWRXTmdGdzMzMXBWUXl6c3lUMUZCTmNaVk5uc0lPWkFHRmRBRy1aOU9nbVZpUWREdWpXeFRyeGE5bXl3MS14WTZrbjNCTXk5dEgxOEZ0eDY3ZQ?oc=5",
+   "published": "2026-10-29T13:47:18+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "NASA’s Voyager 1 Conserves Power, Resolves Brief Communications Pause",
+   "source": "NASA Science (.gov)",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQUUN3LVp3TEY2Um55dkFEZUtBLWVFaFZDQzJnQWpIMGNKNzJlS0NrV3k5RXlZLVNzUFlxZEdBV2F5QlE5bndaS2RaMkUxM1dhRmZkakp3Zk5CQkNHYWx0bnRkcTJyUHFjNk1wcFVJRnM1c1JUdmg3NVVybVU2ZmFUSGF6bmk4Ykd3SUplLXlTUVE0UTAxeXRnbW9FeHVrcmxnTEhodmdCbmF4dEM0OFFqeXU0aEltUldtNkE?oc=5",
+   "published": "2026-10-29T17:30:08+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "How sports leagues are keeping up with science to keep young athletes safe",
    "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQTTc0czBwSThoU0dMWk5kNVlkUjR0Mk1oY3pfNEtzZnFmbjZUcWJ5YlNVQlBzdWpZa0RhLWtHazhXUlVaRnNZYXl1WFQ5RnNIdy1kX1hJczNXZ2Y0Q0R3WUZQWDNReVpyaldFdGpKMDZ2UTFTSWRlbTVPdFpyZlBqQmw3al9SOFNYTkFkbjRPemVwaXgzWHg5Uy01XzBJclZlTkw4Q3p3SVFxZk4zUDhv?oc=5",
-   "published": "2026-10-28T17:36:59+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Ottawa launches consultation on future agricultural science priorities",
-   "source": "DiscoverMooseJaw",
-   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNQkx2bkJkV2RKbHhuazZWMlhiVjZpaDJ3U2VWMUpoSWJJNUJLUlNRc3MwNnRtaEtYYmNicWZSS0tDZ0xqRzI2dXNTUUhsUDNZakhfYm5qb0NVb0V6OWt1ckN5MHZiSEN3aGU0ZG9oWTRGekluOHQ0Xy1obVhqMWo5Y2ZTQmg1QzhqRHpKUTZSMEdROURRNlRGYTM1Sm9TODlRUzhDVDNudzhwMzZWYzNudkZB?oc=5",
-   "published": "2026-10-28T15:27:43+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "US’s RFK Jr claims Arabs ‘don’t produce science’: Why he’s very, very wrong",
-   "source": "Al Jazeera",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZTVJd2ZMcXlQRTd0VDFmbGswTW1CVHNBRHdUelBWMXpTejh6OEpjbk5JSC1RcHM2aWxmNlJtNUdzRkY0M0RDQ1BramYwM2xhUklGNWlpRG5Wc21nTDBfcG9vUU1zQTE0Q2g3YlZPbHFlV0FaNTF0SVBSTmtURHlsZjdHWkRMSjA1TlVuTUE3VlhWaC12WjA4RmNESzVQaXBsWGtKc1licmpqbjZia3lB0gG0AUFVX3lxTFBsZllWZEJ1bzYyU3dtNGhlSnBPblNnS0lRNmZwVU52RnJ0ZE1nY2pCWHNUaVBLb0xpc1lRV1huWHBBcTJPWklwYnJBNkRfTEdDVGRWRWlXeWZMbnA3aUlyQi1kcHpHSllMVXZFZ3Fickd3ZzVsM3pwNjIxT0U1WWctcmN5ZHJ4U3pCVW93bWY5UTlURGJJd0JJdDBGaHhhVlVONHk3cHdOT0RZVmNWSDBtY1NYRA?oc=5",
-   "published": "2026-10-27T19:15:17+00:00",
+   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQREJRajc5a1M0dW5KcHlnclZTS3IxT1BTRmo5UHZIbG1TVjRsU2gtMDFaaldBS29XazZYWlRRcUNrTnNlQlRLd1I3enhCeDg4ODk1V2RmdV9lQ3pmZlhWNWN5dVQwR0FDeVhVTEVsODU5a0dEcnM2T2p1RE5SSjFlWnJnMUJiYkMwaklreWJfMUo4RVFWUXpRaDV3RUJyRWpzMkdjRC1mcHpqMDZ6VEZjekdjRHdTZw?oc=5",
+   "published": "2026-10-29T10:00:01+00:00",
    "tag": "standard",
    "video": false
   }

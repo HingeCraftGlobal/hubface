@@ -13,7 +13,7 @@ import { lookupForJoin, isOwner, sessionUser, clientIp, roomName } from './rooms
 export const ROOMSERVER_BUILD = 'roomserver-20261018a+turn-20261018a+yodahear-20261018b+lag-20261018a+fast-20261018a+fastfix-20261018a+merge-20261018a+stt-20261018a+bridge-20261019a+botname-20261019a+botchain-20261019a+transcript-20261019a+voicefix-20261019a+realyoda-20261020a+latency-20261020a+auto-20261020a+mono-20261020a+readycue-20261020a+listendefault-20261020a+sessionpacket-20261020a+voiceoff-20261020a+chatrelay-20261020a+floppy-photo-20261025a';
 console.log('[roomserver] voicefix-20261019a: duplicate-line drop (30 s) + long-line fast path on');
 /* botname-20261019a: room bots post in Room Chat (and speak) under their own name + picture. /say body {as:'ava'|'finn'|'yoda'} (default yoda). */
-export const BOTS = { yoda: { name: 'Yoda', img: 'assets/yoda.jpg', voice: 'liora' }, ava: { name: 'Ava', img: 'assets/ava.png', voice: 'eve' }, finn: { name: 'Finn', img: 'assets/yoda-finn.jpg', voice: 'lumen' } };
+export const BOTS = { yoda: { name: 'Yoda', img: 'assets/yoda.jpg', voice: 'liora' }, ava: { name: 'Ava', img: 'assets/ava.png', voice: 'eve' }, finn: { name: 'Finn', img: 'assets/yoda-finn.jpg', voice: 'lumen' }, licorice: { name: 'Licorice', img: 'assets/licorice.png', voice: 'ara' } };   // licorice-20261029a: voice ara (xAI TTS)
 export function botFrom(who) { const b = BOTS[who] || BOTS.yoda; return who === 'yoda' || !BOTS[who] ? { id: 'yoda', name: 'Yoda', role: 'yoda', bot: 'yoda', img: b.img } : { id: 'bot:' + who, name: b.name, role: 'bot', bot: who, img: b.img }; }
 console.log('[roomserver] botname-20261019a bots ' + Object.keys(BOTS).join(','));
 const ORIGIN = process.env.HUBFACE_ORIGIN || 'https://hubface.org';
@@ -189,7 +189,7 @@ export function roomLiveUpgrade(q, sock, head) {
   if (head && head.length) ws.data(head);
   ws.hb = setInterval(() => { if (!ws.open) return clearInterval(ws.hb); if (Date.now() - ws.alive > 70e3) { clearInterval(ws.hb); return ws.end(); } ws.ping(); }, 25e3); ws.hb.unref();
 }
-export function roomLiveHealth() { let n = 0; for (const r of rooms.values()) n += r.members.size; return { build: ROOMSERVER_BUILD, rooms: rooms.size, people: n, ...turnInfo(), yodaHook: hookInfo(), yodaFast: fastInfo(), stt: sttInfo(), bridges: bridgeInfo(), mempack: packInfo(), latency: latStats }; }
+export function roomLiveHealth() { let n = 0; for (const r of rooms.values()) n += r.members.size; return { build: ROOMSERVER_BUILD, rooms: rooms.size, people: n, ...turnInfo(), yodaHook: hookInfo(), licoriceHook: licInfo(), yodaFast: fastInfo(), stt: sttInfo(), bridges: bridgeInfo(), mempack: packInfo(), latency: latStats }; }
 
 /* ---------- phase 2: Yoda's voice (roomserver-20261018a, Dan approved) ----------
    POST /api/rooms/<ID>/say   body {text, speak?: true, chat?: true}   header X-Yoda-Key: <secret>  (or Authorization: Bearer <secret>)
@@ -375,6 +375,7 @@ function route(room, item) {
   packTouch(room.id);   // latency-20261020a: any line keeps the room's memory pack warm
   if (item.role === 'host' && looksLikeCommand(item.text)) item.needs_action = true;   // sessionpacket-20261020a: every route (webhook too), after voice merge
   if (item.last_yoda && isEcho(String(item.text), item.last_yoda)) { console.log(`[roomserver] realyoda echo line dropped room ${room.id}`); return; }   // Yoda's own words heard back
+  if (licAimed(item.text) && licHookOn() && !/\byoda\b/i.test(String(item.text))) { licPost(item); return; }   // licorice-20261029a: lines that call Licorice go to HER agent, not Yoda's
   try { if (relayTap && relayTap(room, item)) return; } catch (e) { console.log('[roomserver] chatrelay tap', String(e && e.message || e).slice(0, 80)); }   // chatrelay-20261020a: Talk-to-Yoda ON -> host lines go to the relay queue only, not the webhook
   const humans = humansIn(room);
   const lastY = room.chat.filter((e) => +e.at < item.at && e.from && e.from.role === 'yoda').pop();   // merge-20261018a: conversation with Yoda active (his last line < 2 min ago)
@@ -413,6 +414,26 @@ function route(room, item) {
     if (L && !L.done) { if (r.skip === 'not-aimed' || L.answering) latDrop(room.id, L); else latToWebhook(room.id, L); }
     enqueue(room.id, item);
   });
+}
+/* licorice-20261029a (Dan approved Oct 29 ~10:11 AM ET): Licorice hear-and-answer. A human line that names Licorice ("Licorice", "Lick")
+   and not Yoda is POSTed to Licorice's own Grok Bot agent webhook (LICORICE_HOOK_URL / LICORICE_HOOK_AUTH from /etc/hubface/licorice-hook.env,
+   root 600, systemd EnvironmentFile drop-in licorice-hook.conf). AUTH format = "Header-Name: value" or a bare value -> Authorization.
+   Same item shape as Yoda's hook plus to:'licorice' and reply_as:'licorice'; her agent answers by POSTing {text, as:'licorice'} to item.reply
+   (signed, 2 min, that room only) -> sayInternal speaks it with voice ara. No URL set -> off (lines go to Yoda as before). */
+const LIC_RE = /\b(licorice|lick)\b/i, LIC_URL = String(process.env.LICORICE_HOOK_URL || '').trim(), LIC_AUTH = String(process.env.LICORICE_HOOK_AUTH || '').trim();
+const licStats = { sent: 0, ok: 0, fail: 0, last: null }, licTimes = new Map();
+export function licAimed(t) { return LIC_RE.test(String(t || '')); }
+function licHookOn() { try { const u = new URL(LIC_URL); return u.protocol === 'https:'; } catch { return false; } }
+export function licInfo() { return { on: licHookOn(), ...licStats }; }
+async function licPost(item) {
+  const now = Date.now(), a = (licTimes.get(item.room) || []).filter((t) => now - t < 60e3); if (a.length >= HOOK_PER_MIN) { console.log(`[roomserver] licorice-hook room ${item.room} rate cap`); return; } a.push(now); licTimes.set(item.room, a);
+  const body = Object.assign({}, item, { to: 'licorice', reply_as: 'licorice', reply: signedReplyUrl(item.room), reply_expires: now + REPLY_MS, reply_howto: 'POST JSON {"text":"...","as":"licorice"} to reply (no auth header)' });
+  const h = { 'Content-Type': 'application/json', 'User-Agent': 'HubFace-roomserver/licorice' };
+  if (LIC_AUTH) { const i = LIC_AUTH.indexOf(':'); if (i > 0 && !/^bearer\s/i.test(LIC_AUTH)) h[LIC_AUTH.slice(0, i).trim()] = LIC_AUTH.slice(i + 1).trim(); else h.Authorization = LIC_AUTH; }
+  licStats.sent++; const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), HOOK_TIMEOUT);
+  try { const res = await fetch(LIC_URL, { method: 'POST', signal: ctl.signal, headers: h, body: JSON.stringify(body) }); try { await res.arrayBuffer(); } catch {} if (res.ok) licStats.ok++; else licStats.fail++; licStats.last = { at: Date.now(), status: res.status }; console.log(`[roomserver] licorice-hook room ${item.room} ${item.source} len ${String(item.text).length} -> ${res.status}`); }
+  catch (e) { licStats.fail++; licStats.last = { at: Date.now(), status: 'error' }; console.log(`[roomserver] licorice-hook room ${item.room} -> error ${String(e && e.name || e).slice(0, 40)}`); }
+  finally { clearTimeout(t); }
 }
 function enqueue(id, item) { const h = hstate(id); h.q.push(item); while (h.q.length > HOOK_QMAX) { h.q.shift(); hookStats.dropped++; } pump(id); }
 function pump(id) {
@@ -706,6 +727,24 @@ export async function botroomHook(b) {
     console.log(`[roomserver] yoda-hook BR room ${room} len ${String(b.text).length} -> ${res.status}`);
     return { status: res.status };
   } catch (e) { hookStats.fail++; hookStats.last = { at: Date.now(), status: 'error' }; console.log(`[roomserver] yoda-hook BR room ${room} -> error ${String(e && e.name || e).slice(0, 40)}`); return { status: 'error' }; }
+  finally { clearTimeout(t); }
+}
+
+
+/* licbr-20261029 (Dan, Oct 29 ~3:57 PM): Bot Room owner-chat lines that name Licorice (and not Yoda) go to HER agent hook; her reply posts as Licorice
+   via the same signed yoda-reply link with as=licorice. Called by accounts.mjs brChatRoute only. Roll back: delete this block and the licbr lines there. */
+export async function botroomLicHook(b) {
+  if (!licHookOn()) return { status: 'not_configured' };
+  const room = String((b && b.room) || '');
+  if (!/^BR-[A-Z0-9]{4,20}-[A-F0-9]{4}$/.test(room) || !String(b.text || '').trim()) return { status: 'bad_item' };
+  const now = Date.now(), a = (licTimes.get(room) || []).filter((t) => now - t < 60e3); if (a.length >= HOOK_PER_MIN) { console.log(`[roomserver] licorice-hook BR room ${room} rate cap`); return { status: 'rate_cap' }; } a.push(now); licTimes.set(room, a);
+  const body = Object.assign({}, b, { to: 'licorice', reply_as: 'licorice', reply_howto: 'POST JSON {"text":"..."} to the reply link; it posts as Licorice (as=licorice is already in the link)' });
+  const h = { 'Content-Type': 'application/json', 'User-Agent': 'HubFace-roomserver/licorice-br' };
+  if (LIC_AUTH) { const i = LIC_AUTH.indexOf(':'); if (i > 0 && !/^bearer\s/i.test(LIC_AUTH)) h[LIC_AUTH.slice(0, i).trim()] = LIC_AUTH.slice(i + 1).trim(); else h.Authorization = LIC_AUTH; }
+  licStats.sent++; const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), HOOK_TIMEOUT);
+  try { const res = await fetch(LIC_URL, { method: 'POST', signal: ctl.signal, headers: h, body: JSON.stringify(body) }); try { await res.arrayBuffer(); } catch {} if (res.ok) licStats.ok++; else licStats.fail++; licStats.last = { at: Date.now(), status: res.status };
+    console.log(`[roomserver] licorice-hook BR room ${room} len ${String(b.text).length} -> ${res.status}`); return { status: res.status }; }
+  catch (e) { licStats.fail++; licStats.last = { at: Date.now(), status: 'error' }; console.log(`[roomserver] licorice-hook BR room ${room} -> error ${String(e && e.name || e).slice(0, 40)}`); return { status: 'error' }; }
   finally { clearTimeout(t); }
 }
 
