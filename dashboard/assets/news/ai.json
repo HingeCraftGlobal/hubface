@@ -1,68 +1,68 @@
 {
  "subject": "ai",
- "fetched_at": "2026-10-30T04:00:06.132470+00:00",
+ "fetched_at": "2026-10-31T04:00:05.391886+00:00",
  "items": [
   {
-   "title": "Google value plunges by $500bn as AI fears rattle Wall Street",
+   "title": "US tech stocks see sharp falls as AI spending nears $1tn",
    "source": "BBC",
-   "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5HNW9FUzgyTXVpc0pmUHo2T3F2bWh1T0pxaFhGZzFueWhsNjdWVXdNYzJwcXBPeUdVSUdGYVZDdUZwUDl3bzBESUdkb24zdmJHNV9iR2toaWUyYlk?oc=5",
-   "published": "2026-10-29T22:17:52+00:00",
+   "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE03MGFhZ3ltOEs3NFpDUTRDQ2ZPbmxPcXFvbWtkSm9kS0pnOW82MjlDbTY4dnlGNkYwSkUxMVJPZU1ZeGVqUFk3YkdZeTUxQzhLemlBbldWVld5NU0?oc=5",
+   "published": "2026-10-30T20:34:46+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Alphabet earnings miss reflects first real sign that AI is taking a bite out of search",
-   "source": "CNBC",
-   "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE1jam9HMHZIWF9Qa012UFpWSDdXR05uS19yQTdoNnhxQzF5TE9KQ1VSYm1RR2YtZ2pvelkzUnQ4QncyamJtOXEwUk0xMGdFdWJIWFkyM0h4UGFmcVlWRHQ3angtYzl3ZTJsUkJENlpnS3hXWUZNdUh6WlBGNNIBgAFBVV95cUxNNHc4N2kwVENwVmxsU1pPY0FkX1FDd2FlYW83MDlFd2QweG02NkdoQU5lMmZCVVh3bXhLclJzVXAxcTF5ZU5uQXAtZGp3Qy1ZdWFpWUszT1hQNXhIMVhYZFR3aXF3a0NhaUF1T05XcnNIUHVMZEVBdGpKT3NZVFI1WQ?oc=5",
-   "published": "2026-10-29T11:00:02+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Is AI Killing Google's Golden Goose?",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPUU0ySUxfVlhlcnVNTHkwUnZYTjJZbUNhWWF0eWpfNzhVNVdILWFKdlYydUROTTBrbllLWGxFQ3hWSC1mYVdYcjRLUG11QkdGQVVqU3NlaUgya3pRRFdTUHRDSDRvQko1eHU5MXZCb21pdlZQTzdlbWNPWS1aRWFfcm1faFN4clcxd3htWXJGZWZRb1hVU1FPZmdqcGpVbFpFemFwbmJpVnVmVTU1UVRzb1lvOUp5dmRIWkthZg?oc=5",
-   "published": "2026-10-30T03:35:48+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Canada to invest up to $1.6B in Toronto-based AI company Cohere",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE80QzFvaVEtR1JBancxd3BTNGhyRkJYTVN1cnE4ZUtua2VQMlBNU0VPZXVZMzA0M2tJc3FPVHVYUkd1UEkzVzJyYURpZVhteGE3X3J2cTF3cWVyWll2NzdzT093SkxxSjM2eEVrVVFrVmJwSWg0R0ROcmVn?oc=5",
-   "published": "2026-10-29T17:12:24+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Federal Government Investing Up to $1.6B in AI Firm Cohere",
-   "source": "CPAC",
-   "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNUkJzR0lyeWJ6a244cHdlU0dVX3dLakRGWFBCQ01lMWU2SnJ1dHZ2SHNydEdrVzFUdVdfRElZWlZwUC1mZWhLUWZHbW51bjFxeFh2Vk9MR29kZXQxek1xbGZLZnFyY1J1MTItZF93eFlxZFpkMzhfckd4cXlmZS1PU3hITWcyZGJwSDFZV0pnYkI0TVFOYTZyZjFBUHNYUjJWdFozbXhudDNac1hHZ1pXMEU3LVNBTjFWMGtxWVhGNWVFY2Q0R1VXdGdONXB1LUdOQjRvbGhvVndGZw?oc=5",
-   "published": "2026-10-29T18:24:05+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Ottawa to invest up to $1.6-billion in Cohere as AI firm’s valuation soars to $35.7-billion",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNeGJlb1pvWktqeU11WENkWlJkdjZjc1FBcEVXTXA5UnlaMHlGNW9CU3ZjRmRpSWRZSXFITVJnX1FZbHRUYzJLY2dlYl84bUtnVVF0SmJsRjM5eE40UGFXMG90Zm5PQmNsZzFBZ2thOFRIeUJfYld0Ym9SRF9oN2NZLTdZOGZScmdfM2p6dndhX1hEMGRwVlJ3LTNOY1VIYk9jVVJGcVpyZ3NSUQ?oc=5",
-   "published": "2026-10-29T16:03:13+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Foxconn Ecosystem Enabling Token Factory For AI In Spotlight At Hon Hai Tech Day 2026",
-   "source": "Yahoo! Finance Canada",
-   "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOZXZHclNLM2RRb25ib3RENGdVX1poUmNibURYUEJEcjAyRlJER2k2UU03QWFLMzRCcUdRMW85cEtDemJDdTQ1U0FZVk9tV0RrZEVrVllnQUlaaXUyWGxOTVJscThRUWVLdVQ1aUlzUnRRa1Z2cmdDU3F5aWxxVWdQdXBnZVN6RDlrRWRjdk44N3p1blU?oc=5",
-   "published": "2026-10-30T03:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Stocks slump, bonds leap as AI giants' spending spooks investors",
+   "title": "Wall Street closes sharply lower as AI cash burn fears spark tech selloff",
    "source": "Reuters",
-   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPODMxOENneGV3TmZjN25YblpGTWpPOWRUV3Boay12aGxXWENUbUFLTnJzUURrYklnTkZjUHVOTTFCNkM5V0luRXRLcExGdXJxSEt4SzhFNzNSZG9qQ0F2c3RWclhFVnMySTNvRkJITU9OTVZfZUZ1NFEwX2x2enZVNFhuX2x5bGxRMnA3NElR?oc=5",
-   "published": "2026-10-30T02:45:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPblVtZktXRjdPbHJBWDM4WWJsV2RyMlhnOVFYRTZPc01udjZNZTVjeHdIN1dVY0w1M1NHbHpxNjV6Vm9jQ3FOUjBIaElyZEdSWWxycmNZdnJwNnBfdTJDc1FBMWVJZ19vR0s3Y1h2Uml2LThWc2NzQ2sxN3NnVzFEeGhvNnpPSElHSFRIQnJreHpCR2c3dnRQbEVYTDlJVjhzVVk3b1gxaFczMFhkb2NDSw?oc=5",
+   "published": "2026-10-30T08:46:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Nasdaq and TSX suffer worst day in nearly five months as AI cash burn fears spark tech selloff",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxQUlJHdnlQVHZrd3pNb1Jod3gtejA0aExYZnZ0V3FCbWFvMXU2dUhEdk1YQk9zOVhnMnluTW9CT3hrME0td1k5UW5pX1BkRWZ3NG1rMjlYcHBFajYtaWlkTFhFWnRLaVgwM1BFWFA5VFNfQVB2by13QVlhRkhTTkhjRldBMGFBd1NrYURkdkk0WEFsYmFlVGhoQ3h3VU9ReXpJWlo5elFKcjVFOXFZakUxWTU1SVpKUDdnTUowQkptSjc0US11UFZHU0M0MGU1UVRveVE2cFlla09teU12ZVFYTHBHaHVPM0lEaHc?oc=5",
+   "published": "2026-10-30T09:08:03+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Canada announces landmark investment in Cohere to scale secure, sovereign AI",
+   "source": "Prime Minister of Canada",
+   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQRkZSb2ljcUtzSkkxOUxtUUNQaDRlX0hMYkcwalltbzFjLUxKRFpqTzk4MFdJNC1DSEpRRWItc3FmZENRRXMyejNOcW0zZVU1XzdCXzlnZWNCOTRrZjd4cU41b3phVGx6UnlQUlFocHZyLWZkdGJfRHFwRHFOdDJVeGV2YmFwTGxCMkhZeEVWbmF3VVRQUEhiUFIxWUpMSWNXY0NfLVJQY2syR3p2WmdmenYydmJOTzlZQkJnZ1lzZlo?oc=5",
+   "published": "2026-10-29T16:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Sam Altman Absolutely Hates the Idea of People Running Their Own AI Models at Home, Argues They Shouldn't Own Computers",
+   "source": "Futurism",
+   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQUkZ6TklhOVUtME5HbWptQ2lRZ093djBXay1aMVZqa1U2WFQ0RC1FcFl0TmVHNEoyRWVacVdseUJHajFvX3pSbFBCNjEyZU1TNjUxbkJITUdCS1cxenFzNVVCektvV0dvWC1ZZDZTOU9nRVVsZHNwWWVXTllEQXBndE16X1gxal9Nb05EajNScU0?oc=5",
+   "published": "2026-10-30T17:02:15+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Sam Altman: All the RAM Should Belong to Me, So I Can Charge People to Use It",
+   "source": "Gizmodo",
+   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNMFpBdkg3eElodU52Zmp3QV9DcGlzelJFWURmMnEzX0Y1T29fMHBsWVBobVlja3BwR1Y4MHVJMGxDbGFZSW16THYtR2tkUGZEZnBhNlo5b3ZOSTU1MUpyZEpRc3RCOTEwQlFqaHNRUUFqel9iU0YwMmp2cUNsTEhEX0lEWC1McHZiSWNtT2pjd0p4X0ZKV0NSTGhGU0NiQWVJcXZvN25temRVUQ?oc=5",
+   "published": "2026-10-31T03:18:42+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Sam Altman Suggests Running AI Locally Is a Waste of Memory",
+   "source": "PCMag",
+   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNbW15bjNXeUVmNk1FLUtFLWhiX01CRGFPX05JVGxSbmJUazFJT3Zuak9rVzh5UnAyRVhtSkdaZGNZMXYtSFdibVNXQ09jbExtSU9ORjhnRy1lRktXZ3ptQVpFbkxnZTFqYjJQMFoxN2U1Zno1eHAtNGJNdkVrQXlUWVd2RkltZ1VkTjhXTXpmVQ?oc=5",
+   "published": "2026-10-30T17:33:37+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Heavy hitter: Anthony Scilipoti’s next target? AI",
+   "source": "The Globe and Mail",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNMXBrZW1CV0xxSzlqd1g4emFzTzhXUDNrMWl5MzU4VXQtYWVuSUdMb090NloyMmtLTDhZYlZTV2pwbTIxQkRoalU2b0JOMjZoYm50aUlqZ3ZCcnpGYXlaWlhDM0xWNHdfbVpIQkF5Z3lrTEJ0MjQtUDRuTUJ5MTNwN2pObVR2RWFKbUxxOGFYcDNzRW8wcVNKeVk0NURjUldsTTlFVS1mOC1YV0xuVnc?oc=5",
+   "published": "2026-10-30T13:00:00+00:00",
    "tag": "standard",
    "video": false
   }

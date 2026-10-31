@@ -1,52 +1,28 @@
 {
  "subject": "evacuation OR warning OR wildfire OR outage OR recall",
- "fetched_at": "2026-10-30T04:00:03.752016+00:00",
+ "fetched_at": "2026-10-31T04:00:03.512957+00:00",
  "items": [
   {
-   "title": "Summerland landslides raise concerns after wildfire leaves slopes vulnerable",
-   "source": "Global News",
-   "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNWXo1c0NxRnZsS0gxV0pEVkNRY1lDODd5ZmtkSUxMUlVFVkZ5aUNhWG8zcWU0REdOMXpTUjFpZ3pUZE5RdFdtR0pHTWM2XzlSN3I5S1N3VU11MUZ0bFBLQ2F0T3Y0UnVpX3h0ajN4OHJJeEotZk03NzduTmdTWHctU1VrTmJVZU9Nc3VhcU1fY1l3TlVpMnVrckl3?oc=5",
-   "published": "2026-10-30T00:38:14+00:00",
+   "title": "Wildfire",
+   "source": "City of Merritt",
+   "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE9sSC1Id1JCalladW9UVEJjOC0xRWE5Y0J0UHZTZ1llRkd3ZzZMUFlqdkNwMjhhdUgya2liMU1LY0M4VW9hUFE?oc=5",
+   "published": "2026-10-27T07:00:00+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "$55K in support helping victims of Bradley Creek wildfire near Vernon",
-   "source": "Penticton Western News",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOMkc2MFJ0ckJSeHktYkZZTllneld1dU5vSEFYVXBHdVFCS1pic0VOdlJ1LW1MQWdXRS0xd2J4MzBJWDBqWjJ4cVFWNWdpWkJZNUY5SDBHWmI3ZXRodUYwLU80dTBQNkdSN2pZUVowNzZLSHdqdkJ0c3hWeE11cUU4VndPa2NIb0dhV2pkMF9aM2hCVDJ1TE9iaUZoeWl1bUg3bkt2RF9rMUhRZ2dxd1N5WjZuRQ?oc=5",
-   "published": "2026-10-30T00:42:28+00:00",
+   "title": "Flames Recall Pair From Wranglers",
+   "source": "NHL.com",
+   "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5kMTQxZG1YcnRhREZVOG1jTnViX1ZkdXJvdEJQLUdRUHlmWkpSWFVFNFk2RkpjNzh6MUdNYmw0ZkFkcXgyUkhxQ2N1TGlCeG42MFE3ck51bHZoem1GM2o1RHZ1UVpHVGYzLUhhRlVVV1FCdXU0RGpVQ3JnRms1ZVE?oc=5",
+   "published": "2026-10-30T15:53:25+00:00",
    "tag": "emergency",
    "video": false
   },
   {
-   "title": "Bodum USA Recalls 5.9 Million French Press Coffee Makers with Replaceable Glass Carafes Due to Risk of Serious Burn Injury",
-   "source": "CPSC.gov",
-   "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQdmNhVlZQNVh3VXpobnRYSWNaVWNwcndxd1VkMmE2T3VZd19wWHJucmI1SWw2bzM4YXpKaHB4WTd5T3daZ2tVSGxNV0dZQnZ6dTVWR1NWV0VFV3hqeTg4X0VURHdkNnVfWHRWelF1N0NMejh0ZXJjeFQtSU52MXVCMmdSWUMzUU5uUFROczJGUW5tcjZybUdpQlhPdkpEclQ3WTNYR2ZYQ0FENDBxVjl4aVE0X2lWSFVOd1hNUmdSZGlTRFB5VWp4ZEVGdThNaXJUVWZJSnpsUnpBRU9wXy1NT2w2TGJpOXVzNWJfZw?oc=5",
-   "published": "2026-10-29T13:07:22+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "City of Victoria issues warning after owl attacks same person twice in three days",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQTDFPZ0l3TDNFTTZ2aHRYOTNQSUNXOUZBeVpWeFJLSzVwUVotSE5kMzFxN2FXY3hCRm5IUjQ2c0ZpUU82T25sbHBGSGN4d1F4ZjR6TUhSazNVYW5kVTRKcXMtX3dqNzFMRDJHVnBlNDFQYzkyMlFfVmJORFF4SWg0Uk9LUlVmblN4eHF6QnEzSjJoUkRYeWt5cl9jMUxsNG5sekRfTXNLQkVDR3d4NGc2RnRKMUtrMU5wR1NvTTQtZHU?oc=5",
-   "published": "2026-10-29T23:11:27+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Crown Land Wildfire Risk Reduction",
-   "source": "Government of British Columbia",
-   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOTmpiMGQzaWhhbElIMTVSRjY2UHBVczVwNV9GRjhFOTFJdVhsN0JySmtHbEk5bDdsMnVROE1ia2FNUjNBUHBJYU9GQTRCVmlPajhzclRRYmdRbGFraVRnQ25TSUVkRTBlYlZfOU1uaUxPWkEyTGJSU0h0c3NBbXdPdFozQmNTYkhzNVQ4TVJkQXVMSldtVHZ1Y01Qa2FhYVpLZFJyLUdPWkN6VVRpN0E?oc=5",
-   "published": "2026-10-26T07:00:00+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Fire forces evacuation at UBCO",
-   "source": "Vernon Matters",
-   "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB3dEVleWlwN2ZDNDA4U1YtdXBsV3dOQ2JTUlNjakhOV3R2Q0FocldqQ1U2Ti1vVkgzWmZ4d0YzUmtFVThVeW9qYXlHOE82SjFWSzRaRGJmRGhDVVFLY09lSzh0ekcza1Yxd040LWM4bzF0eWxCSlE?oc=5",
-   "published": "2026-10-30T00:06:02+00:00",
+   "title": "‘Wall of smoke’: Plaintiff recalls wildfire anxiety in youth-led climate trial",
+   "source": "CFJC Today Kamloops",
+   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcTY3M1BtTjE4QzVZS2FQX1FXY3lDQVVERnI2RGktXzBVZXBkTklLeGRtWWk4TDRjTjdKU0FqdHJ1QXNRSnN2cE81UzdVRmhPel96S3NwQU9Sb2JVc2w3ZVRLeDFIWUgyT1lwMlJtaUhJa2lUV2RiOGc2c3J3RkNNZVlhb2stU1k4M0NtS3VmUVhXMC13RWs0?oc=5",
+   "published": "2026-10-31T02:50:41+00:00",
    "tag": "emergency",
    "video": false
   },
@@ -59,10 +35,34 @@
    "video": false
   },
   {
-   "title": "LA Kings Recall Martin Chromiak from AHL-Ontario",
-   "source": "NHL.com",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQNlpqRUFiOGtlU3lDQ1NUZ3FCa0V6YkpzcXlVLWE1Nklfc0JLNDRKV3ZudlI0MVprNFJQWDJCTGR4bW82bTNTbVJuUGdzNXRNWThuNHlpVmNwRUJBaUUwTk42Wi1uWVRBb3FONmJZd0VsVHdjYVlHelctMWZNQ2VYNmRURDdRVkRGTTBndmFXZ2xsdFFVZFhiRXJrT3YzbzhGak84cnFhMm1vakwzVTFfWTY1Wk8wVG5wQkE?oc=5",
-   "published": "2026-10-29T17:37:39+00:00",
+   "title": "'Wall of smoke': Plaintiff recalls wildfire anxiety in youth-led climate trial",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQYzBGRUFrNVloc2hUaVh6NG9CTUJkSlVqc0M0ZmdtR3pISWMtZEw1QWhFTVdVem9MdWszTUw0VlBTdFRPZDF5Uy1tRWdybUFqZjVUemtRT241M3l1V1ZGZm9pZVlfNWNzRmxTMU1NWDNmSF9WS1h5MGMzOHhlOUZBenBSLWlhdnhSX09SWENXZkx3dmEwYy1qcWR1SlZFOXJrbzNOWU9QWTRuSUtFck45azkwRGJtX2JFc3NRM3RFbFd1Nzh2NDQ3TDNMMA?oc=5",
+   "published": "2026-10-31T01:14:00+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Senators recall Tomasino, Bourgault from AHL Belleville, Foegele moved to IR",
+   "source": "Ottawa Citizen",
+   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQbnJETW1iUk00X01wSnBSTWRJdld2V1ZjOUJXa1J0bFdYdmlfUGhfbmUxeWJGVUYxV2Z2RjhzeVhyZmpNZU5WUHQyVHlUN1FHNTFBRlU2aThLalp5V0FaemlEVzVsb3liSVRNZk5YOFdyS0FWeHZpNGZ2dnRySmlNdExwZ242Rll1UVkzelBwWTNIYWJFSmQzTGNPSlNxU3JqZUNaeUM4S1FlZU1CbTV1d3B0Y1FaN1E?oc=5",
+   "published": "2026-10-31T00:15:51+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Wildfire aircraft fees, drug cost recovery on committee agenda",
+   "source": "Prince Albert Daily Herald",
+   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNWjEzNmNsVkUySmRBNHQ2cnFtVGQxMVV1OVAwcU9Qa092VS1Ddmk2MlRaaE9ubGVBS3Z3Y3JfOXV2YVczODdWUC1XYmdmYk9VYlZQUkR0eTV0NGR1S2g2aUMtNG9pUFlHS1BYSHdiM3k2MlYwcWRrcU9YYnNHalFGcG1IRGItODRyalFTaERn?oc=5",
+   "published": "2026-10-31T02:00:00+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Wildfire Fuel Management",
+   "source": "Resort Municipality of Whistler",
+   "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNVjRwYkVrTGpDQXdoMUI2a2RoZmZ6LUNZUjNFTUNUZV9rOW5ILWZYZl9sZ1JPR2hRNXVpUENwblBBVk54TURlOGVoUnZyMWYzT0pYWDFBRGF1Z0xFWmxtakJ0NHplTEdnZnlqaTl0LVRwTXlRSUtuZHV2Z2FJdTNrMk9lOTNKVkNxVE1IRGtERS1GVFFQNWdaWE9rSkRGajU3UGJQSlk1QURWSFpONWcxVTZoQU5ORTJkOXdzb1VSTXYxS2EwYUJrbFZHbzJVWlFNQkJnYTN3?oc=5",
+   "published": "2026-10-27T07:00:00+00:00",
    "tag": "standard",
    "video": false
   }

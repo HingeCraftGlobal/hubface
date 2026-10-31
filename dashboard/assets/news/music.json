@@ -1,21 +1,45 @@
 {
  "subject": "music",
- "fetched_at": "2026-10-30T04:00:15.794685+00:00",
+ "fetched_at": "2026-10-31T04:00:14.605426+00:00",
  "items": [
   {
-   "title": "‘Algorithms make everything predictable’: why the CD is making a comeback",
-   "source": "The Guardian",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPdi1lS3VTTzd4c0s2bFBNYnFodDVzLUdOR29wS1ByQWJUcDRiRkZtemE4MmJRWVI4a25DMmM0T3owcUVTRkNnS0J2N3F1LWJqSFVleTJJRXlZaFl3Y0NELVBGRlZxX3hRdE1MMzNGN2xpc1dfQmNPSjFockpUWUxUTUFNUHhxVkJrQXgtWXA3RlM2VjIyNFVxbmxIS21tOWFETWRHTmFsNzF2R0hqNU1J?oc=5",
-   "published": "2026-10-29T13:02:00+00:00",
+   "title": "Spotify aims to launch AI music remix service early next year",
+   "source": "Financial Times",
+   "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOWGpPeGh3OTBZNWVib0M5MDdfRmg1eE9ndzJkVlhyendQN0hMREt6OUs1SXFrNUZfNEtsMVlxcndrS3BFdG1neUhPdi1Fd3hseDlJN0R4S0xPbmVyakVJZ0pHQXRDX2lEejBPUW9kblBjNzQ2NTNkTGlYSngxcUpDQllYRkc?oc=5",
+   "published": "2026-10-30T05:00:21+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "To understand African politics, just listen to the music",
-   "source": "The Economist",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNZ1FjWWRWa1I1VFNodlZlSEN5cnlwaVhocmR5dFd6X0huWGNNVVVZa2VwemQwZGJPNWVFMHBEVDBOMVBFUFBBcGFzZFMzOVV6S0FDVUQ5bEIxOThoWWZINWxZVnRyaTRyV1htZWRmcHhPYXF0cUloUHBoaGhvb1NDM1E2aUp5YzBqRGUxZFNtU096LTRfRzhORmRiOTdmRVBLOGEwWUQ3dmFsZ0s3NGxuWVlfVGFYdnZMbnc?oc=5",
-   "published": "2026-10-29T13:49:58+00:00",
+   "title": "New ‘KPop Demon Hunters’ Music Video Helps Set Another Netflix Record",
+   "source": "Forbes",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNSkpsMWRDRTJVcF9mblk5aUozci10RHp4c2dKa3RGY2g2aTkzb1dUcHJaMV8yN3lxcW53OTJ0YWxoeXVkcUZrRXFOeG1YemV5Y3JiSHRzTEQ3Q1R2dkFCZHQ5WmZEQUwtVjZkb1NVQjVpSnFqYTdzdTRNcjZqY25QSThEbjN1M2dZUEtGV2M2c09HWUhjTWI1Mnc5RUpDanRmMFlkd1lOcUg5RlpSaWVqWjc2ZDJETHJiWnc?oc=5",
+   "published": "2026-10-30T17:01:25+00:00",
    "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "30 years after her breakout, Damhnait Doyle is making music for herself",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOSEk5ZHpuM3I2T1p4UXlrclA3S1VQbi03Q3hMTVV2X3JORmp2Y2o3eVRSeFpKSmRhRjk4bTBiWlFqQnFRV2RBendOeFFkOExyVEtFZHhnUjViMUJ1UkQ5UFd6VGpWT2Rkb1ozOS1IelNCVkl1UDBxWHBYOWtZWXdqOWp5UzZnRU11ZTA1Ynhoa0Qxa0w4QkM1ckVFTS1FVnNqQWlOSDNGOXJydw?oc=5",
+   "published": "2026-10-30T14:12:25+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "New Music Friday: 15 new releases to help with the time change (if you’re getting one) (30 Oct 2026)",
+   "source": "Global News",
+   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQU284aV9EeFpOUTVTZkNwSWx5a0ctNjlkUFlMWl9RVG5iNHZfVW5GTW1TbUotdmxIbVFOOXV2TXljVDZmMkdkcVpoaEFzSEJWTUt0QjhHRVlBUnF5WlJ6eEI0LUluNzF4b2MtcURRUEo1dXQ0M2VrUmZpUlBRbG5PdzFPbnhRQzhhZEh4RURCbnJUMUU0eEdsOFFYYXNxZ1JuUGRiZXZISmhPNmYzQVpxYUZHX2IxSllqT3laV3NndVA5STYwOU0zdFVuVQ?oc=5",
+   "published": "2026-10-30T13:15:39+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Ottawa folk music organizer honoured with lifetime achievement award",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOeXJkeElvSHFBSmFXZURUcUx5cFJGQ0pWWmE5NXdkLUxnQTFSd3JDOVBKek16UE9BQWVHakUtdVRrYVBvUkV1U1hIMmFTb2RZSzFrWmRGOW9UbWxIcW9QS21wc21BazZ2c0J1WGd3bkI1SGhHNnk0SXNJUnktZXpsZktIc0VCWUVfOWVSVm9hWXZUODRkWDBkbXRfY2dOcG5UQW5hdS16UlJKa3c?oc=5",
+   "published": "2026-10-30T21:46:09+00:00",
+   "tag": "positive",
    "video": false
   },
   {
@@ -27,42 +51,18 @@
    "video": false
   },
   {
-   "title": "The music of Gordon Lightfoot will ring out at the Orillia Opera House",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPUjg0akQzQ0o1TS14eUpScUJybnVodGlRTjVLZE9jMjl4M0VSdnRHSVR4LXdRSFBBSm1VQXJlQml0ekhhZVVNcVZ2ckt0MFhjOXRlbVRZam9FSDNoQ0VXZEFYSU16Q3RsbDlrdHB1VnBLaDNLeDNOZ1padUV2TFEydEdYeDVQa01GYzE3VHdGZFBjM1N0UXZscEI2UWdnU1hzT3VyWXo0MGpqMGR3UmpIaEtaeFFJcVEtNVE?oc=5",
-   "published": "2026-10-29T22:33:05+00:00",
+   "title": "‘Ceilidh renaissance’ lures gen Z offline in search of real-life joy",
+   "source": "The Guardian",
+   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQb2YtTUh6TElWZXI0cUUteHlpd0hiSWhiNTh4aGQyeldRUE93X3E1YXBaMXZwSllvRWMtSTFoUkxqb3FzZWR5cS1ZSmNOdnl1LUJPMThBbEl5OWlyLWQ0UU9IbmduZ2ctY09JWjVLQ1E5MnB6cnIyRzZjQlpPdXBtd1RmbUl3VmduOEVBWnRNbXBsX0hPeXBlb0NkS2Y1ZDVPd3dQRGhHQVlfVDdDcmhBMk5VMTV3UUx0SUE?oc=5",
+   "published": "2026-10-30T13:00:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "Canadian Country Music Takes Centre Stage at the Grand Ole Opry Tonight",
-   "source": "DiscoverMooseJaw",
-   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNQVJ6N085aUxvdGhtRWNBc0ZFUjN6Sy1PTEUwc2FSRE90c0Z4akZCVFJaeWVoSGJ2TkkzRDRlR2o5Qm11NklQT3I4ZWdyc3FMdkg4NkVWd2wyY3hqZ3NQdlhKM3ozWGVpVUI4V3JmZDJNYkg2QkZyQVd0bW9xajNLUUNTMkc2SFpQRmlyY3VuQ1JpWWVGdjJSX2hQNVgyNEZDdFREZ2xmR0Y4d1dHSHItanZibw?oc=5",
-   "published": "2026-10-29T18:26:43+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "The music legends who refuse to leave the stage, but probably should",
-   "source": "The Telegraph",
-   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPZFlpOXV5WVdfWEwxRU9FSHpEZF93c2pnektoU3pOS3E2TjVBaExPNGtpSmFycjMzb0RrU3hTX2MyZHVSSGxrSWpIVEx2UHZQUDJ2cC1IZUxMWmc1TEVHbXE3V2ZoN3BMdWxpSTEzOTZ6MHNQXzFtU3FHSmxyYU8xTmVCaEZEV2dvWlY2S3FlTGdxV0EwZmc?oc=5",
-   "published": "2026-10-29T06:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "$850K to bolster northern Ontario’s music, film, and TV sectors",
-   "source": "BayToday.ca",
-   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPdG5SUGU0cFlTRnA1aTdRSFRGRGJCZm5fZ3FJOFhIdlU3cWkyVFMyNzJ6cnlfN3U3RWtzYlF0S2Z2VDRuY2JOZ1lZM1p6UC1VTkxZNWdfQ2VvX291WlFZRzYtOWtNZkZvbzJtODAwRmw5OHlBUHlWWF9CNlJqbGU5azloMl9RUjVuLURuSGt4Ql82RlNJZVFOOWJOeE9OZld2ZTViUDNn?oc=5",
-   "published": "2026-10-29T19:02:56+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Universal Music Subscription Revenue Growth Shows Improvement",
-   "source": "Bloomberg",
-   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPeUV3aUdmWWk0aDQwVGxWLVBiVUJVT2ZkMkJOcDU5QVZsLVRrNmNfdGhPaE1mYTJJU09EbnAwdm0yZEhJbUtLeHcxNkNTanZkQ25VeFRpZnJLelo4dk5lbTBsbTQ2X2RtVkp6R25BQ1lTUTdSQVN3MFRRN3RDeHgycUxhdG00WXpCaFZsRXFRaGZTaDhCUUdjaHBaUkduU0xKdVprdTJWdWZBS1R5cFlGdEJ3?oc=5",
-   "published": "2026-10-29T17:20:33+00:00",
+   "title": "Opinion | I wondered what became of my junior high school music teacher. It was spooky.",
+   "source": "The Washington Post",
+   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPNGFDaEl2LXVUSDVuOFVCMUdyV0FFRlgyYWpkLXprTkh2dGI0bTluaUxrV2FVZDJVdVZUcTM1WTdvU2RvMXBhajdqOHFwdnhWU1Nmd1BObmt3WGh5NkFud2FKcV9lSXBteFVNYllHZkE4dXJpMHNwdkF1WkpvUXY2bnZiRmkwRE9LdzI2Y1Brcjg2V21Ia01tYXNXZTJMejI4VDhwcVc5RVpna2M2YzRaTTJ1Qkk?oc=5",
+   "published": "2026-10-30T21:24:51+00:00",
    "tag": "standard",
    "video": false
   }

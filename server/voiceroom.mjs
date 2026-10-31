@@ -2,6 +2,8 @@
 //  GET  /api/voiceroom/<BR>/state            member: recording state, room files, record status
 //  POST /api/voiceroom/<BR>/audio?seg=&seq=  member with recording consent: one MediaRecorder chunk of THEIR OWN mic (audio only)
 //  POST /api/voiceroom/<BR>/files?name=      member: room file (stored in the existing pre-room file store, card 'center') + metadata on the record
+//  POST /api/voiceroom/<BR>/open {file}    member: openbtn-20261029o, put one room file into the room's message stream (only on a press; uploads never auto-post)
+//  POST /api/voiceroom/<BR>/close {id}     member: openbtn-20261029o, take an opened item out of the message stream for everyone (file stays in Room files)
 //  GET  /api/voiceroom/<BR>/record.zip       member: one bundle (audio, transcript, room data, attachments)
 // Storage: /var/lib/hubface/recordings/<BR>/ (meta.json, audio/<seg>.webm, transcript.json/.txt). Auth = HubFace session + membership of the
 // pre-room whose live room is <BR> (same rule as /api/prerooms/roster). No tokens, keys or passes are read or logged here.
@@ -36,6 +38,7 @@ function stateOut(br, row, d, uid) { const m = readMeta(br) || { segments: {}, f
   return { ok: true, build: VOICEROOM_BUILD, room: br, preroom: row.id, status: d.status, live: d.status === 'live', autoRecord: true,
     recording: d.status === 'live' && active.length > 0, recorders: [...new Set(active.map((s) => s.name))], youConsented: consentOf(d, uid), youRecording: active.some((s) => s.uid === uid),
     files: (m.files || []).map((f) => ({ id: f.id, name: f.name, size: f.size, type: f.type, by: f.byName, ms: f.ms, url: '/api/prerooms/' + row.id + '/files/' + f.id })),
+    opened: (m.opened || []).filter((o) => !o.closedMs).slice(-200).map((o) => ({ id: o.id, file: o.file, by: o.byName, ms: o.ms })),   // openbtn-20261029o
     transcript: m.transcribedMs ? { ms: m.transcribedMs, utterances: m.transcriptUtterances || 0 } : null, limits: { fileMax: FILE_MAX, filesPerRoom: FILES_PER_ROOM } }; }
 function readTo(q, fp, max) { return new Promise((res) => { let n = 0, bad = false; const ws = fs.createWriteStream(fp, { flags: 'a', mode: 0o600 });
   q.on('data', (ch) => { n += ch.length; if (n > max && !bad) { bad = true; q.unpipe(ws); ws.destroy(); res(-1); } });
@@ -70,6 +73,22 @@ async function filePost(q, r, json, br, row, d, uid) {
   const ms = Date.now(); FQ.ins.run(id, row.id, 'center', uid, name, n, ms);   // existing store: visible to every member on the center card too
   const m2 = metaFor(br, row, d); m2.files.push({ id, name, size: n, type, by: uid, byName: nameOf(d, uid), ms }); writeMeta(br, m2);
   console.log(`[voiceroom] ${br} file ${id} (${n} B) by ${uid}`); return json(r, 201, stateOut(br, row, d, uid)); }
+// openbtn-20261029o (Dan): Open button next to a room file -> one 'opened' entry; every member's page shows it in the Message stream.
+async function openPost(q, r, json, br, row, d, uid) {
+  if (d.status !== 'live') return json(r, 409, { error: 'Room is not live.' });
+  let b = ''; for await (const ch of q) { b += ch; if (b.length > 2000) return json(r, 413, { error: 'too large' }); }
+  let fid = ''; try { fid = String(JSON.parse(b || '{}').file || ''); } catch { return json(r, 400, { error: 'bad json' }); }
+  const m = metaFor(br, row, d); if (!/^f[a-f0-9]{16}$/.test(fid) || !m.files.some((f) => f.id === fid)) return json(r, 404, { error: 'No such room file.' });
+  m.opened = m.opened || []; if (m.opened.length >= 1000) return json(r, 400, { error: 'Too many opened files in this room.' });
+  m.opened.push({ id: 'o' + crypto.randomBytes(6).toString('hex'), file: fid, by: uid, byName: nameOf(d, uid), ms: Date.now() }); writeMeta(br, m);
+  console.log(`[voiceroom] ${br} file ${fid} opened in chat by ${uid}`); return json(r, 200, stateOut(br, row, d, uid)); }
+async function closePost(q, r, json, br, row, d, uid) {   // openbtn-20261029o close (X): marks the entry closed, file untouched
+  if (d.status !== 'live') return json(r, 409, { error: 'Room is not live.' });
+  let b = ''; for await (const ch of q) { b += ch; if (b.length > 2000) return json(r, 413, { error: 'too large' }); }
+  let oid = ''; try { oid = String(JSON.parse(b || '{}').id || ''); } catch { return json(r, 400, { error: 'bad json' }); }
+  const m = metaFor(br, row, d); const o = (m.opened || []).find((x) => x.id === oid); if (!/^o[a-f0-9]{12}$/.test(oid) || !o) return json(r, 404, { error: 'No such opened item.' });
+  if (!o.closedMs) { o.closedMs = Date.now(); o.closedBy = uid; writeMeta(br, m); console.log(`[voiceroom] ${br} opened ${oid} closed by ${uid}`); }
+  return json(r, 200, stateOut(br, row, d, uid)); }
 // room data for the record: roster, times, consent (names only, no account ids / passes / tokens)
 export function roomData(br, row, d) { const m = readMeta(br) || {};
   return { room: br, preroom: row.id, type: d.type, access: d.access, status: d.status, about: (d.center && d.center.about) || '', goal: (d.center && d.center.goal) || '',
@@ -97,7 +116,7 @@ export async function buildZip(br, row, d, out) { const dir = dirOf(br), rd = ro
 export function isVoiceroomPath(p) { return p.startsWith('/api/voiceroom/'); }
 export async function voiceroomRoute(q, r, p, { who, json }) {
   if (!isVoiceroomPath(p)) return false; r.setHeader('Cache-Control', 'no-store');
-  const mm = /^\/api\/voiceroom\/(BR-[A-Z0-9-]{3,40})\/(state|audio|files|lines|record\.zip|rtc\/ice|rtc\/events|rtc\/signal)$/.exec(p); if (!mm || !BR_RE.test(mm[1])) return json(r, 404, { error: 'not found' }), true;
+  const mm = /^\/api\/voiceroom\/(BR-[A-Z0-9-]{3,40})\/(state|audio|files|open|close|lines|record\.zip|rtc\/ice|rtc\/events|rtc\/signal)$/.exec(p); if (!mm || !BR_RE.test(mm[1])) return json(r, 404, { error: 'not found' }), true;
   const u = who(q); if (!u || !u.id) return json(r, 401, { error: 'Sign in to HubFace first.' }), true;
   const br = mm[1], ep = mm[2], uid = u.id;
   if (limited(uid + '|' + ep, ep === 'audio' ? 30 : ep === 'state' ? 60 : ep === 'rtc/signal' ? 600 : ep === 'lines' ? 60 : 20)) return json(r, 429, { error: 'slow down' }), true;
@@ -110,6 +129,8 @@ export async function voiceroomRoute(q, r, p, { who, json }) {
   if (q.method === 'POST' && !sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' }), true;
   if (ep === 'audio' && q.method === 'POST') return await audioPost(q, r, json, br, row, d, uid), true;
   if (ep === 'files' && q.method === 'POST') return await filePost(q, r, json, br, row, d, uid), true;
+  if (ep === 'open' && q.method === 'POST') return await openPost(q, r, json, br, row, d, uid), true;   // openbtn-20261029o
+  if (ep === 'close' && q.method === 'POST') return await closePost(q, r, json, br, row, d, uid), true;   // openbtn-20261029o close
   if (ep === 'record.zip' && q.method === 'GET') { const tmp = path.join(REC_DIR, '.tmp-' + br + '-' + crypto.randomBytes(4).toString('hex') + '.zip'); fs.mkdirSync(REC_DIR, { recursive: true, mode: 0o700 });
     try { await buildZip(br, row, d, tmp); } catch (e) { try { fs.unlinkSync(tmp); } catch {} return json(r, 500, { error: 'Could not build the record.' }), true; }
     const st = fs.statSync(tmp); r.writeHead(200, { 'Content-Type': 'application/zip', 'Content-Length': st.size, 'Content-Disposition': `attachment; filename="hubface-record-${br}.zip"`, 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store' });

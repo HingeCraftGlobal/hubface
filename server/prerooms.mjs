@@ -146,7 +146,7 @@ function liveRoster(row, d, seatedCards, b) { const all = d.cards.filter(act); c
   const ord = [...(host ? [host] : []), ...all.filter((c) => c !== host)]; const used = new Set();
   return ord.map((c, i) => { const name = String(c.name || (c.kind === 'bot' ? 'Bot' : 'Member')).slice(0, 40); let col = c === host ? NS_HOST : NS_FIX[lc(name)];
     if (!col || used.has(col)) col = NS_PAL.find((x) => !used.has(x)) || NS_PAL[i % NS_PAL.length]; used.add(col);
-    const rs = seatedCards.indexOf(c); return { n: i, name, kind: c.kind, side: c.side, host: c === host, ready: !!c.ready, color: col, relaySeat: rs >= 0 && b[rs] ? rs : null, uid: c.owner, consent: !!c.consent, consentMs: c.consentMs || null }; }); }
+    const rs = seatedCards.indexOf(c); return { n: i, name, kind: (c.kind === 'human' && /^bot$/i.test(String(c.type || '').trim())) ? 'bot' : c.kind /* cardtype-20261030a: a card set to Type Bot shows as bot in the room (label only) */, side: c.side, host: c === host, ready: !!c.ready, color: col, relaySeat: rs >= 0 && b[rs] ? rs : null, uid: c.owner, consent: !!c.consent, consentMs: c.consentMs || null }; }); }
 function rosterOut(d, uid) { return ((d.live && d.live.roster) || []).map((x) => ({ n: x.n, name: x.name, kind: x.kind, side: x.side, host: !!x.host, ready: !!x.ready, color: x.color, relaySeat: x.relaySeat, consent: !!x.consent, you: x.uid === uid })); }   // never owner ids
 async function maybeGoLive(row, d) {
   if (d.status !== 'setup') return;

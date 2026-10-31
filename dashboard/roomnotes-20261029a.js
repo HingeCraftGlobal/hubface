@@ -43,6 +43,6 @@ function tick(){var bar=document.getElementById("rbBar"),ex=document.getElementB
  if(!b){b=document.createElement("button");b.type="button";b.id="rnFs";b.onclick=toggle;lbl()}
  var on=!!(bar&&ex&&t&&t.parentNode===bar&&t.style.display!=="none");
  if(on){if(b.parentNode!==bar||ex.nextSibling!==b)ex.parentNode.insertBefore(b,ex.nextSibling);b.style.display=""}
- else{b.style.display="none";if(fsEl()){try{document.exitFullscreen()}catch(_){}}}}
+ else{b.style.display="none";var _f=fsEl();if(_f&&_f.id==="rbLayer"){try{document.exitFullscreen()}catch(_){}}}/* fsfix-20261030q */}
 document.addEventListener("fullscreenchange",lbl);document.addEventListener("webkitfullscreenchange",lbl);
 setInterval(tick,700);tick()})();

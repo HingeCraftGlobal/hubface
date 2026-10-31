@@ -1,20 +1,12 @@
 {
  "subject": "crypto",
- "fetched_at": "2026-10-30T04:00:08.125686+00:00",
+ "fetched_at": "2026-10-31T04:00:07.617049+00:00",
  "items": [
   {
-   "title": "Binance mounts an urgent response to suspected hack as crypto platforms freeze billions in funds",
-   "source": "NBC News",
-   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQdGNmTk9fanU5TWV5OG9TVFYtVlNEMGpncEJSamlObHQycmc5QnlvZExjb2xJWHI2VC1EMkszT2hCc2Jrb2l4cmdZanFpQ2FhaTIwNlZRYTg2WHFpWUpvdGpKSDhCOTJzMjNDSDd4R2R5djNwT3pGSkRmMFVMdzRYb0ZlaFNNNWc1VVlsWDg0eU4xYUIx?oc=5",
-   "published": "2026-10-29T22:46:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Crypto's longtime foe, North Korea's Lazarus Group, likely behind Binance hack: blockchain sleuths",
-   "source": "CoinDesk",
-   "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPOWgwZXpJNmlUMDBIVmQtRV9ZWGRpc2luMTdveDN6ZHRQVHhiRFF3aG56Um1uQlctNi1hZF84alE1bHJoNTFzLW03WXRXdXJCOEVhdkFLWVk3Rk9jbm5aVWhpLUxYN0hRV2FTMzcyYURpdGdiQm43UHE0SkZ5eV8tcEYtb2NfeTY2eWZ6N3ZJaG1PamRENG9ZbjlwMmllcUdIR3dhS1BsOWx2Y0JSRnN5VTg1QTBvVUFIcVI0enR2NWpvM0xpSkFGVW1aclNYcFQwWVI4TQ?oc=5",
-   "published": "2026-10-30T03:38:00+00:00",
+   "title": "World’s biggest crypto heist: Hackers steal US$6.3 billion from Binance",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOLW5JQmNWTER4MnctYkM3U0l5LU5CYXg5RnVRbnZsNE1KNjFMQ25mN0o4alVmLXlDWEJyUmVtZldlZzBHcTNuTExHNURfclRYT3FpLXM4elR1dF9HVVJJV0pUb1BYUHpVeGlvcDhLMEhDc2RjdmJCaE1RVW5pT0NYQW9GNlZsTXdQLXB4SGFuUFd2SXNpYzF4ZlJFclA1VGJrUU1IQlZobmlMci1K?oc=5",
+   "published": "2026-10-30T02:08:00+00:00",
    "tag": "standard",
    "video": false
   },
@@ -27,10 +19,10 @@
    "video": false
   },
   {
-   "title": "What the jury didn’t hear at trial of Ontario ‘Crypto King’",
+   "title": "Q&A: Courts reporter Betsy Powell answers your ‘Crypto King’ trial questions",
    "source": "Toronto Star",
-   "link": "https://news.google.com/rss/articles/CBMipwJBVV95cUxQcTdRZXprOS02aUNsZWJhS2h5d1BSd2J2YVpld1NGcS1zbmc0T1I4TC1PLU9TTURQb2NvRzNfTTVqMmZyUTBrUmNNcHZLMHp6NGI4bzVFRnFadkxxdlQyX1BzVjM0R3hxMzVlV1pCT3BCbXpfOWExVzZFQi02T2g1bHhBTmFmWWJiN1BMX1BkY1kxRWF5YmRGTW8yMk5yRVJqa0ZERU5OOVlZeEhQUEdVYjFVOXhOcnZqVVpIRVh3MUNoTklPMVdDbzVWQW9JQWlXVE5taGtXUGFzWV8zbWhGSjEyaVJHVXRTMjJJN19nN0FkOHdUQ1puUzdQM2dqV0VHZ01CbmNXTk9iQ1hZa2l1cUJwdG9naUg1LWFNdnJjbFJaNXAwVGI4?oc=5",
-   "published": "2026-10-29T14:40:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNd3RCUW51NC0yV2NvQk9JOXZmcjFyUHNMXy13ZzUySHpCOWJtMjFRQXFTV25oZVlDY0pBOWJweXNEaWdReklmYXo3R29UdUFmR2h6WFl5MVdMZ0x4S1c0ZEJzQ0NxX2xjYXFHaHkzSFlnMUR0eldITlFDd2tINk1uaVVjZ2tPMnNOWHF0MU9rMkx3T3JqMEJfclVYWEhfU3o1Y1JwSk1sTUtmOEp5S29Ib3FEY2diREgzS2pYRENMcTlwR1RnS2xoWWxtUUhPaC0yMjZJaVNjelc2elFCOHU5cU9ySjJuQnpHTHA5QQ?oc=5",
+   "published": "2026-10-30T09:00:00+00:00",
    "tag": "standard",
    "video": false
   },
@@ -43,26 +35,34 @@
    "video": false
   },
   {
-   "title": "Five things we learned about crypto from Purpose Investment’s chief innovation officer",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNbUtwZWc0bFNLTG5kamNOZEJ6MjROMURoUW5JV3FoY0FESDBiUlZkNFExeERscFNMVnkxSXR0ZUVWdElNZHkwNFZMTjJjbXF1Qlc1NDRWc1JSMzkwZkU4M2ZTTUdHT1NOZEFNclBuaHlsd3ctUmVkcWdFSS0xY2RxNXIyNWd6R0ZWejFnNDNBS0Nad25lek9zSU1iOER0MU5KZVQ1V0xGcWRqb0VCeWtrZTltZnJ4bHpKNEFteV80b2hFUHJtTzl4ag?oc=5",
-   "published": "2026-10-29T12:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Coinbase reports Q3 revenue decline amid crypto slump",
+   "title": "‘Biggest Launch' — Google Teases Crypto Vault That Never Keeps the Whole Key in One Place",
    "source": "Yahoo Finance",
-   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPV1RkNlBYdFFieGJVV0dvSUEtbHRLSEdoTDBqWVpCdnQwaTk3azdoRGpaMGtSNXd3M09sSDFDcDFqOU1zNzNSR0ZULU9CLVpHemJRVi1VWURCQmV3ZXNTSVFwSF9Bc3p6UE9rUkZSMTBDdnlvSkFoeVVHczlkdnU4emEzQmlFNE93SWlOSEM0cXJUQUNDVXE2N01mSmFWNm4zTGFpWjNHYV9Qd0h6T1U4?oc=5",
-   "published": "2026-10-29T20:53:53+00:00",
+   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPWjFiUDhsenhoeGxxQXBycDllamlXQ2RUTHVTdHZOaWU0UjNZT0E0ejFlVjdicmQ4dzBWdVlJWFlxMVo3SUZzOHFFUEgxR1MwU1lUT2lLbm5YemtHS2NHUTNoNDUzR0FDWm5xSkxidEFEeWlHSjVCZFVmMlcyYnFSbU9GYWRNaFgxZGdFZVVMMENPc2tvNUljSlNpZjByVEhMSFE?oc=5",
+   "published": "2026-10-30T10:45:06+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "LILLEY: Leaked crypto bill shows Carney flip flop on seniors",
-   "source": "Toronto Sun",
-   "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE02ellTX2Z6b2NXclVSbmUwTkM2Z0lrTHZOcnp3alJTQ0x1c3l6aHRwakdsdzQ3U0hSZWI1RlNfTkZaVEt6dG4tVGk0WTNmcUVVOV9ONGViU0NDeE5vUmtnMkt6U2pXNFlrcVJLZS04U1duRE5kZmtLU2ZQZnQxQQ?oc=5",
-   "published": "2026-10-29T17:13:27+00:00",
+   "title": "World in Brief: Tech stock slump continues; Hackers attempt a crypto heist",
+   "source": "The Economist",
+   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQX0diSUJrdld5SktTM2ZGYXgtOGFsZy1Xa2s1LUNRZDNEYlRRQ29RaUpHNEZ3OFJNaVpDMUZPcVVhLTU1OUFSVGg1QVRkeHdJQ3VxUHl6UUI4bUpQUkNranhid1M4bHVKbGlLa1h6eWE0YXdfQWx3NWJRYXhMaldoYWdtTVBGbFE0T2ZVa1lucDQ3ZThLNTV3?oc=5",
+   "published": "2026-10-30T00:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Stocks Fall Sharply on Intel and Amazon Sell-offs and Crypto Heist",
+   "source": "Barchart.com",
+   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPYXRCblZXM182WTZ4cUE4VWlJVjNvTzFURlB3b0dLQ21xajVMWFFkd3oycTNZbV85RkItdzlteDNqZk9WYzRwbWVLa3NXZUxpRWFka09oZVUxaGtJbERTRzFyYU8wZTZib01MSXZmZDRUck9NTmdHR19TV2FpbVhwZmJKSkwtSUxkS1VMMmZLcy1MM0VrZVJPOEwycjEwcDhSU19iQXZZejlQeUhPWHg0?oc=5",
+   "published": "2026-10-30T21:07:09+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Form 144 Grayscale CoinDesk Crypto 5 ETF For: 30 October By Investing.com",
+   "source": "Investing.com Canada",
+   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPVU1pSGJoeTBCcU5uVmxBclpnT3BQaklQXzBlMFMwcnVxcGFIakZwelBIMXV5aEJXYjdOMUszX2YwZ0tzTjJHaFMwaVhWWk5qMTNBNF9KT0tNSy1GYmF4NF9QOUp2Q1VqTXNWclZrTVhIWGhxVXpaUGRtZE1ZTnFPQ1Juc2VxNDBWNXFuWFkzV3o3Vll0UUN2UDdFano5UXFKYXItenZUNkxwX3JQSEJQMlJDaGRkdkE?oc=5",
+   "published": "2026-10-31T03:36:49+00:00",
    "tag": "standard",
    "video": false
   }

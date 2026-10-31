@@ -10,6 +10,7 @@
 import * as VT from './voices.mjs';
 import * as SH from './br-seathook.mjs';   // stellapush-20261029 (staged)   // voicetype-20261029
 import crypto from 'node:crypto';
+import { makeSuperChat } from './superchat.mjs';   // superchat-20261029s
 import fs from 'node:fs';
 import path from 'node:path';
 import Database from 'better-sqlite3';
@@ -785,7 +786,7 @@ export async function accountsRoute(q, r, p) {
         db.prepare('INSERT INTO token_spends (k, user_id, n, created_at) VALUES (?,?,?,?)').run(k, id, n, now()); })();
       const a = publicAccount(id); if (short) { json(r, 402, { error: 'Not enough tokens.', account: a }); return true; }
       json(r, 200, { ok: true, duplicate: dup, account: a }); return true; }
-    if (ep === 'botmeter/yoda-reply' || ep === 'botmeter/owner-message' || ep === 'botmeter/owner-messages' || ep === 'botmeter/owner-stream' || ep === 'botmeter/stt' || ep === 'botmeter/stt-token' || ep === 'botmeter/speak' || ep === 'botmeter/latency' || ep === 'botmeter/buy-intent' || ep === 'botmeter/buy-test-order') { await brChatRoute(q, r, ep.slice(9)); return true; }   // brchat-20261026
+    if (ep === 'botmeter/yoda-reply' || ep === 'botmeter/owner-message' || ep === 'botmeter/owner-messages' || ep === 'botmeter/owner-stream' || ep === 'botmeter/stt' || ep === 'botmeter/stt-token' || ep === 'botmeter/speak' || ep === 'botmeter/latency' || ep === 'botmeter/buy-intent' || ep === 'botmeter/buy-test-order' || ep === 'botmeter/superchat' || ep === 'botmeter/seatmute') { await brChatRoute(q, r, ep.slice(9)); return true; }   // brchat-20261026
     if (ep.startsWith('botmeter/')) { await botmeterRoute(q, r, ep.slice(9)); return true; }   // botmeter-20261025a
     if (!['signup', 'login', 'logout', 'bot-signup', 'bot-code', 'forgot-password', 'reset-password'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
     if (q.method !== 'POST') { json(r, 405, { error: 'method not allowed' }); return true; }
@@ -851,6 +852,15 @@ const BRC = { ins: db.prepare('INSERT INTO br_owner_chat (room, user_id, from_na
 const BRC_RE = /^BR-[A-Z0-9]{4,20}-[A-F0-9]{4}$/, BRC_MAX = 2000, BRC_REPLY_MS = 600e3, brcUses = new Map(), brcRate = new Map();
 const brcKey = () => BM_KEY ? crypto.createHash('sha256').update('brchat-reply1|' + BM_KEY).digest() : null;
 const brcSig = (room, exp, n) => { const k = brcKey(); return k ? crypto.createHmac('sha256', k).update(`${room}|${exp}|${n}`).digest('base64url') : ''; };
+/* seatmute-20261029m: owner mutes a bot seat. In memory only (cleared on restart), no catch-up on unmute: while muted the bot gets no room lines and its replies are dropped. */
+const BR_MUTE = new Map();
+function brMuted(room, who) { const m = BR_MUTE.get(room); return !!(m && who && m.has(String(who).toLowerCase())); }
+/* superchat-20261029s: Super Chat engine (superchat.mjs). Uses the same signed reply link + BRC table; hooks are the existing roomserver webhooks. */
+const SUPC = makeSuperChat({ ins: (...a) => BRC.ins.run(...a).lastInsertRowid, hook: (tag, id) => { try { BRC.hook.run(tag, id); } catch (e) {} }, push: (room, m, seat) => brcPush(room, m, seat),
+  sig: (room, exp, n) => brcSig(room, exp, n), recent: (room) => BRC.recent.all(room).reverse(), hex: () => crypto.randomBytes(6).toString('hex'), base: 'https://hubface.org',
+  yodaHook: async (b) => { const rs = await import('./roomserver.mjs'); return typeof rs.botroomHook === 'function' ? rs.botroomHook(b) : { status: 'not_configured' }; },
+  licHook: async (b) => { const rs = await import('./roomserver.mjs'); return typeof rs.botroomLicHook === 'function' ? rs.botroomLicHook(b) : { status: 'not_configured' }; },
+  log: (x) => console.log(x) });
 const brcSeatCache = new Map();   // brfix2-20261026: room|sha(token) -> {seat,bots,mode,exp} for 60 s
 async function brcWatchSeat(room, tok) {   // relay says which seat this watch token owns (or -1)
   if (!/^brw_[A-Za-z0-9_-]{20,80}$/.test(tok)) return { seat: -1 };
@@ -1009,9 +1019,11 @@ async function brChatRoute(q, r, ep) {
     const b = (await body(q)) || {}; const text = String(b.text || '').replace(/[\u0000-\u0008\u000b-\u001f]/g, '').trim().slice(0, BRC_MAX);
     if (!text) return json(r, 400, { error: 'text required' });
     const who = (u.searchParams.get('as') === 'licorice' || String(b.as || '').toLowerCase() === 'licorice') ? 'Licorice' : 'Yoda';   // licbr-20261029
+    if (brMuted(room, who)) { console.log(`[seatmute] dropped ${who} reply room ${room} (muted)`); return json(r, 200, { ok: true, dropped: 'muted' }); }   // seatmute-20261029m
     const id = BRC.ins.run(room, null, who, 'owner', 'yoda', text, t).lastInsertRowid;
     const lr = brlReply(room, id, t, 'routine');   // latency-20261026
     brcPush(room, { id, from: who, to: 'owner', role: 'yoda', text, at: t, route: 'routine', lat_ms: lr.lat_ms, reply_to: lr.reply_to }, who === 'Yoda' ? 0 : null);
+    try { SUPC.onReply(room, n, who, text, id).catch(() => {}); } catch (e) {}   // superchat-20261029s: forward to the other bot if this link was a Super Chat turn
     console.log(`[brchat] ${who.toLowerCase()} reply room ${room} len ${text.length} routine ${lr.lat_ms == null ? '?' : lr.lat_ms + 'ms'}`); return json(r, 200, { ok: true, id });
   }
   const uid = currentUser(q); if (!uid) return json(r, 401, { error: 'Sign in to HubFace first.' });
@@ -1043,6 +1055,25 @@ async function brChatRoute(q, r, ep) {
   if (ep === 'stt-token') return brcSttToken(q, r, room);   // stream-20261026   // mic2-20261026
   if (ep === 'owner-stream') { if (q.method !== 'GET') return json(r, 405, { error: 'GET' }); return brcStream(q, r, room, +u.searchParams.get('after') || 0); }
   if (ep === 'latency') { if (q.method !== 'GET') return json(r, 405, { error: 'GET' }); return json(r, 200, brlStats(room)); }   // latency-20261026
+  if (ep === 'superchat') {   // superchat-20261029s: GET = status; POST {action:'start', bots:[...], topic} | {action:'stop'}. Room owner seat (0) only.
+    if (q.method === 'GET') return json(r, 200, { ...SUPC.status(room), cap: 12, connected: ['Yoda', 'Licorice'] });
+    if (q.method !== 'POST') return json(r, 405, { error: 'POST' }); if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
+    if (ws.seat !== 0) return json(r, 403, { error: 'Only the room owner can run a Super Chat.' });
+    const b = (await body(q)) || {}; const me = ws.bots[ws.seat] || {}; const ow = me.owner && typeof me.owner === 'object' ? (me.owner.name || me.owner.realName) : me.owner;
+    if (b.action === 'stop') return json(r, 200, { ok: true, status: SUPC.stop(room, 'stopped') });
+    if (b.action === 'start') { const o = await SUPC.start(room, { bots: (Array.isArray(b.bots) ? b.bots : []).filter((x) => !brMuted(room, x)), topic: b.topic, owner: String(ow || 'Owner').slice(0, 40), uid }); return json(r, o.error ? 400 : 200, o); }
+    return json(r, 400, { error: 'action must be start or stop' });
+  }
+  if (ep === 'seatmute') {   // seatmute-20261029m: GET {muted:[...]}; POST {bot} toggles (room owner seat 0 only)
+    const cur = () => [...(BR_MUTE.get(room) || [])];
+    if (q.method === 'GET') return json(r, 200, { room, muted: cur() });
+    if (q.method !== 'POST') return json(r, 405, { error: 'POST' }); if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
+    if (ws.seat !== 0) return json(r, 403, { error: 'Only the room owner can mute a seat.' });
+    const b = (await body(q)) || {}; const bot = String(b.bot || '').trim().slice(0, 40).toLowerCase(); if (!bot) return json(r, 400, { error: 'bot required' });
+    const m = BR_MUTE.get(room) || new Set(); const now = !m.has(bot); if (now) m.add(bot); else m.delete(bot); BR_MUTE.set(room, m);
+    if (now) { try { const st = SUPC.status(room); if (st && st.state === 'running' && (st.bots || []).some((x) => String(x).toLowerCase() === bot)) SUPC.stop(room, 'seat muted'); } catch (e) {} }
+    console.log(`[seatmute] room ${room} ${bot} ${now ? 'muted' : 'unmuted'}`); return json(r, 200, { ok: true, bot, muted: now, all: cur() });
+  }
   if (ep === 'owner-messages') { if (q.method !== 'GET') return json(r, 405, { error: 'GET' }); return json(r, 200, { room, messages: BRC.list.all(room, +u.searchParams.get('after') || 0) }); }
   if (q.method !== 'POST') return json(r, 405, { error: 'POST' });
   if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
@@ -1052,6 +1083,7 @@ async function brChatRoute(q, r, ep) {
   const me = ws.bots[ws.seat] || {}; const nm = (v, d) => { if (v && typeof v === 'object') v = v.name || v.realName || ''; v = String(v || '').trim(); return (!v || v === '[object Object]' ? d : v).slice(0, 40); };   // nameobj-20261026
   const ownerName = nm(me.owner, 'Owner'), botName = nm(me.name, 'Yoda');
   const recent = BRC.recent.all(room).reverse().map((e) => ({ ...e, from: e.from === '[object Object]' ? botName : e.from }));
+  try { SUPC.interrupt(room); } catch (e) {}   // superchat-20261029s: any owner line stops a running Super Chat, then goes the normal way
   const id = BRC.ins.run(room, uid, ownerName, botName, 'owner', text, t).lastInsertRowid;
   brcPush(room, { id, from: ownerName, to: botName, role: 'owner', text, at: t }, ws.seat);
   const cs = +b.sent_at > t - 120e3 && +b.sent_at < t + 120e3 ? +b.sent_at : 0, lo = { id, t, cs, route: brcFastOk(text) ? 'fast' : 'routine' };   // latency-20261026
@@ -1060,7 +1092,8 @@ async function brChatRoute(q, r, ep) {
   // forward to the existing Yoda routine webhook (same hook + auth as room chat); no hook -> stored only
   let hook = 'not_configured', fast = null;
   let licTo = false; try { const rsL = await import('./roomserver.mjs'); licTo = typeof rsL.licAimed === 'function' && rsL.licAimed(text) && !/\byoda\b/i.test(text) && !/^licorice$/i.test(botName) && typeof rsL.botroomLicHook === 'function'; } catch (e) {}   // licbr-20261029
-  if (!licTo && ws.seat === 0 && brcFastOk(text)) {   // fastlane-20261026 // stellafix-20261029: fast lane only for the Yoda seat (seat 0), never answers as a seat-1 guest
+  const muteY = brMuted(room, botName), muteL = brMuted(room, 'Licorice');   // seatmute-20261029m
+  if (!licTo && !muteY && ws.seat === 0 && brcFastOk(text)) {   // fastlane-20261026 // stellafix-20261029: fast lane only for the Yoda seat (seat 0), never answers as a seat-1 guest
     const f0 = Date.now(); let via = 'rules', reply = '';
     try { const rs0 = await import('./roomserver.mjs'); if (typeof rs0.botroomFastReply === 'function') { const fr = await rs0.botroomFastReply({ room, from: ownerName, text, recent, timeoutMs: 2500 }); if (fr && fr.task) via = 'task'; else if (fr && fr.text) { reply = fr.text; via = 'model'; } } } catch (e) {}
     // fastlane2: model says task -> full routine only; rule fallback only for plain greetings/pings (BRF_SMALL), other chatter without a model reply -> full routine
@@ -1072,9 +1105,11 @@ async function brChatRoute(q, r, ep) {
     if (!reply) lo.route = 'routine'; brlLog({ k: 'fastlane', room, id, via, answered: !!reply, ms: Date.now() - f0 });
     console.log(`[brchat] fastlane room ${room} via ${via}${reply ? '' : ' (no fast reply -> routine)'} ${Date.now() - f0}ms`);
   }
-  if (licTo) { try { const rsL2 = await import('./roomserver.mjs'); const exp = t + BRC_REPLY_MS, n = crypto.randomBytes(6).toString('hex'), sig = brcSig(room, exp, n);   // licbr-20261029
+  if (licTo && muteL) hook = 'muted';   // seatmute-20261029m
+  else if (licTo) { try { const rsL2 = await import('./roomserver.mjs'); const exp = t + BRC_REPLY_MS, n = crypto.randomBytes(6).toString('hex'), sig = brcSig(room, exp, n);   // licbr-20261029
     const o = await rsL2.botroomLicHook({ event: 'botroom.owner_message', room, roomName: 'Bot Room ' + room, from: ownerName, role: 'host', to: 'Licorice', text, source: 'botroom', at: t, reply: sig ? `https://hubface.org/api/account/botmeter/yoda-reply?room=${room}&exp=${exp}&n=${n}&sig=${sig}&as=licorice` : '', reply_expires: exp, reply_body: '{"text":"..."}', recent });
     hook = o && o.status ? 'lic' + String(o.status) : 'licerror'; } catch (e) { hook = 'licerror'; } }
+  else if (muteY) hook = 'muted';   // seatmute-20261029m
   else try { const rs = await import('./roomserver.mjs'); if (typeof rs.botroomHook === 'function') {
     const exp = t + BRC_REPLY_MS, n = crypto.randomBytes(6).toString('hex'), sig = brcSig(room, exp, n);
     const o = await rs.botroomHook({ event: 'botroom.owner_message', room, roomName: 'Bot Room ' + room, from: ownerName, role: 'host', to: botName, text, source: 'botroom', at: t,
