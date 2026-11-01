@@ -263,6 +263,7 @@ export async function preroomsRoute(q, r, p, { who, readBody, json, ip }) {
   if (p === '/api/prerooms' && q.method === 'POST') {
     const access = b.access === 'external' ? 'external' : 'internal'; const t = typeOf(access, b.type);
     let meter; try { meter = await (await A()).preroomMeterStart(uid); } catch { meter = null; }
+    if (meter && meter.planBlocked) return json(r, 403, { error: meter.error, planBlocked: true }), true;   // plans-20261031ai
     if (!meter || !meter.id) return json(r, 503, { error: 'Meter unavailable' }), true;
     if (meter.phase === 'live' && meter.relay_room) return json(r, 409, { error: 'Your meter is already in live room ' + meter.relay_room + '. Close that room first.' }), true;
     const id = 'PR-' + crypto.randomBytes(5).toString('hex').toUpperCase();

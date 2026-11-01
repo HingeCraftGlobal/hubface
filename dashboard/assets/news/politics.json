@@ -1,7 +1,15 @@
 {
  "subject": "politics",
- "fetched_at": "2026-10-31T04:00:08.191772+00:00",
+ "fetched_at": "2026-11-01T04:00:09.081699+00:00",
  "items": [
+  {
+   "title": "Here’s why you can’t shake those unhinged political texts",
+   "source": "The Verge",
+   "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE8tZDlVekw3TFc1UVJmTE1QdHJnRVUyS0hvRDVQN1RxTjE4RDJOdm9SVjQyVnJTYXU0MzQ3OXdxTFZ0WUlTeHJ3YlgxVFpiRXNRcGhtN0V4a3Z3ckV2QW5FeS1HbWNKT203dlJUWEtTVXBwSmNGT0hhc2luUWpIUQ?oc=5",
+   "published": "2026-10-31T12:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
   {
    "title": "The nation’s cartoonists on the week in politics",
    "source": "Politico",
@@ -11,58 +19,50 @@
    "video": false
   },
   {
-   "title": "Opinion: At this moment in Canadian politics, ‘normie’ is in",
-   "source": "The Globe and Mail",
-   "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNd1dNcUxQLVlMa2o0WS1WRkxQWFhTTjRuOTF5UTY1QnRQR3ZNRDRjNzUyQWlhejRfYWdVQVhCWWpHM1FrQkRIQkZ1Vmx3VEtJZEFBX3ljRExVTUF6TjEteWlFNzdReG1SaTg5ZjJrNmZHRzVuSlZUYTItTzBpWHJ3UzdvMzZuUQ?oc=5",
-   "published": "2026-10-29T10:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Carney says, unequivocally, Canada seeking to become the EU's 1st associate member",
+   "title": "Canada is in the U.S. midterm spotlight. Will the results be a blessing or a curse?",
    "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNMTVWc3JEY2Vnc2h0eExyRkdvM25CWHRVbk1qYy16Z1ZCOWkyOFZzcTlYSl8zTGNtZEw2WU9FRVRJcUhublhVWm1UMF80YTZ5ZUJVU3FIeklwLXgtbXdTWEF5Ul93b2NvT19hdHgxOWh5eHdLWlplZGNNZVZULVctWXd5S1RRN09rcVVMbTZYWFE5TWNpZ3lJNmdCYw?oc=5",
-   "published": "2026-10-30T21:01:39+00:00",
+   "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTFB4MzNxNENkVWlnbk1HSnBOQ2Zxd3g1NlpBQUVqMGRjb1M0S0hKcm5KTVQwTkJDYTZZN2lfdmdPLXNTYjRNMzk2YUNPQm1zMkdJVEdXZnhjSENnS2ZlZHlBTjhkYTkyT1ZoUHFRVEU1cTIzMXNTLWgydHROUQ?oc=5",
+   "published": "2026-10-31T08:00:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "New national security strategy calls for worst-case scenario preparations including ‘war’",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNeWpPWmRsUFJXODVKNzRlOHBGNmVOWkFqbk5jeXpUOWdBZy1FM055M0dBNUE4bHdKN180LWVQQzhVZ1RKRGM2NnNPMUh3RmFOTmdGY0xCMno3c3NIUHhmdlBOdFRqY3RybDA2Y01RMDdXSGVscnRxQ1E1RmFKMERCNW1jX2YyY29GNjhxb09Ld1U4aG1TdDNITnlBb1Q5bkJ5VEV6Vy0zRzA2UHdkVUI1Umh2aUdrR0dwcy1wcjN6ZjUxakNoeWJ3?oc=5",
-   "published": "2026-10-29T09:56:43+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Canada and EU Announce New ‘Alliance for the Future’ - Headline Politics",
-   "source": "CPAC",
-   "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOcUwxSVdVTjhQSTd6dE9Zdy1FZ3JxLUt4TUFsQkFIVHlEWDBFYkE1ZGFCcElJc1RacHI1dXozUnJ0TVdXbmQ5eDIzQkhBbW45RWR1cHF2TjBnZkZpTldncWRKWEk3bFI4Z0VTV1NLQlF5NzM4X3RHTU5vNExmdFppQWFnakhGbTRhT2gtdVZMV1BfV1ZHNlFRa25ZY3JwR1JtZkdLNVZDRXY5aGxsSC00aUR0NVFvQ3BxZXZwOUp2LUdRR2M4SzFQQW1GTS1fVkt6d0E?oc=5",
-   "published": "2026-10-30T20:19:10+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Former B.C. minister says he’s focused on family, but leaves door open to politics",
-   "source": "CityNews Vancouver",
-   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPZE1Qd2Y0RUtkT29IMGtCWlFKUlpydFFvQmN1bmEtMmQ0Q1VtZWRUWXBTbEVLQUJFVHFSaUZtRUE3OU9TWWpOZjlwaWlCM2dYME5Jd1NYUFFBd29aaXphQ3hsMDBwemhUYW5QRnNzR29RSks2RFNOaTVmQVlKckNHaF9CeWtNR19uQ29nUEdzMDBsNjFSSkpXOUJHNGlBWkMyVzJPRXNaWFUybXBhMG92NXJEaXUyT1piMEgzSmJR?oc=5",
-   "published": "2026-10-30T19:27:03+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
-   "title": "Pope Leo votes in US midterms in first known political ballot for any pontiff",
+   "title": "The staggering $446m Elon Musk has spent on the US midterms – visualized",
    "source": "The Guardian",
-   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSW1aU3d3MFlHMXMzYUFIRXdlNm1zXzh2Qi1IWTZZdEpJTUJqRjJFV0dGcnpkaGExYVBTd1BBeUNFN2x0M3U3M0FkU3hkS3ctTTRsUWxfbG1GQ0xTMVc3NHlmd0pDbUdUd0dzUjFBeGhyWTFpUXU2ekxVbkpvU2NZWkxESHR1cGd4UFlWMUxXcm9ueEtaZ2NXWk9XVXE4TDJhMjV5N3p3?oc=5",
-   "published": "2026-10-30T16:20:00+00:00",
+   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNTXloR2JpTHpCdE9OMXBWS3FpcDBoUTUwOEdFd3lRQ3hxeng2MEl1MEdsM3QtU0NMTGNjbUNwZjNVZlpVVFJKbVdHRnptY0NrRGZrSEhHRGg1VmxZaDBNb2dnSndaTDJPZlRLeGYwRE1vM2hFbE1kWDdjVWZnbldNaGZjZ0F3RlZaSHJMVHRKMXBHNm9qdlR5QlNqX1U5MFhoa3NF?oc=5",
+   "published": "2026-10-31T10:01:00+00:00",
    "tag": "standard",
    "video": false
   },
   {
-   "title": "The Americans changing politics for the better",
-   "source": "The Economist",
-   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPQnFraTREZXo1d252QXVRTXV6OFl5ekhJZTk3cW5OSjFRMTg5ZEoyT1pqOXprRTU1NjQ2WDk1VnVtb1ZrdE5nREhrVEdoeGR1MHJtanBjTVJsZUhUQnlGcl9vbW45NnNCZkFTbnU2N0tXNElwNkZhRUhUWDRzd2ZfQk9fTlNDMlBMR3RDdk5remthMlBXSEE?oc=5",
-   "published": "2026-10-29T11:12:48+00:00",
+   "title": "Federal Government Investing Up to $1.6B in AI Firm Cohere - Headline Politics",
+   "source": "CPAC",
+   "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNUkJzR0lyeWJ6a244cHdlU0dVX3dLakRGWFBCQ01lMWU2SnJ1dHZ2SHNydEdrVzFUdVdfRElZWlZwUC1mZWhLUWZHbW51bjFxeFh2Vk9MR29kZXQxek1xbGZLZnFyY1J1MTItZF93eFlxZFpkMzhfckd4cXlmZS1PU3hITWcyZGJwSDFZV0pnYkI0TVFOYTZyZjFBUHNYUjJWdFozbXhudDNac1hHZ1pXMEU3LVNBTjFWMGtxWVhGNWVFY2Q0R1VXdGdONXB1LUdOQjRvbGhvVndGZw?oc=5",
+   "published": "2026-10-29T18:24:05+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "A Pro-Russia Strongman at Mar-a-Lago",
+   "source": "The Atlantic",
+   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNSl9ETmthSF9GWnZDM0FDejhnZEpHcG1fVEd0TWxmc2k1REVhbUhJZE5GMC1xUzlTVHRzOTFsR1d4RFE4aUFfZXFENW9aNXBRMjRhSDQxMF80SGVhWDU3TFBHeXVRV2RQZ3U2cHY1R1pvdlBuY3BjR0ltOHgyWURKREpyTQ?oc=5",
+   "published": "2026-10-31T18:05:10+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Former B.C. minister says he's focused on family, but leaves door open to politics",
+   "source": "Times Colonist",
+   "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPNTNKMV81Vm9LRWxLLUcxVl9oYlBLaUNpRnkyMHRxT3I1a01kMTRmRllLblU2OWdzeE9LRjJpTzFfaEVyUkZoLU8xTENvLTBFendUT2hVNTdBTTZRdW1QeXExNEY5bE1ETnVNQjhHODA4c1lva1YzdDJrOVBHMGVsTXBOcml3ZENoR3V3Zm5ieWh4dVVSOXg5M3Q4ZzBVLWJxc2lTTGFnbDVKV1ZsekNrSGVsWGpsRF9EMFhUNWNxRi1UcGZJNGdn?oc=5",
+   "published": "2026-10-31T00:03:14+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "Opposition bloc said weighing direct elections for prime minister to break political deadlock",
+   "source": "The Times of Israel",
+   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPWmlUSnFiZkJmcTRhTWtzNnQ1SERxa0pjczN1SGlkX3pQN0lYemtxaWdZajBQSUJCaEFLcTlSREpuejJkemJ6OEthTkxGcTRnUm9UWlFXYVJUVmd0UllqRkxqQy00a2s1OTVjWnlPdHFmOWF5NUlCYTlhdVd4VG1yRkppMnFSSTZGNUpmd2JjdVVDcWlCbE11SEJIeFBTMV93RHp6SDdBWXl4NEdK0gGyAUFVX3lxTFBiUzNZemNXRElTRDRjeUpMVm9hTDVicnc0STNDSVlvVDF0ZDZZVHowaVU1OTNULV9vOWxUS0s0M2ttdHBLVzJuelNvOEM4VkJ1YTlOR29taGVLU29IMmwwTVhQNDZabFh3S2dlQmdDbUNkX3lHZHZ2NkJXeWhnT2Q5dkxkc2NhNXREdlNqbVI2Rks1OTRVblFHM3pNeVhtb0dQNE5oR2N5c0xWQUQ0NklmNnc?oc=5",
+   "published": "2026-10-31T15:19:00+00:00",
    "tag": "standard",
    "video": false
   }

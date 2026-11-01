@@ -1,69 +1,69 @@
 {
  "subject": "evacuation OR warning OR wildfire OR outage OR recall",
- "fetched_at": "2026-10-31T04:00:03.512957+00:00",
+ "fetched_at": "2026-11-01T04:00:04.323604+00:00",
  "items": [
   {
-   "title": "Wildfire",
-   "source": "City of Merritt",
-   "link": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE9sSC1Id1JCalladW9UVEJjOC0xRWE5Y0J0UHZTZ1llRkd3ZzZMUFlqdkNwMjhhdUgya2liMU1LY0M4VW9hUFE?oc=5",
-   "published": "2026-10-27T07:00:00+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Flames Recall Pair From Wranglers",
-   "source": "NHL.com",
-   "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5kMTQxZG1YcnRhREZVOG1jTnViX1ZkdXJvdEJQLUdRUHlmWkpSWFVFNFk2RkpjNzh6MUdNYmw0ZkFkcXgyUkhxQ2N1TGlCeG42MFE3ck51bHZoem1GM2o1RHZ1UVpHVGYzLUhhRlVVV1FCdXU0RGpVQ3JnRms1ZVE?oc=5",
-   "published": "2026-10-30T15:53:25+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "‘Wall of smoke’: Plaintiff recalls wildfire anxiety in youth-led climate trial",
-   "source": "CFJC Today Kamloops",
-   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcTY3M1BtTjE4QzVZS2FQX1FXY3lDQVVERnI2RGktXzBVZXBkTklLeGRtWWk4TDRjTjdKU0FqdHJ1QXNRSnN2cE81UzdVRmhPel96S3NwQU9Sb2JVc2w3ZVRLeDFIWUgyT1lwMlJtaUhJa2lUV2RiOGc2c3J3RkNNZVlhb2stU1k4M0NtS3VmUVhXMC13RWs0?oc=5",
-   "published": "2026-10-31T02:50:41+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Deaths associated with wildfire smoke up about 275% in Canada, new report says",
-   "source": "CBC",
-   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNV0V6d212RV82Ymlyd3VqcDZnWTBJd01YWGFUUnBMSXJaYTJOZFduM2NWaEdlNWdVTFlFNVBjdHowWHFONFIzb1pCLTYxVEwyNlNUY2pVY1l2OUtDaDRQUG9TTnNxSnFBbDVVUDVQTFlrNmpkVU5RbU1kZ2ZjS2tNWm5fOEg2M3FZZHF1OA?oc=5",
-   "published": "2026-10-28T15:04:59+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "'Wall of smoke': Plaintiff recalls wildfire anxiety in youth-led climate trial",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQYzBGRUFrNVloc2hUaVh6NG9CTUJkSlVqc0M0ZmdtR3pISWMtZEw1QWhFTVdVem9MdWszTUw0VlBTdFRPZDF5Uy1tRWdybUFqZjVUemtRT241M3l1V1ZGZm9pZVlfNWNzRmxTMU1NWDNmSF9WS1h5MGMzOHhlOUZBenBSLWlhdnhSX09SWENXZkx3dmEwYy1qcWR1SlZFOXJrbzNOWU9QWTRuSUtFck45azkwRGJtX2JFc3NRM3RFbFd1Nzh2NDQ3TDNMMA?oc=5",
-   "published": "2026-10-31T01:14:00+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Senators recall Tomasino, Bourgault from AHL Belleville, Foegele moved to IR",
-   "source": "Ottawa Citizen",
-   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQbnJETW1iUk00X01wSnBSTWRJdld2V1ZjOUJXa1J0bFdYdmlfUGhfbmUxeWJGVUYxV2Z2RjhzeVhyZmpNZU5WUHQyVHlUN1FHNTFBRlU2aThLalp5V0FaemlEVzVsb3liSVRNZk5YOFdyS0FWeHZpNGZ2dnRySmlNdExwZ242Rll1UVkzelBwWTNIYWJFSmQzTGNPSlNxU3JqZUNaeUM4S1FlZU1CbTV1d3B0Y1FaN1E?oc=5",
-   "published": "2026-10-31T00:15:51+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Wildfire aircraft fees, drug cost recovery on committee agenda",
-   "source": "Prince Albert Daily Herald",
-   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNWjEzNmNsVkUySmRBNHQ2cnFtVGQxMVV1OVAwcU9Qa092VS1Ddmk2MlRaaE9ubGVBS3Z3Y3JfOXV2YVczODdWUC1XYmdmYk9VYlZQUkR0eTV0NGR1S2g2aUMtNG9pUFlHS1BYSHdiM3k2MlYwcWRrcU9YYnNHalFGcG1IRGItODRyalFTaERn?oc=5",
-   "published": "2026-10-31T02:00:00+00:00",
-   "tag": "emergency",
-   "video": false
-  },
-  {
-   "title": "Wildfire Fuel Management",
-   "source": "Resort Municipality of Whistler",
-   "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNVjRwYkVrTGpDQXdoMUI2a2RoZmZ6LUNZUjNFTUNUZV9rOW5ILWZYZl9sZ1JPR2hRNXVpUENwblBBVk54TURlOGVoUnZyMWYzT0pYWDFBRGF1Z0xFWmxtakJ0NHplTEdnZnlqaTl0LVRwTXlRSUtuZHV2Z2FJdTNrMk9lOTNKVkNxVE1IRGtERS1GVFFQNWdaWE9rSkRGajU3UGJQSlk1QURWSFpONWcxVTZoQU5ORTJkOXdzb1VSTXYxS2EwYUJrbFZHbzJVWlFNQkJnYTN3?oc=5",
-   "published": "2026-10-27T07:00:00+00:00",
+   "title": "Canada echoes U.S. ‘mass casualty event’ warning for Moscow",
+   "source": "Global News",
+   "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBrLU44dGZqUUpqMzRCVC1tdmFUa1hyT3BVTjRLYktrWkd4U1BSV2hMSTNud0p4RWZBRnRZTUQ2YUlzVl81enV6M0xTaDFqWVlqNGh2Wlpjclg1cnZ4TjZDNFlFeHV5S01QMXBma1JTTUNOdw?oc=5",
+   "published": "2026-10-31T18:16:50+00:00",
    "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "NEW YORK RANGERS RECALL D MATTHEW ROBERTSON FROM HARTFORD WOLF PACK",
+   "source": "Hartford Wolf Pack",
+   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPSHc3WklxZWpzV3ZIRzlhSElsSlpNTzgxU0VoU1lEMFBkazRoazcyMVJKUlg3YmRsSjU1VnVUejZhVE9ac1lIOXVTVXlEeHFSN0RBOFBSNTkyb2VrdTgzbHFlNWRtaGl2X1RSTlF1bnlVVWFDQ0NwaEw1YnUyQV92RW5NX0xXVnlDUnc4X0V2U1JDR1NxWmpRQzNLSW5iUHJKVmNOTDdWZFpfUUtRQ1RiczIzUjE?oc=5",
+   "published": "2026-10-31T21:19:06+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Wildfire at Base Gagetown continues for 2nd day",
+   "source": "CBC",
+   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOVlMxM3VHeFVCaW9iYm5VRFlMLWtRY2dwclV2MzlqT09rT0hHVDBMTy1rT08yQ2lfTWVmX1Jjd013WHRmYmN6a0FpRjc2NnlmTE8xUU0xUFo2VnZicWhsVjBHUEc3ZDhJMUE0ZXRBTTVrZ3pHWDZERGUwdEh4UDEwVkxsSQ?oc=5",
+   "published": "2026-10-29T20:24:16+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Crown Land Wildfire Risk Reduction",
+   "source": "Government of British Columbia",
+   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOTmpiMGQzaWhhbElIMTVSRjY2UHBVczVwNV9GRjhFOTFJdVhsN0JySmtHbEk5bDdsMnVROE1ia2FNUjNBUHBJYU9GQTRCVmlPajhzclRRYmdRbGFraVRnQ25TSUVkRTBlYlZfOU1uaUxPWkEyTGJSU0h0c3NBbXdPdFozQmNTYkhzNVQ4TVJkQXVMSldtVHZ1Y01Qa2FhYVpLZFJyLUdPWkN6VVRpN0E?oc=5",
+   "published": "2026-10-26T07:00:00+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Wildfire risk reduction work to go ahead near Lac La Hache",
+   "source": "CFJC Today Kamloops",
+   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNR1BWQUNaQndaSXNUb3ZBdVYtMUV6czJETVZyYWV4X1FVZnlUbUJBa1g0N29zYU9vb2I2eXBoX2dEaTRWLTl0amxuemMtel8zZEFyTEFkNGVMelNmVm96dTlSckFVQmItcUhSa3ZPR2Q3N0xySll1ai1DMm5aaFJXa3M0X19rOWtPV1JZNmVNekRzWjh3c3VZ?oc=5",
+   "published": "2026-10-31T17:53:31+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "ISLANDERS RECALL DEFENCEMAN GEORGE",
+   "source": "Hamilton Hammers",
+   "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOZHN6Vzl3RThZTnhUQUIxNE9TMk1yaVE0bVhpQ0V6MUx5Rl9ZTk9kZTNxWkpDUmFLMjNXOHFDbzVzU2FJMGxYaHphWlZoT25KR2kyT3pZOW9oNFVVc2dzQjZZMnk4MUVSdm15YmxiUkkydndaLXlCaFRDLTJmeGpBWjF4aEI?oc=5",
+   "published": "2026-10-31T19:32:45+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Bodum USA Recalls 5.9 Million French Press Coffee Makers with Replaceable Glass Carafes Due to Risk of Serious Burn Injury",
+   "source": "CPSC.gov",
+   "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxQdmNhVlZQNVh3VXpobnRYSWNaVWNwcndxd1VkMmE2T3VZd19wWHJucmI1SWw2bzM4YXpKaHB4WTd5T3daZ2tVSGxNV0dZQnZ6dTVWR1NWV0VFV3hqeTg4X0VURHdkNnVfWHRWelF1N0NMejh0ZXJjeFQtSU52MXVCMmdSWUMzUU5uUFROczJGUW5tcjZybUdpQlhPdkpEclQ3WTNYR2ZYQ0FENDBxVjl4aVE0X2lWSFVOd1hNUmdSZGlTRFB5VWp4ZEVGdThNaXJUVWZJSnpsUnpBRU9wXy1NT2w2TGJpOXVzNWJfZw?oc=5",
+   "published": "2026-10-29T13:07:22+00:00",
+   "tag": "emergency",
+   "video": false
+  },
+  {
+   "title": "Recall for cheese curds made in Grenville",
+   "source": "The Review Newspaper",
+   "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE53QUVHU3JlaVZJZDhMRE5keDU5S3Y3aXJOLWstb2szaUE0NVVQa3d6QkpGQmVuRVZxWkdiZzB0eGRlR0VUSEhYaEJmb2ZRenNrRGJnTnV1d214Q0VwVTJYVFU1blFxQkE1X3M4NzQwbkZzY3pZSmIxSk9zalNVWHc?oc=5",
+   "published": "2026-10-31T23:04:13+00:00",
+   "tag": "emergency",
    "video": false
   }
  ]

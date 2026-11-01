@@ -13,11 +13,11 @@
   if (window.HubFaceAuth) return;
   var LAST_KEY = 'hubface-last-email', SES_KEY = 'hubface-auth-session', BUILD = 'auth-popup-20261017-v6+resetpw-20261028a';
   var ME = null;   // server account {id,email,plan,tokens,status} or null
-  var PLAN_NAMES = { free: 'Free', starter: 'Starter', builder: 'Builder', executive: 'Executive' };
+  var PLAN_NAMES = { free: 'Free', starter: 'Starter', builder: 'Builder', small_business: 'Small Business', enterprise: 'Enterprise', executive: 'Enterprise' };   // plans-20261031ai
   // Stripe Payment Links go here once Dan supplies them (opened with ?prefilled_email=&client_reference_id=<user id>). Empty = "Checkout coming soon".
   // Stripe Payment Links (TEST mode / Sandbox, verified Oct 17 2026: Starter $5/mo, Builder $20/mo, Executive $100/mo). Plans change ONLY via the
   // verified Stripe webhook on the server; the client never changes a plan. Swap these for live links when going live (the test helper hides itself).
-  var PAYMENT_LINKS = { starter: 'https://buy.stripe.com/test_bJe4gzaGS0Jye019VFbo401', builder: 'https://buy.stripe.com/test_5kQ8wP3eq4ZO7BD0l5bo402', executive: 'https://buy.stripe.com/test_28EaEX6qC1NC8FHaZJbo403' };
+  var PAYMENT_LINKS = { starter: 'https://buy.stripe.com/test_bJe4gzaGS0Jye019VFbo401', builder: 'https://buy.stripe.com/test_5kQ8wP3eq4ZO7BD0l5bo402', enterprise: 'https://buy.stripe.com/test_28EaEX6qC1NC8FHaZJbo403' };   // plans-20261031ai: same existing $100 test link, renamed key. small_business: NO link yet (shows Checkout coming soon)
   var TEST_CARD = '4242 4242 4242 4242';
   var wantPlan = null;   // plan picked while signed out; after sign-in we return to plans (opening a tab needs a fresh click)
   function isStripeLink(u) { return /^https:\/\/buy\.stripe\.com\/[A-Za-z0-9_]+$/.test(u || ''); }
@@ -139,13 +139,15 @@
   var PLANS = [
     { id: 'free', name: 'Free', price: '$0', per: '', tokens: '20 one-time tokens', tag: 'Try the platform with 20 free tokens',
       bullets: ['20 one-time tokens (no renewal)', 'Access all features while tokens last', 'Launch and join MissionRooms', 'AI-assisted participation', 'Upgrade anytime to keep going'], cta: 'Sign Up Free' },
-    { id: 'starter', name: 'Starter', price: '$5', per: '/month', tokens: '20 tokens', tag: 'For light users getting started',
-      bullets: ['Launch and join MissionRooms', '20 tokens per month included', 'AI-assisted participation', 'Real-time token balance tracking', 'Get extra tokens anytime'], cta: 'Get Starter' },
+    { id: 'starter', name: 'Starter', price: '$5', per: '/month', tokens: '20 tokens', tag: 'Text only, for light users getting started',
+      bullets: ['Launch and join MissionRooms', '20 tokens per month included', 'Text only, no bots', 'Real-time token balance tracking', 'Get extra tokens anytime'], cta: 'Get Starter' },
     { id: 'builder', name: 'Builder', price: '$20', per: '/month', tokens: '91 tokens', tag: 'For active creators and growing communities', popular: true,
       fields: [['Per month', '$20/mo'], ['Tokens', '91'], ['Bonus', '+11']],
-      bullets: ['Everything in Starter', 'More tokens per month as you scale', 'Better token value at higher plan levels', 'Low-balance token alerts', 'Get priority access to room-building tools'], cta: 'Choose Builder' },
-    { id: 'executive', name: 'Executive', price: '$100', per: '/month', tokens: '560 tokens', tag: 'For power users and organizations',
-      bullets: ['Everything in Builder', '560 tokens per month included', 'Best token value per dollar', 'Priority support', 'Get advanced tools for serious operators'], cta: 'Get Executive' }
+      bullets: ['Everything in Starter', 'Ava & Finn bot access', 'More tokens per month as you scale', 'Better token value at higher plan levels', 'Low-balance token alerts', 'Get priority access to room-building tools'], cta: 'Choose Builder' },
+    { id: 'small_business', name: 'Small Business', price: '$50', per: '/month', tokens: 'Tokens TBD', tag: 'For businesses that use bots heavily',
+      bullets: ['Everything in Builder', 'Much higher bot usage limits', 'Checkout coming soon'], cta: 'Coming soon' },
+    { id: 'enterprise', name: 'Enterprise', price: '$100', per: '/month', tokens: '560 tokens', tag: 'For power users and organizations',
+      bullets: ['Everything in Small Business', '560 tokens per month included', 'Best token value per dollar', 'Priority support', 'Get advanced tools for serious operators'], cta: 'Get Enterprise' }
   ];
   function plansHTML() {
     var cards = PLANS.map(function (p) {

@@ -9,7 +9,7 @@
 // never logged or returned (errors log HTTP status + error code only, as on the laptop).
 // accounts-20261017-v2 (Dan approved): Ava/Fin call a signed-in user by their username. The name comes ONLY from the server session
 // cookie (sessionUsername), never from the request body, and is restricted to [A-Za-z0-9 _.-]{2,24}; guests keep the old behaviour.
-import { sessionUsername, safeName } from './accounts.mjs';
+import { sessionUsername, safeName, botAccessReq } from './accounts.mjs';   // plans-20261031ai: botAccessReq gate
 const BUILD = 'dash-chat-20261017-v4-identity-actions';
 const XAI_MODEL = process.env.XAI_MODEL || process.env.HCA_MODEL || 'grok-4.20-0309-non-reasoning';
 const PER_IP = Number(process.env.DASH_CHAT_PER_IP_PER_MIN || 20);
@@ -172,6 +172,7 @@ function clientIp(q) {
 
 // ---- POST /api/dashboard/chat (dashboardBridge.ts handler) ----
 export async function dashChat(body, q) {
+  { const g = botAccessReq(q); if (!g.ok) return { status: 403, json: { error: g.error, plan: g.plan, planBlocked: true } }; }   // plans-20261031ai: Starter = no Ava/Finn
   if (limited(clientIp(q))) return { status: 429, json: { error: 'too many requests, try again in a minute' } };
   const text = String(body?.text || '').trim().slice(0, 3000);   // v4: room for the dashboard command list (laptop: 1000)
   if (!text) return { status: 400, json: { error: 'text required' } };

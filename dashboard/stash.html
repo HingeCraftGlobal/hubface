@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>My stash · HubFace</title>
+<meta name="theme-color" content="#0b1626"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="HubFace Stash">
+<link rel="manifest" href="/interface/stash-manifest.json"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#0b1626;color:#e8f1ff;font:15px/1.4 system-ui,-apple-system,sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{position:sticky;top:0;background:#0b1626ee;backdrop-filter:blur(6px);padding:14px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1d3352;z-index:2}
+header h1{font-size:18px;margin:0;flex:1}header a{color:#8fd0ff;text-decoration:none;font-size:14px}
+#msg{padding:30px 18px;text-align:center;color:#9fb6d3}
+ul{list-style:none;margin:0;padding:8px}li{background:#12233b;border-radius:12px;margin:8px 0;overflow:hidden}
+.row{display:flex;gap:12px;align-items:center;padding:10px;cursor:pointer}
+.th{width:84px;height:56px;border-radius:8px;background:#1d3352 center/cover no-repeat;flex:none;display:flex;align-items:center;justify-content:center;font-size:22px}
+.tx{flex:1;min-width:0}.tx b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tx small{color:#9fb6d3}
+.x{background:none;border:0;color:#6f86a6;font-size:20px;padding:6px 8px;cursor:pointer}
+.act{display:none;gap:8px;padding:0 10px 12px}li.open .act{display:flex}
+.act button{flex:1;border:0;border-radius:10px;padding:12px;font:600 15px system-ui,sans-serif;color:#fff;background:#2563eb;cursor:pointer}
+.act button.dl{background:#1f7a46}.act button[disabled]{opacity:.45}
+.pv{padding:0 10px 10px;display:none}li.open .pv{display:block}.pv img,.pv video{max-width:100%;border-radius:8px;display:block}
+.pv pre{white-space:pre-wrap;font:13px/1.4 system-ui;background:#0b1626;padding:10px;border-radius:8px;max-height:260px;overflow:auto;margin:0}
+.st{font-size:12px;color:#9fb6d3;padding:0 10px 8px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#000c;color:#fff;padding:9px 14px;border-radius:10px;font-size:14px}
+</style></head><body>
+<header><h1>📱 My stash</h1><a href="/interface/">HubFace</a></header>
+<div id="msg">Loading…</div><ul id="list"></ul>
+<script>
+/* takeit-20261031a: stash viewer. Tap an item = pull it from HubFace now (cached in memory for this page only).
+   Share = system share sheet (file when possible, else link; fallback copy). Download = save to phone, no confirm prompt. */
+(function(){
+var L=document.getElementById('list'),M=document.getElementById('msg'),PULLED={};
+var ICON={youtube:'▶️',vault:'🔒',sticky:'🗒️',photo:'🖼️',email:'✉️',link:'🔗',text:'📝'};
+var iOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return'&#'+c.charCodeAt(0)+';'})}
+function toast(t){var d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},2200)}
+function api(p,o){return fetch(p,Object.assign({credentials:'same-origin'},o||{})).then(function(r){return r.json().then(function(j){if(!r.ok){var e=new Error(j.error||r.status);e.status=r.status;throw e}return j})})}
+function safeThumb(t){return /^(https:\/\/|\/api\/)/.test(t||'')?t:''}
+function load(){api('/api/stash').then(function(j){M.style.display=j.items.length?'none':'block';M.textContent='Your stash is empty. Tap the 📱 icon on anything in HubFace to save it here.';
+ L.innerHTML=j.items.map(function(it){var th=safeThumb(it.thumb);return '<li data-id="'+it.id+'"><div class="row"><div class="th" style="'+(th?'background-image:url(&quot;'+esc(th)+'&quot;)':'')+'">'+(th?'':(ICON[it.type]||'📎'))+'</div><div class="tx"><b>'+esc(it.title||it.ref)+'</b><small>'+esc([it.type==='youtube'?'YouTube':it.type,it.channel].filter(Boolean).join(' · '))+'</small></div><button class="x" title="Remove" aria-label="Remove">×</button></div><div class="st"></div><div class="pv"></div><div class="act"><button class="sh">Share</button><button class="dl">Download</button></div></li>'}).join('')
+}).catch(function(e){M.style.display='block';M.innerHTML=e.status===401?'Sign in to HubFace first. <a style="color:#8fd0ff" href="/interface/">Open HubFace</a>':'Could not load your stash.'})}
+function pull(li){var id=li.getAttribute('data-id'),stEl=li.querySelector('.st'),pv=li.querySelector('.pv');stEl.textContent='Pulling…';
+ return api('/api/stash/'+id+'/pull').then(function(j){var p=j.pull,o={p:p,item:j.item};PULLED[id]=o;
+  if(p.kind==='file'){return fetch(p.url,{credentials:'same-origin'}).then(function(r){if(!r.ok)throw new Error('file '+r.status);return r.blob()}).then(function(b){var type=b.type||p.mime||'application/octet-stream';var ext=(type.split('/')[1]||'bin').replace(/[^a-z0-9]/g,'').replace('jpeg','jpg').replace('quicktime','mov');var nm=String(p.name||'hubface').replace(/[^\w .-]/g,'_').slice(0,80);if(!/\.[a-z0-9]{2,4}$/i.test(nm))nm+='.'+ext;o.file=new File([b],nm,{type:type});o.url=URL.createObjectURL(o.file);
+   pv.innerHTML=/^image\//.test(type)?'<img src="'+o.url+'" alt="">':/^video\//.test(type)?'<video src="'+o.url+'" controls playsinline></video>':'<small>'+esc(nm)+'</small>';return o})}
+  if(p.kind==='email'||p.kind==='text'){var t=(p.text||'');o.file=new File([t],(String(p.title||'note').replace(/[^\w .-]/g,'_').slice(0,60)||'note')+'.txt',{type:'text/plain'});pv.innerHTML='<pre>'+esc(t)+'</pre>';return o}
+  pv.innerHTML=p.thumb?'<img src="'+esc(p.thumb)+'" alt="">':'';li.querySelector('.dl').disabled=p.kind==='link';li.querySelector('.dl').title=p.kind==='link'?'Links have no file to download (YouTube videos are never downloaded)':'';return o
+ }).then(function(o){stEl.textContent='Pulled '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});return o}).catch(function(e){stEl.textContent='Could not pull: '+e.message})}
+function linkOf(o){return o.p.url&&/^https?:/.test(o.p.url)?o.p.url:(o.p.kind==='link'?o.p.url:'')}
+function share(o){if(!o)return;var title=o.p.title||o.item.title||'From HubFace';
+ if(o.file&&navigator.canShare&&navigator.canShare({files:[o.file]}))return navigator.share({files:[o.file],title:title}).catch(function(){});
+ var u=linkOf(o);if(navigator.share&&(u||o.p.text))return navigator.share(u?{title:title,url:u}:{title:title,text:o.p.text}).catch(function(){});
+ var c=u||o.p.text||'';if(navigator.clipboard&&c)navigator.clipboard.writeText(c).then(function(){toast('Link copied')});else toast('Sharing is not supported here')}
+function download(o){if(!o||!o.file)return;
+ /* iOS Safari ignores <a download> for Photos; the share sheet is the only path to "Save Image"/"Save Video"/"Save to Files". No extra confirm. */
+ if(iOS&&navigator.canShare&&navigator.canShare({files:[o.file]}))return navigator.share({files:[o.file]}).catch(function(){});
+ var a=document.createElement('a');a.href=o.url||URL.createObjectURL(o.file);a.download=o.file.name;document.body.appendChild(a);a.click();a.remove();toast('Saved')}
+L.addEventListener('click',function(e){var li=e.target.closest('li');if(!li)return;var id=li.getAttribute('data-id');
+ if(e.target.closest('.x')){api('/api/stash/'+id,{method:'DELETE'}).then(function(){li.remove();delete PULLED[id];if(!L.children.length)load()});return}
+ if(e.target.closest('.sh')){PULLED[id]?share(PULLED[id]):pull(li).then(share);return}
+ if(e.target.closest('.dl')){PULLED[id]?download(PULLED[id]):pull(li).then(download);return}
+ if(e.target.closest('.row')){var open=li.classList.toggle('open');if(open&&!PULLED[id])pull(li)}});
+/* Web share target (Android/desktop Chrome installed PWA only; iOS Safari does not support share_target) */
+var qs=new URLSearchParams(location.search),su=qs.get('url')||((qs.get('text')||'').match(/https?:\/\/\S+/)||[])[0];
+if(su){var y=(su.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/)|youtu\.be\/)([\w-]{11})/)||[])[1];
+ api('/api/stash',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ref:y?'yt:'+y:'url:'+su,title:qs.get('title')||''})}).then(function(){toast('Saved to stash');history.replaceState(null,'',location.pathname);load()}).catch(function(){toast('Could not save shared link')})}
+load();
+})();
+</script></body></html>

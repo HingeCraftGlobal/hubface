@@ -22,8 +22,32 @@ const ORIGIN = process.env.HUBFACE_ORIGIN || 'https://hubface.org';
 const COOKIE = 'hf_session';
 const SESSION_DAYS = 30;
 export const FREE_ROOM_MIN = 50;   // invitefree1-20261027 (Dan): one-time free Bot Room minutes at signup
-export const PLAN_TOKENS = { free: 50, starter: 20, builder: 91, executive: 560 };
-const PLAN_BY_CENTS = { 500: 'starter', 2000: 'builder', 10000: 'executive' };
+/* plans-20261031ai (Dan, voice Oct 31 2026): free $0, starter $5 (text only, no bots), builder $20 (Ava & Finn), small_business $50 (high bot limits, NEW),
+   enterprise $100 (was 'executive'; legacy 'executive' still accepted when reading old data/metadata). Undo: /opt/hubface-staging/plans-20261031ai/undo.sh */
+export const SMALL_BUSINESS_TOKENS = 91;   // PLACEHOLDER (TBD by Dan): Small Business monthly tokens not decided; set equal to builder for now
+export const PLAN_TOKENS = { free: 50, starter: 20, builder: 91, small_business: SMALL_BUSINESS_TOKENS, enterprise: 560, executive: 560 /* legacy */ };
+const PLAN_BY_CENTS = { 500: 'starter', 2000: 'builder', 5000: 'small_business', 10000: 'enterprise' };
+const PLAN_ALIAS = { executive: 'enterprise' };   // legacy key -> current key
+export const PLAN_LIST = [
+  { id: 'free', name: 'Free', priceCents: 0, tokens: PLAN_TOKENS.free, bots: true, note: 'token-based (unchanged)' },
+  { id: 'starter', name: 'Starter', priceCents: 500, tokens: PLAN_TOKENS.starter, bots: false, note: 'text only, no bots' },
+  { id: 'builder', name: 'Builder', priceCents: 2000, tokens: PLAN_TOKENS.builder, bots: true, note: 'Ava & Finn access' },
+  { id: 'small_business', name: 'Small Business', priceCents: 5000, tokens: PLAN_TOKENS.small_business, bots: true, note: 'high bot usage limits', tokensPlaceholder: true, paymentLink: false },
+  { id: 'enterprise', name: 'Enterprise', priceCents: 10000, tokens: PLAN_TOKENS.enterprise, bots: true, note: 'top tier', legacyKey: 'executive' }];
+/* Plan gating (minimal): only 'starter' is blocked from bot features. free keeps today's token-based behaviour. Owner never blocked. Guests (no session) unchanged. */
+const PLAN_BOT_ACCESS = { free: true, starter: false, builder: true, small_business: true, enterprise: true, executive: true };
+const OWNER_USER_IDS = new Set([14]);   // Dan (dan@hingecraft-global.ai) - never blocked
+/* Per-plan multiplier on the existing daily bot caps (BRMIC_DAILY_MIN, BR_TTS_DAY_CHARS). PLACEHOLDER (TBD by Dan): 1 = no change. */
+export const PLAN_LIMIT_MULT = { free: 1, starter: 1, builder: 1, small_business: 1 /* TBD: Dan to choose, e.g. 3 */, enterprise: 1, executive: 1 };
+export function botAccess(uid) {
+  if (!uid) return { ok: true, plan: null };
+  if (OWNER_USER_IDS.has(uid)) return { ok: true, plan: 'owner' };
+  let pl = 'free'; try { pl = (Q.plan.get(uid) || {}).plan || 'free'; } catch {}
+  if (PLAN_BOT_ACCESS[pl] === false) return { ok: false, plan: pl, error: 'Your Starter plan is text only, so bots (Ava, Finn, Bot Rooms) aren\u2019t included. Upgrade to Builder ($20/month) to use them.' };
+  return { ok: true, plan: pl };
+}
+export function botAccessReq(q) { try { return botAccess(currentUser(q)); } catch { return { ok: true, plan: null }; } }
+function limitMult(uid) { if (!uid) return 1; try { const pl = (Q.plan.get(uid) || {}).plan || 'free'; const m = Number(PLAN_LIMIT_MULT[pl]); return m > 0 ? m : 1; } catch { return 1; } }
 const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,}$/;
 
 /* ---------------- store ---------------- */
@@ -56,7 +80,7 @@ CREATE TABLE IF NOT EXISTS sessions (
 CREATE INDEX IF NOT EXISTS sessions_user ON sessions(user_id);
 CREATE TABLE IF NOT EXISTS plans (
   user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
-  plan TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free','starter','builder','executive')),
+  plan TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free','starter','builder','small_business','enterprise','executive')),
   tokens INTEGER NOT NULL DEFAULT 20,
   status TEXT NOT NULL DEFAULT 'active',
   stripe_customer_id TEXT,
@@ -353,7 +377,7 @@ function verifyStripe(raw, header, secret, toleranceSec = 300) {
    invoice.paid:               metadata.plan -> lines.data[0].price.unit_amount (or newer API pricing.unit_amount_decimal) -> subtotal -> amount_paid
    Each candidate is tried in order; the first one that maps to a paid plan (500/2000/10000 cents) wins. */
 function planFromMeta(...metas) {
-  for (const md of metas) { const m = String(md?.plan || '').trim().toLowerCase(); if (PLAN_TOKENS[m] && m !== 'free') return m; }
+  for (const md of metas) { const m = String(md?.plan || '').trim().toLowerCase(); if (PLAN_TOKENS[m] && m !== 'free') return PLAN_ALIAS[m] || m; }
   return null;
 }
 function planFromCents(...cands) {
@@ -762,6 +786,7 @@ export async function accountsRoute(q, r, p) {
   const ep = p.slice('/api/account/'.length);
   try {
     if (ep === 'me' && (q.method === 'GET' || q.method === 'HEAD')) { me(q, r); return true; }
+    if (ep === 'plans' && q.method === 'GET') { json(r, 200, { build: 'plans-20261031ai', plans: PLAN_LIST }); return true; }   // plans-20261031ai
     if (ep.startsWith('admin/')) {   // admin-20261029: owner/admin accounts widget (./admin-accounts.mjs). Roll back: accounts.mjs.bak-pre-admin-*
       const AD = await import('./admin-accounts.mjs');
       if (ep === 'admin/login' && q.method === 'POST') { AD.adminLogin(q, r, (await body(q)) || {}, { json }); return true; }
@@ -786,6 +811,7 @@ export async function accountsRoute(q, r, p) {
         db.prepare('INSERT INTO token_spends (k, user_id, n, created_at) VALUES (?,?,?,?)').run(k, id, n, now()); })();
       const a = publicAccount(id); if (short) { json(r, 402, { error: 'Not enough tokens.', account: a }); return true; }
       json(r, 200, { ok: true, duplicate: dup, account: a }); return true; }
+    if (ep.startsWith('botmeter/')) { const g = botAccessReq(q); if (!g.ok) { json(r, 403, { error: g.error, plan: g.plan, planBlocked: true, upgrade: 'builder' }); return true; } }   // plans-20261031ai gate
     if (ep === 'botmeter/yoda-reply' || ep === 'botmeter/owner-message' || ep === 'botmeter/owner-messages' || ep === 'botmeter/owner-stream' || ep === 'botmeter/stt' || ep === 'botmeter/stt-token' || ep === 'botmeter/speak' || ep === 'botmeter/latency' || ep === 'botmeter/buy-intent' || ep === 'botmeter/buy-test-order' || ep === 'botmeter/superchat' || ep === 'botmeter/seatmute') { await brChatRoute(q, r, ep.slice(9)); return true; }   // brchat-20261026
     if (ep.startsWith('botmeter/')) { await botmeterRoute(q, r, ep.slice(9)); return true; }   // botmeter-20261025a
     if (!['signup', 'login', 'logout', 'bot-signup', 'bot-code', 'forgot-password', 'reset-password'].includes(ep)) { json(r, 404, { error: 'not found' }); return true; }
@@ -807,6 +833,7 @@ export function backupTo(file) { return db.backup(file); }
 /* ---------------- prerooms-20261026a (Dan, voice Oct 26 2026; Brain OS #133): server-side hooks for the pre-room card flow ----------------
    Same meter + same golive relay path as the Pre-Room (botmeter-20261025a). Called by prerooms.mjs only. Roll back: delete this block. */
 export async function preroomMeterStart(uid) {
+  { const g = botAccess(uid); if (!g.ok) return { error: g.error, planBlocked: true }; }   // plans-20261031ai gate
   const ex = BQ.openFor.get(uid); if (ex) return bmSettle(ex.id);
   const mid = 'BM-' + crypto.randomBytes(6).toString('hex'); const t = Date.now();
   BQ.ins.run(mid, uid, new Date(t).toISOString(), t, BOTMETER_UNIT_MIN);
@@ -815,6 +842,7 @@ export async function preroomMeterStart(uid) {
 }
 export async function preroomGoLive(uid, meterId, s) {
   const m0 = BQ.get.get(String(meterId || '')); if (!m0 || m0.user_id !== uid) return { status: 404, json: { error: 'no meter' } };
+  { const g = botAccess(uid); if (!g.ok) return { status: 403, json: { error: g.error, planBlocked: true } }; }   // plans-20261031ai gate
   if (m0.state === 'ended') return { status: 409, json: { error: 'meter ended' } };
   if (m0.phase === 'live' && m0.relay_room) return { status: 409, json: { error: 'already live in ' + m0.relay_room } };
   const internal = s.access !== 'external';
@@ -958,7 +986,8 @@ async function brcSpeak(q, r, room) {
   const b = (await body(q)) || {}; const text = String(b.text || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 800);
   if (!text) return json(r, 400, { error: 'empty' });
   const d = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' }); if (brTts.day !== d) { brTts.day = d; brTts.chars = 0; }
-  if (brTts.chars + text.length > BR_TTS_CAP) return json(r, 429, { error: 'daily-cap', capChars: BR_TTS_CAP });
+  const brTtsCap = BR_TTS_CAP * limitMult(currentUser(q));   // plans-20261031ai per-plan multiplier (default 1)
+  if (brTts.chars + text.length > brTtsCap) return json(r, 429, { error: 'daily-cap', capChars: brTtsCap });
   const fp = await import('./fastpath.mjs');
   if (!fp.canSpend(text.length)) return json(r, 429, { error: 'daily-cap' });
   const spk = String(b.bot || '').toLowerCase(); const vc = brSeatVoice(room, spk); /* voicetype-20261029: card voice from the pre-room (d.live.voices) else default (iris-20261029: Licorice Iris, others Liora) */
@@ -973,7 +1002,7 @@ async function brcSttToken(q, r, room) {
   if (!sameOrigin(q)) return json(r, 403, { error: 'Cross-site request blocked.' });
   const key = String(process.env.ASSEMBLYAI_API_KEY || '').trim(); if (!key) return json(r, 503, { error: 'stt_unavailable' });
   const t = Date.now(), rl = (brcSttRate.get(room) || []).filter((x) => t - x < 600e3); if (rl.length >= 40) return json(r, 429, { error: 'too many clips, wait a few minutes' }); rl.push(t); brcSttRate.set(room, rl);
-  if (brmicUse(0).min >= BRMIC_CAP) return json(r, 429, { error: 'daily dictation cap reached' });
+  if (brmicUse(0).min >= BRMIC_CAP * limitMult(currentUser(q))) return json(r, 429, { error: 'daily dictation cap reached' });   // plans-20261031ai multiplier
   try {
     const x = await fetch('https://streaming.assemblyai.com/v3/token?expires_in_seconds=60&max_session_duration_seconds=60', { headers: { authorization: key }, signal: AbortSignal.timeout(5000) });
     if (!x.ok) { console.log(`[brmic] stream token mint ${x.status}`); return json(r, 502, { error: 'mint_' + x.status }); }

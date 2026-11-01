@@ -33,6 +33,7 @@ const { packagesRoute, isPackagesPath } = await import("./packages.mjs"); /*pack
 const { stickiesRoute, isStickiesPath } = await import("./stickies.mjs"); /*stickies-20261026a*/
 const { preroomsRoute, isPreroomsPath } = await import("./prerooms.mjs"); /*prerooms-20261026a (Brain OS #133)*/
 const { voiceroomRoute, isVoiceroomPath } = await import("./voiceroom.mjs"); /*voiceroom-20261029 (Dan voice, staged): recording, room files, record.zip*/
+const { stashRoute, isStashPath } = await import("./stash.mjs"); /*takeit-20261031a: per-user stash (Take it with me)*/
 const inner = createServer().listeners('request')[0];
 const PORT = Number(process.env.HCA_PORT || 3470);
 const VBUILD = 'vps-20261017-v1';
@@ -85,6 +86,7 @@ http.createServer(async (q, r) => {
     if (isPackagesPath(p) && await packagesRoute(q, r, p, { who: sessionUser, json })) return;   /*packages-20261025a*/
     if (isPreroomsPath(p) && await preroomsRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   /*prerooms-20261026a*/
     if (isVoiceroomPath(p) && await voiceroomRoute(q, r, p, { who: sessionUser, json })) return;   /*voiceroom-20261029*/
+    if (isStashPath(p) && await stashRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   /*takeit-20261031a*/
     if (isStickiesPath(p) && await stickiesRoute(q, r, p, u, { who: sessionUser, json, ip: clientIp })) return;   /*stickies-20261026a*/
     if (isUserDataPath(p) && await userDataRoute(q, r, p, { who: sessionUser, readBody, json, ip: clientIp })) return;   // userdata-20261019a
     if (isHfPhotoPath(p) && await hfPhotoRoute(q, r, p, { who: sessionUser, json, ip: clientIp, yodaOk: (await import('./roomserver.mjs')).yodaKeyOk })) return;   // floppy-photo-20261025a

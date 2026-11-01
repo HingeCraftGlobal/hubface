@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HubFace stash · iPhone Shortcut</title><!-- takeit-shortcut-20261031b -->
+<style>body{font:16px/1.5 -apple-system,system-ui,sans-serif;background:#0d1117;color:#e6edf3;margin:0;padding:18px;max-width:640px}
+h1{font-size:22px}h2{font-size:18px;margin-top:28px}code,.tok{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:2px 6px;word-break:break-all}
+.tok{display:block;padding:10px;font:14px ui-monospace,monospace;margin:8px 0}button{font:inherit;padding:10px 16px;border-radius:8px;border:0;background:#2f81f7;color:#fff;margin:4px 6px 4px 0}
+button.red{background:#da3633}.note{background:#1c2128;border-left:3px solid #d29922;padding:10px 12px;border-radius:6px;font-size:14px}ol li{margin:6px 0}#st{color:#8b949e}</style></head><body>
+<h1>Add to your HubFace stash from the iPhone Share button</h1>
+<p>This sets up an iPhone Shortcut. Afterwards, in Safari, YouTube or most apps, tap <b>Share</b> and pick <b>Add to HubFace stash</b>.</p>
+<h2>1. Get your stash key</h2>
+<p id="st">Checking…</p>
+<div id="tokbox" hidden><p><b>Copy this key now. It is shown only once.</b></p><span class="tok" id="tok"></span><button id="copy">Copy key</button></div>
+<button id="make">Create key</button><button id="revoke" class="red" hidden>Turn off key</button>
+<p style="font-size:14px;color:#8b949e">Making a new key turns off the old one. Anyone with the key can add to and list your stash, so don't share it.</p>
+<h2>2. Build "Add to HubFace stash"</h2>
+<ol><li>Open the <b>Shortcuts</b> app and tap <b>+</b>. Name it <b>Add to HubFace stash</b>.</li>
+<li>Tap the <b>ⓘ</b> (details) and turn on <b>Show in Share Sheet</b>. Under share sheet types, keep <b>URLs</b> and <b>Text</b> (you can turn the others off).</li>
+<li>At the top, set "Receive <b>URLs and Text</b> from <b>Share Sheet</b>". If there's no input, choose <b>Ask For Clipboard</b> or <b>Stop</b>.</li>
+<li>Add the action <b>Get Contents of URL</b>. URL: <code>https://hubface.org/api/stash/shortcut/add</code></li>
+<li>Tap <b>Show More</b>. Method: <b>POST</b>. Headers: add <code>Authorization</code> with value <code>Bearer </code> followed by your key (one space after Bearer).</li>
+<li>Request Body: <b>JSON</b>. Add field <code>url</code> (Text) and set it to the <b>Shortcut Input</b> variable.</li>
+<li>Add the action <b>Show Notification</b> with the text <b>Saved to HubFace stash</b>.</li>
+<li>Tap <b>Done</b>. Try it: in Safari, Share → scroll the app/action list → <b>Add to HubFace stash</b>.</li></ol>
+<h2>3. Build "Open my stash"</h2>
+<ol><li>New shortcut, name it <b>Open my stash</b>.</li><li>Add the action <b>Open URLs</b> with <code>https://hubface.org/interface/stash.html</code>.</li>
+<li>Optional: ⓘ → <b>Add to Home Screen</b>.</li></ol>
+<h2>Good to know</h2>
+<div class="note"><ul>
+<li>There's no one-tap install file yet. iPhones won't import a Shortcut file that wasn't made on an iPhone or Mac. Once Dan builds it once, he can share an iCloud link, and others only need to paste their own key.</li>
+<li>This shows in the general <b>Share</b> sheet. It does <b>not</b> put HubFace in the Messages <b>+</b> row. That needs a native iPhone app.</li>
+<li>"Open my stash" opens <b>Safari</b>, not a Home Screen web app. Safari has its own sign-in, so you may need to sign in to HubFace there once.</li>
+<li>YouTube links are saved as a link with title and channel. The video is never downloaded.</li></ul></div>
+<script>
+const $=id=>document.getElementById(id);
+async function load(){try{const r=await fetch('/api/stash/token',{credentials:'same-origin'});if(r.status===401){$('st').textContent='Sign in to HubFace first, then reload this page.';$('make').hidden=true;return}
+const j=await r.json();$('st').textContent=j.has?('You have a key (made '+new Date(j.created).toLocaleString()+(j.last_used?', last used '+new Date(j.last_used).toLocaleString():', not used yet')+').'):'You have no key yet.';
+$('make').textContent=j.has?'Make a new key':'Create key';$('revoke').hidden=!j.has}catch{$('st').textContent='Could not reach HubFace.'}}
+$('make').onclick=async()=>{if($('revoke').hidden===false&&!confirm('This turns off your old key. Continue?'))return;const r=await fetch('/api/stash/token',{method:'POST',credentials:'same-origin'});if(!r.ok){alert('Could not make a key');return}
+const j=await r.json();$('tok').textContent=j.token;$('tokbox').hidden=false;load()};
+$('copy').onclick=()=>navigator.clipboard.writeText($('tok').textContent).then(()=>$('copy').textContent='Copied');
+$('revoke').onclick=async()=>{if(!confirm('Turn off your key? Your Shortcut will stop working.'))return;await fetch('/api/stash/token',{method:'DELETE',credentials:'same-origin'});$('tokbox').hidden=true;load()};
+load();
+</script></body></html>

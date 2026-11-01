@@ -1,15 +1,7 @@
 {
  "subject": "moon shots",
- "fetched_at": "2026-10-31T04:00:18.387166+00:00",
+ "fetched_at": "2026-11-01T04:00:18.990729+00:00",
  "items": [
-  {
-   "title": "Photograph the Hunter's Moon with your smartphone – how to capture real detail on tonight's full Moon",
-   "source": "BBC Sky at Night Magazine",
-   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQc21KNnBITTZScWRENjlTVjBic1JzWERZN0dTLUdNcUMtRjlRM09pRktxV3lrbDFGVHdjWkJ2MDNLWWEyOFhTcTA0VFgxOHgwSTVHLW1oN0RyTjY2TW5TZXBUb1NSSmNLb1RYWUdjRERTUm5Ebk5yemZZOThOQ3BJeXU5Tk1oVUEtQzRLSXJXQ0VuNW9EYmdWRg?oc=5",
-   "published": "2026-10-25T10:59:22+00:00",
-   "tag": "standard",
-   "video": false
-  },
   {
    "title": "Moonshots Summary: June 17, 2026",
    "source": "Metatrends",
@@ -19,18 +11,18 @@
    "video": false
   },
   {
-   "title": "IN PICTURES: Lunar eclipse visible across Simcoe County",
-   "source": "CTV News",
-   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNR2NicTdmWGFlMDZXbWFWN19YYzBtT1ZwMnJ0Q2pVemdoSGdWVTAwRWNJWGlOaE5qU3FwOUhFX3psYWMzQlh6MGRRZFZNSzl5UHIwTFFPcFN5WWpSN2RsOWNGaWtrYmJSVDJONVY3bmJlZUdJTzhMYVduTEMzVTNsbUdWdXo1VFRKbDZpdnhXSms5Ulk2VUZWNg?oc=5",
-   "published": "2026-08-28T07:00:00+00:00",
-   "tag": "standard",
-   "video": false
-  },
-  {
    "title": "The Science of Moonshots: Using Evidence to Design Transformative Initiatives",
    "source": "Federation of American Scientists",
    "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOV2FaWkdMazJ0MmNoODZPSF9fUTJuenpPckRIVE8wX0huM1gwRkx2OTRBR0xKcjluQVdsbFFCbXptdVA5ZUg3aUx0OG5LblNManJ6cG9RaTc4ZlM0UG5HU1RmcTZmNXc2Ujc0S3JpOUtSOS0zZ3EyeXBQQXpwak8tODZBSzFQY0xQaDYwT2hpaXZJQzdx?oc=5",
    "published": "2026-07-20T07:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "IN PICTURES: Lunar eclipse visible across Simcoe County",
+   "source": "CTV News",
+   "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNR2NicTdmWGFlMDZXbWFWN19YYzBtT1ZwMnJ0Q2pVemdoSGdWVTAwRWNJWGlOaE5qU3FwOUhFX3psYWMzQlh6MGRRZFZNSzl5UHIwTFFPcFN5WWpSN2RsOWNGaWtrYmJSVDJONVY3bmJlZUdJTzhMYVduTEMzVTNsbUdWdXo1VFRKbDZpdnhXSms5Ulk2VUZWNg?oc=5",
+   "published": "2026-08-28T07:00:00+00:00",
    "tag": "standard",
    "video": false
   },
@@ -63,6 +55,14 @@
    "source": "BetaKit",
    "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOTTVYdWpXMTNNTGlvaUFnVnhoTXZTZXQyVTVEdmVHSnVycEo5b1hDWlM2aWVpT1lzX19WNWphTnA4SUNKRzFMS0x1TGtseG44cWtOUF9XSnNDajdFN0lBU3ZucUtTaVBrcnA5eHN1YjV3SldQMUJqcWF5YnVSLVUtMXBNVUtmQ0xFWnJQNA?oc=5",
    "published": "2026-07-10T07:00:00+00:00",
+   "tag": "standard",
+   "video": false
+  },
+  {
+   "title": "On moonshots and Minneapolis",
+   "source": "Science News",
+   "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBHMUlicjYyYU9PTGlJLWVLcTJpUUFjYktYeF8xd3l1U25DekFtQVZha2FWSkdVdThTZlYydnc1Y3ZEVlE3NWVCY05NQVJFZGtMRVZOV29IdVB0OUthZmhjZ0lOQ0hjUmIwZW9PcDcxUjc2Zw?oc=5",
+   "published": "2026-02-27T08:00:00+00:00",
    "tag": "standard",
    "video": false
   }
